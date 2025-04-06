@@ -1,0 +1,643 @@
+<html>
+<head>
+<title>index.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bababa;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+.s5 { color: #56a8f5;}
+.s6 { color: #2aacb8;}
+.s7 { color: #cf8e6d;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+index.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;!DOCTYPE </span><span class="s2">html</span><span class="s0">&gt;</span>
+<span class="s0">&lt;html </span><span class="s2">lang</span><span class="s3">=&quot;en&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;head&gt;</span>
+    <span class="s0">&lt;meta </span><span class="s2">charset</span><span class="s3">=&quot;UTF-8&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;meta </span><span class="s2">name</span><span class="s3">=&quot;viewport&quot; </span><span class="s2">content</span><span class="s3">=&quot;width=device-width, initial-scale=1.0&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;title&gt;</span><span class="s1">Aziz - Resume, Research &amp; Projects</span><span class="s0">&lt;/title&gt;</span>
+    <span class="s0">&lt;style&gt;</span>
+        <span class="s4">/* Base styles */</span>
+        <span class="s1">:</span><span class="s0">root </span><span class="s1">{</span>
+            <span class="s2">--primary-color</span><span class="s1">: </span><span class="s5">#2c3e50</span><span class="s1">;</span>
+            <span class="s2">--secondary-color</span><span class="s1">: </span><span class="s5">#3498db</span><span class="s1">;</span>
+            <span class="s2">--accent-color</span><span class="s1">: </span><span class="s5">#e74c3c</span><span class="s1">;</span>
+            <span class="s2">--text-color</span><span class="s1">: </span><span class="s5">#333</span><span class="s1">;</span>
+            <span class="s2">--light-bg</span><span class="s1">: </span><span class="s5">#f5f5f5</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">* </span><span class="s1">{</span>
+            <span class="s2">margin</span><span class="s1">: </span><span class="s6">0</span><span class="s1">;</span>
+            <span class="s2">padding</span><span class="s1">: </span><span class="s6">0</span><span class="s1">;</span>
+            <span class="s2">box-sizing</span><span class="s1">: </span><span class="s3">border-box</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">body </span><span class="s1">{</span>
+            <span class="s2">font-family</span><span class="s1">: </span><span class="s3">'Segoe UI'</span><span class="s1">, </span><span class="s0">Tahoma</span><span class="s1">, </span><span class="s0">Geneva</span><span class="s1">, </span><span class="s0">Verdana</span><span class="s1">, </span><span class="s3">sans-serif</span><span class="s1">;</span>
+            <span class="s2">line-height</span><span class="s1">: </span><span class="s6">1.6</span><span class="s1">;</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--text-color</span><span class="s1">);</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--light-bg</span><span class="s1">);</span>
+        <span class="s1">}</span>
+
+        <span class="s0">a </span><span class="s1">{</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--secondary-color</span><span class="s1">);</span>
+            <span class="s2">text-decoration</span><span class="s1">: </span><span class="s3">none</span><span class="s1">;</span>
+            <span class="s2">transition</span><span class="s1">: </span><span class="s3">color </span><span class="s6">0.3</span><span class="s3">s</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">a</span><span class="s1">:</span><span class="s0">hover </span><span class="s1">{</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--accent-color</span><span class="s1">);</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">container </span><span class="s1">{</span>
+            <span class="s2">max-width</span><span class="s1">: </span><span class="s6">1200</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">margin</span><span class="s1">: </span><span class="s6">0 </span><span class="s3">auto</span><span class="s1">;</span>
+            <span class="s2">padding</span><span class="s1">: </span><span class="s6">0 15</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">section </span><span class="s1">{</span>
+            <span class="s2">padding</span><span class="s1">: </span><span class="s6">60</span><span class="s3">px </span><span class="s6">0</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">section</span><span class="s1">:</span><span class="s0">nth-child</span><span class="s1">(</span><span class="s0">even</span><span class="s1">) {</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s3">white</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s4">/* Header styles */</span>
+        <span class="s0">header </span><span class="s1">{</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--primary-color</span><span class="s1">);</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s3">white</span><span class="s1">;</span>
+            <span class="s2">padding</span><span class="s1">: </span><span class="s6">20</span><span class="s3">px </span><span class="s6">0</span><span class="s1">;</span>
+            <span class="s2">position</span><span class="s1">: </span><span class="s3">sticky</span><span class="s1">;</span>
+            <span class="s2">top</span><span class="s1">: </span><span class="s6">0</span><span class="s1">;</span>
+            <span class="s2">z-index</span><span class="s1">: </span><span class="s6">100</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">nav </span><span class="s1">{</span>
+            <span class="s2">display</span><span class="s1">: </span><span class="s3">flex</span><span class="s1">;</span>
+            <span class="s2">justify-content</span><span class="s1">: </span><span class="s3">space-between</span><span class="s1">;</span>
+            <span class="s2">align-items</span><span class="s1">: </span><span class="s3">center</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">logo </span><span class="s1">{</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">24</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">font-weight</span><span class="s1">: </span><span class="s3">bold</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">nav-links </span><span class="s1">{</span>
+            <span class="s2">display</span><span class="s1">: </span><span class="s3">flex</span><span class="s1">;</span>
+            <span class="s2">list-style</span><span class="s1">: </span><span class="s3">none</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">nav-links li </span><span class="s1">{</span>
+            <span class="s2">margin-left</span><span class="s1">: </span><span class="s6">30</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">nav-links a </span><span class="s1">{</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s3">white</span><span class="s1">;</span>
+            <span class="s2">font-weight</span><span class="s1">: </span><span class="s6">500</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">nav-links a</span><span class="s1">:</span><span class="s0">hover </span><span class="s1">{</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--secondary-color</span><span class="s1">);</span>
+        <span class="s1">}</span>
+
+        <span class="s4">/* Hero section */</span>
+        <span class="s1">.</span><span class="s0">hero </span><span class="s1">{</span>
+            <span class="s2">height</span><span class="s1">: </span><span class="s6">80</span><span class="s3">vh</span><span class="s1">;</span>
+            <span class="s2">display</span><span class="s1">: </span><span class="s3">flex</span><span class="s1">;</span>
+            <span class="s2">align-items</span><span class="s1">: </span><span class="s3">center</span><span class="s1">;</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--primary-color</span><span class="s1">);</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s3">white</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">hero-content </span><span class="s1">{</span>
+            <span class="s2">max-width</span><span class="s1">: </span><span class="s6">600</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">hero h1 </span><span class="s1">{</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">48</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">20</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">hero p </span><span class="s1">{</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">20</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">30</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">btn </span><span class="s1">{</span>
+            <span class="s2">display</span><span class="s1">: </span><span class="s3">inline-block</span><span class="s1">;</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--secondary-color</span><span class="s1">);</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s3">white</span><span class="s1">;</span>
+            <span class="s2">padding</span><span class="s1">: </span><span class="s6">12</span><span class="s3">px </span><span class="s6">24</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">border-radius</span><span class="s1">: </span><span class="s6">5</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">font-weight</span><span class="s1">: </span><span class="s3">bold</span><span class="s1">;</span>
+            <span class="s2">text-transform</span><span class="s1">: </span><span class="s3">uppercase</span><span class="s1">;</span>
+            <span class="s2">letter-spacing</span><span class="s1">: </span><span class="s6">1</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">transition</span><span class="s1">: </span><span class="s3">background-color </span><span class="s6">0.3</span><span class="s3">s</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">btn</span><span class="s1">:</span><span class="s0">hover </span><span class="s1">{</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--accent-color</span><span class="s1">);</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s3">white</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s4">/* About section */</span>
+        <span class="s1">.</span><span class="s0">about-content </span><span class="s1">{</span>
+            <span class="s2">display</span><span class="s1">: </span><span class="s3">flex</span><span class="s1">;</span>
+            <span class="s2">gap</span><span class="s1">: </span><span class="s6">50</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">align-items</span><span class="s1">: </span><span class="s3">center</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">about-img </span><span class="s1">{</span>
+            <span class="s2">flex</span><span class="s1">: </span><span class="s6">1</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">about-img img </span><span class="s1">{</span>
+            <span class="s2">max-width</span><span class="s1">: </span><span class="s6">100</span><span class="s1">%;</span>
+            <span class="s2">border-radius</span><span class="s1">: </span><span class="s6">10</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">box-shadow</span><span class="s1">: </span><span class="s6">0 10</span><span class="s3">px </span><span class="s6">30</span><span class="s3">px </span><span class="s0">rgba</span><span class="s1">(</span><span class="s6">0</span><span class="s1">, </span><span class="s6">0</span><span class="s1">, </span><span class="s6">0</span><span class="s1">, </span><span class="s6">0.1</span><span class="s1">);</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">about-text </span><span class="s1">{</span>
+            <span class="s2">flex</span><span class="s1">: </span><span class="s6">1</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s4">/* Section headings */</span>
+        <span class="s1">.</span><span class="s0">section-heading </span><span class="s1">{</span>
+            <span class="s2">text-align</span><span class="s1">: </span><span class="s3">center</span><span class="s1">;</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">50</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">section-heading h2 </span><span class="s1">{</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">36</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--primary-color</span><span class="s1">);</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">section-heading p </span><span class="s1">{</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">18</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">max-width</span><span class="s1">: </span><span class="s6">600</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">margin</span><span class="s1">: </span><span class="s6">0 </span><span class="s3">auto</span><span class="s1">;</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s5">#666</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s4">/* Resume section */</span>
+        <span class="s1">.</span><span class="s0">resume-item </span><span class="s1">{</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">40</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">border-left</span><span class="s1">: </span><span class="s6">3</span><span class="s3">px solid </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--secondary-color</span><span class="s1">);</span>
+            <span class="s2">padding-left</span><span class="s1">: </span><span class="s6">25</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">position</span><span class="s1">: </span><span class="s3">relative</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">resume-item</span><span class="s1">:</span><span class="s0">before </span><span class="s1">{</span>
+            <span class="s2">content</span><span class="s1">: </span><span class="s3">''</span><span class="s1">;</span>
+            <span class="s2">width</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">height</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">border-radius</span><span class="s1">: </span><span class="s6">50</span><span class="s1">%;</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--secondary-color</span><span class="s1">);</span>
+            <span class="s2">position</span><span class="s1">: </span><span class="s3">absolute</span><span class="s1">;</span>
+            <span class="s2">left</span><span class="s1">: -</span><span class="s6">9</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">top</span><span class="s1">: </span><span class="s6">0</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">resume-item h3 </span><span class="s1">{</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">22</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">10</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">resume-item h4 </span><span class="s1">{</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">18</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--secondary-color</span><span class="s1">);</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">10</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">resume-item </span><span class="s1">.</span><span class="s0">date </span><span class="s1">{</span>
+            <span class="s2">display</span><span class="s1">: </span><span class="s3">inline-block</span><span class="s1">;</span>
+            <span class="s2">padding</span><span class="s1">: </span><span class="s6">5</span><span class="s3">px </span><span class="s6">10</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--light-bg</span><span class="s1">);</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">14</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">border-radius</span><span class="s1">: </span><span class="s6">5</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s4">/* Research section */</span>
+        <span class="s1">.</span><span class="s0">research-grid </span><span class="s1">{</span>
+            <span class="s2">display</span><span class="s1">: </span><span class="s3">grid</span><span class="s1">;</span>
+            <span class="s2">grid-template-columns</span><span class="s1">: </span><span class="s0">repeat</span><span class="s1">(</span><span class="s3">auto-fill</span><span class="s1">, </span><span class="s0">minmax</span><span class="s1">(</span><span class="s6">300</span><span class="s3">px</span><span class="s1">, </span><span class="s6">1</span><span class="s3">fr</span><span class="s1">));</span>
+            <span class="s2">gap</span><span class="s1">: </span><span class="s6">30</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">research-item </span><span class="s1">{</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s3">white</span><span class="s1">;</span>
+            <span class="s2">border-radius</span><span class="s1">: </span><span class="s6">10</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">overflow</span><span class="s1">: </span><span class="s3">hidden</span><span class="s1">;</span>
+            <span class="s2">box-shadow</span><span class="s1">: </span><span class="s6">0 5</span><span class="s3">px </span><span class="s6">15</span><span class="s3">px </span><span class="s0">rgba</span><span class="s1">(</span><span class="s6">0</span><span class="s1">, </span><span class="s6">0</span><span class="s1">, </span><span class="s6">0</span><span class="s1">, </span><span class="s6">0.1</span><span class="s1">);</span>
+            <span class="s2">transition</span><span class="s1">: </span><span class="s0">transform </span><span class="s6">0.3</span><span class="s3">s</span><span class="s1">, </span><span class="s0">box-shadow </span><span class="s6">0.3</span><span class="s3">s</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">research-item</span><span class="s1">:</span><span class="s0">hover </span><span class="s1">{</span>
+            <span class="s2">transform</span><span class="s1">: </span><span class="s0">translateY</span><span class="s1">(-</span><span class="s6">5</span><span class="s3">px</span><span class="s1">);</span>
+            <span class="s2">box-shadow</span><span class="s1">: </span><span class="s6">0 15</span><span class="s3">px </span><span class="s6">30</span><span class="s3">px </span><span class="s0">rgba</span><span class="s1">(</span><span class="s6">0</span><span class="s1">, </span><span class="s6">0</span><span class="s1">, </span><span class="s6">0</span><span class="s1">, </span><span class="s6">0.15</span><span class="s1">);</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">research-content </span><span class="s1">{</span>
+            <span class="s2">padding</span><span class="s1">: </span><span class="s6">25</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">research-item h3 </span><span class="s1">{</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">20</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">research-item </span><span class="s1">.</span><span class="s0">badge </span><span class="s1">{</span>
+            <span class="s2">display</span><span class="s1">: </span><span class="s3">inline-block</span><span class="s1">;</span>
+            <span class="s2">padding</span><span class="s1">: </span><span class="s6">5</span><span class="s3">px </span><span class="s6">10</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--light-bg</span><span class="s1">);</span>
+            <span class="s2">border-radius</span><span class="s1">: </span><span class="s6">5</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">14</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s4">/* Projects section */</span>
+        <span class="s1">.</span><span class="s0">projects-grid </span><span class="s1">{</span>
+            <span class="s2">display</span><span class="s1">: </span><span class="s3">grid</span><span class="s1">;</span>
+            <span class="s2">grid-template-columns</span><span class="s1">: </span><span class="s0">repeat</span><span class="s1">(</span><span class="s3">auto-fill</span><span class="s1">, </span><span class="s0">minmax</span><span class="s1">(</span><span class="s6">350</span><span class="s3">px</span><span class="s1">, </span><span class="s6">1</span><span class="s3">fr</span><span class="s1">));</span>
+            <span class="s2">gap</span><span class="s1">: </span><span class="s6">30</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">project-item </span><span class="s1">{</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s3">white</span><span class="s1">;</span>
+            <span class="s2">border-radius</span><span class="s1">: </span><span class="s6">10</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">overflow</span><span class="s1">: </span><span class="s3">hidden</span><span class="s1">;</span>
+            <span class="s2">box-shadow</span><span class="s1">: </span><span class="s6">0 5</span><span class="s3">px </span><span class="s6">15</span><span class="s3">px </span><span class="s0">rgba</span><span class="s1">(</span><span class="s6">0</span><span class="s1">, </span><span class="s6">0</span><span class="s1">, </span><span class="s6">0</span><span class="s1">, </span><span class="s6">0.1</span><span class="s1">);</span>
+            <span class="s2">transition</span><span class="s1">: </span><span class="s0">transform </span><span class="s6">0.3</span><span class="s3">s</span><span class="s1">, </span><span class="s0">box-shadow </span><span class="s6">0.3</span><span class="s3">s</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">project-item</span><span class="s1">:</span><span class="s0">hover </span><span class="s1">{</span>
+            <span class="s2">transform</span><span class="s1">: </span><span class="s0">translateY</span><span class="s1">(-</span><span class="s6">5</span><span class="s3">px</span><span class="s1">);</span>
+            <span class="s2">box-shadow</span><span class="s1">: </span><span class="s6">0 15</span><span class="s3">px </span><span class="s6">30</span><span class="s3">px </span><span class="s0">rgba</span><span class="s1">(</span><span class="s6">0</span><span class="s1">, </span><span class="s6">0</span><span class="s1">, </span><span class="s6">0</span><span class="s1">, </span><span class="s6">0.15</span><span class="s1">);</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">project-img </span><span class="s1">{</span>
+            <span class="s2">height</span><span class="s1">: </span><span class="s6">200</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s5">#ddd</span><span class="s1">;</span>
+            <span class="s2">display</span><span class="s1">: </span><span class="s3">flex</span><span class="s1">;</span>
+            <span class="s2">align-items</span><span class="s1">: </span><span class="s3">center</span><span class="s1">;</span>
+            <span class="s2">justify-content</span><span class="s1">: </span><span class="s3">center</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">project-content </span><span class="s1">{</span>
+            <span class="s2">padding</span><span class="s1">: </span><span class="s6">25</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">project-item h3 </span><span class="s1">{</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">20</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">project-tags </span><span class="s1">{</span>
+            <span class="s2">display</span><span class="s1">: </span><span class="s3">flex</span><span class="s1">;</span>
+            <span class="s2">flex-wrap</span><span class="s1">: </span><span class="s3">wrap</span><span class="s1">;</span>
+            <span class="s2">gap</span><span class="s1">: </span><span class="s6">10</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">margin-top</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">project-tag </span><span class="s1">{</span>
+            <span class="s2">padding</span><span class="s1">: </span><span class="s6">5</span><span class="s3">px </span><span class="s6">10</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--light-bg</span><span class="s1">);</span>
+            <span class="s2">border-radius</span><span class="s1">: </span><span class="s6">5</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">14</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s4">/* Contact section */</span>
+        <span class="s1">.</span><span class="s0">contact-info </span><span class="s1">{</span>
+            <span class="s2">display</span><span class="s1">: </span><span class="s3">grid</span><span class="s1">;</span>
+            <span class="s2">grid-template-columns</span><span class="s1">: </span><span class="s0">repeat</span><span class="s1">(</span><span class="s3">auto-fill</span><span class="s1">, </span><span class="s0">minmax</span><span class="s1">(</span><span class="s6">250</span><span class="s3">px</span><span class="s1">, </span><span class="s6">1</span><span class="s3">fr</span><span class="s1">));</span>
+            <span class="s2">gap</span><span class="s1">: </span><span class="s6">30</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">50</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">contact-item </span><span class="s1">{</span>
+            <span class="s2">text-align</span><span class="s1">: </span><span class="s3">center</span><span class="s1">;</span>
+            <span class="s2">padding</span><span class="s1">: </span><span class="s6">30</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s3">white</span><span class="s1">;</span>
+            <span class="s2">border-radius</span><span class="s1">: </span><span class="s6">10</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">box-shadow</span><span class="s1">: </span><span class="s6">0 5</span><span class="s3">px </span><span class="s6">15</span><span class="s3">px </span><span class="s0">rgba</span><span class="s1">(</span><span class="s6">0</span><span class="s1">, </span><span class="s6">0</span><span class="s1">, </span><span class="s6">0</span><span class="s1">, </span><span class="s6">0.1</span><span class="s1">);</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">contact-icon </span><span class="s1">{</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">30</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--secondary-color</span><span class="s1">);</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">contact-item h3 </span><span class="s1">{</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">18</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">10</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s4">/* Footer */</span>
+        <span class="s0">footer </span><span class="s1">{</span>
+            <span class="s2">background-color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--primary-color</span><span class="s1">);</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s3">white</span><span class="s1">;</span>
+            <span class="s2">padding</span><span class="s1">: </span><span class="s6">30</span><span class="s3">px </span><span class="s6">0</span><span class="s1">;</span>
+            <span class="s2">text-align</span><span class="s1">: </span><span class="s3">center</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">social-links </span><span class="s1">{</span>
+            <span class="s2">display</span><span class="s1">: </span><span class="s3">flex</span><span class="s1">;</span>
+            <span class="s2">justify-content</span><span class="s1">: </span><span class="s3">center</span><span class="s1">;</span>
+            <span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">20</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">list-style</span><span class="s1">: </span><span class="s3">none</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">social-links li </span><span class="s1">{</span>
+            <span class="s2">margin</span><span class="s1">: </span><span class="s6">0 10</span><span class="s3">px</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">social-links a </span><span class="s1">{</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s3">white</span><span class="s1">;</span>
+            <span class="s2">font-size</span><span class="s1">: </span><span class="s6">20</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s2">transition</span><span class="s1">: </span><span class="s3">color </span><span class="s6">0.3</span><span class="s3">s</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">.</span><span class="s0">social-links a</span><span class="s1">:</span><span class="s0">hover </span><span class="s1">{</span>
+            <span class="s2">color</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--secondary-color</span><span class="s1">);</span>
+        <span class="s1">}</span>
+
+        <span class="s4">/* Media queries */</span>
+        <span class="s7">@media </span><span class="s1">(</span><span class="s2">max-width</span><span class="s1">: </span><span class="s6">768</span><span class="s3">px</span><span class="s1">) {</span>
+            <span class="s1">.</span><span class="s0">hero h1 </span><span class="s1">{</span>
+                <span class="s2">font-size</span><span class="s1">: </span><span class="s6">36</span><span class="s3">px</span><span class="s1">;</span>
+            <span class="s1">}</span>
+
+            <span class="s1">.</span><span class="s0">about-content </span><span class="s1">{</span>
+                <span class="s2">flex-direction</span><span class="s1">: </span><span class="s3">column</span><span class="s1">;</span>
+            <span class="s1">}</span>
+
+            <span class="s1">.</span><span class="s0">nav-links </span><span class="s1">{</span>
+                <span class="s2">display</span><span class="s1">: </span><span class="s3">none</span><span class="s1">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s0">&lt;/style&gt;</span>
+<span class="s0">&lt;/head&gt;</span>
+<span class="s0">&lt;body&gt;</span>
+    <span class="s4">&lt;!-- Header --&gt;</span>
+    <span class="s0">&lt;header&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;container&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;nav&gt;</span>
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;logo&quot;</span><span class="s0">&gt;</span><span class="s1">Aziz</span><span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;ul </span><span class="s2">class</span><span class="s3">=&quot;nav-links&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;li&gt;&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#about&quot;</span><span class="s0">&gt;</span><span class="s1">About</span><span class="s0">&lt;/a&gt;&lt;/li&gt;</span>
+                    <span class="s0">&lt;li&gt;&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#resume&quot;</span><span class="s0">&gt;</span><span class="s1">Resume</span><span class="s0">&lt;/a&gt;&lt;/li&gt;</span>
+                    <span class="s0">&lt;li&gt;&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#research&quot;</span><span class="s0">&gt;</span><span class="s1">Research</span><span class="s0">&lt;/a&gt;&lt;/li&gt;</span>
+                    <span class="s0">&lt;li&gt;&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#projects&quot;</span><span class="s0">&gt;</span><span class="s1">Projects</span><span class="s0">&lt;/a&gt;&lt;/li&gt;</span>
+                    <span class="s0">&lt;li&gt;&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#contact&quot;</span><span class="s0">&gt;</span><span class="s1">Contact</span><span class="s0">&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="s0">&lt;/ul&gt;</span>
+            <span class="s0">&lt;/nav&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/header&gt;</span>
+
+    <span class="s4">&lt;!-- Hero Section --&gt;</span>
+    <span class="s0">&lt;section </span><span class="s2">class</span><span class="s3">=&quot;hero&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;container&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;hero-content&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;h1&gt;</span><span class="s1">Hello, I'm Aziz</span><span class="s0">&lt;/h1&gt;</span>
+                <span class="s0">&lt;p&gt;</span><span class="s1">Professional with expertise in [Your Field] specializing in [Your Specialization]</span><span class="s0">&lt;/p&gt;</span>
+                <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#contact&quot; </span><span class="s2">class</span><span class="s3">=&quot;btn&quot;</span><span class="s0">&gt;</span><span class="s1">Get In Touch</span><span class="s0">&lt;/a&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/section&gt;</span>
+
+    <span class="s4">&lt;!-- About Section --&gt;</span>
+    <span class="s0">&lt;section </span><span class="s2">id</span><span class="s3">=&quot;about&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;container&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;section-heading&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;h2&gt;</span><span class="s1">About Me</span><span class="s0">&lt;/h2&gt;</span>
+                <span class="s0">&lt;p&gt;</span><span class="s1">Get to know me and my professional background</span><span class="s0">&lt;/p&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;about-content&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;about-img&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/api/placeholder/400/320&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Aziz's profile photo&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;about-text&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;h3&gt;</span><span class="s1">Who Am I?</span><span class="s0">&lt;/h3&gt;</span>
+                    <span class="s0">&lt;p&gt;</span><span class="s1">I am a [Your Profession] with [X years] of experience in [Your Field]. My expertise includes [Your Skills], and I am passionate about [Your Passion].</span><span class="s0">&lt;/p&gt;</span>
+                    <span class="s0">&lt;p&gt;</span><span class="s1">My research interests include [Research Interest 1], [Research Interest 2], and [Research Interest 3]. I have completed several projects in these areas and continue to explore new opportunities.</span><span class="s0">&lt;/p&gt;</span>
+                    <span class="s0">&lt;p&gt;</span><span class="s1">I hold a [Your Degree] from [Your University] and have received recognition for [Your Achievements].</span><span class="s0">&lt;/p&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/section&gt;</span>
+
+    <span class="s4">&lt;!-- Resume Section --&gt;</span>
+    <span class="s0">&lt;section </span><span class="s2">id</span><span class="s3">=&quot;resume&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;container&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;section-heading&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;h2&gt;</span><span class="s1">Resume</span><span class="s0">&lt;/h2&gt;</span>
+                <span class="s0">&lt;p&gt;</span><span class="s1">My educational and professional journey</span><span class="s0">&lt;/p&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;resume-content&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;h3 </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">margin-bottom</span><span class="s1">: </span><span class="s6">30</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Education</span><span class="s0">&lt;/h3&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;resume-item&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;h3&gt;</span><span class="s1">[Degree Name]</span><span class="s0">&lt;/h3&gt;</span>
+                    <span class="s0">&lt;h4&gt;</span><span class="s1">[University Name]</span><span class="s0">&lt;/h4&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;date&quot;</span><span class="s0">&gt;</span><span class="s1">[Start Year] - [End Year]</span><span class="s0">&lt;/div&gt;</span>
+                    <span class="s0">&lt;p&gt;</span><span class="s1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt, non sagittis nisi interdum.</span><span class="s0">&lt;/p&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;resume-item&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;h3&gt;</span><span class="s1">[Previous Degree]</span><span class="s0">&lt;/h3&gt;</span>
+                    <span class="s0">&lt;h4&gt;</span><span class="s1">[University Name]</span><span class="s0">&lt;/h4&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;date&quot;</span><span class="s0">&gt;</span><span class="s1">[Start Year] - [End Year]</span><span class="s0">&lt;/div&gt;</span>
+                    <span class="s0">&lt;p&gt;</span><span class="s1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt, non sagittis nisi interdum.</span><span class="s0">&lt;/p&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;h3 </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">margin</span><span class="s1">: </span><span class="s6">50</span><span class="s3">px </span><span class="s6">0 30</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Experience</span><span class="s0">&lt;/h3&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;resume-item&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;h3&gt;</span><span class="s1">[Job Position]</span><span class="s0">&lt;/h3&gt;</span>
+                    <span class="s0">&lt;h4&gt;</span><span class="s1">[Company Name]</span><span class="s0">&lt;/h4&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;date&quot;</span><span class="s0">&gt;</span><span class="s1">[Start Year] - Present</span><span class="s0">&lt;/div&gt;</span>
+                    <span class="s0">&lt;p&gt;</span><span class="s1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt, non sagittis nisi interdum.</span><span class="s0">&lt;/p&gt;</span>
+                    <span class="s0">&lt;ul </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">margin-top</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">; </span><span class="s2">padding-left</span><span class="s1">: </span><span class="s6">20</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;li&gt;</span><span class="s1">Achievement or responsibility 1</span><span class="s0">&lt;/li&gt;</span>
+                        <span class="s0">&lt;li&gt;</span><span class="s1">Achievement or responsibility 2</span><span class="s0">&lt;/li&gt;</span>
+                        <span class="s0">&lt;li&gt;</span><span class="s1">Achievement or responsibility 3</span><span class="s0">&lt;/li&gt;</span>
+                    <span class="s0">&lt;/ul&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;resume-item&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;h3&gt;</span><span class="s1">[Previous Job Position]</span><span class="s0">&lt;/h3&gt;</span>
+                    <span class="s0">&lt;h4&gt;</span><span class="s1">[Company Name]</span><span class="s0">&lt;/h4&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;date&quot;</span><span class="s0">&gt;</span><span class="s1">[Start Year] - [End Year]</span><span class="s0">&lt;/div&gt;</span>
+                    <span class="s0">&lt;p&gt;</span><span class="s1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt, non sagittis nisi interdum.</span><span class="s0">&lt;/p&gt;</span>
+                    <span class="s0">&lt;ul </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">margin-top</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">; </span><span class="s2">padding-left</span><span class="s1">: </span><span class="s6">20</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;li&gt;</span><span class="s1">Achievement or responsibility 1</span><span class="s0">&lt;/li&gt;</span>
+                        <span class="s0">&lt;li&gt;</span><span class="s1">Achievement or responsibility 2</span><span class="s0">&lt;/li&gt;</span>
+                        <span class="s0">&lt;li&gt;</span><span class="s1">Achievement or responsibility 3</span><span class="s0">&lt;/li&gt;</span>
+                    <span class="s0">&lt;/ul&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#&quot; </span><span class="s2">class</span><span class="s3">=&quot;btn&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">margin-top</span><span class="s1">: </span><span class="s6">30</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Download Full Resume</span><span class="s0">&lt;/a&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/section&gt;</span>
+
+    <span class="s4">&lt;!-- Research Section --&gt;</span>
+    <span class="s0">&lt;section </span><span class="s2">id</span><span class="s3">=&quot;research&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;container&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;section-heading&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;h2&gt;</span><span class="s1">Research</span><span class="s0">&lt;/h2&gt;</span>
+                <span class="s0">&lt;p&gt;</span><span class="s1">Explore my research interests and publications</span><span class="s0">&lt;/p&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;research-grid&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;research-item&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;research-content&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;badge&quot;</span><span class="s0">&gt;</span><span class="s1">Publication</span><span class="s0">&lt;/div&gt;</span>
+                        <span class="s0">&lt;h3&gt;</span><span class="s1">[Research Title 1]</span><span class="s0">&lt;/h3&gt;</span>
+                        <span class="s0">&lt;p&gt;</span><span class="s1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</span><span class="s0">&lt;/p&gt;</span>
+                        <span class="s0">&lt;p </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">margin-top</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;strong&gt;</span><span class="s1">Published in:</span><span class="s0">&lt;/strong&gt; </span><span class="s1">[Journal/Conference Name], [Year]</span><span class="s0">&lt;/p&gt;</span>
+                        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">display</span><span class="s1">: </span><span class="s3">inline-block</span><span class="s1">; </span><span class="s2">margin-top</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Read More</span><span class="s0">&lt;/a&gt;</span>
+                    <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;research-item&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;research-content&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;badge&quot;</span><span class="s0">&gt;</span><span class="s1">Ongoing</span><span class="s0">&lt;/div&gt;</span>
+                        <span class="s0">&lt;h3&gt;</span><span class="s1">[Research Title 2]</span><span class="s0">&lt;/h3&gt;</span>
+                        <span class="s0">&lt;p&gt;</span><span class="s1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</span><span class="s0">&lt;/p&gt;</span>
+                        <span class="s0">&lt;p </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">margin-top</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;strong&gt;</span><span class="s1">Collaborators:</span><span class="s0">&lt;/strong&gt; </span><span class="s1">[Names of Collaborators]</span><span class="s0">&lt;/p&gt;</span>
+                        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">display</span><span class="s1">: </span><span class="s3">inline-block</span><span class="s1">; </span><span class="s2">margin-top</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Read More</span><span class="s0">&lt;/a&gt;</span>
+                    <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;research-item&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;research-content&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;badge&quot;</span><span class="s0">&gt;</span><span class="s1">Publication</span><span class="s0">&lt;/div&gt;</span>
+                        <span class="s0">&lt;h3&gt;</span><span class="s1">[Research Title 3]</span><span class="s0">&lt;/h3&gt;</span>
+                        <span class="s0">&lt;p&gt;</span><span class="s1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</span><span class="s0">&lt;/p&gt;</span>
+                        <span class="s0">&lt;p </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">margin-top</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;strong&gt;</span><span class="s1">Published in:</span><span class="s0">&lt;/strong&gt; </span><span class="s1">[Journal/Conference Name], [Year]</span><span class="s0">&lt;/p&gt;</span>
+                        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">display</span><span class="s1">: </span><span class="s3">inline-block</span><span class="s1">; </span><span class="s2">margin-top</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Read More</span><span class="s0">&lt;/a&gt;</span>
+                    <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/section&gt;</span>
+
+    <span class="s4">&lt;!-- Projects Section --&gt;</span>
+    <span class="s0">&lt;section </span><span class="s2">id</span><span class="s3">=&quot;projects&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;container&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;section-heading&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;h2&gt;</span><span class="s1">Projects</span><span class="s0">&lt;/h2&gt;</span>
+                <span class="s0">&lt;p&gt;</span><span class="s1">Check out some of my recent work</span><span class="s0">&lt;/p&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;projects-grid&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;project-item&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;project-img&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/api/placeholder/400/320&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Project 1&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;/div&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;project-content&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;h3&gt;</span><span class="s1">[Project Title 1]</span><span class="s0">&lt;/h3&gt;</span>
+                        <span class="s0">&lt;p&gt;</span><span class="s1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</span><span class="s0">&lt;/p&gt;</span>
+                        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;project-tags&quot;</span><span class="s0">&gt;</span>
+                            <span class="s0">&lt;span </span><span class="s2">class</span><span class="s3">=&quot;project-tag&quot;</span><span class="s0">&gt;</span><span class="s1">[Technology 1]</span><span class="s0">&lt;/span&gt;</span>
+                            <span class="s0">&lt;span </span><span class="s2">class</span><span class="s3">=&quot;project-tag&quot;</span><span class="s0">&gt;</span><span class="s1">[Technology 2]</span><span class="s0">&lt;/span&gt;</span>
+                        <span class="s0">&lt;/div&gt;</span>
+                        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">display</span><span class="s1">: </span><span class="s3">inline-block</span><span class="s1">; </span><span class="s2">margin-top</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">View Project</span><span class="s0">&lt;/a&gt;</span>
+                    <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;project-item&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;project-img&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/api/placeholder/400/320&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Project 2&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;/div&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;project-content&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;h3&gt;</span><span class="s1">[Project Title 2]</span><span class="s0">&lt;/h3&gt;</span>
+                        <span class="s0">&lt;p&gt;</span><span class="s1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</span><span class="s0">&lt;/p&gt;</span>
+                        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;project-tags&quot;</span><span class="s0">&gt;</span>
+                            <span class="s0">&lt;span </span><span class="s2">class</span><span class="s3">=&quot;project-tag&quot;</span><span class="s0">&gt;</span><span class="s1">[Technology 1]</span><span class="s0">&lt;/span&gt;</span>
+                            <span class="s0">&lt;span </span><span class="s2">class</span><span class="s3">=&quot;project-tag&quot;</span><span class="s0">&gt;</span><span class="s1">[Technology 2]</span><span class="s0">&lt;/span&gt;</span>
+                        <span class="s0">&lt;/div&gt;</span>
+                        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">display</span><span class="s1">: </span><span class="s3">inline-block</span><span class="s1">; </span><span class="s2">margin-top</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">View Project</span><span class="s0">&lt;/a&gt;</span>
+                    <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;project-item&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;project-img&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/api/placeholder/400/320&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Project 3&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;/div&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;project-content&quot;</span><span class="s0">&gt;</span>
+                        <span class="s0">&lt;h3&gt;</span><span class="s1">[Project Title 3]</span><span class="s0">&lt;/h3&gt;</span>
+                        <span class="s0">&lt;p&gt;</span><span class="s1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</span><span class="s0">&lt;/p&gt;</span>
+                        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;project-tags&quot;</span><span class="s0">&gt;</span>
+                            <span class="s0">&lt;span </span><span class="s2">class</span><span class="s3">=&quot;project-tag&quot;</span><span class="s0">&gt;</span><span class="s1">[Technology 1]</span><span class="s0">&lt;/span&gt;</span>
+                            <span class="s0">&lt;span </span><span class="s2">class</span><span class="s3">=&quot;project-tag&quot;</span><span class="s0">&gt;</span><span class="s1">[Technology 2]</span><span class="s0">&lt;/span&gt;</span>
+                        <span class="s0">&lt;/div&gt;</span>
+                        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">display</span><span class="s1">: </span><span class="s3">inline-block</span><span class="s1">; </span><span class="s2">margin-top</span><span class="s1">: </span><span class="s6">15</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">View Project</span><span class="s0">&lt;/a&gt;</span>
+                    <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/section&gt;</span>
+
+    <span class="s4">&lt;!-- Contact Section --&gt;</span>
+    <span class="s0">&lt;section </span><span class="s2">id</span><span class="s3">=&quot;contact&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;container&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;section-heading&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;h2&gt;</span><span class="s1">Contact Me</span><span class="s0">&lt;/h2&gt;</span>
+                <span class="s0">&lt;p&gt;</span><span class="s1">Get in touch for collaborations or inquiries</span><span class="s0">&lt;/p&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;contact-info&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;contact-item&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;contact-icon&quot;</span><span class="s0">&gt;</span><span class="s1">📧</span><span class="s0">&lt;/div&gt;</span>
+                    <span class="s0">&lt;h3&gt;</span><span class="s1">Email</span><span class="s0">&lt;/h3&gt;</span>
+                    <span class="s0">&lt;p&gt;</span><span class="s1">your.email@example.com</span><span class="s0">&lt;/p&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;contact-item&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;contact-icon&quot;</span><span class="s0">&gt;</span><span class="s1">📱</span><span class="s0">&lt;/div&gt;</span>
+                    <span class="s0">&lt;h3&gt;</span><span class="s1">Phone</span><span class="s0">&lt;/h3&gt;</span>
+                    <span class="s0">&lt;p&gt;</span><span class="s1">+1 (XXX) XXX-XXXX</span><span class="s0">&lt;/p&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;contact-item&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;contact-icon&quot;</span><span class="s0">&gt;</span><span class="s1">📍</span><span class="s0">&lt;/div&gt;</span>
+                    <span class="s0">&lt;h3&gt;</span><span class="s1">Location</span><span class="s0">&lt;/h3&gt;</span>
+                    <span class="s0">&lt;p&gt;</span><span class="s1">[Your City], [Your Country]</span><span class="s0">&lt;/p&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/section&gt;</span>
+
+    <span class="s4">&lt;!-- Footer --&gt;</span>
+    <span class="s0">&lt;footer&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;container&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;ul </span><span class="s2">class</span><span class="s3">=&quot;social-links&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;li&gt;&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#&quot;</span><span class="s0">&gt;</span><span class="s1">LinkedIn</span><span class="s0">&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="s0">&lt;li&gt;&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#&quot;</span><span class="s0">&gt;</span><span class="s1">Twitter</span><span class="s0">&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="s0">&lt;li&gt;&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#&quot;</span><span class="s0">&gt;</span><span class="s1">GitHub</span><span class="s0">&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="s0">&lt;li&gt;&lt;a </span><span class="s2">href</span><span class="s3">=&quot;#&quot;</span><span class="s0">&gt;</span><span class="s1">ResearchGate</span><span class="s0">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="s0">&lt;/ul&gt;</span>
+            <span class="s0">&lt;p&gt;</span><span class="s5">&amp;copy; </span><span class="s1">2025 Aziz. All Rights Reserved.</span><span class="s0">&lt;/p&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/footer&gt;</span>
+<span class="s0">&lt;/body&gt;</span>
+<span class="s0">&lt;/html&gt;</span></pre>
+</body>
+</html>
