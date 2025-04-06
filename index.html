@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aziz - Resume, Research & Projects</title>
+    <style>
+        /* Base styles */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        section:nth-child(even) {
+            background-color: white;
+        }
+
+        /* Header styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Hero section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        /* About section */
+        .about-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-img {
+            flex: 1;
+        }
+
+        .about-img img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        /* Section headings */
+        .section-heading {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-heading h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .section-heading p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #666;
+        }
+
+        /* Resume section */
+        .resume-item {
+            margin-bottom: 40px;
+            border-left: 3px solid var(--secondary-color);
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .resume-item:before {
+            content: '';
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            position: absolute;
+            left: -9px;
+            top: 0;
+        }
+
+        .resume-item h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .resume-item h4 {
+            font-size: 18px;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .resume-item .date {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: var(--light-bg);
+            margin-bottom: 15px;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        /* Research section */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .research-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .research-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .research-content {
+            padding: 25px;
+        }
+
+        .research-item h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .research-item .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: var(--light-bg);
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        /* Projects section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-img {
+            height: 200px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-item h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .project-tag {
+            padding: 5px 10px;
+            background-color: var(--light-bg);
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        /* Contact section */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-icon {
+            font-size: 30px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .contact-item h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            list-style: none;
+        }
+
+        .social-links li {
+            margin: 0 10px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Media queries */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Aziz</div>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#resume">Resume</a></li>
+                    <li><a href="#research">Research</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Hello, I'm Aziz Alghamdi</h1>
+                <p>Professional with expertise in Computer Science specializing in Cybersecurity, Criminal Justice</p>
+                <a href="#contact" class="btn">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-heading">
+                <h2>About Me</h2>
+                <p>Get to know me and my professional background</p>
+            </div>
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="/api/placeholder/400/320" alt="Aziz's profile photo">
+                </div>
+                <div class="about-text">
+                    <h3>Who Am I?</h3>
+                  <!--  <p>I am a [Your Profession] with [X years] of experience in [Your Field]. My expertise includes [Your Skills], and I am passionate about [Your Passion].</p>
+                    <p>My research interests include [Research Interest 1], [Research Interest 2], and [Research Interest 3]. I have completed several projects in these areas and continue to explore new opportunities.</p>
+                    <p>I hold a [Your Degree] from [Your University] and have received recognition for [Your Achievements].</p> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Resume</h2>
+                <p>My educational and professional journey</p>
+            </div>
+
+            <div class="resume-content">
+                <h3 style="margin-bottom: 30px;">Education</h3>
+
+                <div class="resume-item">
+                    <h3>Bachelor of Arts and Science in Computer Science
+                        With an Emphasis on Cybersecurity
+                        Minor in Criminal Justice</h3>
+                    <h4>University of Colorado at Colorado Springs</h4>
+                    <div class="date">Aug 2021 - May 2025</div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt, non sagittis nisi interdum.</p>
+                </div>
+
+
+                <h3 style="margin: 50px 0 30px;">Experience</h3>
+
+
+
+                <!-- <div class="resume-item">
+                    <h3>[Previous Job Position]</h3>
+                    <h4>[Company Name]</h4>
+                    <div class="date">[Start Year] - [End Year]</div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt, non sagittis nisi interdum.</p>
+                    <ul style="margin-top: 15px; padding-left: 20px;">
+                        <li>Achievement or responsibility 1</li>
+                        <li>Achievement or responsibility 2</li>
+                        <li>Achievement or responsibility 3</li>
+                    </ul>
+                </div> -->
+
+                <a href="#" class="btn" style="margin-top: 30px;">Download Full Resume</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Research</h2>
+                <p>Explore my research interests and publications</p>
+            </div>
+
+            <div class="research-grid">
+                <div class="research-item">
+                    <div class="research-content">
+                        <div class="badge">Publication</div>
+                        <h3>Forensic Analysis of Cryptocurrency-Based Ransomware Attacks: Criminal Justice and Technical Perspectives</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</p>
+                        <p style="margin-top: 15px;"><strong>Published in:</strong> [Journal/Conference Name], [Year]</p>
+                        <a href="#" style="display: inline-block; margin-top: 15px;">Read More</a>
+                    </div>
+                </div>
+
+                <div class="research-item">
+                    <div class="research-content">
+                        <div class="badge">Ongoing</div>
+                        <h3>Post-Quantum Cryptography Implementation Challenges: Security Implications for Critical Infrastructure</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</p>
+                        <p style="margin-top: 15px;"><strong>Collaborators:</strong> [Names of Collaborators]</p>
+                        <a href="#" style="display: inline-block; margin-top: 15px;">Read More</a>
+                    </div>
+                </div>
+
+                <div class="research-item">
+                    <div class="research-content">
+                        <div class="badge">Publication</div>
+                        <h3>Quantum Cryptography Implications for Digital Evidence in Criminal Investigations</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</p>
+                        <p style="margin-top: 15px;"><strong>Published in:</strong>  2025 </p>
+                        <a href="#" style="display: inline-block; margin-top: 15px;">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Projects</h2>
+                <p>Check out some of my recent work</p>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-item">
+                    <div class="project-img">
+                        <img src="/api/placeholder/400/320" alt="Project 1">
+                    </div>
+                    <div class="project-content">
+                        <h3>[Project Title 1]</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">[Technology 1]</span>
+                            <span class="project-tag">[Technology 2]</span>
+                        </div>
+                        <a href="#" style="display: inline-block; margin-top: 15px;">View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-img">
+                        <img src="/api/placeholder/400/320" alt="Project 2">
+                    </div>
+                    <div class="project-content">
+                        <h3>[Project Title 2]</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">[Technology 1]</span>
+                            <span class="project-tag">[Technology 2]</span>
+                        </div>
+                        <a href="#" style="display: inline-block; margin-top: 15px;">View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-img">
+                        <img src="/api/placeholder/400/320" alt="Project 3">
+                    </div>
+                    <div class="project-content">
+                        <h3>[Project Title 3]</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">[Technology 1]</span>
+                            <span class="project-tag">[Technology 2]</span>
+                        </div>
+                        <a href="#" style="display: inline-block; margin-top: 15px;">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Contact Me</h2>
+                <p>Get in touch for collaborations or inquiries</p>
+            </div>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <p>azizcsecj@gmail.com</p>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <h3>Phone</h3>
+                    <p>+1 (XXX) XXX-XXXX</p>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <h3>Location</h3>
+                    <p>Riyadh, Saudi Arabia</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <ul class="social-links">
+                <li><a href="#">LinkedIn</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">GitHub</a></li>
+                <li><a href="#">ResearchGate</a></li>
+            </ul>
+            <p>&copy; 2025 Aziz. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
