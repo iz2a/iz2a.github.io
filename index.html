@@ -2285,6 +2285,7 @@
             "Certifications": "الشهادات",
             "Contact": "اتصل بي",
             "Cybersecurity & Criminal Justice Professional": "متخصص في الأمن السيبراني والعدالة الجنائية",
+            "Specializing in digital forensics, incident response, and the intersection of technology and law enforcement": "متخصص في الطب الشرعي الرقمي والاستجابة للحوادث وتقاطع التكنولوجيا وإنفاذ القانون",
             "Get In Touch": "تواصل معي",
             "View My Research": "شاهد أبحاثي",
             "Who I Am": "من أنا",
@@ -2297,8 +2298,8 @@
             "Phone": "الهاتف",
             "Location": "الموقع",
             "Website": "الموقع الإلكتروني",
-            "About":"عني",
-            "Certifications & Skills":"الشهادات والمهارات"
+            "About": "عني",
+            "Certifications & Skills": "الشهادات والمهارات"
         };
 
         // Apply manual translations first
@@ -2407,17 +2408,17 @@
                 },
                 body: JSON.stringify(requestData)
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.translatedText) {
-                    applyTranslation(id, data.translatedText);
-                }
-            });
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.translatedText) {
+                        applyTranslation(id, data.translatedText);
+                    }
+                });
         });
 
         return Promise.all(translatePromises);
@@ -2453,13 +2454,13 @@
         const arBtn = document.getElementById('ar-btn');
 
         if (enBtn) {
-            enBtn.addEventListener('click', function() {
+            enBtn.addEventListener('click', function () {
                 changeLanguage('en');
             });
         }
 
         if (arBtn) {
-            arBtn.addEventListener('click', function() {
+            arBtn.addEventListener('click', function () {
                 changeLanguage('ar');
             });
         }
