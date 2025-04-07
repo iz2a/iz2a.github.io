@@ -13,18 +13,19 @@
             --error-color: #ff3333;
             --success-color: #33ff99;
         }
-        
+
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: 'Courier New', monospace;
-            padding: 0;
+            padding: 20px;
             margin: 0;
+            min-height: 600px;
             height: 100vh;
             display: flex;
             flex-direction: column;
         }
-        
+
         .terminal-container {
             flex: 1;
             border: 1px solid var(--text-color);
@@ -35,7 +36,7 @@
             flex-direction: column;
             box-shadow: 0 0 10px rgba(51, 255, 0, 0.3);
         }
-        
+
         .terminal-header {
             display: flex;
             justify-content: space-between;
@@ -43,54 +44,69 @@
             padding-bottom: 10px;
             border-bottom: 1px dashed var(--text-color);
         }
-        
+
         .terminal-title {
             font-weight: bold;
         }
-        
+
         .terminal-controls {
             display: flex;
             gap: 8px;
         }
-        
+
         .control-btn {
             width: 12px;
             height: 12px;
             border-radius: 50%;
         }
-        
+
         .control-close {
             background-color: #ff5f56;
         }
-        
+
         .control-minimize {
             background-color: #ffbd2e;
         }
-        
+
         .control-expand {
             background-color: #27c93f;
         }
-        
+
         .terminal-output {
             flex: 1;
             overflow-y: auto;
             margin-bottom: 10px;
-            overflow-y: scroll;
-            padding: 10px;
-            min-height: 300px;
-            max-height: 60vh;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color) var(--bg-color);
+            min-height: 350px;
+            max-height: 500px;
+            padding-right: 5px;
         }
-        
+
+        .terminal-output::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .terminal-output::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+
+        .terminal-output::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            border-radius: 4px;
+            border: 2px solid var(--bg-color);
+        }
+
         .terminal-input-line {
             display: flex;
             margin-top: 10px;
         }
-        
+
         .terminal-prompt {
             color: var(--highlight-color);
             margin-right: 10px;
         }
-        
+
         #terminal-input {
             background-color: transparent;
             border: none;
@@ -101,38 +117,38 @@
             outline: none;
             caret-color: var(--cursor-color);
         }
-        
+
         .input-line {
             display: flex;
             margin: 5px 0;
         }
-        
+
         .output-line {
             margin: 5px 0;
             white-space: pre-wrap;
             word-break: break-word;
             animation: fadeIn 0.3s ease-in;
         }
-        
+
         .error-text {
             color: var(--error-color);
         }
-        
+
         .success-text {
             color: var(--success-color);
         }
-        
+
         .highlight-text {
             color: var(--highlight-color);
         }
-        
+
         .terminal-info {
             margin-top: 20px;
             font-size: 14px;
             color: #888;
             text-align: center;
         }
-        
+
         /* Blinking cursor effect */
         .cursor {
             display: inline-block;
@@ -142,17 +158,17 @@
             animation: blink 1s infinite;
             vertical-align: middle;
         }
-        
+
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        
+
         .ascii-art {
             font-family: monospace;
             white-space: pre;
@@ -160,7 +176,7 @@
             margin: 10px 0;
             color: var(--highlight-color);
         }
-        
+
         .badge {
             display: inline-block;
             padding: 3px 8px;
@@ -170,38 +186,99 @@
             background-color: rgba(51, 255, 0, 0.2);
             border: 1px solid var(--text-color);
         }
-        
-        .game-progress {
+
+        .game-status {
             margin-top: 10px;
-            height: 5px;
+            margin-bottom: 15px;
+        }
+
+        .game-progress {
+            height: 8px;
             width: 100%;
             background-color: rgba(51, 255, 0, 0.1);
-            border-radius: 2px;
+            border-radius: 4px;
             overflow: hidden;
         }
-        
+
         .progress-bar {
             height: 100%;
             width: 0%;
             background-color: var(--text-color);
             transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(51, 255, 0, 0.5);
         }
-        
+
+        .status-info {
+            font-size: 12px;
+            text-align: right;
+            margin-top: 4px;
+            color: rgba(51, 255, 0, 0.7);
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
         button.terminal-button {
-            background-color: rgba(51, 255, 0, 0.2);
+            background-color: rgba(51, 255, 0, 0.15);
             color: var(--text-color);
             border: 1px solid var(--text-color);
-            padding: 5px 10px;
+            border-radius: 4px;
+            padding: 8px 15px;
             font-family: 'Courier New', monospace;
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-right: 10px;
+            position: relative;
+            overflow: hidden;
         }
-        
+
         button.terminal-button:hover {
-            background-color: rgba(51, 255, 0, 0.4);
+            background-color: rgba(51, 255, 0, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(51, 255, 0, 0.2);
         }
-        
+
+        button.terminal-button:active {
+            transform: translateY(0);
+        }
+
+        button.terminal-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(51, 255, 0, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        button.terminal-button:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            20% {
+                transform: scale(25, 25);
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(40, 40);
+            }
+        }
+
         .help-panel {
             max-height: 0;
             overflow: hidden;
@@ -211,23 +288,23 @@
             margin-top: 5px;
             padding: 0 10px;
         }
-        
+
         .help-panel.visible {
             max-height: 500px;
             padding: 10px;
         }
-        
+
         .help-command {
             margin: 5px 0;
         }
-        
+
         .command-name {
             color: var(--highlight-color);
             margin-right: 10px;
             display: inline-block;
             width: 100px;
         }
-        
+
         /* Responsive design */
         @media (max-width: 768px) {
             .terminal-container {
@@ -239,34 +316,41 @@
 <body>
     <div class="terminal-container">
         <div class="terminal-header">
-            <div class="terminal-title">SecureTerminal v1.0</div>
+            <div class="terminal-title">CyberSec Terminal Challenge v1.0</div>
             <div class="terminal-controls">
                 <div class="control-btn control-close"></div>
                 <div class="control-btn control-minimize"></div>
                 <div class="control-btn control-expand"></div>
             </div>
         </div>
-        
-        <div class="game-progress">
-            <div class="progress-bar" id="progress-bar"></div>
+
+        <div class="game-status">
+            <div class="game-progress">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="status-info">Challenge Progress</div>
         </div>
-        
+
         <div class="terminal-output" id="terminal-output">
             <!-- Terminal output will be displayed here -->
         </div>
-        
+
         <div class="terminal-input-line">
             <div class="terminal-prompt" id="terminal-prompt">guest@securesystem:~$</div>
-            <input type="text" id="terminal-input" autofocus>
+            <input type="text" id="terminal-input" autofocus spellcheck="false" autocomplete="off">
         </div>
     </div>
-    
+
     <div class="terminal-info">
         <p>Type 'help' to see available commands. Complete the cybersecurity challenges to earn badges.</p>
-        <button class="terminal-button" id="help-button">Show Help</button>
-        <button class="terminal-button" id="reset-button">Reset Game</button>
+        <div class="button-group">
+            <button class="terminal-button" id="help-button">Show Help</button>
+            <button class="terminal-button" id="hint-button">Get Hint</button>
+            <button class="terminal-button" id="badges-button">View Badges</button>
+            <button class="terminal-button" id="reset-button">Reset Game</button>
+        </div>
     </div>
-    
+
     <div class="help-panel" id="help-panel">
         <h3>Available Commands</h3>
         <div class="help-command">
@@ -307,7 +391,7 @@
             const helpPanel = document.getElementById('help-panel');
             const resetButton = document.getElementById('reset-button');
             const progressBar = document.getElementById('progress-bar');
-            
+
             // Game state
             let gameState = {
                 currentUser: 'guest',
@@ -322,7 +406,7 @@
                     available: 3
                 }
             };
-            
+
             // File system simulation
             const fileSystem = {
                 'readme.txt': 'Welcome to the Cybersecurity Challenge Terminal!\n\nYour mission is to find vulnerabilities in this system and gradually gain more access.\n\nType "ls" to see available files and "cat [filename]" to read them.\n\nGood luck!',
@@ -337,10 +421,10 @@
                 'backdoor.sh': 'echo "Potential security breach detected!"\necho "This file should not be accessible!"',
                 'hidden_flag.txt': 'Congratulations! You found a hidden flag: CyberMaster2023'
             };
-            
+
             // Hidden files not shown by default with ls
             const hiddenFiles = ['backdoor.sh', 'secure_notes.txt', 'hidden_flag.txt'];
-            
+
             // Challenge definitions
             const challenges = [
                 {
@@ -390,49 +474,53 @@
                     message: 'Congratulations! You have successfully gained admin access to the system. You now have complete control.'
                 }
             ];
-            
+
             // Initialize the game
             function initGame() {
                 clearTerminal();
                 printAsciiLogo();
-                printOutput("=== Cybersecurity Challenge Terminal ===", "highlight-text");
+                printOutput("═════════════════════════════════════════════════", "highlight-text");
                 printOutput("Welcome to the Cybersecurity Terminal Challenge! Your goal is to find vulnerabilities and gain higher access privileges.");
                 printOutput("Type 'help' to see available commands.");
-                printOutput("\nCURRENT MISSION: " + getCurrentChallenge().description, "highlight-text");
-                
-                // Initial guidance to help users get started
-                setTimeout(() => {
-                    printOutput("\nTIP: Start by exploring the system. Try commands like 'ls' to list files.", "highlight-text");
-                }, 1000);
-                
+
+                // Creating a cool mission box
+                printOutput("\n┌─────────────────────────────────────────────┐", "highlight-text");
+                printOutput("│ CURRENT MISSION:                            │", "highlight-text");
+                printOutput(`│ ${getCurrentChallenge().description.padEnd(43)} │`, "highlight-text");
+                printOutput("└─────────────────────────────────────────────┘", "highlight-text");
+
+                // Show badge count
+                printOutput(`\nBadges earned: ${gameState.badges.length}/${gameState.maxLevel}`, "success-text");
+                printOutput(`Hints available: ${gameState.hints.available}`, "success-text");
+
                 updateProgressBar();
             }
-            
+
             // Get current active challenge
             function getCurrentChallenge() {
                 return challenges[gameState.currentLevel];
             }
-            
+
             // Check if challenges are completed and update game state
             function checkChallengeCompletion() {
                 const currentChallenge = getCurrentChallenge();
-                
+
                 // Check if current user meets challenge requirements
                 if (currentChallenge.requiresUser && gameState.currentUser !== currentChallenge.requiresUser) {
                     return;
                 }
-                
+
                 if (!gameState.completedChallenges.includes(currentChallenge.id) && currentChallenge.isCompleted()) {
                     // Mark challenge as completed
                     gameState.completedChallenges.push(currentChallenge.id);
                     gameState.badges.push(currentChallenge.reward);
-                    
+
                     // Display success message
                     printOutput("\n=== CHALLENGE COMPLETED ===", "success-text");
                     printOutput(currentChallenge.message, "success-text");
                     printOutput("You earned: " + currentChallenge.reward, "success-text");
                     printOutput("=========================\n", "success-text");
-                    
+
                     // Move to next level if not on last level
                     if (gameState.currentLevel < gameState.maxLevel - 1) {
                         gameState.currentLevel++;
@@ -443,11 +531,11 @@
                         printOutput("You've demonstrated skills in reconnaissance, credential discovery, and privilege escalation.", "success-text");
                         printOutput("Total badges earned: " + gameState.badges.length, "success-text");
                     }
-                    
+
                     updateProgressBar();
                 }
             }
-            
+
             // Print output to the terminal
             function printOutput(text, className = '') {
                 const output = document.createElement('div');
@@ -456,57 +544,89 @@
                 terminalOutput.appendChild(output);
                 terminalOutput.scrollTop = terminalOutput.scrollHeight;
             }
-            
+
             // Print ASCII logo
             function printAsciiLogo() {
-                const logo = 
-                `   _____      _               _____            _           
-  / ____|    | |             / ____|          (_)          
- | |    _   _| |__   ___ _ _| (___   ___  ___ _ _   _ ___ 
- | |   | | | | '_ \\ / _ \\ '__\\___ \\ / _ \\/ __| | | | / __|
- | |___| |_| | |_) |  __/ |  ____) |  __/ (__| | |_| \\__ \\
-  \\_____\\__, |_.__/ \\___|_| |_____/ \\___|\\___|_|\\__, |___/
-         __/ |                                   __/ |    
-        |___/                                   |___/     `;
-                
+                const logo =
+                `   _____      _               _____            _       __
+  / ____|    | |             / ____|          (_)      \\ \\
+ | |    _   _| |__   ___ _ _| (___   ___  ___ _  ___   | |
+ | |   | | | | '_ \\ / _ \\ '__\\___ \\ / _ \\/ __| |/ __|  | |
+ | |___| |_| | |_) |  __/ |  ____) |  __/ (__| | (__   | |____
+  \\_____\\__, |_.__/ \\___|_| |_____/ \\___|\\___|_|\\___|  \\_____/
+         __/ |
+        |___/        ╔═══════════════════════════════╗
+                     ║ Terminal Penetration Challenge ║
+                     ╚═══════════════════════════════╝`;
+
                 const logoElement = document.createElement('div');
                 logoElement.className = 'ascii-art';
                 logoElement.textContent = logo;
                 terminalOutput.appendChild(logoElement);
+
+                // Add subtle animation to the logo
+                setTimeout(() => {
+                    const chars = "!@#$%^&*()_+-=[]{}|;:,./<>?";
+                    const glitchCount = 3;
+
+                    for (let g = 0; g < glitchCount; g++) {
+                        setTimeout(() => {
+                            const glitchedLogo = logo.split('');
+
+                            // Randomly replace characters in the logo
+                            for (let i = 0; i < 10; i++) {
+                                const randomIndex = Math.floor(Math.random() * logo.length);
+                                if (logo[randomIndex] !== '\n' && logo[randomIndex] !== ' ') {
+                                    glitchedLogo[randomIndex] = chars[Math.floor(Math.random() * chars.length)];
+                                }
+                            }
+
+                            logoElement.textContent = glitchedLogo.join('');
+
+                            // Restore original logo after a short delay
+                            setTimeout(() => {
+                                logoElement.textContent = logo;
+                            }, 100);
+                        }, g * 300);
+                    }
+                }, 500);
             }
-            
+
             // Clear the terminal
             function clearTerminal() {
                 terminalOutput.innerHTML = '';
             }
-            
+
             // Update the progress bar
             function updateProgressBar() {
                 const progress = (gameState.completedChallenges.length / gameState.maxLevel) * 100;
                 progressBar.style.width = progress + '%';
             }
-            
+
             // Process user commands
             function processCommand(command) {
+                // Play typing sound
+                playTypeSound();
+
                 const parts = command.trim().split(' ');
                 const cmd = parts[0].toLowerCase();
                 const args = parts.slice(1);
-                
+
                 // Record the input with prompt
                 const inputLine = document.createElement('div');
                 inputLine.className = 'input-line';
-                
+
                 const prompt = document.createElement('div');
                 prompt.className = 'terminal-prompt';
                 prompt.textContent = terminalPrompt.textContent;
-                
+
                 const input = document.createElement('div');
                 input.textContent = ' ' + command;
-                
+
                 inputLine.appendChild(prompt);
                 inputLine.appendChild(input);
                 terminalOutput.appendChild(inputLine);
-                
+
                 // Process different commands
                 switch (cmd) {
                     case 'help':
@@ -561,69 +681,51 @@
                     default:
                         printOutput(`Command not found: ${cmd}. Type 'help' for available commands.`, "error-text");
                 }
-                
+
                 // Check if any challenges are completed
                 checkChallengeCompletion();
-                
+
                 // Scroll to bottom
                 terminalOutput.scrollTop = terminalOutput.scrollHeight;
             }
-            
+
             // Show available commands
             function showHelp() {
-                printOutput("Available commands:", "highlight-text");
+                printOutput("Available commands:");
                 printOutput("  help       - Display this help information");
                 printOutput("  clear      - Clear the terminal screen");
                 printOutput("  ls         - List files in the current directory");
                 printOutput("  cat [file] - Display the contents of a file");
                 printOutput("  scan       - Scan the system for vulnerabilities");
                 printOutput("  crack [file] - Attempt to crack a password file");
-                printOutput("  decrypt [file] - Decrypt an encrypted file with a key");
+                printOutput("  decrypt [file] - Decrypt an encrypted file");
                 printOutput("  whoami     - Display current user");
                 printOutput("  login [user] - Login as a different user");
-                printOutput("  hint       - Get a hint for current challenge (" + gameState.hints.available + " remaining)");
+                printOutput("  hint       - Get a hint for current challenge");
                 printOutput("  badges     - Show earned badges");
-                
-                // Show current mission/objective
-                printOutput("\nCURRENT MISSION: " + getCurrentChallenge().description, "highlight-text");
-                printOutput("Progress: " + gameState.completedChallenges.length + "/" + gameState.maxLevel + " challenges completed");
             }
-            
+
             // List files
             function listFiles() {
                 printOutput("Listing files in current directory:");
-                
+
                 // Filter out hidden files unless user is admin
-                const visibleFiles = Object.keys(fileSystem).filter(file => 
+                const visibleFiles = Object.keys(fileSystem).filter(file =>
                     gameState.currentUser === 'admin' || !hiddenFiles.includes(file)
                 );
-                
+
                 // If user is analyst, show some hidden files
                 if (gameState.currentUser === 'analyst') {
-                    if (!visibleFiles.includes('secure_notes.txt')) {
-                        visibleFiles.push('secure_notes.txt');
-                    }
+                    visibleFiles.push('secure_notes.txt');
                 }
-                
+
                 if (visibleFiles.length === 0) {
                     printOutput("No files found.");
                 } else {
-                    // Format as a cleaner list with one item per line
-                    printOutput(visibleFiles.map(file => {
-                        // Highlight different file types
-                        if (file.endsWith('.txt')) {
-                            return '📄 ' + file;
-                        } else if (file.endsWith('.enc')) {
-                            return '🔒 ' + file;
-                        } else if (file.endsWith('.sh')) {
-                            return '⚙️ ' + file;
-                        } else {
-                            return '📁 ' + file;
-                        }
-                    }).join('  '));
+                    printOutput(visibleFiles.join("  "));
                 }
             }
-            
+
             // Display file contents
             function catFile(filename) {
                 // Check if the file exists
@@ -632,7 +734,7 @@
                     if (!gameState.filesDiscovered.includes(filename)) {
                         gameState.filesDiscovered.push(filename);
                     }
-                    
+
                     // Check permissions
                     if (hiddenFiles.includes(filename) && gameState.currentUser === 'guest') {
                         printOutput(`Permission denied: ${filename}`, "error-text");
@@ -646,20 +748,20 @@
                     printOutput(`File not found: ${filename}`, "error-text");
                 }
             }
-            
+
             // Scan the system
             function scanSystem() {
                 printOutput("Scanning system for vulnerabilities...");
-                
+
                 // Simulate scanning with a delay
                 setTimeout(() => {
                     printOutput("Scan complete!");
-                    
+
                     if (gameState.currentUser === 'guest') {
                         printOutput("Limited scan results (guest access):");
                         printOutput("- System appears to be using default configurations");
                         printOutput("- Some files have weak permissions");
-                        
+
                         // Give a hint based on current challenge
                         if (gameState.currentLevel === 0) {
                             printOutput("Hint: There might be a file containing user information.");
@@ -669,7 +771,7 @@
                         printOutput("- Default credentials detected for some accounts");
                         printOutput("- Sensitive information may be stored in plaintext");
                         printOutput("- Admin account shows recent activity");
-                        
+
                         if (!gameState.filesDiscovered.includes('backdoor.sh')) {
                             printOutput("- Potential backdoor script detected: backdoor.sh");
                         }
@@ -682,16 +784,16 @@
                     }
                 }, 1000);
             }
-            
+
             // Crack a password file
             function crackFile(filename) {
                 printOutput(`Attempting to crack ${filename}...`);
-                
+
                 if (!fileSystem[filename]) {
                     printOutput(`File not found: ${filename}`, "error-text");
                     return;
                 }
-                
+
                 // Simulate password cracking
                 setTimeout(() => {
                     if (filename === 'user_accounts.txt' && gameState.currentUser !== 'guest') {
@@ -708,26 +810,26 @@
                     }
                 }, 1500);
             }
-            
+
             // Decrypt a file
             function decryptFile(filename) {
                 if (!fileSystem[filename]) {
                     printOutput(`File not found: ${filename}`, "error-text");
                     return;
                 }
-                
+
                 printOutput(`Attempting to decrypt ${filename}...`);
                 printOutput("Enter decryption key:");
-                
+
                 // Set a flag to handle the next input as a decryption key
                 terminalInput.setAttribute('data-mode', 'decrypt');
                 terminalInput.setAttribute('data-file', filename);
             }
-            
+
             // Handle decryption with key
             function handleDecryption(file, key) {
                 printOutput(`Using key: ${key}`);
-                
+
                 setTimeout(() => {
                     if (file === 'secure_data.enc' && key === 'CyberGuard123') {
                         printOutput("Decryption successful!", "success-text");
@@ -744,34 +846,34 @@
                     }
                 }, 1000);
             }
-            
+
             // Login as a user
             function loginUser(username) {
                 if (!['guest', 'analyst', 'admin'].includes(username)) {
                     printOutput(`User ${username} does not exist.`, "error-text");
                     return;
                 }
-                
+
                 if (username === gameState.currentUser) {
                     printOutput(`Already logged in as ${username}.`);
                     return;
                 }
-                
+
                 printOutput(`Attempting to login as ${username}...`);
                 printOutput("Enter password:");
-                
+
                 // Set a flag to handle the next input as a password
                 terminalInput.setAttribute('data-mode', 'login');
                 terminalInput.setAttribute('data-user', username);
             }
-            
+
             // Handle login with password
             function handleLogin(username, password) {
                 printOutput(`Authenticating ${username}...`);
-                
+
                 setTimeout(() => {
                     let loginSuccessful = false;
-                    
+
                     // Check credentials
                     if (username === 'guest' && password === 'guest') {
                         loginSuccessful = true;
@@ -780,69 +882,75 @@
                     } else if (username === 'admin' && password === 'SuperSecureAdmin2023!') {
                         loginSuccessful = true;
                     }
-                    
+
                     if (loginSuccessful) {
                         gameState.currentUser = username;
                         terminalPrompt.textContent = `${username}@securesystem:~$`;
                         printOutput(`Login successful! Welcome, ${username}.`, "success-text");
-                        
+
                         // If logged in as admin for the first time
                         if (username === 'admin' && !gameState.filesDiscovered.includes('hidden_flag.txt')) {
                             printOutput("\nAs admin, you now have access to all system files.", "highlight-text");
                             printOutput("Try using 'ls' to see hidden files.", "highlight-text");
-                            
-                            // Highlight the newly available commands
-                            setTimeout(() => {
-                                printOutput("\nAdmin commands are now available:", "success-text");
-                                printOutput("- Use 'ls' to see all files including hidden ones");
-                                printOutput("- Try to find the hidden flag for a special reward");
-                            }, 1500);
                         }
                     } else {
                         printOutput("Authentication failed: Incorrect password.", "error-text");
                     }
                 }, 1000);
             }
-            
+
             // Show hint for current challenge
             function showHint() {
                 if (gameState.hints.available <= 0) {
                     printOutput("No hints available. You've used all your hints.", "error-text");
                     return;
                 }
-                
+
                 const currentChallenge = getCurrentChallenge();
                 gameState.hints.used++;
                 gameState.hints.available--;
-                
+
                 printOutput(`Hint (${gameState.hints.available} remaining): ${currentChallenge.hint}`, "highlight-text");
             }
-            
+
             // Show earned badges
             function showBadges() {
                 if (gameState.badges.length === 0) {
                     printOutput("You haven't earned any badges yet. Complete challenges to earn badges!");
                     return;
                 }
-                
+
                 printOutput("=== Earned Badges ===", "highlight-text");
+                printOutput("┌────────────────────────────────────────┐");
                 gameState.badges.forEach((badge, index) => {
-                    printOutput(`${index + 1}. ${badge}`, "success-text");
+                    printOutput(`│ ${index + 1}. ${badge.padEnd(35)} │`, "success-text");
                 });
-                
+                printOutput("└────────────────────────────────────────┘");
+
                 // Show progress
-                printOutput(`\nProgress: ${gameState.completedChallenges.length}/${gameState.maxLevel} challenges completed`);
+                const progressText = `Progress: ${gameState.completedChallenges.length}/${gameState.maxLevel} challenges completed`;
+                printOutput(`\n${progressText}`);
+
+                // Visual progress bar
+                const progressBarLength = 40;
+                const filledLength = Math.floor((gameState.completedChallenges.length / gameState.maxLevel) * progressBarLength);
+                let progressBar = '│';
+                for (let i = 0; i < progressBarLength; i++) {
+                    progressBar += i < filledLength ? '█' : '░';
+                }
+                progressBar += '│';
+                printOutput(progressBar, "highlight-text");
             }
-            
+
             // Event listener for input
             terminalInput.addEventListener('keydown', function(event) {
                 if (event.key === 'Enter') {
                     const command = terminalInput.value;
                     terminalInput.value = '';
-                    
+
                     // Check if we're in a special input mode
                     const mode = terminalInput.getAttribute('data-mode');
-                    
+
                     if (mode === 'decrypt') {
                         const file = terminalInput.getAttribute('data-file');
                         handleDecryption(file, command);
@@ -861,13 +969,13 @@
                     }
                 }
             });
-            
+
             // Help button toggle
             helpButton.addEventListener('click', function() {
                 helpPanel.classList.toggle('visible');
                 helpButton.textContent = helpPanel.classList.contains('visible') ? 'Hide Help' : 'Show Help';
             });
-            
+
             // Reset button
             resetButton.addEventListener('click', function() {
                 if (confirm('Are you sure you want to reset the game? All progress will be lost.')) {
@@ -884,13 +992,95 @@
                             available: 3
                         }
                     };
-                    terminalPrompt.textContent = 'guest@securesystem:~;
+                    terminalPrompt.textContent = 'guest@securesystem:~;'
                     initGame();
                 }
             });
-            
-            // Initialize the game when the page loads
-            initGame();
+
+            // Add typing sound effect
+            function playTypeSound() {
+                const typeSound = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABbgCJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJ//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAQTAAAAAAAAW+66rKABAAAAAAAAAAAAAAAAAP/7UEAAABXhxz1RUABRGbl8jhAAVH2MLdwIABMF1MWlMAAAuXOJLQAAAKCPgAAAAAgbCAfx+H4+CEMIQhCEIQhCEIQhB+CHwQAAAAAACAIAgCATg+D4fB8IQhCEAAAABzz/0hCE5///55CEIQhCEAQcoAFCEIQhCEIQnKcHKAHCdEESYYDGXJQYABgBgKUPNjHLCQZG3JYAgGHbGIgiUrHQLwTIMowIABzYBBAxkDnI5mQdJ1HZB+g6Q54yQ/AXkA/EyuSQME5LCQZR2XbqYSWEgyTtxkAQbqALxMg5upmwfSZW0EDfgD0nbi5LoFTkrYZ9tMgARR12SAQEAAAAAAAAAAAAAAAAAAAf/7AEAAAAWAfGfwYAAInA+MvgzgAQAgBAAAAAAgAAAACAEAIAQAAAAAAIAAAAQPKAKIDBMPNIdCYzKAEICbYVEg8CmDJmOcYeAwBimLhIiAMAgkSAgCKGJgcBpDAYJAQGKgUACgGYFhgiImCgMYDAQCAQAUWoLkBgkDDoG9BgQAAQmYTAR5BwENJe/+jgQB3ABYDVCMNgAGYBZAcMf/7kEAAAAYoaKn8HgAKMjpVvgzABQwz/PUMAEDfgIAuYJAYWAIgAIBIBDgDzBg0MFk///+LBmUQA6X//8wYTg4wWOdL///+YNEhJB6PmxAAgYYAAfhEDxaWZJJBmciIf//TAwEFglErMtGGEcP//3///////ULLDQiAgL////////1WsyYnAX////////qQCDhJBgPTWAFQIYwCQZtgAwYHgAoWZqAf/9/AxkxQKyg////////qJiVAr////////o/UiFFQfWZNd////+tKkxBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//sQRAwABfBxLfwzgAoXJWm+BoACrCpXrYJEAM2nif8GYAAAEAAAGBAGIAC4YMGDBAAAAAAAAA0MDBQIECBAgQAAAAQMFCBNSTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr/+xBEFQAFe2vL4MMAApENWXwYYAAAA0gBQAAoAAADSAAAAEqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
+                typeSound.volume = 0.05;
+                typeSound.play();
+            }
+
+            // Override console.log to capture output for testing
+            const originalLog = console.log;
+            console.log = function() {
+                originalLog.apply(console, arguments);
+
+                // Add any debugging or testing logic here if needed
+            };
+
+            // Add some visual polish with matrix effect on start
+            function createMatrixEffect() {
+                // Create a temporary canvas for the matrix effect
+                const matrixCanvas = document.createElement('canvas');
+                matrixCanvas.width = canvas.width;
+                matrixCanvas.height = canvas.height;
+                matrixCanvas.style.position = 'absolute';
+                matrixCanvas.style.top = '0';
+                matrixCanvas.style.left = '0';
+                matrixCanvas.style.zIndex = '10';
+                document.querySelector('.terminal-container').appendChild(matrixCanvas);
+
+                const ctx = matrixCanvas.getContext('2d');
+
+                // Matrix characters
+                const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
+
+                // Set up columns
+                const columns = matrixCanvas.width / 15;
+                const drops = [];
+
+                // Initialize drops
+                for (let i = 0; i < columns; i++) {
+                    drops[i] = Math.floor(Math.random() * -20);
+                }
+
+                // Draw matrix effect
+                function drawMatrix() {
+                    // Set semi-transparent black background to create fade effect
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                    ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+
+                    // Set text color
+                    ctx.fillStyle = '#0f0';
+                    ctx.font = '15px monospace';
+
+                    // Draw characters
+                    for (let i = 0; i < drops.length; i++) {
+                        // Random character
+                        const text = chars[Math.floor(Math.random() * chars.length)];
+
+                        // x = i * font width, y = drop position * font height
+                        ctx.fillText(text, i * 15, drops[i] * 15);
+
+                        // Send drop back to top randomly after it reaches the bottom
+                        if (drops[i] * 15 > matrixCanvas.height && Math.random() > 0.99) {
+                            drops[i] = 0;
+                        }
+
+                        // Increment drop position
+                        drops[i]++;
+                    }
+                }
+
+                // Animate matrix effect
+                const matrixInterval = setInterval(drawMatrix, 33);
+
+                // Remove matrix effect after a few seconds
+                setTimeout(() => {
+                    clearInterval(matrixInterval);
+                    matrixCanvas.remove();
+
+                    // Proceed with game initialization
+                    initGame();
+                }, 3000);
+            }
+
+            // Start with matrix effect
+            createMatrixEffect();
         });
     </script>
 </body>
