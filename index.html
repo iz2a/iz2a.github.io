@@ -1542,7 +1542,72 @@
         </div>
     </div>
 </section>
+<!-- Matrix Code Rain Animation -->
+<canvas id="matrixCanvas" class="matrix-animation"></canvas>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Matrix code rain animation
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size to full window
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Characters to use
+        const chars = '01001010111000101010111100001010101001010010101';
+
+        // Font settings
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+
+        // Array to track the Y position of each column
+        const drops = [];
+
+        // Initialize all columns at random positions
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.random() * -100;
+        }
+
+        // Function to draw the animation
+        function draw() {
+            // Set background with semi-transparency to create trail effect
+            ctx.fillStyle = 'rgba(15, 15, 15, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Set text color and font
+            ctx.fillStyle = '#2c2c2c'; // Dark gray color for subtle effect
+            ctx.font = fontSize + 'px monospace';
+
+            // Draw characters
+            for (let i = 0; i < drops.length; i++) {
+                // Random character
+                const text = chars[Math.floor(Math.random() * chars.length)];
+
+                // Draw the character
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                // Move to next position or reset
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                // Increment Y coordinate
+                drops[i]++;
+            }
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', function () {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Start animation loop
+        setInterval(draw, 35);
+    });
+</script>
 <!-- Certifications Section -->
 <section id="certifications">
     <div class="hexagon-bg"></div>
@@ -1990,72 +2055,7 @@
         }
     });
 </script>
-<!-- Matrix Code Rain Animation -->
-<canvas id="matrixCanvas" class="matrix-animation"></canvas>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Matrix code rain animation
-        const canvas = document.getElementById('matrixCanvas');
-        const ctx = canvas.getContext('2d');
-
-        // Set canvas size to full window
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        // Characters to use
-        const chars = '01001010111000101010111100001010101001010010101';
-
-        // Font settings
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-
-        // Array to track the Y position of each column
-        const drops = [];
-
-        // Initialize all columns at random positions
-        for (let i = 0; i < columns; i++) {
-            drops[i] = Math.random() * -100;
-        }
-
-        // Function to draw the animation
-        function draw() {
-            // Set background with semi-transparency to create trail effect
-            ctx.fillStyle = 'rgba(15, 15, 15, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Set text color and font
-            ctx.fillStyle = '#2c2c2c'; // Dark gray color for subtle effect
-            ctx.font = fontSize + 'px monospace';
-
-            // Draw characters
-            for (let i = 0; i < drops.length; i++) {
-                // Random character
-                const text = chars[Math.floor(Math.random() * chars.length)];
-
-                // Draw the character
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                // Move to next position or reset
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-
-                // Increment Y coordinate
-                drops[i]++;
-            }
-        }
-
-        // Handle window resize
-        window.addEventListener('resize', function () {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Start animation loop
-        setInterval(draw, 35);
-    });
-</script>
 
 <!-- Add jQuery if not already included -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
