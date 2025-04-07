@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,12 +56,12 @@
         section:nth-child(even) {
             background-color: white;
         }
-        
+
         /* Unique Cyber Design Elements */
         .cyber-accent {
             position: relative;
         }
-        
+
         .cyber-accent::before {
             content: "";
             position: absolute;
@@ -70,7 +71,7 @@
             bottom: -12px;
             left: 0;
         }
-        
+
         .cyber-accent::after {
             content: "";
             position: absolute;
@@ -80,7 +81,7 @@
             bottom: -12px;
             left: 70px;
         }
-        
+
         .cyber-dots {
             position: absolute;
             top: 40px;
@@ -90,7 +91,7 @@
             z-index: 0;
             opacity: 0.08;
         }
-        
+
         .cyber-dots::before {
             content: "";
             position: absolute;
@@ -99,32 +100,32 @@
             background-image: radial-gradient(var(--secondary-color) 2px, transparent 2px);
             background-size: 18px 18px;
         }
-        
+
         .cyber-line {
             position: absolute;
             width: 1px;
             background-color: rgba(73, 80, 87, 0.1);
             z-index: 0;
         }
-        
+
         .cyber-line-left {
             left: 15%;
             top: 0;
             height: 100%;
         }
-        
+
         .cyber-line-right {
             right: 15%;
             top: 0;
             height: 100%;
         }
-        
+
         .cyber-box {
             border-left: 2px solid var(--secondary-color);
             padding-left: 20px;
             position: relative;
         }
-        
+
         .cyber-box::before {
             content: "{ ";
             position: absolute;
@@ -135,7 +136,7 @@
             font-size: 32px;
             font-weight: bold;
         }
-        
+
         .cyber-box::after {
             content: " }";
             position: absolute;
@@ -146,7 +147,7 @@
             font-size: 32px;
             font-weight: bold;
         }
-        
+
         .matrix-bg {
             position: absolute;
             top: 0;
@@ -157,7 +158,7 @@
             z-index: 0;
             opacity: 0.03;
         }
-        
+
         .binary-bg {
             position: absolute;
             width: 100%;
@@ -169,7 +170,7 @@
             z-index: 0;
             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNDAwIDQwMCI+CiAgPHN0eWxlPgogICAgdGV4dCB7IGZvbnQtZmFtaWx5OiBtb25vc3BhY2U7IGZvbnQtc2l6ZTogMTBweDsgZmlsbDogIzMzMzsgfQogIDwvc3R5bGU+CiAgPGcgaWQ9ImJpbmFyeSI+CiAgICA8dGV4dCB4PSIxMCIgeT0iMTAiPjAxMTAwMTAxPC90ZXh0PgogICAgPHRleHQgeD0iNjAiIHk9IjEwIj4xMTAwMTExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjExMCIgeT0iMTAiPjAxMDAxMDExPC90ZXh0PgogICAgPHRleHQgeD0iMTYwIiB5PSIxMCI+MTEwMTAxMDA8L3RleHQ+CiAgICA8dGV4dCB4PSIyMTAiIHk9IjEwIj4wMTEwMTEwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjI2MCIgeT0iMTAiPjExMTAxMDAxPC90ZXh0PgogICAgPHRleHQgeD0iMzEwIiB5PSIxMCI+MDExMDAwMTA8L3RleHQ+CiAgICA8dGV4dCB4PSIzNjAiIHk9IjEwIj4xMDAxMDExMTwvdGV4dD4KICAgIAogICAgPHRleHQgeD0iMTAiIHk9IjMwIj4xMDExMDAxMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjYwIiB5PSIzMCI+MDAxMDExMDE8L3RleHQ+CiAgICA8dGV4dCB4PSIxMTAiIHk9IjMwIj4xMTAxMDAwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjE2MCIgeT0iMzAiPjAxMDExMTAwPC90ZXh0PgogICAgPHRleHQgeD0iMjEwIiB5PSIzMCI+MDEwMDAxMTE8L3RleHQ+CiAgICA8dGV4dCB4PSIyNjAiIHk9IjMwIj4xMTAxMDExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjMxMCIgeT0iMzAiPjAxMDAxMDAwPC90ZXh0PgogICAgPHRleHQgeD0iMzYwIiB5PSIzMCI+MTExMDAxMDE8L3RleHQ+CiAgICAKICAgIDx0ZXh0IHg9IjEwIiB5PSI1MCI+MDEwMTEwMTA8L3RleHQ+CiAgICA8dGV4dCB4PSI2MCIgeT0iNTAiPjExMTAwMDExPC90ZXh0PgogICAgPHRleHQgeD0iMTEwIiB5PSI1MCI+MDAxMTAxMDA8L3RleHQ+CiAgICA8dGV4dCB4PSIxNjAiIHk9IjUwIj4xMDEwMDExMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjIxMCIgeT0iNTAiPjExMTAwMTAwPC90ZXh0PgogICAgPHRleHQgeD0iMjYwIiB5PSI1MCI+MDAxMDExMTA8L3RleHQ+CiAgICA8dGV4dCB4PSIzMTAiIHk9IjUwIj4xMDAxMDAwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjM2MCIgeT0iNTAiPjAxMTAxMTExPC90ZXh0PgogICAgCiAgICA8dGV4dCB4PSIxMCIgeT0iNzAiPjExMTAxMDEwPC90ZXh0PgogICAgPHRleHQgeD0iNjAiIHk9IjcwIj4wMDExMDExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjExMCIgeT0iNzAiPjEwMDAxMTAxPC90ZXh0PgogICAgPHRleHQgeD0iMTYwIiB5PSI3MCI+MDExMTAwMTA8L3RleHQ+CiAgICA8dGV4dCB4PSIyMTAiIHk9IjcwIj4xMDAxMDEwMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjI2MCIgeT0iNzAiPjAxMDAxMTAxPC90ZXh0PgogICAgPHRleHQgeD0iMzEwIiB5PSI3MCI+MTEwMDAwMTE8L3RleHQ+CiAgICA8dGV4dCB4PSIzNjAiIHk9IjcwIj4wMTEwMTAwMDwvdGV4dD4KICAgIAogICAgPHRleHQgeD0iMTAiIHk9IjkwIj4xMDAxMDEwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjYwIiB5PSI5MCI+MTEwMDAxMDA8L3RleHQ+CiAgICA8dGV4dCB4PSIxMTAiIHk9IjkwIj4wMTAxMTExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjE2MCIgeT0iOTAiPjEwMDAxMDExPC90ZXh0PgogICAgPHRleHQgeD0iMjEwIiB5PSI5MCI+MDExMTAxMDE8L3RleHQ+CiAgICA8dGV4dCB4PSIyNjAiIHk9IjkwIj4xMDAxMTAwMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjMxMCIgeT0iOTAiPjAxMDAxMTEwPC90ZXh0PgogICAgPHRleHQgeD0iMzYwIiB5PSI5MCI+MTEwMTAxMDE8L3RleHQ+CiAgPC9nPgo8L3N2Zz4=');
         }
-        
+
         .hexagon-bg {
             position: absolute;
             width: 30%;
@@ -196,7 +197,7 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         header:after {
             content: "";
             position: absolute;
@@ -275,7 +276,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .hero:after {
             content: "";
             position: absolute;
@@ -526,7 +527,7 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
             border-top: 3px solid var(--secondary-color);
         }
-        
+
         .research-card:before {
             content: "";
             position: absolute;
@@ -539,7 +540,7 @@
             transition: all 0.3s ease;
             opacity: 0;
         }
-        
+
         .research-card:hover:before {
             opacity: 0.1;
         }
@@ -614,7 +615,7 @@
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
-        
+
         .project-card:after {
             content: "{ code }";
             position: absolute;
@@ -639,7 +640,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -693,7 +694,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .certification-card::after {
             content: "";
             position: absolute;
@@ -709,7 +710,7 @@
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
-        
+
         .certification-card:hover::after {
             width: 100%;
         }
@@ -1031,523 +1032,878 @@
             }
         }
     </style>
+    <!-- Add this right before the closing </head> tag -->
+    <style>
+        /* Language Switcher Styles */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background-color: rgba(33, 37, 41, 0.8);
+            border-radius: 50px;
+            padding: 5px 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .language-switcher:hover {
+            background-color: rgba(33, 37, 41, 1);
+        }
+
+        .language-switcher button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-weight: 500;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .language-switcher button.active {
+            opacity: 1;
+            font-weight: 700;
+            border-bottom: 2px solid #6c757d;
+        }
+
+        .language-switcher i {
+            margin-right: 10px;
+            color: #adb5bd;
+        }
+
+        /* RTL Support for Arabic */
+        .rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        .rtl .cyber-accent::before {
+            left: auto;
+            right: 0;
+        }
+
+        .rtl .cyber-accent::after {
+            left: auto;
+            right: 70px;
+        }
+
+        .rtl .logo i,
+        .rtl .skill-item i,
+        .rtl .quick-links a i,
+        .rtl .contact-icon {
+            margin-right: 0;
+            margin-left: 10px;
+        }
+
+        .rtl .nav-links li {
+            margin-left: 0;
+            margin-right: 30px;
+        }
+
+        .rtl .cyber-box {
+            border-left: none;
+            border-right: 2px solid var(--secondary-color);
+            padding-left: 0;
+            padding-right: 20px;
+        }
+
+        .rtl .timeline:before {
+            left: auto;
+            right: 50%;
+        }
+
+        .rtl .timeline-marker {
+            left: auto;
+            right: 50%;
+        }
+
+        .rtl .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 0;
+            margin-right: auto;
+            padding-left: 0;
+            padding-right: 40px;
+            text-align: left;
+        }
+
+        .rtl .timeline-item:nth-child(even) .timeline-content {
+            margin-right: 0;
+            margin-left: auto;
+            padding-right: 0;
+            padding-left: 40px;
+            text-align: left;
+        }
+
+        @media (max-width: 992px) {
+            .rtl .timeline:before {
+                left: auto;
+                right: 30px;
+            }
+
+            .rtl .timeline-marker {
+                left: auto;
+                right: 30px;
+            }
+
+            .rtl .timeline-item:nth-child(odd) .timeline-content,
+            .rtl .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 0;
+                margin-right: 80px;
+                padding-left: 0;
+                padding-right: 0;
+                text-align: right;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <i class="fas fa-shield-alt"></i>
-                    Aziz Alghamdi
-                </div>
-                <div class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#education">Education</a></li>
-                    <li><a href="#research">Research</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#certifications">Certifications</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<div class="language-switcher">
+    <i class="fas fa-globe"></i>
+    <button id="en-btn" class="active" onclick="changeLanguage('en')">EN</button>
+    <button id="ar-btn" onclick="changeLanguage('ar')">AR</button>
+</div>
+<!-- Header -->
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                Aziz Alghamdi
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<script>
+    // Store original content for each translatable element
+    const originalContent = {};
+    let currentLanguage = 'en';
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="binary-bg"></div>
-        <div class="container">
-            <div class="hero-content">
-                <h1>Cybersecurity & Criminal Justice Professional</h1>
-                <p>Specializing in digital forensics, incident response, and the intersection of technology and law enforcement</p>
-                <div class="hero-btn-group">
-                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                    <a href="#research" class="btn btn-secondary">View My Research</a>
+    // Elements that need translation
+    const translatableElements = [
+        'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a', 'span', 'li',
+        'label', 'button', 'input[type="submit"]', 'input[placeholder]',
+        'textarea[placeholder]'
+    ].join(',');
+
+    // Function to change language
+    function changeLanguage(lang) {
+        currentLanguage = lang;
+
+        // Update active button
+        document.getElementById('en-btn').classList.toggle('active', lang === 'en');
+        document.getElementById('ar-btn').classList.toggle('active', lang === 'ar');
+
+        // Toggle RTL for Arabic
+        document.body.classList.toggle('rtl', lang === 'ar');
+
+        if (lang === 'en') {
+            // Reset to original content
+            Object.keys(originalContent).forEach(key => {
+                const element = document.querySelector(`[data-translation-id="${key}"]`);
+                if (element) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        if (element.hasAttribute('placeholder')) {
+                            element.setAttribute('placeholder', originalContent[key]);
+                        } else {
+                            element.value = originalContent[key];
+                        }
+                    } else {
+                        element.innerHTML = originalContent[key];
+                    }
+                }
+            });
+        } else if (lang === 'ar') {
+            // First time switching to Arabic - save original content and translate
+            if (Object.keys(originalContent).length === 0) {
+                saveOriginalContent();
+            }
+
+            // Translate content
+            translateContent();
+        }
+    }
+
+    // Save original content for translation
+    function saveOriginalContent() {
+        const elements = document.querySelectorAll(translatableElements);
+        elements.forEach((element, index) => {
+            const id = `elem-${index}`;
+            element.setAttribute('data-translation-id', id);
+
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                if (element.hasAttribute('placeholder')) {
+                    originalContent[id] = element.getAttribute('placeholder');
+                } else {
+                    originalContent[id] = element.value;
+                }
+            } else {
+                originalContent[id] = element.innerHTML;
+            }
+        });
+    }
+
+    // Function to translate content using Google Translate API
+    function translateContent() {
+        // For demonstration, we'll use manual translations for main sections
+        // In a real implementation, you would use Google Translate API or similar
+
+        // Example of manual translations for key elements
+        const manualTranslations = {
+            "About Me": "حولي",
+            "Education": "التعليم",
+            "Research": "البحث العلمي",
+            "Projects": "المشاريع",
+            "Certifications": "الشهادات",
+            "Contact": "اتصل بي",
+            "Cybersecurity & Criminal Justice Professional": "متخصص في الأمن السيبراني والعدالة الجنائية",
+            "Get In Touch": "تواصل معي",
+            "View My Research": "شاهد أبحاثي",
+            "Who I Am": "من أنا",
+            "Your Name": "الاسم",
+            "Your Email": "البريد الإلكتروني",
+            "Subject": "الموضوع",
+            "Your Message": "رسالتك",
+            "Send Message": "إرسال الرسالة",
+            "Email": "البريد الإلكتروني",
+            "Phone": "الهاتف",
+            "Location": "الموقع",
+            "Website": "الموقع الإلكتروني"
+        };
+
+        // Apply manual translations first
+        Object.keys(manualTranslations).forEach(original => {
+            const elements = document.querySelectorAll(`*:contains('${original}')`);
+            elements.forEach(element => {
+                if (element.childNodes.length === 1 && element.firstChild.nodeType === 3) {
+                    const id = element.getAttribute('data-translation-id');
+                    if (id) {
+                        element.textContent = manualTranslations[original];
+                    }
+                }
+            });
+        });
+
+        // For other elements, you'd use an API call
+        // In a real implementation, you would use a translation API
+        // Here's a placeholder for where that code would go:
+
+        /*
+        // Get all text that needs translation
+        const textsToTranslate = [];
+        Object.keys(originalContent).forEach(key => {
+            textsToTranslate.push({
+                id: key,
+                text: originalContent[key]
+            });
+        });
+
+        // Use fetch to call translation API
+        fetch('https://translation-api-endpoint', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                texts: textsToTranslate,
+                targetLanguage: 'ar'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Apply translations
+            data.translations.forEach(item => {
+                const element = document.querySelector(`[data-translation-id="${item.id}"]`);
+                if (element) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        if (element.hasAttribute('placeholder')) {
+                            element.setAttribute('placeholder', item.translatedText);
+                        } else {
+                            element.value = item.translatedText;
+                        }
+                    } else {
+                        element.innerHTML = item.translatedText;
+                    }
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Translation error:', error);
+        });
+        */
+    }
+
+    // Helper function for selecting elements containing specific text
+    jQuery.expr[':'].contains = function(a, i, m) {
+        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+    };
+
+    // Initialize language based on browser preference or default to English
+    document.addEventListener('DOMContentLoaded', function() {
+        const userLang = navigator.language || navigator.userLanguage;
+        if (userLang.startsWith('ar')) {
+            changeLanguage('ar');
+        } else {
+            changeLanguage('en');
+        }
+    });
+</script>
+
+<!-- Add jQuery if not already included -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="binary-bg"></div>
+    <div class="container">
+        <div class="hero-content">
+            <h1>Cybersecurity & Criminal Justice Professional</h1>
+            <p>Specializing in digital forensics, incident response, and the intersection of technology and law
+                enforcement</p>
+            <div class="hero-btn-group">
+                <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                <a href="#research" class="btn btn-secondary">View My Research</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about">
+    <div class="cyber-line cyber-line-left"></div>
+    <div class="cyber-line cyber-line-right"></div>
+    <div class="cyber-dots"></div>
+    <div class="container">
+        <h2 class="section-title cyber-accent">About Me</h2>
+        <div class="about-grid">
+            <div class="about-image">
+                <img src="images/profile.JPG" alt="Aziz Alghamdi">
+            </div>
+            <div class="about-content">
+                <h3 class="cyber-accent">Who I Am</h3>
+                <div class="cyber-box">
+                    <p>I am a dedicated cybersecurity professional with a focus on the intersection of technology and
+                        criminal justice. My academic background combines computer science with an emphasis on
+                        cybersecurity and a minor in criminal justice, providing me with a unique perspective on digital
+                        security challenges.</p>
+                    <p>My research interests include digital forensics, cryptocurrency-based crimes, post-quantum
+                        cryptography, and the evolution of digital evidence in criminal investigations. I am passionate
+                        about developing innovative solutions that bridge the gap between technical security measures
+                        and law enforcement needs.</p>
+                    <p>Throughout my academic and professional journey, I have developed a comprehensive skill set that
+                        enables me to analyze complex security threats, implement effective countermeasures, and
+                        collaborate with cross-functional teams to address cybersecurity challenges.</p>
+                </div>
+
+                <div class="key-skills">
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Digital Forensics</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Incident Response</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Penetration Testing</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Network Security</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Cryptography</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Secure Coding</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Threat Intelligence</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Security Analytics</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="cyber-line cyber-line-left"></div>
-        <div class="cyber-line cyber-line-right"></div>
-        <div class="cyber-dots"></div>
-        <div class="container">
-            <h2 class="section-title cyber-accent">About Me</h2>
-            <div class="about-grid">
-                <div class="about-image">
-                    <img src="images/profile.JPG" alt="Aziz Alghamdi">
-                </div>
-                <div class="about-content">
-                    <h3 class="cyber-accent">Who I Am</h3>
-                    <div class="cyber-box">
-                        <p>I am a dedicated cybersecurity professional with a focus on the intersection of technology and criminal justice. My academic background combines computer science with an emphasis on cybersecurity and a minor in criminal justice, providing me with a unique perspective on digital security challenges.</p>
-                        <p>My research interests include digital forensics, cryptocurrency-based crimes, post-quantum cryptography, and the evolution of digital evidence in criminal investigations. I am passionate about developing innovative solutions that bridge the gap between technical security measures and law enforcement needs.</p>
-                        <p>Throughout my academic and professional journey, I have developed a comprehensive skill set that enables me to analyze complex security threats, implement effective countermeasures, and collaborate with cross-functional teams to address cybersecurity challenges.</p>
-                    </div>
-                    
-                    <div class="key-skills">
-                        <div class="skill-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Digital Forensics</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Incident Response</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Penetration Testing</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Network Security</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Cryptography</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Secure Coding</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Threat Intelligence</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Security Analytics</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education">
-        <div class="hexagon-bg"></div>
-        <div class="container">
-            <h2 class="section-title cyber-accent">Education & Experience</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">August 2021 - May 2025</div>
-                        <h3 class="timeline-title">Bachelor of Arts and Science in Computer Science</h3>
-                        <h4 class="timeline-subtitle">University of Colorado at Colorado Springs</h4>
-                        <p>Specialization in Cybersecurity with a Minor in Criminal Justice. Focusing on advanced security concepts, digital forensics, and the legal implications of cybercrime.</p>
-                        <ul style="margin-top: 15px; padding-left: 20px;">
-                            <li>GPA: 3.8/4.0</li>
-                            <li>Member of Cybersecurity Club</li>
-                            <li>Participant in National Cyber League competitions</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">June 2023 - August 2023</div>
-                        <h3 class="timeline-title">Cybersecurity Intern</h3>
-                        <h4 class="timeline-subtitle">XYZ Technologies</h4>
-                        <p>Assisted the security operations team in monitoring and analyzing potential security threats. Participated in vulnerability assessments and helped develop security documentation.</p>
-                        <ul style="margin-top: 15px; padding-left: 20px;">
-                            <li>Conducted security audits on internal systems</li>
-                            <li>Documented security protocols and procedures</li>
-                            <li>Participated in incident response simulations</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">January 2023 - Present</div>
-                        <h3 class="timeline-title">Research Assistant</h3>
-                        <h4 class="timeline-subtitle">University Cybersecurity Lab</h4>
-                        <p>Contributing to research projects focusing on digital forensics and cryptocurrency-based cybercrime. Assisting faculty in literature reviews, data collection, and analysis.</p>
-                        <ul style="margin-top: 15px; padding-left: 20px;">
-                            <li>Developed tools for automated malware analysis</li>
-                            <li>Conducted research on cryptocurrency transaction tracing</li>
-                            <li>Co-authored research papers on digital evidence collection</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Research Section -->
-    <section id="research">
-        <div class="binary-bg"></div>
-        <div class="container">
-            <h2 class="section-title cyber-accent">Research</h2>
-            <p>My research focuses on the intersection of cybersecurity, digital forensics, and criminal justice, aiming to develop more effective methods for investigating and preventing cybercrime.</p>
-            
-            <div class="research-grid">
-                <div class="research-card">
-                    <div class="research-content">
-                        <div class="research-badge badge-publication">Publication</div>
-                        <h3 class="research-title">Forensic Analysis of Cryptocurrency-Based Ransomware Attacks: Criminal Justice and Technical Perspectives</h3>
-                        <p>This research explores the challenges law enforcement faces when investigating ransomware attacks that utilize cryptocurrency payments. The study proposes a framework for tracking cryptocurrency transactions while maintaining legal compliance with chain-of-custody requirements for digital evidence.</p>
-                        <div class="research-meta">
-                            <i class="far fa-calendar-alt"></i>
-                            <span>Published: 2024</span>
-                            <i class="far fa-file-alt"></i>
-                            <span>Journal of Cybersecurity & Digital Forensics</span>
-                        </div>
-                        <a href="research/Forensic_Analysis_of_Cryptocurrency_Based_Ransomware_Attacks__Criminal_Justice_and_Technical_Perspectives.pdf" style="display: inline-block; margin-top: 15px;">Read More</a>
-                    </div>
-                </div>
-
-                <div class="research-card">
-                    <div class="research-content">
-                        <div class="research-badge badge-ongoing">Ongoing</div>
-                        <h3 class="research-title">Post-Quantum Cryptography Implementation Challenges: Security Implications for Critical Infrastructure</h3>
-                        <p>This ongoing research examines the practical challenges of implementing post-quantum cryptographic algorithms in critical infrastructure systems. The study analyzes potential security vulnerabilities during transitional periods and proposes a risk mitigation framework.</p>
-                        <div class="research-meta">
-                            <i class="fas fa-users"></i>
-                            <span>Collaborators: Dr. Sarah Chen, Dr. Michael Rodriguez</span>
-                            <i class="far fa-clock"></i>
-                            <span>Expected completion: 2025</span>
-                        </div>
-                        <a href="research/Post_Quantum_Cryptography_Implementation_Challenges__Security_Implications_for_Critical_Infrastructure.pdf" style="display: inline-block; margin-top: 15px;">Read More</a>
-                    </div>
-                </div>
-
-                <div class="research-card">
-                    <div class="research-content">
-                        <div class="research-badge badge-publication">Publication</div>
-                        <h3 class="research-title">Quantum Cryptography Implications for Digital Evidence in Criminal Investigations</h3>
-                        <p>This research explores how the advent of quantum computing will transform digital evidence collection, preservation, and presentation in court. The paper discusses the legal and technical considerations for ensuring the admissibility of digital evidence in a post-quantum cryptographic environment.</p>
-                        <div class="research-meta">
-                            <i class="far fa-calendar-alt"></i>
-                            <span>Published: 2025</span>
-                            <i class="far fa-file-alt"></i>
-                            <span>International Journal of Digital Criminology</span>
-                        </div>
-                        <a href="research/Quantum_Cryptography__Implications_for_Digital_Evidence_in_Criminal_Investigations.pdf" style="display: inline-block; margin-top: 15px;">Read More</a>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects">
-        <div class="cyber-line cyber-line-left"></div>
-        <div class="cyber-line cyber-line-right"></div>
-        <div class="container">
-            <h2 class="section-title cyber-accent">Projects</h2>
-            <p>A selection of academic and personal projects that demonstrate my technical skills and research interests in cybersecurity and criminal justice.</p>
-            
-            <div class="projects-grid">
-                <div class="project-card">
-                   <div class="project-image" style="background-image: url('images/ForensicAnalysisToolkit.png')"></div>
-                    <div class="project-content">
-                        <h3 class="project-title">Digital Forensic Analysis Toolkit</h3>
-                        <p>Developed a comprehensive digital forensic toolkit that automates the collection and analysis of volatile and non-volatile data from compromised systems. The tool incorporates chain-of-custody documentation to ensure evidence admissibility in legal proceedings.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Digital Forensics</span>
-                            <span class="project-tag">Memory Analysis</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                <div class="project-image" style="background-image: url('images/CryptocurrencyTracer.png')"></div>
-                    <div class="project-content">
-                        <h3 class="project-title">Cryptocurrency Transaction Tracer</h3>
-                        <p>Created a tool that visualizes and analyzes cryptocurrency transaction patterns to identify suspicious activities. The system employs machine learning algorithms to detect potential money laundering techniques and generates reports suitable for law enforcement investigations.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Blockchain</span>
-                            <span class="project-tag">Machine Learning</span>
-                            <span class="project-tag">Data Visualization</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('images/Zero-TrustSec.png')"></div>
-                    <div class="project-content">
-                        <h3 class="project-title">Zero-Trust Security Implementation Framework</h3>
-                        <p>Designed and implemented a zero-trust security architecture for a university research lab environment. The framework includes continuous authentication protocols, least privilege access controls, and comprehensive activity logging for security monitoring and incident response.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Network Security</span>
-                            <span class="project-tag">Access Control</span>
-                            <span class="project-tag">Security Architecture</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certifications Section -->
-    <section id="certifications">
-        <div class="hexagon-bg"></div>
-        <div class="container">
-            <h2 class="section-title cyber-accent">Certifications & Skills</h2>
-            <p>Professional certifications and technical skills that complement my academic qualifications and research experience.</p>
-            
-            <div class="certifications-grid">
-                <div class="certification-card">
-                    <div class="certification-logo">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="certification-title">CompTIA Security+</h3>
-                    <p class="certification-issuer">CompTIA</p>
-                    <p>Industry-standard certification validating baseline cybersecurity skills and knowledge.</p>
-                    <p class="certification-date">Obtained: January 2023</p>
-                </div>
-
-                <div class="certification-card">
-                    <div class="certification-logo">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <h3 class="certification-title">Certified Ethical Hacker (CEH)</h3>
-                    <p class="certification-issuer">EC-Council</p>
-                    <p>Advanced certification in ethical hacking methodologies and penetration testing techniques.</p>
-                    <p class="certification-date">Obtained: August 2023</p>
-                </div>
-
-                <div class="certification-card">
-                    <div class="certification-logo">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3 class="certification-title">Computer Forensics Specialist</h3>
-                    <p class="certification-issuer">GIAC</p>
-                    <p>Specialized certification in digital forensics techniques and evidence handling procedures.</p>
-                    <p class="certification-date">Obtained: March 2024</p>
-                </div>
-
-                <div class="certification-card">
-                    <div class="certification-logo">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3 class="certification-title">Programming Languages</h3>
-                    <p class="certification-issuer">Technical Skills</p>
-                    <p>Proficient in Python, C++, #C, C, Swift, HTML, CSS, R, Django, Javascript, Java, and SQL for security application development and analysis.</p>
-                </div>
-
-                <div class="certification-card">
-                    <div class="certification-logo">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3 class="certification-title">Security Tools</h3>
-                    <p class="certification-issuer">Technical Skills</p>
-                    <p>Experience with Wireshark, OpenSSL, SSLScan, Metasploit, Nmap, Burp Suite, EnCase, GIMP, ZenMap and various SIEM solutions.</p>
-                </div>
-
-                <div class="certification-card">
-                    <div class="certification-logo">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <h3 class="certification-title">Systems & Networks</h3>
-                    <p class="certification-issuer">Technical Skills</p>
-                    <p>Proficient in Windows, Linux, Mac OS, Kali Linux, Azure, AWS, virtualization, cloud security, and network architecture.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="section-title" style="color: var(--primary-color);">Contact Me</h2>
-            <p>I'm interested in research collaborations, cybersecurity projects, and career opportunities in digital forensics and information security.</p>
-            
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Email</h3>
-                            <p>azizcsecj@gmail.com</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Phone</h3>
-                            <p>+1 (720) 400-1869</p>
-                            <p>+966 50 006 5661</p>
-                        </div>
-                    </div>
-
-
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Location</h3>
-                            <p>Riyadh, Saudi Arabia</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Website</h3>
-                            <p>aziz707.info</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <form action="https://formspree.io/f/xblgpoqq" method="POST" class="contact-form">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Your Email</label>
-                            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" class="form-control" placeholder="What is this regarding?">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Your Message</label>
-                            <textarea id="message" name="message" class="form-control" placeholder="Type your message here..." rows="5" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <button type="submit" class="btn-submit">
-                                <i class="fas fa-paper-plane"></i> Send Message
-                            </button>
-                        </div>
-
-                        <!-- Hidden fields for additional context -->
-                        <input type="hidden" name="_subject" value="New message from your website">
-                        <input type="hidden" name="_next" value="https://aziz707.info/thank-you.html">
-                        <input type="text" name="_gotcha" style="display:none">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-about">
-                    <h3>Aziz Alghamdi</h3>
-                    <p>Cybersecurity professional specializing in digital forensics, incident response, and the application of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
-                    <div class="social-links">
-                        <a href="https://linkedin.com" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://github.com/iz2a" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="https://x.com" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i class="fab fa-researchgate"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <h3>Quick Links</h3>
-                    <ul class="quick-links">
-                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
-                        <li><a href="#education"><i class="fas fa-chevron-right"></i> Education</a></li>
-                        <li><a href="#research"><i class="fas fa-chevron-right"></i> Research</a></li>
-                        <li><a href="#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
-                        <li><a href="#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
-                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
-                        <li><a href="MyResume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
-                        <li><a href="Privacy_Policy.pdf"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+<!-- Education Section -->
+<section id="education">
+    <div class="hexagon-bg"></div>
+    <div class="container">
+        <h2 class="section-title cyber-accent">Education & Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">August 2021 - May 2025</div>
+                    <h3 class="timeline-title">Bachelor of Arts and Science in Computer Science</h3>
+                    <h4 class="timeline-subtitle">University of Colorado at Colorado Springs</h4>
+                    <p>Specialization in Cybersecurity with a Minor in Criminal Justice. Focusing on advanced security
+                        concepts, digital forensics, and the legal implications of cybercrime.</p>
+                    <ul style="margin-top: 15px; padding-left: 20px;">
+                        <li>GPA: 3.8/4.0</li>
+                        <li>Member of Cybersecurity Club</li>
+                        <li>Participant in National Cyber League competitions</li>
                     </ul>
                 </div>
             </div>
-            
-            <div class="copyright">
-                <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">June 2023 - August 2023</div>
+                    <h3 class="timeline-title">Cybersecurity Intern</h3>
+                    <h4 class="timeline-subtitle">XYZ Technologies</h4>
+                    <p>Assisted the security operations team in monitoring and analyzing potential security threats.
+                        Participated in vulnerability assessments and helped develop security documentation.</p>
+                    <ul style="margin-top: 15px; padding-left: 20px;">
+                        <li>Conducted security audits on internal systems</li>
+                        <li>Documented security protocols and procedures</li>
+                        <li>Participated in incident response simulations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">January 2023 - Present</div>
+                    <h3 class="timeline-title">Research Assistant</h3>
+                    <h4 class="timeline-subtitle">University Cybersecurity Lab</h4>
+                    <p>Contributing to research projects focusing on digital forensics and cryptocurrency-based
+                        cybercrime. Assisting faculty in literature reviews, data collection, and analysis.</p>
+                    <ul style="margin-top: 15px; padding-left: 20px;">
+                        <li>Developed tools for automated malware analysis</li>
+                        <li>Conducted research on cryptocurrency transaction tracing</li>
+                        <li>Co-authored research papers on digital evidence collection</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <!-- JavaScript for Mobile Menu Toggle -->
-                <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            const navLinks = document.querySelector('.nav-links');
-            
-            menuBtn.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-            });
-            
-            // Close menu when clicking on a link
-            const links = document.querySelectorAll('.nav-links a');
-            links.forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                });
-            });
-            
-            // Add typing animation effect for section titles
-            const sectionTitles = document.querySelectorAll('.section-title');
-            
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-            
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                        entry.target.style.transform = 'translateY(0)';
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-            
-            sectionTitles.forEach(title => {
-                title.style.opacity = 0;
-                title.style.transform = 'translateY(20px)';
-                title.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(title);
-            });
-            
-            // Add reveal effect for cards
-            const cards = document.querySelectorAll('.research-card, .project-card, .certification-card');
-            
-            const cardObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.style.opacity = 1;
-                            entry.target.style.transform = 'translateY(0)';
-                        }, 100 * Array.from(cards).indexOf(entry.target) % 3);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-            
-            cards.forEach(card => {
-                card.style.opacity = 0;
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                cardObserver.observe(card);
+<!-- Research Section -->
+<section id="research">
+    <div class="binary-bg"></div>
+    <div class="container">
+        <h2 class="section-title cyber-accent">Research</h2>
+        <p>My research focuses on the intersection of cybersecurity, digital forensics, and criminal justice, aiming to
+            develop more effective methods for investigating and preventing cybercrime.</p>
+
+        <div class="research-grid">
+            <div class="research-card">
+                <div class="research-content">
+                    <div class="research-badge badge-publication">Publication</div>
+                    <h3 class="research-title">Forensic Analysis of Cryptocurrency-Based Ransomware Attacks: Criminal
+                        Justice and Technical Perspectives</h3>
+                    <p>This research explores the challenges law enforcement faces when investigating ransomware attacks
+                        that utilize cryptocurrency payments. The study proposes a framework for tracking cryptocurrency
+                        transactions while maintaining legal compliance with chain-of-custody requirements for digital
+                        evidence.</p>
+                    <div class="research-meta">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>Published: 2024</span>
+                        <i class="far fa-file-alt"></i>
+                        <span>Journal of Cybersecurity & Digital Forensics</span>
+                    </div>
+                    <a href="research/Forensic_Analysis_of_Cryptocurrency_Based_Ransomware_Attacks__Criminal_Justice_and_Technical_Perspectives.pdf"
+                       style="display: inline-block; margin-top: 15px;">Read More</a>
+                </div>
+            </div>
+
+            <div class="research-card">
+                <div class="research-content">
+                    <div class="research-badge badge-ongoing">Ongoing</div>
+                    <h3 class="research-title">Post-Quantum Cryptography Implementation Challenges: Security
+                        Implications for Critical Infrastructure</h3>
+                    <p>This ongoing research examines the practical challenges of implementing post-quantum
+                        cryptographic algorithms in critical infrastructure systems. The study analyzes potential
+                        security vulnerabilities during transitional periods and proposes a risk mitigation
+                        framework.</p>
+                    <div class="research-meta">
+                        <i class="fas fa-users"></i>
+                        <span>Collaborators: Dr. Sarah Chen, Dr. Michael Rodriguez</span>
+                        <i class="far fa-clock"></i>
+                        <span>Expected completion: 2025</span>
+                    </div>
+                    <a href="research/Post_Quantum_Cryptography_Implementation_Challenges__Security_Implications_for_Critical_Infrastructure.pdf"
+                       style="display: inline-block; margin-top: 15px;">Read More</a>
+                </div>
+            </div>
+
+            <div class="research-card">
+                <div class="research-content">
+                    <div class="research-badge badge-publication">Publication</div>
+                    <h3 class="research-title">Quantum Cryptography Implications for Digital Evidence in Criminal
+                        Investigations</h3>
+                    <p>This research explores how the advent of quantum computing will transform digital evidence
+                        collection, preservation, and presentation in court. The paper discusses the legal and technical
+                        considerations for ensuring the admissibility of digital evidence in a post-quantum
+                        cryptographic environment.</p>
+                    <div class="research-meta">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>Published: 2025</span>
+                        <i class="far fa-file-alt"></i>
+                        <span>International Journal of Digital Criminology</span>
+                    </div>
+                    <a href="research/Quantum_Cryptography__Implications_for_Digital_Evidence_in_Criminal_Investigations.pdf"
+                       style="display: inline-block; margin-top: 15px;">Read More</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects">
+    <div class="cyber-line cyber-line-left"></div>
+    <div class="cyber-line cyber-line-right"></div>
+    <div class="container">
+        <h2 class="section-title cyber-accent">Projects</h2>
+        <p>A selection of academic and personal projects that demonstrate my technical skills and research interests in
+            cybersecurity and criminal justice.</p>
+
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('images/ForensicAnalysisToolkit.png')"></div>
+                <div class="project-content">
+                    <h3 class="project-title">Digital Forensic Analysis Toolkit</h3>
+                    <p>Developed a comprehensive digital forensic toolkit that automates the collection and analysis of
+                        volatile and non-volatile data from compromised systems. The tool incorporates chain-of-custody
+                        documentation to ensure evidence admissibility in legal proceedings.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Digital Forensics</span>
+                        <span class="project-tag">Memory Analysis</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('images/CryptocurrencyTracer.png')"></div>
+                <div class="project-content">
+                    <h3 class="project-title">Cryptocurrency Transaction Tracer</h3>
+                    <p>Created a tool that visualizes and analyzes cryptocurrency transaction patterns to identify
+                        suspicious activities. The system employs machine learning algorithms to detect potential money
+                        laundering techniques and generates reports suitable for law enforcement investigations.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Blockchain</span>
+                        <span class="project-tag">Machine Learning</span>
+                        <span class="project-tag">Data Visualization</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('images/Zero-TrustSec.png')"></div>
+                <div class="project-content">
+                    <h3 class="project-title">Zero-Trust Security Implementation Framework</h3>
+                    <p>Designed and implemented a zero-trust security architecture for a university research lab
+                        environment. The framework includes continuous authentication protocols, least privilege access
+                        controls, and comprehensive activity logging for security monitoring and incident response.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Network Security</span>
+                        <span class="project-tag">Access Control</span>
+                        <span class="project-tag">Security Architecture</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Certifications Section -->
+<section id="certifications">
+    <div class="hexagon-bg"></div>
+    <div class="container">
+        <h2 class="section-title cyber-accent">Certifications & Skills</h2>
+        <p>Professional certifications and technical skills that complement my academic qualifications and research
+            experience.</p>
+
+        <div class="certifications-grid">
+            <div class="certification-card">
+                <div class="certification-logo">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="certification-title">CompTIA Security+</h3>
+                <p class="certification-issuer">CompTIA</p>
+                <p>Industry-standard certification validating baseline cybersecurity skills and knowledge.</p>
+                <p class="certification-date">Obtained: January 2023</p>
+            </div>
+
+            <div class="certification-card">
+                <div class="certification-logo">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <h3 class="certification-title">Certified Ethical Hacker (CEH)</h3>
+                <p class="certification-issuer">EC-Council</p>
+                <p>Advanced certification in ethical hacking methodologies and penetration testing techniques.</p>
+                <p class="certification-date">Obtained: August 2023</p>
+            </div>
+
+            <div class="certification-card">
+                <div class="certification-logo">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="certification-title">Computer Forensics Specialist</h3>
+                <p class="certification-issuer">GIAC</p>
+                <p>Specialized certification in digital forensics techniques and evidence handling procedures.</p>
+                <p class="certification-date">Obtained: March 2024</p>
+            </div>
+
+            <div class="certification-card">
+                <div class="certification-logo">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="certification-title">Programming Languages</h3>
+                <p class="certification-issuer">Technical Skills</p>
+                <p>Proficient in Python, C++, #C, C, Swift, HTML, CSS, R, Django, Javascript, Java, and SQL for security
+                    application development and analysis.</p>
+            </div>
+
+            <div class="certification-card">
+                <div class="certification-logo">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3 class="certification-title">Security Tools</h3>
+                <p class="certification-issuer">Technical Skills</p>
+                <p>Experience with Wireshark, OpenSSL, SSLScan, Metasploit, Nmap, Burp Suite, EnCase, GIMP, ZenMap and
+                    various SIEM solutions.</p>
+            </div>
+
+            <div class="certification-card">
+                <div class="certification-logo">
+                    <i class="fas fa-server"></i>
+                </div>
+                <h3 class="certification-title">Systems & Networks</h3>
+                <p class="certification-issuer">Technical Skills</p>
+                <p>Proficient in Windows, Linux, Mac OS, Kali Linux, Azure, AWS, virtualization, cloud security, and
+                    network architecture.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <h2 class="section-title" style="color: var(--primary-color);">Contact Me</h2>
+        <p>I'm interested in research collaborations, cybersecurity projects, and career opportunities in digital
+            forensics and information security.</p>
+
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Email</h3>
+                        <p>azizcsecj@gmail.com</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Phone</h3>
+                        <p>+1 (720) 400-1869</p>
+                        <p>+966 50 006 5661</p>
+                    </div>
+                </div>
+
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Location</h3>
+                        <p>Riyadh, Saudi Arabia</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Website</h3>
+                        <p>aziz707.info</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <form action="https://formspree.io/f/xblgpoqq" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" class="form-control"
+                               placeholder="Enter your email address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" class="form-control"
+                               placeholder="What is this regarding?">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" class="form-control"
+                                  placeholder="Type your message here..." rows="5" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </div>
+
+                    <!-- Hidden fields for additional context -->
+                    <input type="hidden" name="_subject" value="New message from your website">
+                    <input type="hidden" name="_next" value="https://aziz707.info/thank-you.html">
+                    <input type="text" name="_gotcha" style="display:none">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>Aziz Alghamdi</h3>
+                <p>Cybersecurity professional specializing in digital forensics, incident response, and the application
+                    of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in
+                    Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
+                <div class="social-links">
+                    <a href="https://linkedin.com" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/iz2a" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i
+                            class="fab fa-researchgate"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul class="quick-links">
+                    <li><a href="#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
+                    <li><a href="#education"><i class="fas fa-chevron-right"></i> Education</a></li>
+                    <li><a href="#research"><i class="fas fa-chevron-right"></i> Research</a></li>
+                    <li><a href="#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                    <li><a href="#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
+                    <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="MyResume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
+                    <li><a href="Privacy_Policy.pdf"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript for Mobile Menu Toggle -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuBtn.addEventListener('click', function () {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
             });
         });
-    </script>
+
+        // Add typing animation effect for section titles
+        const sectionTitles = document.querySelectorAll('.section-title');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        sectionTitles.forEach(title => {
+            title.style.opacity = 0;
+            title.style.transform = 'translateY(20px)';
+            title.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(title);
+        });
+
+        // Add reveal effect for cards
+        const cards = document.querySelectorAll('.research-card, .project-card, .certification-card');
+
+        const cardObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100 * Array.from(cards).indexOf(entry.target) % 3);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        cards.forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            cardObserver.observe(card);
+        });
+    });
+</script>
