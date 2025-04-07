@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aziz Alghamdi -  عزيز الغامدي</title>
+    <title>Aziz Alghamdi - عزيز الغامدي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Base styles */
@@ -1464,6 +1464,56 @@
                     </div>
                 </div>
             </div>
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('images/NetflixMock.png')"></div>
+                <div class="project-content">
+                    <h3 class="project-title">Netflix Streaming Service Mock Up</h3>
+                    <p>Developed a responsive web application that replicates the Netflix streaming interface, focusing
+                        on the user experience and UI design. Created a secure authentication system, content
+                        categorization, and search functionality to simulate the core features of a modern streaming
+                        platform.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML/CSS</span>
+                        <span class="project-tag">JavaScript</span>
+                        <span class="project-tag">Responsive Design</span>
+                        <span class="project-tag">UI/UX</span>
+                    </div>
+                    <a href="#" style="display: inline-block; margin-top: 15px;">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('images/Snapchat-Mockup.png')"></div>
+                <div class="project-content">
+                    <h3 class="project-title">Snapchat Clone Application</h3>
+                    <p>Created a functional Snapchat clone with ephemeral messaging capabilities, camera filters, and
+                        story features. Implemented real-time communication, media processing, and intuitive gesture
+                        controls to replicate the core functionality of the popular social media platform.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Swift/Android</span>
+                        <span class="project-tag">Firebase</span>
+                        <span class="project-tag">Camera API</span>
+                        <span class="project-tag">Real-time Messaging</span>
+                    </div>
+                    <a href="#" style="display: inline-block; margin-top: 15px;">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('images/Instagram-Clone.png')"></div>
+                <div class="project-content">
+                    <h3 class="project-title">Instagram Interface Recreation</h3>
+                    <p>Designed and built a faithful recreation of Instagram's user interface and core functionality.
+                        Features include photo sharing, user profiles, infinite-scroll feed, likes and comments systems,
+                        and direct messaging capabilities. Focused on creating a smooth, responsive experience across
+                        all devices.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">React</span>
+                        <span class="project-tag">Node.js</span>
+                        <span class="project-tag">MongoDB</span>
+                        <span class="project-tag">Responsive Design</span>
+                    </div>
+                    <a href="#" style="display: inline-block; margin-top: 15px;">View Project</a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -1901,12 +1951,12 @@
     }
 
     // Helper function for selecting elements containing specific text
-    jQuery.expr[':'].contains = function(a, i, m) {
+    jQuery.expr[':'].contains = function (a, i, m) {
         return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
     };
 
     // Initialize language based on browser preference or default to English
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const userLang = navigator.language || navigator.userLanguage;
         if (userLang.startsWith('ar')) {
             changeLanguage('ar');
