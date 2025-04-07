@@ -2132,6 +2132,21 @@
         </div>
     </div>
 </footer>
+<!-- Add this section to your website where you want the terminal game to appear -->
+<section id="terminal-game-section">
+    <div class="cyber-line cyber-line-left"></div>
+    <div class="cyber-line cyber-line-right"></div>
+    <div class="cyber-dots"></div>
+    <div class="container">
+        <h2 class="section-title cyber-accent">Cybersecurity Terminal</h2>
+        <p>Test your cybersecurity skills with this interactive terminal challenge. Navigate through a simulated system, find vulnerabilities, and elevate your access privileges.</p>
+
+        <!-- This div will contain the terminal game -->
+        <div id="terminal-game-container" class="cyber-box" style="margin-top: 30px; margin-bottom: 30px;">
+            <!-- The terminal game HTML will be inserted here by JavaScript -->
+        </div>
+    </div>
+</section>
 
 <!-- JavaScript for Mobile Menu Toggle -->
 <script>
@@ -2494,6 +2509,36 @@
             });
         }
     });
+</script>
+
+
+<!-- Add this script tag at the end of your HTML body -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Load the terminal game into its container
+    fetch('terminal-game.html')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('terminal-game-container').innerHTML = html;
+
+            // Initialize any scripts from the loaded content
+            const scripts = document.getElementById('terminal-game-container').querySelectorAll('script');
+            scripts.forEach(script => {
+                const newScript = document.createElement('script');
+                if (script.src) {
+                    newScript.src = script.src;
+                } else {
+                    newScript.textContent = script.textContent;
+                }
+                document.body.appendChild(newScript);
+            });
+        })
+        .catch(error => {
+            console.error('Error loading terminal game:', error);
+            document.getElementById('terminal-game-container').innerHTML =
+                '<p class="error-text">Error loading terminal game. Please refresh the page.</p>';
+        });
+});
 </script>
 
 <!-- Add jQuery if not already included -->
