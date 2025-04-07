@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Terminal Challenge</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #33ff00;
+            --cursor-color: #33ff00;
+            --highlight-color: #00ccff;
+            --error-color: #ff3333;
+            --success-color: #33ff99;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', monospace;
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .terminal-container {
+            flex: 1;
+            border: 1px solid var(--text-color);
+            padding: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 10px rgba(51, 255, 0, 0.3);
+        }
+        
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed var(--text-color);
+        }
+        
+        .terminal-title {
+            font-weight: bold;
+        }
+        
+        .terminal-controls {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .control-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .control-close {
+            background-color: #ff5f56;
+        }
+        
+        .control-minimize {
+            background-color: #ffbd2e;
+        }
+        
+        .control-expand {
+            background-color: #27c93f;
+        }
+        
+        .terminal-output {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            overflow-y: scroll;
+            padding: 10px;
+            min-height: 300px;
+            max-height: 60vh;
+        }
+        
+        .terminal-input-line {
+            display: flex;
+            margin-top: 10px;
+        }
+        
+        .terminal-prompt {
+            color: var(--highlight-color);
+            margin-right: 10px;
+        }
+        
+        #terminal-input {
+            background-color: transparent;
+            border: none;
+            color: var(--text-color);
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            width: 100%;
+            outline: none;
+            caret-color: var(--cursor-color);
+        }
+        
+        .input-line {
+            display: flex;
+            margin: 5px 0;
+        }
+        
+        .output-line {
+            margin: 5px 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        .error-text {
+            color: var(--error-color);
+        }
+        
+        .success-text {
+            color: var(--success-color);
+        }
+        
+        .highlight-text {
+            color: var(--highlight-color);
+        }
+        
+        .terminal-info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+        }
+        
+        /* Blinking cursor effect */
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background-color: var(--cursor-color);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .ascii-art {
+            font-family: monospace;
+            white-space: pre;
+            line-height: 1.2;
+            margin: 10px 0;
+            color: var(--highlight-color);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin: 5px 0;
+            font-size: 14px;
+            background-color: rgba(51, 255, 0, 0.2);
+            border: 1px solid var(--text-color);
+        }
+        
+        .game-progress {
+            margin-top: 10px;
+            height: 5px;
+            width: 100%;
+            background-color: rgba(51, 255, 0, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--text-color);
+            transition: width 0.5s ease;
+        }
+        
+        button.terminal-button {
+            background-color: rgba(51, 255, 0, 0.2);
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+            padding: 5px 10px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+        
+        button.terminal-button:hover {
+            background-color: rgba(51, 255, 0, 0.4);
+        }
+        
+        .help-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--text-color);
+            margin-top: 5px;
+            padding: 0 10px;
+        }
+        
+        .help-panel.visible {
+            max-height: 500px;
+            padding: 10px;
+        }
+        
+        .help-command {
+            margin: 5px 0;
+        }
+        
+        .command-name {
+            color: var(--highlight-color);
+            margin-right: 10px;
+            display: inline-block;
+            width: 100px;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .terminal-container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-title">SecureTerminal v1.0</div>
+            <div class="terminal-controls">
+                <div class="control-btn control-close"></div>
+                <div class="control-btn control-minimize"></div>
+                <div class="control-btn control-expand"></div>
+            </div>
+        </div>
+        
+        <div class="game-progress">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="terminal-output" id="terminal-output">
+            <!-- Terminal output will be displayed here -->
+        </div>
+        
+        <div class="terminal-input-line">
+            <div class="terminal-prompt" id="terminal-prompt">guest@securesystem:~$</div>
+            <input type="text" id="terminal-input" autofocus>
+        </div>
+    </div>
+    
+    <div class="terminal-info">
+        <p>Type 'help' to see available commands. Complete the cybersecurity challenges to earn badges.</p>
+        <button class="terminal-button" id="help-button">Show Help</button>
+        <button class="terminal-button" id="reset-button">Reset Game</button>
+    </div>
+    
+    <div class="help-panel" id="help-panel">
+        <h3>Available Commands</h3>
+        <div class="help-command">
+            <span class="command-name">help</span> - Display available commands
+        </div>
+        <div class="help-command">
+            <span class="command-name">clear</span> - Clear the terminal
+        </div>
+        <div class="help-command">
+            <span class="command-name">ls</span> - List files and directories
+        </div>
+        <div class="help-command">
+            <span class="command-name">cat [file]</span> - Display file contents
+        </div>
+        <div class="help-command">
+            <span class="command-name">scan</span> - Scan system for vulnerabilities
+        </div>
+        <div class="help-command">
+            <span class="command-name">crack [file]</span> - Attempt to crack a password file
+        </div>
+        <div class="help-command">
+            <span class="command-name">decrypt [file]</span> - Decrypt an encrypted file with a key
+        </div>
+        <div class="help-command">
+            <span class="command-name">whoami</span> - Display current user
+        </div>
+        <div class="help-command">
+            <span class="command-name">login [user]</span> - Login as a different user
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const terminalOutput = document.getElementById('terminal-output');
+            const terminalInput = document.getElementById('terminal-input');
+            const terminalPrompt = document.getElementById('terminal-prompt');
+            const helpButton = document.getElementById('help-button');
+            const helpPanel = document.getElementById('help-panel');
+            const resetButton = document.getElementById('reset-button');
+            const progressBar = document.getElementById('progress-bar');
+            
+            // Game state
+            let gameState = {
+                currentUser: 'guest',
+                currentLevel: 0,
+                maxLevel: 5,
+                completedChallenges: [],
+                filesDiscovered: [],
+                inventory: [],
+                badges: [],
+                hints: {
+                    used: 0,
+                    available: 3
+                }
+            };
+            
+            // File system simulation
+            const fileSystem = {
+                'readme.txt': 'Welcome to the Cybersecurity Challenge Terminal!\n\nYour mission is to find vulnerabilities in this system and gradually gain more access.\n\nType "ls" to see available files and "cat [filename]" to read them.\n\nGood luck!',
+                'user_accounts.txt': 'system users:\n- guest (current)\n- analyst\n- admin',
+                'system_log.txt': 'System boot: OK\nFirewall: ACTIVE\nLast login: admin - 2 days ago\nSecurity scan: PASSED\nNote: Analyst password needs to be updated - currently using default setting',
+                'todo.txt': '1. Update system firmware\n2. Change default passwords\n3. Check encryption on secure_data.enc\n4. Review analyst account permissions',
+                'secure_data.enc': 'ENCRYPTED FILE - Use "decrypt secure_data.enc" with the proper key to view contents',
+                'password_hint.txt': 'Reminder: Our password policy requires a minimum of 8 characters\nThe admin likes to use the company name in their password\nThe company name is "CyberGuard"',
+                'default_passwords.txt': 'Default credentials for new analyst accounts:\nusername: analyst\npassword: Secure123!',
+                'access_log.txt': 'ACCESS DENIED: Unauthorized login attempt from IP 192.168.1.45\nACCESS GRANTED: Admin login successful\nSYSTEM: Password policy updated\nSYSTEM: New security certificates installed',
+                'secure_notes.txt': 'ADMIN ONLY: The root password has been temporarily set to "SuperSecureAdmin2023!"\nPlease change immediately after system maintenance.',
+                'backdoor.sh': 'echo "Potential security breach detected!"\necho "This file should not be accessible!"',
+                'hidden_flag.txt': 'Congratulations! You found a hidden flag: CyberMaster2023'
+            };
+            
+            // Hidden files not shown by default with ls
+            const hiddenFiles = ['backdoor.sh', 'secure_notes.txt', 'hidden_flag.txt'];
+            
+            // Challenge definitions
+            const challenges = [
+                {
+                    id: 'find_user_info',
+                    title: 'Reconnaissance',
+                    description: 'Find information about system users',
+                    hint: 'Try looking for files containing user information. Use "ls" and "cat".',
+                    isCompleted: () => gameState.filesDiscovered.includes('user_accounts.txt'),
+                    reward: 'Basic Reconnaissance Badge',
+                    message: 'You\'ve identified system users! Knowledge about user accounts is the first step in understanding system access.'
+                },
+                {
+                    id: 'find_default_password',
+                    title: 'Password Discovery',
+                    description: 'Find default credentials',
+                    hint: 'Look for files that might contain default settings or passwords.',
+                    isCompleted: () => gameState.filesDiscovered.includes('default_passwords.txt'),
+                    reward: 'Password Hunter Badge',
+                    message: 'You found default credentials! Many breaches happen because default passwords are never changed.'
+                },
+                {
+                    id: 'login_as_analyst',
+                    title: 'Account Takeover',
+                    description: 'Login as the analyst user',
+                    hint: 'Use the "login" command with the analyst username and the default password you found.',
+                    isCompleted: () => gameState.currentUser === 'analyst',
+                    reward: 'Account Hijacker Badge',
+                    message: 'You successfully logged in as an analyst! You now have increased access to the system.'
+                },
+                {
+                    id: 'find_admin_password',
+                    title: 'Privilege Escalation',
+                    description: 'Find the admin password',
+                    hint: 'Now that you\'re the analyst, you might be able to access files with admin information.',
+                    isCompleted: () => gameState.filesDiscovered.includes('secure_notes.txt'),
+                    requiresUser: 'analyst',
+                    reward: 'Privilege Hunter Badge',
+                    message: 'You found the admin password! This is a critical security breach that could lead to complete system compromise.'
+                },
+                {
+                    id: 'login_as_admin',
+                    title: 'Admin Access',
+                    description: 'Login as the admin user',
+                    hint: 'Use the admin password you found to login as admin.',
+                    isCompleted: () => gameState.currentUser === 'admin',
+                    reward: 'System Administrator Badge',
+                    message: 'Congratulations! You have successfully gained admin access to the system. You now have complete control.'
+                }
+            ];
+            
+            // Initialize the game
+            function initGame() {
+                clearTerminal();
+                printAsciiLogo();
+                printOutput("=== Cybersecurity Challenge Terminal ===", "highlight-text");
+                printOutput("Welcome to the Cybersecurity Terminal Challenge! Your goal is to find vulnerabilities and gain higher access privileges.");
+                printOutput("Type 'help' to see available commands.");
+                printOutput("\nCURRENT MISSION: " + getCurrentChallenge().description, "highlight-text");
+                
+                // Initial guidance to help users get started
+                setTimeout(() => {
+                    printOutput("\nTIP: Start by exploring the system. Try commands like 'ls' to list files.", "highlight-text");
+                }, 1000);
+                
+                updateProgressBar();
+            }
+            
+            // Get current active challenge
+            function getCurrentChallenge() {
+                return challenges[gameState.currentLevel];
+            }
+            
+            // Check if challenges are completed and update game state
+            function checkChallengeCompletion() {
+                const currentChallenge = getCurrentChallenge();
+                
+                // Check if current user meets challenge requirements
+                if (currentChallenge.requiresUser && gameState.currentUser !== currentChallenge.requiresUser) {
+                    return;
+                }
+                
+                if (!gameState.completedChallenges.includes(currentChallenge.id) && currentChallenge.isCompleted()) {
+                    // Mark challenge as completed
+                    gameState.completedChallenges.push(currentChallenge.id);
+                    gameState.badges.push(currentChallenge.reward);
+                    
+                    // Display success message
+                    printOutput("\n=== CHALLENGE COMPLETED ===", "success-text");
+                    printOutput(currentChallenge.message, "success-text");
+                    printOutput("You earned: " + currentChallenge.reward, "success-text");
+                    printOutput("=========================\n", "success-text");
+                    
+                    // Move to next level if not on last level
+                    if (gameState.currentLevel < gameState.maxLevel - 1) {
+                        gameState.currentLevel++;
+                        printOutput("\nNEW MISSION: " + getCurrentChallenge().description, "highlight-text");
+                    } else {
+                        printOutput("\n=== CONGRATULATIONS! ALL CHALLENGES COMPLETED ===", "success-text");
+                        printOutput("You have successfully completed all cybersecurity challenges!", "success-text");
+                        printOutput("You've demonstrated skills in reconnaissance, credential discovery, and privilege escalation.", "success-text");
+                        printOutput("Total badges earned: " + gameState.badges.length, "success-text");
+                    }
+                    
+                    updateProgressBar();
+                }
+            }
+            
+            // Print output to the terminal
+            function printOutput(text, className = '') {
+                const output = document.createElement('div');
+                output.className = 'output-line ' + className;
+                output.textContent = text;
+                terminalOutput.appendChild(output);
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
+            
+            // Print ASCII logo
+            function printAsciiLogo() {
+                const logo = 
+                `   _____      _               _____            _           
+  / ____|    | |             / ____|          (_)          
+ | |    _   _| |__   ___ _ _| (___   ___  ___ _ _   _ ___ 
+ | |   | | | | '_ \\ / _ \\ '__\\___ \\ / _ \\/ __| | | | / __|
+ | |___| |_| | |_) |  __/ |  ____) |  __/ (__| | |_| \\__ \\
+  \\_____\\__, |_.__/ \\___|_| |_____/ \\___|\\___|_|\\__, |___/
+         __/ |                                   __/ |    
+        |___/                                   |___/     `;
+                
+                const logoElement = document.createElement('div');
+                logoElement.className = 'ascii-art';
+                logoElement.textContent = logo;
+                terminalOutput.appendChild(logoElement);
+            }
+            
+            // Clear the terminal
+            function clearTerminal() {
+                terminalOutput.innerHTML = '';
+            }
+            
+            // Update the progress bar
+            function updateProgressBar() {
+                const progress = (gameState.completedChallenges.length / gameState.maxLevel) * 100;
+                progressBar.style.width = progress + '%';
+            }
+            
+            // Process user commands
+            function processCommand(command) {
+                const parts = command.trim().split(' ');
+                const cmd = parts[0].toLowerCase();
+                const args = parts.slice(1);
+                
+                // Record the input with prompt
+                const inputLine = document.createElement('div');
+                inputLine.className = 'input-line';
+                
+                const prompt = document.createElement('div');
+                prompt.className = 'terminal-prompt';
+                prompt.textContent = terminalPrompt.textContent;
+                
+                const input = document.createElement('div');
+                input.textContent = ' ' + command;
+                
+                inputLine.appendChild(prompt);
+                inputLine.appendChild(input);
+                terminalOutput.appendChild(inputLine);
+                
+                // Process different commands
+                switch (cmd) {
+                    case 'help':
+                        showHelp();
+                        break;
+                    case 'clear':
+                        clearTerminal();
+                        break;
+                    case 'ls':
+                        listFiles();
+                        break;
+                    case 'cat':
+                        if (args.length === 0) {
+                            printOutput("Usage: cat [filename]", "error-text");
+                        } else {
+                            catFile(args[0]);
+                        }
+                        break;
+                    case 'scan':
+                        scanSystem();
+                        break;
+                    case 'crack':
+                        if (args.length === 0) {
+                            printOutput("Usage: crack [filename]", "error-text");
+                        } else {
+                            crackFile(args[0]);
+                        }
+                        break;
+                    case 'decrypt':
+                        if (args.length === 0) {
+                            printOutput("Usage: decrypt [filename]", "error-text");
+                        } else {
+                            decryptFile(args[0]);
+                        }
+                        break;
+                    case 'whoami':
+                        printOutput(gameState.currentUser);
+                        break;
+                    case 'login':
+                        if (args.length === 0) {
+                            printOutput("Usage: login [username]", "error-text");
+                        } else {
+                            loginUser(args[0]);
+                        }
+                        break;
+                    case 'hint':
+                        showHint();
+                        break;
+                    case 'badges':
+                        showBadges();
+                        break;
+                    default:
+                        printOutput(`Command not found: ${cmd}. Type 'help' for available commands.`, "error-text");
+                }
+                
+                // Check if any challenges are completed
+                checkChallengeCompletion();
+                
+                // Scroll to bottom
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
+            
+            // Show available commands
+            function showHelp() {
+                printOutput("Available commands:", "highlight-text");
+                printOutput("  help       - Display this help information");
+                printOutput("  clear      - Clear the terminal screen");
+                printOutput("  ls         - List files in the current directory");
+                printOutput("  cat [file] - Display the contents of a file");
+                printOutput("  scan       - Scan the system for vulnerabilities");
+                printOutput("  crack [file] - Attempt to crack a password file");
+                printOutput("  decrypt [file] - Decrypt an encrypted file with a key");
+                printOutput("  whoami     - Display current user");
+                printOutput("  login [user] - Login as a different user");
+                printOutput("  hint       - Get a hint for current challenge (" + gameState.hints.available + " remaining)");
+                printOutput("  badges     - Show earned badges");
+                
+                // Show current mission/objective
+                printOutput("\nCURRENT MISSION: " + getCurrentChallenge().description, "highlight-text");
+                printOutput("Progress: " + gameState.completedChallenges.length + "/" + gameState.maxLevel + " challenges completed");
+            }
+            
+            // List files
+            function listFiles() {
+                printOutput("Listing files in current directory:");
+                
+                // Filter out hidden files unless user is admin
+                const visibleFiles = Object.keys(fileSystem).filter(file => 
+                    gameState.currentUser === 'admin' || !hiddenFiles.includes(file)
+                );
+                
+                // If user is analyst, show some hidden files
+                if (gameState.currentUser === 'analyst') {
+                    if (!visibleFiles.includes('secure_notes.txt')) {
+                        visibleFiles.push('secure_notes.txt');
+                    }
+                }
+                
+                if (visibleFiles.length === 0) {
+                    printOutput("No files found.");
+                } else {
+                    // Format as a cleaner list with one item per line
+                    printOutput(visibleFiles.map(file => {
+                        // Highlight different file types
+                        if (file.endsWith('.txt')) {
+                            return '📄 ' + file;
+                        } else if (file.endsWith('.enc')) {
+                            return '🔒 ' + file;
+                        } else if (file.endsWith('.sh')) {
+                            return '⚙️ ' + file;
+                        } else {
+                            return '📁 ' + file;
+                        }
+                    }).join('  '));
+                }
+            }
+            
+            // Display file contents
+            function catFile(filename) {
+                // Check if the file exists
+                if (fileSystem[filename]) {
+                    // Record that this file has been discovered
+                    if (!gameState.filesDiscovered.includes(filename)) {
+                        gameState.filesDiscovered.push(filename);
+                    }
+                    
+                    // Check permissions
+                    if (hiddenFiles.includes(filename) && gameState.currentUser === 'guest') {
+                        printOutput(`Permission denied: ${filename}`, "error-text");
+                    } else if (filename === 'secure_notes.txt' && gameState.currentUser === 'guest') {
+                        printOutput(`Permission denied: ${filename}`, "error-text");
+                    } else {
+                        printOutput(`=== ${filename} ===`, "highlight-text");
+                        printOutput(fileSystem[filename]);
+                    }
+                } else {
+                    printOutput(`File not found: ${filename}`, "error-text");
+                }
+            }
+            
+            // Scan the system
+            function scanSystem() {
+                printOutput("Scanning system for vulnerabilities...");
+                
+                // Simulate scanning with a delay
+                setTimeout(() => {
+                    printOutput("Scan complete!");
+                    
+                    if (gameState.currentUser === 'guest') {
+                        printOutput("Limited scan results (guest access):");
+                        printOutput("- System appears to be using default configurations");
+                        printOutput("- Some files have weak permissions");
+                        
+                        // Give a hint based on current challenge
+                        if (gameState.currentLevel === 0) {
+                            printOutput("Hint: There might be a file containing user information.");
+                        }
+                    } else if (gameState.currentUser === 'analyst') {
+                        printOutput("Detailed scan results (analyst access):");
+                        printOutput("- Default credentials detected for some accounts");
+                        printOutput("- Sensitive information may be stored in plaintext");
+                        printOutput("- Admin account shows recent activity");
+                        
+                        if (!gameState.filesDiscovered.includes('backdoor.sh')) {
+                            printOutput("- Potential backdoor script detected: backdoor.sh");
+                        }
+                    } else if (gameState.currentUser === 'admin') {
+                        printOutput("Full system scan results (admin access):");
+                        printOutput("- All system files accessible");
+                        printOutput("- Found hidden files containing sensitive information");
+                        printOutput("- Encryption keys stored insecurely");
+                        printOutput("- System fully compromised");
+                    }
+                }, 1000);
+            }
+            
+            // Crack a password file
+            function crackFile(filename) {
+                printOutput(`Attempting to crack ${filename}...`);
+                
+                if (!fileSystem[filename]) {
+                    printOutput(`File not found: ${filename}`, "error-text");
+                    return;
+                }
+                
+                // Simulate password cracking
+                setTimeout(() => {
+                    if (filename === 'user_accounts.txt' && gameState.currentUser !== 'guest') {
+                        printOutput("Cracking successful!");
+                        printOutput("Found credentials:");
+                        printOutput("- guest:guest");
+                        printOutput("- analyst:Secure123!");
+                        printOutput("- admin:[Encrypted]");
+                    } else if (filename === 'secure_data.enc') {
+                        printOutput("Cracking failed: Strong encryption detected.", "error-text");
+                        printOutput("Try using the 'decrypt' command with the appropriate key.");
+                    } else {
+                        printOutput("No credentials found in this file.");
+                    }
+                }, 1500);
+            }
+            
+            // Decrypt a file
+            function decryptFile(filename) {
+                if (!fileSystem[filename]) {
+                    printOutput(`File not found: ${filename}`, "error-text");
+                    return;
+                }
+                
+                printOutput(`Attempting to decrypt ${filename}...`);
+                printOutput("Enter decryption key:");
+                
+                // Set a flag to handle the next input as a decryption key
+                terminalInput.setAttribute('data-mode', 'decrypt');
+                terminalInput.setAttribute('data-file', filename);
+            }
+            
+            // Handle decryption with key
+            function handleDecryption(file, key) {
+                printOutput(`Using key: ${key}`);
+                
+                setTimeout(() => {
+                    if (file === 'secure_data.enc' && key === 'CyberGuard123') {
+                        printOutput("Decryption successful!", "success-text");
+                        printOutput("=== secure_data.enc (decrypted) ===", "highlight-text");
+                        printOutput("CONFIDENTIAL INFORMATION:");
+                        printOutput("System access credentials are rotated monthly.");
+                        printOutput("Current admin password hint: Company name + year established + '!'");
+                        printOutput("Company established in: 2023");
+                    } else {
+                        printOutput("Decryption failed: Incorrect key.", "error-text");
+                        if (file === 'secure_data.enc') {
+                            printOutput("Hint: The key might be related to company information you've discovered.");
+                        }
+                    }
+                }, 1000);
+            }
+            
+            // Login as a user
+            function loginUser(username) {
+                if (!['guest', 'analyst', 'admin'].includes(username)) {
+                    printOutput(`User ${username} does not exist.`, "error-text");
+                    return;
+                }
+                
+                if (username === gameState.currentUser) {
+                    printOutput(`Already logged in as ${username}.`);
+                    return;
+                }
+                
+                printOutput(`Attempting to login as ${username}...`);
+                printOutput("Enter password:");
+                
+                // Set a flag to handle the next input as a password
+                terminalInput.setAttribute('data-mode', 'login');
+                terminalInput.setAttribute('data-user', username);
+            }
+            
+            // Handle login with password
+            function handleLogin(username, password) {
+                printOutput(`Authenticating ${username}...`);
+                
+                setTimeout(() => {
+                    let loginSuccessful = false;
+                    
+                    // Check credentials
+                    if (username === 'guest' && password === 'guest') {
+                        loginSuccessful = true;
+                    } else if (username === 'analyst' && password === 'Secure123!') {
+                        loginSuccessful = true;
+                    } else if (username === 'admin' && password === 'SuperSecureAdmin2023!') {
+                        loginSuccessful = true;
+                    }
+                    
+                    if (loginSuccessful) {
+                        gameState.currentUser = username;
+                        terminalPrompt.textContent = `${username}@securesystem:~$`;
+                        printOutput(`Login successful! Welcome, ${username}.`, "success-text");
+                        
+                        // If logged in as admin for the first time
+                        if (username === 'admin' && !gameState.filesDiscovered.includes('hidden_flag.txt')) {
+                            printOutput("\nAs admin, you now have access to all system files.", "highlight-text");
+                            printOutput("Try using 'ls' to see hidden files.", "highlight-text");
+                            
+                            // Highlight the newly available commands
+                            setTimeout(() => {
+                                printOutput("\nAdmin commands are now available:", "success-text");
+                                printOutput("- Use 'ls' to see all files including hidden ones");
+                                printOutput("- Try to find the hidden flag for a special reward");
+                            }, 1500);
+                        }
+                    } else {
+                        printOutput("Authentication failed: Incorrect password.", "error-text");
+                    }
+                }, 1000);
+            }
+            
+            // Show hint for current challenge
+            function showHint() {
+                if (gameState.hints.available <= 0) {
+                    printOutput("No hints available. You've used all your hints.", "error-text");
+                    return;
+                }
+                
+                const currentChallenge = getCurrentChallenge();
+                gameState.hints.used++;
+                gameState.hints.available--;
+                
+                printOutput(`Hint (${gameState.hints.available} remaining): ${currentChallenge.hint}`, "highlight-text");
+            }
+            
+            // Show earned badges
+            function showBadges() {
+                if (gameState.badges.length === 0) {
+                    printOutput("You haven't earned any badges yet. Complete challenges to earn badges!");
+                    return;
+                }
+                
+                printOutput("=== Earned Badges ===", "highlight-text");
+                gameState.badges.forEach((badge, index) => {
+                    printOutput(`${index + 1}. ${badge}`, "success-text");
+                });
+                
+                // Show progress
+                printOutput(`\nProgress: ${gameState.completedChallenges.length}/${gameState.maxLevel} challenges completed`);
+            }
+            
+            // Event listener for input
+            terminalInput.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    const command = terminalInput.value;
+                    terminalInput.value = '';
+                    
+                    // Check if we're in a special input mode
+                    const mode = terminalInput.getAttribute('data-mode');
+                    
+                    if (mode === 'decrypt') {
+                        const file = terminalInput.getAttribute('data-file');
+                        handleDecryption(file, command);
+                        // Reset mode
+                        terminalInput.removeAttribute('data-mode');
+                        terminalInput.removeAttribute('data-file');
+                    } else if (mode === 'login') {
+                        const user = terminalInput.getAttribute('data-user');
+                        handleLogin(user, command);
+                        // Reset mode
+                        terminalInput.removeAttribute('data-mode');
+                        terminalInput.removeAttribute('data-user');
+                    } else {
+                        // Regular command processing
+                        processCommand(command);
+                    }
+                }
+            });
+            
+            // Help button toggle
+            helpButton.addEventListener('click', function() {
+                helpPanel.classList.toggle('visible');
+                helpButton.textContent = helpPanel.classList.contains('visible') ? 'Hide Help' : 'Show Help';
+            });
+            
+            // Reset button
+            resetButton.addEventListener('click', function() {
+                if (confirm('Are you sure you want to reset the game? All progress will be lost.')) {
+                    gameState = {
+                        currentUser: 'guest',
+                        currentLevel: 0,
+                        maxLevel: 5,
+                        completedChallenges: [],
+                        filesDiscovered: [],
+                        inventory: [],
+                        badges: [],
+                        hints: {
+                            used: 0,
+                            available: 3
+                        }
+                    };
+                    terminalPrompt.textContent = 'guest@securesystem:~;
+                    initGame();
+                }
+            });
+            
+            // Initialize the game when the page loads
+            initGame();
+        });
+    </script>
+</body>
+</html>
