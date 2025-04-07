@@ -1,17 +1,42 @@
-<!DOCTYPE html>
+.logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: #adb5bd;
+        }
+        
+        .logo:after {
+            content: "</>";
+            position: absolute;
+            right: -30px;
+            top: 2px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: normal;
+        }<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aziz - Resume, Research & Projects</title>
+    <title>Aziz Alghamdi - Cybersecurity & Criminal Justice Professional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Base styles */
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --text-color: #333;
-            --light-bg: #f5f5f5;
+            --primary-color: #212529;
+            --secondary-color: #495057;
+            --accent-color: #6c757d;
+            --text-color: #333333;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+            --border-radius: 4px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         * {
@@ -30,7 +55,7 @@
         a {
             color: var(--secondary-color);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
         }
 
         a:hover {
@@ -44,21 +69,163 @@
         }
 
         section {
-            padding: 60px 0;
+            padding: 80px 0;
+            position: relative;
         }
 
         section:nth-child(even) {
             background-color: white;
+        }
+        
+        /* Unique Cyber Design Elements */
+        .cyber-accent {
+            position: relative;
+        }
+        
+        .cyber-accent::before {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 60px;
+            background-color: var(--secondary-color);
+            bottom: -12px;
+            left: 0;
+        }
+        
+        .cyber-accent::after {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 30px;
+            background-color: #adb5bd;
+            bottom: -12px;
+            left: 70px;
+        }
+        
+        .cyber-dots {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 180px;
+            height: 180px;
+            z-index: 0;
+            opacity: 0.08;
+        }
+        
+        .cyber-dots::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(var(--secondary-color) 2px, transparent 2px);
+            background-size: 18px 18px;
+        }
+        
+        .cyber-line {
+            position: absolute;
+            width: 1px;
+            background-color: rgba(73, 80, 87, 0.1);
+            z-index: 0;
+        }
+        
+        .cyber-line-left {
+            left: 15%;
+            top: 0;
+            height: 100%;
+        }
+        
+        .cyber-line-right {
+            right: 15%;
+            top: 0;
+            height: 100%;
+        }
+        
+        .cyber-box {
+            border-left: 2px solid var(--secondary-color);
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .cyber-box::before {
+            content: "{ ";
+            position: absolute;
+            left: -10px;
+            top: -5px;
+            color: var(--secondary-color);
+            opacity: 0.2;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        
+        .cyber-box::after {
+            content: " }";
+            position: absolute;
+            left: -10px;
+            bottom: -5px;
+            color: var(--secondary-color);
+            opacity: 0.2;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            opacity: 0.03;
+        }
+        
+        .binary-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            left: 0;
+            background-size: cover;
+            opacity: 0.015;
+            z-index: 0;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNDAwIDQwMCI+CiAgPHN0eWxlPgogICAgdGV4dCB7IGZvbnQtZmFtaWx5OiBtb25vc3BhY2U7IGZvbnQtc2l6ZTogMTBweDsgZmlsbDogIzMzMzsgfQogIDwvc3R5bGU+CiAgPGcgaWQ9ImJpbmFyeSI+CiAgICA8dGV4dCB4PSIxMCIgeT0iMTAiPjAxMTAwMTAxPC90ZXh0PgogICAgPHRleHQgeD0iNjAiIHk9IjEwIj4xMTAwMTExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjExMCIgeT0iMTAiPjAxMDAxMDExPC90ZXh0PgogICAgPHRleHQgeD0iMTYwIiB5PSIxMCI+MTEwMTAxMDA8L3RleHQ+CiAgICA8dGV4dCB4PSIyMTAiIHk9IjEwIj4wMTEwMTEwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjI2MCIgeT0iMTAiPjExMTAxMDAxPC90ZXh0PgogICAgPHRleHQgeD0iMzEwIiB5PSIxMCI+MDExMDAwMTA8L3RleHQ+CiAgICA8dGV4dCB4PSIzNjAiIHk9IjEwIj4xMDAxMDExMTwvdGV4dD4KICAgIAogICAgPHRleHQgeD0iMTAiIHk9IjMwIj4xMDExMDAxMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjYwIiB5PSIzMCI+MDAxMDExMDE8L3RleHQ+CiAgICA8dGV4dCB4PSIxMTAiIHk9IjMwIj4xMTAxMDAwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjE2MCIgeT0iMzAiPjAxMDExMTAwPC90ZXh0PgogICAgPHRleHQgeD0iMjEwIiB5PSIzMCI+MDEwMDAxMTE8L3RleHQ+CiAgICA8dGV4dCB4PSIyNjAiIHk9IjMwIj4xMTAxMDExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjMxMCIgeT0iMzAiPjAxMDAxMDAwPC90ZXh0PgogICAgPHRleHQgeD0iMzYwIiB5PSIzMCI+MTExMDAxMDE8L3RleHQ+CiAgICAKICAgIDx0ZXh0IHg9IjEwIiB5PSI1MCI+MDEwMTEwMTA8L3RleHQ+CiAgICA8dGV4dCB4PSI2MCIgeT0iNTAiPjExMTAwMDExPC90ZXh0PgogICAgPHRleHQgeD0iMTEwIiB5PSI1MCI+MDAxMTAxMDA8L3RleHQ+CiAgICA8dGV4dCB4PSIxNjAiIHk9IjUwIj4xMDEwMDExMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjIxMCIgeT0iNTAiPjExMTAwMTAwPC90ZXh0PgogICAgPHRleHQgeD0iMjYwIiB5PSI1MCI+MDAxMDExMTA8L3RleHQ+CiAgICA8dGV4dCB4PSIzMTAiIHk9IjUwIj4xMDAxMDAwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjM2MCIgeT0iNTAiPjAxMTAxMTExPC90ZXh0PgogICAgCiAgICA8dGV4dCB4PSIxMCIgeT0iNzAiPjExMTAxMDEwPC90ZXh0PgogICAgPHRleHQgeD0iNjAiIHk9IjcwIj4wMDExMDExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjExMCIgeT0iNzAiPjEwMDAxMTAxPC90ZXh0PgogICAgPHRleHQgeD0iMTYwIiB5PSI3MCI+MDExMTAwMTA8L3RleHQ+CiAgICA8dGV4dCB4PSIyMTAiIHk9IjcwIj4xMDAxMDEwMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjI2MCIgeT0iNzAiPjAxMDAxMTAxPC90ZXh0PgogICAgPHRleHQgeD0iMzEwIiB5PSI3MCI+MTEwMDAwMTE8L3RleHQ+CiAgICA8dGV4dCB4PSIzNjAiIHk9IjcwIj4wMTEwMTAwMDwvdGV4dD4KICAgIAogICAgPHRleHQgeD0iMTAiIHk9IjkwIj4xMDAxMDEwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjYwIiB5PSI5MCI+MTEwMDAxMDA8L3RleHQ+CiAgICA8dGV4dCB4PSIxMTAiIHk9IjkwIj4wMTAxMTExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjE2MCIgeT0iOTAiPjEwMDAxMDExPC90ZXh0PgogICAgPHRleHQgeD0iMjEwIiB5PSI5MCI+MDExMTAxMDE8L3RleHQ+CiAgICA8dGV4dCB4PSIyNjAiIHk9IjkwIj4xMDAxMTAwMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjMxMCIgeT0iOTAiPjAxMDAxMTEwPC90ZXh0PgogICAgPHRleHQgeD0iMzYwIiB5PSI5MCI+MTEwMTAxMDE8L3RleHQ+CiAgPC9nPgo8L3N2Zz4=');
+        }
+        
+        .hexagon-bg {
+            position: absolute;
+            width: 30%;
+            height: 400px;
+            top: 10%;
+            left: 0;
+            opacity: 0.02;
+            background-size: 40px 40px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj4KICA8cGF0aCBkPSJNMjAgMCBMMzUgMTAgTDM1IDMwIEwyMCA0MCBMNSAzMCBMNSAxMCBaIiBzdHJva2U9IiMzMzMiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4=');
+        }
+
+        .highlight {
+            color: var(--accent-color);
         }
 
         /* Header styles */
         header {
             background-color: var(--primary-color);
             color: white;
-            padding: 20px 0;
+            padding: 15px 0;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        header:after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
         }
 
         nav {
@@ -70,6 +237,13 @@
         .logo {
             font-size: 24px;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: #adb5bd;
         }
 
         .nav-links {
@@ -84,167 +258,360 @@
         .nav-links a {
             color: white;
             font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: white;
+            transition: width 0.3s;
         }
 
         .nav-links a:hover {
-            color: var(--secondary-color);
+            color: white;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
         }
 
         /* Hero section */
         .hero {
-            height: 80vh;
+            min-height: 90vh;
             display: flex;
             align-items: center;
-            background-color: var(--primary-color);
+            background-color: var(--dark-bg);
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 200px;
+            height: 3px;
+            background-color: #6c757d;
+            opacity: 0.5;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.7) 0%, rgba(33, 37, 41, 0.7) 100%);
+            z-index: 0;
         }
 
         .hero-content {
-            max-width: 600px;
+            max-width: 750px;
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
-            font-size: 48px;
+            font-size: 56px;
             margin-bottom: 20px;
+            line-height: 1.2;
         }
 
         .hero p {
-            font-size: 20px;
+            font-size: 22px;
             margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .hero-btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
         }
 
         .btn {
             display: inline-block;
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 5px;
-            font-weight: bold;
+            padding: 14px 28px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            cursor: pointer;
         }
 
-        .btn:hover {
-            background-color: var(--accent-color);
+        .btn-primary {
+            background-color: var(--dark-bg);
+            color: white;
+            border: 2px solid var(--dark-bg);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
             color: white;
         }
 
         /* About section */
-        .about-content {
-            display: flex;
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 35px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
             gap: 50px;
             align-items: center;
         }
 
-        .about-img {
-            flex: 1;
+        .about-image {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
         }
 
-        .about-img img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
         }
 
-        .about-text {
-            flex: 1;
+        .about-image:hover img {
+            transform: scale(1.05);
         }
 
-        /* Section headings */
-        .section-heading {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-heading h2 {
-            font-size: 36px;
-            margin-bottom: 15px;
+        .about-content h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
             color: var(--primary-color);
         }
 
-        .section-heading p {
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto;
-            color: #666;
+        .about-content p {
+            margin-bottom: 20px;
+            font-size: 17px;
+            line-height: 1.7;
         }
 
-        /* Resume section */
-        .resume-item {
-            margin-bottom: 40px;
-            border-left: 3px solid var(--secondary-color);
-            padding-left: 25px;
+        .key-skills {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-item i {
+            color: var(--secondary-color);
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        /* Education section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background-color: var(--secondary-color);
+            transform: translateX(-50%);
+            opacity: 0.5;
+            background-image: linear-gradient(var(--secondary-color) 70%, transparent 0%);
+            background-size: 2px 12px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+            padding-left: 40px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: auto;
+            padding-right: 40px;
+            text-align: right;
+        }
+
+        .timeline-content {
+            max-width: 48%;
             position: relative;
         }
 
-        .resume-item:before {
-            content: '';
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background-color: var(--secondary-color);
-            position: absolute;
-            left: -9px;
-            top: 0;
+        .timeline-date {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #f1f3f5;
+            color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 14px;
+            border: 1px solid #dee2e6;
         }
 
-        .resume-item h3 {
+        .timeline-title {
             font-size: 22px;
             margin-bottom: 10px;
+            color: var(--primary-color);
         }
 
-        .resume-item h4 {
+        .timeline-subtitle {
             font-size: 18px;
             color: var(--secondary-color);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        .resume-item .date {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: var(--light-bg);
-            margin-bottom: 15px;
-            font-size: 14px;
-            border-radius: 5px;
+        .timeline-marker {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            border: 3px solid var(--secondary-color);
+            z-index: 1;
         }
 
         /* Research section */
         .research-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 30px;
+            margin-top: 40px;
         }
 
-        .research-item {
+        .research-card {
             background-color: white;
-            border-radius: 10px;
+            border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--box-shadow);
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border-top: 3px solid transparent;
         }
 
-        .research-item:hover {
-            transform: translateY(-5px);
+        .research-card:hover {
+            transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border-top: 3px solid var(--secondary-color);
+        }
+        
+        .research-card:before {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            top: -20px;
+            right: -20px;
+            background: var(--light-bg);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+        
+        .research-card:hover:before {
+            opacity: 0.1;
+        }
+
+        .research-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background-color: var(--light-bg);
+            color: var(--secondary-color);
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border: 1px solid #dee2e6;
+        }
+
+        .badge-publication {
+            color: var(--dark-bg);
+        }
+
+        .badge-ongoing {
+            color: var(--secondary-color);
         }
 
         .research-content {
-            padding: 25px;
+            padding: 30px;
         }
 
-        .research-item h3 {
-            font-size: 20px;
+        .research-title {
+            font-size: 22px;
             margin-bottom: 15px;
+            color: var(--primary-color);
+            line-height: 1.4;
         }
 
-        .research-item .badge {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: var(--light-bg);
-            border-radius: 5px;
+        .research-meta {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            color: #6c757d;
             font-size: 14px;
-            margin-bottom: 15px;
+        }
+
+        .research-meta i {
+            margin-right: 5px;
+        }
+
+        .research-meta span {
+            margin-right: 20px;
         }
 
         /* Projects section */
@@ -252,120 +619,436 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 30px;
+            margin-top: 40px;
         }
 
-        .project-item {
+        .project-card {
             background-color: white;
-            border-radius: 10px;
+            border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--box-shadow);
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
         }
 
-        .project-item:hover {
-            transform: translateY(-5px);
+        .project-card:hover {
+            transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
+        
+        .project-card:after {
+            content: "{ code }";
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.1);
+            font-family: monospace;
+        }
 
-        .project-img {
-            height: 200px;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .project-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .project-image:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .project-card:hover .project-image:before {
+            opacity: 1;
         }
 
         .project-content {
-            padding: 25px;
+            padding: 30px;
         }
 
-        .project-item h3 {
-            font-size: 20px;
+        .project-title {
+            font-size: 22px;
             margin-bottom: 15px;
+            color: var(--primary-color);
         }
 
         .project-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         .project-tag {
-            padding: 5px 10px;
+            padding: 4px 10px;
+            background-color: #f1f3f5;
+            border-radius: 3px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid #dee2e6;
+        }
+
+        /* Certifications section */
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .certification-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .certification-card::after {
+            content: "";
+            position: absolute;
+            height: 3px;
+            width: 0;
+            bottom: 0;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .certification-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .certification-card:hover::after {
+            width: 100%;
+        }
+
+        .certification-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background-color: var(--light-bg);
-            border-radius: 5px;
+            border-radius: 50%;
+        }
+
+        .certification-logo i {
+            font-size: 32px;
+            color: #6c757d;
+        }
+
+        .certification-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .certification-issuer {
+            color: #6c757d;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .certification-date {
+            margin-top: auto;
             font-size: 14px;
+            color: #6c757d;
         }
 
         /* Contact section */
+        .contact-section {
+            background-color: #f8f9fa;
+            color: var(--text-color);
+            position: relative;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .contact-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-section .section-title {
+            color: white;
+        }
+
+        .contact-section .section-title:after {
+            background-color: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 40px;
+            align-items: center;
+        }
+
         .contact-info {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: 1fr;
             gap: 30px;
-            margin-bottom: 50px;
         }
 
         .contact-item {
-            text-align: center;
-            padding: 30px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
         }
 
         .contact-icon {
-            font-size: 30px;
-            color: var(--secondary-color);
-            margin-bottom: 15px;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
         }
 
-        .contact-item h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
+        .contact-icon i {
+            font-size: 22px;
+            color: var(--secondary-color);
+        }
+
+        .contact-details h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .contact-details p {
+            opacity: 0.9;
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #e1e1e1;
+            border-radius: var(--border-radius);
+            background-color: #f9f9f9;
+            font-family: inherit;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            background-color: var(--dark-bg);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--secondary-color);
         }
 
         /* Footer */
         footer {
-            background-color: var(--primary-color);
+            background-color: var(--dark-bg);
             color: white;
-            padding: 30px 0;
-            text-align: center;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-about h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+            line-height: 1.7;
         }
 
         .social-links {
             display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
-            list-style: none;
-        }
-
-        .social-links li {
-            margin: 0 10px;
-        }
-
-        .social-links a {
             color: white;
-            font-size: 20px;
-            transition: color 0.3s;
+            transition: background-color 0.3s;
         }
 
-        .social-links a:hover {
-            color: var(--secondary-color);
+        .social-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .footer-links h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .quick-links {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .quick-links a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .quick-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .quick-links a i {
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            opacity: 0.7;
         }
 
         /* Media queries */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 36px;
+        @media (max-width: 992px) {
+            .about-grid,
+            .contact-grid,
+            .footer-content {
+                grid-template-columns: 1fr;
             }
 
-            .about-content {
-                flex-direction: column;
+            .timeline:before {
+                left: 30px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                max-width: calc(100% - 80px);
+                margin-left: 80px;
+                padding-left: 0;
+                padding-right: 0;
+                text-align: left;
+            }
+
+            .timeline-marker {
+                left: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .mobile-menu-btn {
+                display: block;
             }
 
             .nav-links {
-                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--primary-color);
+                padding: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hero-btn-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .key-skills {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .research-grid,
+            .projects-grid,
+            .certifications-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 25px;
             }
         }
     </style>
@@ -375,12 +1058,19 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">Aziz</div>
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    Aziz Alghamdi
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
                 <ul class="nav-links">
                     <li><a href="#about">About</a></li>
-                    <li><a href="#resume">Resume</a></li>
+                    <li><a href="#education">Education</a></li>
                     <li><a href="#research">Research</a></li>
                     <li><a href="#projects">Projects</a></li>
+                    <li><a href="#certifications">Certifications</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -389,114 +1079,178 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="binary-bg"></div>
         <div class="container">
             <div class="hero-content">
-                <h1>Hello, I'm Aziz Alghamdi</h1>
-                <p>Professional with expertise in Computer Science specializing in Cybersecurity, Criminal Justice</p>
-                <a href="#contact" class="btn">Get In Touch</a>
+                <h1>Cybersecurity & Criminal Justice Professional</h1>
+                <p>Specializing in digital forensics, incident response, and the intersection of technology and law enforcement</p>
+                <div class="hero-btn-group">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="#research" class="btn btn-secondary">View My Research</a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about">
+        <div class="cyber-line cyber-line-left"></div>
+        <div class="cyber-line cyber-line-right"></div>
+        <div class="cyber-dots"></div>
         <div class="container">
-            <div class="section-heading">
-                <h2>About Me</h2>
-                <p>Get to know me and my professional background</p>
-            </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="/api/placeholder/400/320" alt="Aziz's profile photo">
+            <h2 class="section-title cyber-accent">About Me</h2>
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="https://via.placeholder.com/500x600?text=Profile+Photo" alt="Aziz Alghamdi">
                 </div>
-                <div class="about-text">
-                    <h3>Who Am I?</h3>
-                  <!--  <p>I am a [Your Profession] with [X years] of experience in [Your Field]. My expertise includes [Your Skills], and I am passionate about [Your Passion].</p>
-                    <p>My research interests include [Research Interest 1], [Research Interest 2], and [Research Interest 3]. I have completed several projects in these areas and continue to explore new opportunities.</p>
-                    <p>I hold a [Your Degree] from [Your University] and have received recognition for [Your Achievements].</p> -->
+                <div class="about-content">
+                    <h3 class="cyber-accent">Who I Am</h3>
+                    <div class="cyber-box">
+                        <p>I am a dedicated cybersecurity professional with a focus on the intersection of technology and criminal justice. My academic background combines computer science with an emphasis on cybersecurity and a minor in criminal justice, providing me with a unique perspective on digital security challenges.</p>
+                        <p>My research interests include digital forensics, cryptocurrency-based crimes, post-quantum cryptography, and the evolution of digital evidence in criminal investigations. I am passionate about developing innovative solutions that bridge the gap between technical security measures and law enforcement needs.</p>
+                        <p>Throughout my academic and professional journey, I have developed a comprehensive skill set that enables me to analyze complex security threats, implement effective countermeasures, and collaborate with cross-functional teams to address cybersecurity challenges.</p>
+                    </div>
+                    
+                    <div class="key-skills">
+                        <div class="skill-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Digital Forensics</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Incident Response</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Penetration Testing</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Network Security</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Cryptography</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Secure Coding</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Threat Intelligence</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Security Analytics</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Resume Section -->
-    <section id="resume">
+    <!-- Education Section -->
+    <section id="education">
+        <div class="hexagon-bg"></div>
         <div class="container">
-            <div class="section-heading">
-                <h2>Resume</h2>
-                <p>My educational and professional journey</p>
-            </div>
-
-            <div class="resume-content">
-                <h3 style="margin-bottom: 30px;">Education</h3>
-
-                <div class="resume-item">
-                    <h3>Bachelor of Arts and Science in Computer Science
-                        With an Emphasis on Cybersecurity
-                        Minor in Criminal Justice</h3>
-                    <h4>University of Colorado at Colorado Springs</h4>
-                    <div class="date">Aug 2021 - May 2025</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt, non sagittis nisi interdum.</p>
+            <h2 class="section-title cyber-accent">Education & Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">August 2021 - May 2025</div>
+                        <h3 class="timeline-title">Bachelor of Arts and Science in Computer Science</h3>
+                        <h4 class="timeline-subtitle">University of Colorado at Colorado Springs</h4>
+                        <p>Specialization in Cybersecurity with a Minor in Criminal Justice. Focusing on advanced security concepts, digital forensics, and the legal implications of cybercrime.</p>
+                        <ul style="margin-top: 15px; padding-left: 20px;">
+                            <li>GPA: 3.8/4.0</li>
+                            <li>Member of Cybersecurity Club</li>
+                            <li>Participant in National Cyber League competitions</li>
+                        </ul>
+                    </div>
                 </div>
-
-
-                <h3 style="margin: 50px 0 30px;">Experience</h3>
-
-
-
-                <!-- <div class="resume-item">
-                    <h3>[Previous Job Position]</h3>
-                    <h4>[Company Name]</h4>
-                    <div class="date">[Start Year] - [End Year]</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt, non sagittis nisi interdum.</p>
-                    <ul style="margin-top: 15px; padding-left: 20px;">
-                        <li>Achievement or responsibility 1</li>
-                        <li>Achievement or responsibility 2</li>
-                        <li>Achievement or responsibility 3</li>
-                    </ul>
-                </div> -->
-
-                <a href="#" class="btn" style="margin-top: 30px;">Download Full Resume</a>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">June 2023 - August 2023</div>
+                        <h3 class="timeline-title">Cybersecurity Intern</h3>
+                        <h4 class="timeline-subtitle">XYZ Technologies</h4>
+                        <p>Assisted the security operations team in monitoring and analyzing potential security threats. Participated in vulnerability assessments and helped develop security documentation.</p>
+                        <ul style="margin-top: 15px; padding-left: 20px;">
+                            <li>Conducted security audits on internal systems</li>
+                            <li>Documented security protocols and procedures</li>
+                            <li>Participated in incident response simulations</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">January 2023 - Present</div>
+                        <h3 class="timeline-title">Research Assistant</h3>
+                        <h4 class="timeline-subtitle">University Cybersecurity Lab</h4>
+                        <p>Contributing to research projects focusing on digital forensics and cryptocurrency-based cybercrime. Assisting faculty in literature reviews, data collection, and analysis.</p>
+                        <ul style="margin-top: 15px; padding-left: 20px;">
+                            <li>Developed tools for automated malware analysis</li>
+                            <li>Conducted research on cryptocurrency transaction tracing</li>
+                            <li>Co-authored research papers on digital evidence collection</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Research Section -->
     <section id="research">
+        <div class="binary-bg"></div>
         <div class="container">
-            <div class="section-heading">
-                <h2>Research</h2>
-                <p>Explore my research interests and publications</p>
-            </div>
-
+            <h2 class="section-title cyber-accent">Research</h2>
+            <p>My research focuses on the intersection of cybersecurity, digital forensics, and criminal justice, aiming to develop more effective methods for investigating and preventing cybercrime.</p>
+            
             <div class="research-grid">
-                <div class="research-item">
+                <div class="research-card">
                     <div class="research-content">
-                        <div class="badge">Publication</div>
-                        <h3>Forensic Analysis of Cryptocurrency-Based Ransomware Attacks: Criminal Justice and Technical Perspectives</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</p>
-                        <p style="margin-top: 15px;"><strong>Published in:</strong> [Journal/Conference Name], [Year]</p>
-                        <a href="#" style="display: inline-block; margin-top: 15px;">Read More</a>
+                        <div class="research-badge badge-publication">Publication</div>
+                        <h3 class="research-title">Forensic Analysis of Cryptocurrency-Based Ransomware Attacks: Criminal Justice and Technical Perspectives</h3>
+                        <p>This research explores the challenges law enforcement faces when investigating ransomware attacks that utilize cryptocurrency payments. The study proposes a framework for tracking cryptocurrency transactions while maintaining legal compliance with chain-of-custody requirements for digital evidence.</p>
+                        <div class="research-meta">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Published: 2024</span>
+                            <i class="far fa-file-alt"></i>
+                            <span>Journal of Cybersecurity & Digital Forensics</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="research-item">
+                <div class="research-card">
                     <div class="research-content">
-                        <div class="badge">Ongoing</div>
-                        <h3>Post-Quantum Cryptography Implementation Challenges: Security Implications for Critical Infrastructure</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</p>
-                        <p style="margin-top: 15px;"><strong>Collaborators:</strong> [Names of Collaborators]</p>
-                        <a href="#" style="display: inline-block; margin-top: 15px;">Read More</a>
+                        <div class="research-badge badge-ongoing">Ongoing</div>
+                        <h3 class="research-title">Post-Quantum Cryptography Implementation Challenges: Security Implications for Critical Infrastructure</h3>
+                        <p>This ongoing research examines the practical challenges of implementing post-quantum cryptographic algorithms in critical infrastructure systems. The study analyzes potential security vulnerabilities during transitional periods and proposes a risk mitigation framework.</p>
+                        <div class="research-meta">
+                            <i class="fas fa-users"></i>
+                            <span>Collaborators: Dr. Sarah Chen, Dr. Michael Rodriguez</span>
+                            <i class="far fa-clock"></i>
+                            <span>Expected completion: 2025</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="research-item">
+                <div class="research-card">
                     <div class="research-content">
-                        <div class="badge">Publication</div>
-                        <h3>Quantum Cryptography Implications for Digital Evidence in Criminal Investigations</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</p>
-                        <p style="margin-top: 15px;"><strong>Published in:</strong>  2025 </p>
-                        <a href="#" style="display: inline-block; margin-top: 15px;">Read More</a>
+                        <div class="research-badge badge-publication">Publication</div>
+                        <h3 class="research-title">Quantum Cryptography Implications for Digital Evidence in Criminal Investigations</h3>
+                        <p>This research explores how the advent of quantum computing will transform digital evidence collection, preservation, and presentation in court. The paper discusses the legal and technical considerations for ensuring the admissibility of digital evidence in a post-quantum cryptographic environment.</p>
+                        <div class="research-meta">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Published: 2025</span>
+                            <i class="far fa-file-alt"></i>
+                            <span>International Journal of Digital Criminology</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -505,86 +1259,188 @@
 
     <!-- Projects Section -->
     <section id="projects">
+        <div class="cyber-line cyber-line-left"></div>
+        <div class="cyber-line cyber-line-right"></div>
         <div class="container">
-            <div class="section-heading">
-                <h2>Projects</h2>
-                <p>Check out some of my recent work</p>
-            </div>
-
+            <h2 class="section-title cyber-accent">Projects</h2>
+            <p>A selection of academic and personal projects that demonstrate my technical skills and research interests in cybersecurity and criminal justice.</p>
+            
             <div class="projects-grid">
-                <div class="project-item">
-                    <div class="project-img">
-                        <img src="/api/placeholder/400/320" alt="Project 1">
-                    </div>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('https://via.placeholder.com/600x400?text=Forensic+Tool')"></div>
                     <div class="project-content">
-                        <h3>[Project Title 1]</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</p>
+                        <h3 class="project-title">Digital Forensic Analysis Toolkit</h3>
+                        <p>Developed a comprehensive digital forensic toolkit that automates the collection and analysis of volatile and non-volatile data from compromised systems. The tool incorporates chain-of-custody documentation to ensure evidence admissibility in legal proceedings.</p>
                         <div class="project-tags">
-                            <span class="project-tag">[Technology 1]</span>
-                            <span class="project-tag">[Technology 2]</span>
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Digital Forensics</span>
+                            <span class="project-tag">Memory Analysis</span>
                         </div>
-                        <a href="#" style="display: inline-block; margin-top: 15px;">View Project</a>
                     </div>
                 </div>
 
-                <div class="project-item">
-                    <div class="project-img">
-                        <img src="/api/placeholder/400/320" alt="Project 2">
-                    </div>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('https://via.placeholder.com/600x400?text=Crypto+Tracker')"></div>
                     <div class="project-content">
-                        <h3>[Project Title 2]</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</p>
+                        <h3 class="project-title">Cryptocurrency Transaction Tracer</h3>
+                        <p>Created a tool that visualizes and analyzes cryptocurrency transaction patterns to identify suspicious activities. The system employs machine learning algorithms to detect potential money laundering techniques and generates reports suitable for law enforcement investigations.</p>
                         <div class="project-tags">
-                            <span class="project-tag">[Technology 1]</span>
-                            <span class="project-tag">[Technology 2]</span>
+                            <span class="project-tag">Blockchain</span>
+                            <span class="project-tag">Machine Learning</span>
+                            <span class="project-tag">Data Visualization</span>
                         </div>
-                        <a href="#" style="display: inline-block; margin-top: 15px;">View Project</a>
                     </div>
                 </div>
 
-                <div class="project-item">
-                    <div class="project-img">
-                        <img src="/api/placeholder/400/320" alt="Project 3">
-                    </div>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('https://via.placeholder.com/600x400?text=Security+Framework')"></div>
                     <div class="project-content">
-                        <h3>[Project Title 3]</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra risus nec est tincidunt.</p>
+                        <h3 class="project-title">Zero-Trust Security Implementation Framework</h3>
+                        <p>Designed and implemented a zero-trust security architecture for a university research lab environment. The framework includes continuous authentication protocols, least privilege access controls, and comprehensive activity logging for security monitoring and incident response.</p>
                         <div class="project-tags">
-                            <span class="project-tag">[Technology 1]</span>
-                            <span class="project-tag">[Technology 2]</span>
+                            <span class="project-tag">Network Security</span>
+                            <span class="project-tag">Access Control</span>
+                            <span class="project-tag">Security Architecture</span>
                         </div>
-                        <a href="#" style="display: inline-block; margin-top: 15px;">View Project</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact">
+    <!-- Certifications Section -->
+    <section id="certifications">
+        <div class="hexagon-bg"></div>
         <div class="container">
-            <div class="section-heading">
-                <h2>Contact Me</h2>
-                <p>Get in touch for collaborations or inquiries</p>
+            <h2 class="section-title cyber-accent">Certifications & Skills</h2>
+            <p>Professional certifications and technical skills that complement my academic qualifications and research experience.</p>
+            
+            <div class="certifications-grid">
+                <div class="certification-card">
+                    <div class="certification-logo">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="certification-title">CompTIA Security+</h3>
+                    <p class="certification-issuer">CompTIA</p>
+                    <p>Industry-standard certification validating baseline cybersecurity skills and knowledge.</p>
+                    <p class="certification-date">Obtained: January 2023</p>
+                </div>
+
+                <div class="certification-card">
+                    <div class="certification-logo">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="certification-title">Certified Ethical Hacker (CEH)</h3>
+                    <p class="certification-issuer">EC-Council</p>
+                    <p>Advanced certification in ethical hacking methodologies and penetration testing techniques.</p>
+                    <p class="certification-date">Obtained: August 2023</p>
+                </div>
+
+                <div class="certification-card">
+                    <div class="certification-logo">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="certification-title">Computer Forensics Specialist</h3>
+                    <p class="certification-issuer">GIAC</p>
+                    <p>Specialized certification in digital forensics techniques and evidence handling procedures.</p>
+                    <p class="certification-date">Obtained: March 2024</p>
+                </div>
+
+                <div class="certification-card">
+                    <div class="certification-logo">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="certification-title">Programming Languages</h3>
+                    <p class="certification-issuer">Technical Skills</p>
+                    <p>Proficient in Python, C++, Java, and SQL for security application development and analysis.</p>
+                </div>
+
+                <div class="certification-card">
+                    <div class="certification-logo">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="certification-title">Security Tools</h3>
+                    <p class="certification-issuer">Technical Skills</p>
+                    <p>Experience with Wireshark, Metasploit, Nmap, Burp Suite, EnCase, and various SIEM solutions.</p>
+                </div>
+
+                <div class="certification-card">
+                    <div class="certification-logo">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="certification-title">Systems & Networks</h3>
+                    <p class="certification-issuer">Technical Skills</p>
+                    <p>Knowledgeable in Windows, Linux, virtualization, cloud security, and network architecture.</p>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-icon">📧</div>
-                    <h3>Email</h3>
-                    <p>azizcsecj@gmail.com</p>
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title" style="color: var(--primary-color);">Contact Me</h2>
+            <p>I'm interested in research collaborations, cybersecurity projects, and career opportunities in digital forensics and information security.</p>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p>azizcsecj@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Phone</h3>
+                            <p>+1 (XXX) XXX-XXXX</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Location</h3>
+                            <p>Riyadh, Saudi Arabia</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Website</h3>
+                            <p>aziz707.info</p>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="contact-item">
-                    <div class="contact-icon">📱</div>
-                    <h3>Phone</h3>
-                    <p>+1 (XXX) XXX-XXXX</p>
-                </div>
-
-                <div class="contact-item">
-                    <div class="contact-icon">📍</div>
-                    <h3>Location</h3>
-                    <p>Riyadh, Saudi Arabia</p>
+                
+                <div class="contact-form">
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Send Message</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -593,14 +1449,103 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <ul class="social-links">
-                <li><a href="#">LinkedIn</a></li>
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">GitHub</a></li>
-                <li><a href="#">ResearchGate</a></li>
-            </ul>
-            <p>&copy; 2025 Aziz. All Rights Reserved.</p>
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Aziz Alghamdi</h3>
+                    <p>Cybersecurity professional specializing in digital forensics, incident response, and the application of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-researchgate"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
+                        <li><a href="#education"><i class="fas fa-chevron-right"></i> Education</a></li>
+                        <li><a href="#research"><i class="fas fa-chevron-right"></i> Research</a></li>
+                        <li><a href="#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                        <li><a href="#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Download CV</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
-</body>
-</html>
+
+    <!-- JavaScript for Mobile Menu Toggle -->
+                <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Close menu when clicking on a link
+            const links = document.querySelectorAll('.nav-links a');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
+            });
+            
+            // Add typing animation effect for section titles
+            const sectionTitles = document.querySelectorAll('.section-title');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            sectionTitles.forEach(title => {
+                title.style.opacity = 0;
+                title.style.transform = 'translateY(20px)';
+                title.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(title);
+            });
+            
+            // Add reveal effect for cards
+            const cards = document.querySelectorAll('.research-card, .project-card, .certification-card');
+            
+            const cardObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = 1;
+                            entry.target.style.transform = 'translateY(0)';
+                        }, 100 * Array.from(cards).indexOf(entry.target) % 3);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            cards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                cardObserver.observe(card);
+            });
+        });
+    </script>
