@@ -2206,6 +2206,10 @@
     const originalContent = {};
     let currentLanguage = 'en';
 
+    // Configuration for LibreTranslate
+    const LIBRETRANSLATE_API_URL = 'https://libretranslate.com/translate'; // Change this to your LibreTranslate instance URL
+    const API_KEY = ''; // Add your API key if required
+
     // Elements that need translation
     const translatableElements = [
         'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a', 'span', 'li',
@@ -2270,12 +2274,9 @@
         });
     }
 
-    // Function to translate content using Google Translate API
+    // Function to translate content using LibreTranslate API
     function translateContent() {
-        // For demonstration, we'll use manual translations for main sections
-        // In a real implementation, you would use Google Translate API or similar
-
-        // Example of manual translations for key elements
+        // Apply manual translations for key elements
         const manualTranslations = {
             "About Me": "حولي",
             "Education": "التعليم",
@@ -2300,9 +2301,13 @@
 
         // Apply manual translations first
         Object.keys(manualTranslations).forEach(original => {
-            const elements = document.querySelectorAll(`*:contains('${original}')`);
+            const elements = document.querySelectorAll(translatableElements);
             elements.forEach(element => {
-                if (element.childNodes.length === 1 && element.firstChild.nodeType === 3) {
+                // Check if this element has only text content that matches the original
+                if (element.childNodes.length === 1 &&
+                    element.firstChild.nodeType === 3 &&
+                    element.textContent.trim() === original) {
+
                     const id = element.getAttribute('data-translation-id');
                     if (id) {
                         element.textContent = manualTranslations[original];
@@ -2311,59 +2316,126 @@
             });
         });
 
-        // For other elements, you'd use an API call
-        // In a real implementation, you would use a translation API
-        // Here's a placeholder for where that code would go:
-
-
-        // Get all text that needs translation
+        // Batch elements into groups to avoid too many API calls
+        const batchSize = 10;
+        const batches = [];
+        const idsToTranslate = [];
         const textsToTranslate = [];
-        Object.keys(originalContent).forEach(key => {
-            textsToTranslate.push({
-                id: key,
-                text: originalContent[key]
-            });
+
+        Object.keys(originalContent).forEach(id => {
+            const text = originalContent[id];
+
+            // Skip empty texts and already manually translated texts
+            if (!text || text.trim() === '') return;
+            if (Object.keys(manualTranslations).includes(text)) return;
+
+            idsToTranslate.push(id);
+            textsToTranslate.push(text);
+
+            // Create a new batch when we reach batch size
+            if (textsToTranslate.length === batchSize) {
+                batches.push({
+                    ids: [...idsToTranslate],
+                    texts: [...textsToTranslate]
+                });
+                idsToTranslate.length = 0;
+                textsToTranslate.length = 0;
+            }
         });
 
-        // Use fetch to call translation API
-        fetch('https://libretranslate.com/translate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                texts: textsToTranslate,
-                targetLanguage: 'ar'
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Apply translations
-            data.translations.forEach(item => {
-                const element = document.querySelector(`[data-translation-id="${item.id}"]`);
-                if (element) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        if (element.hasAttribute('placeholder')) {
-                            element.setAttribute('placeholder', item.translatedText);
-                        } else {
-                            element.value = item.translatedText;
-                        }
-                    } else {
-                        element.innerHTML = item.translatedText;
-                    }
-                }
+        // Add the remaining items as the last batch
+        if (textsToTranslate.length > 0) {
+            batches.push({
+                ids: [...idsToTranslate],
+                texts: [...textsToTranslate]
             });
-        })
-        .catch(error => {
-            console.error('Translation error:', error);
-        });
+        }
 
+        // Process each batch sequentially
+        processBatches(batches, 0);
     }
 
-    // Helper function for selecting elements containing specific text
-    jQuery.expr[':'].contains = function (a, i, m) {
-        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
-    };
+    // Process translation batches sequentially
+    function processBatches(batches, index) {
+        if (index >= batches.length) return;
+
+        const batch = batches[index];
+
+        // Use LibreTranslate API to translate the current batch
+        translateBatch(batch.texts, batch.ids)
+            .then(() => {
+                // Process next batch after a short delay to avoid rate limiting
+                setTimeout(() => {
+                    processBatches(batches, index + 1);
+                }, 300);
+            })
+            .catch(error => {
+                console.error('Translation error:', error);
+                // Continue with next batch despite errors
+                setTimeout(() => {
+                    processBatches(batches, index + 1);
+                }, 500);
+            });
+    }
+
+    // Translate a batch of texts using LibreTranslate API
+    async function translateBatch(texts, ids) {
+        if (texts.length === 0) return;
+
+        // LibreTranslate expects a single text in q parameter, so we need to process one text at a time
+        const translatePromises = texts.map((text, index) => {
+            const id = ids[index];
+
+            const requestData = {
+                q: text,
+                source: 'en',
+                target: 'ar',
+                format: 'text'
+            };
+
+            // Add API key if provided
+            if (API_KEY) {
+                requestData.api_key = API_KEY;
+            }
+
+            return fetch(LIBRETRANSLATE_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.translatedText) {
+                    applyTranslation(id, data.translatedText);
+                }
+            });
+        });
+
+        return Promise.all(translatePromises);
+    }
+
+    // Apply translation to an element
+    function applyTranslation(id, translatedText) {
+        const element = document.querySelector(`[data-translation-id="${id}"]`);
+        if (!element) return;
+
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            if (element.hasAttribute('placeholder')) {
+                element.setAttribute('placeholder', translatedText);
+            } else {
+                element.value = translatedText;
+            }
+        } else {
+            element.innerHTML = translatedText;
+        }
+    }
 
     // Initialize language based on browser preference or default to English
     document.addEventListener('DOMContentLoaded', function () {
@@ -2372,6 +2444,22 @@
             changeLanguage('ar');
         } else {
             changeLanguage('en');
+        }
+
+        // Add event listeners for language switcher buttons if they exist
+        const enBtn = document.getElementById('en-btn');
+        const arBtn = document.getElementById('ar-btn');
+
+        if (enBtn) {
+            enBtn.addEventListener('click', function() {
+                changeLanguage('en');
+            });
+        }
+
+        if (arBtn) {
+            arBtn.addEventListener('click', function() {
+                changeLanguage('ar');
+            });
         }
     });
 </script>
