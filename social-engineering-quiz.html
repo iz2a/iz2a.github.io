@@ -418,6 +418,172 @@
             top: 13px;
             color: var(--secondary-color);
         }
+        /* Header styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        header:after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: #adb5bd;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 500;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: white;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-about h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .footer-links h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .quick-links {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .quick-links a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .quick-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .quick-links a i {
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            opacity: 0.7;
+        }
 
         @media (max-width: 768px) {
             .container {
@@ -440,10 +606,68 @@
             .btn {
                 width: 100%;
             }
+            .category-tabs {
+                padding-bottom: 10px;
+            }
+
+            .category-tab {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--primary-color);
+                padding: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
         }
     </style>
 </head>
 <body>
+ <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none; color: white;">
+                        <i class="fas fa-shield-alt"></i>
+                        Aziz Alghamdi عزيز الغامدي
+                    </a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#education">Education</a></li>
+                    <li><a href="index.html#research">Research</a></li>
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="index.html#certifications">Certifications</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
     <div class="container">
         <div class="quiz-header">
             <h1 class="quiz-title">Social Engineering Security Quiz</h1>
@@ -1008,5 +1232,43 @@ Customer Service: 1-800-432-1000`,
         // Initialize quiz when page loads
         document.addEventListener('DOMContentLoaded', initQuiz);
     </script>
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Aziz Alghamdi</h3>
+                    <p>Cybersecurity professional specializing in digital forensics, incident response, and the application
+                        of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in
+                        Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
+                    <div class="social-links">
+                        <a href="https://linkedin.com" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/iz2a" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i
+                                class="fab fa-researchgate"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="index.html#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
+                        <li><a href="index.html#education"><i class="fas fa-chevron-right"></i> Education</a></li>
+                        <li><a href="index.html#research"><i class="fas fa-chevron-right"></i> Research</a></li>
+                        <li><a href="index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                        <li><a href="index.html#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
+                        <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Learning</a></li>
+                        <li><a href="MyResume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
