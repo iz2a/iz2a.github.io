@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Explorer Simulation</title>
+    <style>
+        /* Matching your website's existing style */
+        :root {
+            --primary-color: #212529;
+            --secondary-color: #495057;
+            --accent-color: #6c757d;
+            --text-color: #333333;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+            --border-radius: 4px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Times New Roman", Times, serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 35px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+        }
+
+        .cyber-accent {
+            position: relative;
+        }
+
+        .cyber-accent::before {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 60px;
+            background-color: var(--secondary-color);
+            bottom: -12px;
+            left: 0;
+        }
+
+        .cyber-accent::after {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 30px;
+            background-color: #adb5bd;
+            bottom: -12px;
+            left: 70px;
+        }
+
+        .cyber-box {
+            border-left: 2px solid var(--secondary-color);
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .cyber-box::before {
+            content: "{ ";
+            position: absolute;
+            left: -10px;
+            top: -5px;
+            color: var(--secondary-color);
+            opacity: 0.2;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .cyber-box::after {
+            content: " }";
+            position: absolute;
+            left: -10px;
+            bottom: -5px;
+            color: var(--secondary-color);
+            opacity: 0.2;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .blockchain-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--secondary-color);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: var(--border-radius);
+            font-family: inherit;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            background-color: var(--secondary-color);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .alert {
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .info-box {
+            background-color: rgba(0, 0, 0, 0.02);
+            border-left: 3px solid var(--secondary-color);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .block {
+            border: 1px solid #ced4da;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .block:hover {
+            box-shadow: var(--box-shadow);
+        }
+
+        .block.active {
+            border-color: var(--secondary-color);
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .block-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .block-details {
+            display: none;
+            padding-top: 10px;
+            border-top: 1px dashed #ced4da;
+            margin-top: 10px;
+        }
+
+        .block.active .block-details {
+            display: block;
+        }
+
+        .transaction {
+            background-color: rgba(0, 0, 0, 0.02);
+            padding: 10px;
+            border-radius: var(--border-radius);
+            margin-bottom: 8px;
+        }
+
+        .transaction-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 500;
+        }
+
+        .hash {
+            font-family: monospace;
+            word-break: break-all;
+        }
+
+        .hash-prefix {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th,
+        table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        table th {
+            font-weight: 600;
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--secondary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .mining-info {
+            background-color: rgba(0, 0, 0, 0.02);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-top: 15px;
+            display: none;
+        }
+
+        .difficulty-control {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .difficulty-control label {
+            margin-right: 10px;
+            margin-bottom: 0;
+        }
+
+        .difficulty-control select {
+            padding: 5px 10px;
+            border-radius: var(--border-radius);
+            border: 1px solid #ced4da;
+        }
+
+        /* Animation for new content */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .blockchain-container {
+                padding: 15px;
+            }
+
+            .tab {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="section-title cyber-accent">Blockchain Explorer</h2>
+
+        <div class="cyber-box">
+            <p>This interactive blockchain simulation allows you to create transactions, mine new blocks, and explore the mechanics behind blockchain technology. Experiment with different mining difficulties and see how cryptographic hashing secures the entire system.</p>
+        </div>
+
+        <div class="blockchain-container">
+            <div class="tabs">
+                <div class="tab active" data-tab="blockchain">Blockchain</div>
+                <div class="tab" data-tab="transactions">Pending Transactions</div>
+                <div class="tab" data-tab="create">Create Transaction</div>
+            </div>
+
+            <!-- Blockchain Tab -->
+            <div class="tab-content active" id="blockchain-tab">
+                <div class="info-box">
+                    <p>The blockchain below represents a series of connected blocks. Each block contains transactions and is cryptographically linked to the previous block through its hash. Click on any block to view its details.</p>
+                </div>
+                <div id="blockchain-blocks">
+                    <!-- Blocks will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Transactions Tab -->
+            <div class="tab-content" id="transactions-tab">
+                <div class="info-box">
+                    <p>Pending transactions are waiting to be included in the next block. When you mine a new block, all pending transactions will be added to the blockchain.</p>
+                </div>
+
+                <div id="pending-transactions-container">
+                    <table id="pending-transactions-table">
+                        <thead>
+                            <tr>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Amount</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pending-transactions-body">
+                            <!-- Pending transactions will be rendered here -->
+                        </tbody>
+                    </table>
+                    <div id="no-pending-transactions" style="display: none;">
+                        <p>There are no pending transactions.</p>
+                    </div>
+                </div>
+
+                <button id="mine-button" class="btn" disabled>Mine New Block</button>
+
+                <div class="difficulty-control">
+                    <label for="difficulty">Mining Difficulty:</label>
+                    <select id="difficulty">
+                        <option value="1">Easy (1)</option>
+                        <option value="2" selected>Medium (2)</option>
+                        <option value="3">Hard (3)</option>
+                        <option value="4">Expert (4)</option>
+                    </select>
+                </div>
+
+                <div id="mining-info" class="mining-info">
+                    <div><span class="loader"></span> Mining in progress...</div>
+                    <div id="mining-details"></div>
+                </div>
+            </div>
+
+            <!-- Create Transaction Tab -->
+            <div class="tab-content" id="create-tab">
+                <div class="info-box">
+                    <p>Create a new transaction that will be added to the pending transactions pool. In a real blockchain, these transactions would be signed with your private key to prove authenticity.</p>
+                </div>
+
+                <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
+                <div id="success-alert" class="alert alert-success" style="display: none;"></div>
+
+                <div class="form-group">
+                    <label for="from">From Address:</label>
+                    <input type="text" id="from" class="form-control" placeholder="Enter sender address">
+                </div>
+
+                <div class="form-group">
+                    <label for="to">To Address:</label>
+                    <input type="text" id="to" class="form-control" placeholder="Enter recipient address">
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Amount:</label>
+                    <input type="text" id="amount" class="form-control" placeholder="Enter amount">
+                </div>
+
+                <button id="add-transaction-button" class="btn">Add Transaction</button>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <h3 style="margin-bottom: 10px;">About Digital Signatures</h3>
+                    <p>In actual blockchain networks, each transaction is secured by a digital signature created with the sender's private key. This signature can be verified using the sender's public key to ensure the transaction is authentic.</p>
+                    <div style="margin-top: 10px; font-family: monospace; background-color: rgba(0,0,0,0.05); padding: 10px;">
+                        signature = sign(sha256(transaction data), privateKey)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Utility to create SHA-256 hash
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
+        // Blockchain implementation
+        class BlockchainSimulator {
+            constructor() {
+                this.blockchain = [];
+                this.pendingTransactions = [];
+                this.difficulty = 2;
+                this.miningInProgress = false;
+
+                // Initialize blockchain with genesis block
+                this.createGenesisBlock();
+
+                // Setup UI events
+                this.setupEventListeners();
+
+                // Render initial state
+                this.renderBlockchain();
+                this.renderPendingTransactions();
+            }
+
+            // Create the first block (genesis)
+            async createGenesisBlock() {
+                const genesisBlock = {
+                    index: 0,
+                    timestamp: new Date('2023-01-01T00:00:00Z').toISOString(),
+                    transactions: [{ from: 'SYSTEM', to: 'Genesis', amount: 'N/A', timestamp: new Date('2023-01-01T00:00:00Z').toISOString() }],
+                    previousHash: '0000000000000000000000000000000000000000000000000000000000000000',
+                    hash: '',
+                    nonce: 0
+                };
+
+                genesisBlock.hash = await this.calculateBlockHash(genesisBlock);
+                this.blockchain.push(genesisBlock);
+            }
+
+            // Calculate a block's hash
+            async calculateBlockHash(block) {
+                const { index, timestamp, transactions, previousHash, nonce } = block;
+                const blockString = JSON.stringify({ index, timestamp, transactions, previousHash, nonce });
+                return await sha256(blockString);
+            }
+
+            // Add a new transaction to pending pool
+            async addTransaction(from, to, amount) {
+                if (!from || !to || !amount) {
+                    throw new Error('Please fill in all transaction fields');
+                }
+
+                const transaction = {
+                    from,
+                    to,
+                    amount,
+                    timestamp: new Date().toISOString(),
+                    signature: await this.generateSignature(from, to, amount)
+                };
+
+                this.pendingTransactions.push(transaction);
+                this.renderPendingTransactions();
+
+                return transaction;
+            }
+
+            // Generate a fake signature for demonstration
+            async generateSignature(from, to, amount) {
+                const data = `${from}${to}${amount}${Date.now()}`;
+                const fullHash = await sha256(data);
+                return fullHash.substring(0, 16); // Use first 16 chars as the signature
+            }
+
+            // Mine a new block with pending transactions
+            async mineBlock() {
+                if (this.pendingTransactions.length === 0) {
+                    throw new Error('No pending transactions to add to a block');
+                }
+
+                if (this.miningInProgress) {
+                    throw new Error('Mining already in progress');
+                }
+
+                this.miningInProgress = true;
+                document.getElementById('mining-info').style.display = 'block';
+                document.getElementById('mine-button').disabled = true;
+
+                const previousBlock = this.blockchain[this.blockchain.length - 1];
+                const newBlockIndex = previousBlock.index + 1;
+
+                const newBlock = {
+                    index: newBlockIndex,
+                    timestamp: new Date().toISOString(),
+                    transactions: [...this.pendingTransactions],
+                    previousHash: previousBlock.hash,
+                    hash: '',
+                    nonce: 0
+                };
+
+                try {
+                    // Mine the block to find a valid hash
+                    const minedBlock = await this.findValidBlockHash(newBlock);
+                    this.blockchain.push(minedBlock);
+                    this.pendingTransactions = [];
+
+                    // Update UI
+                    this.renderBlockchain();
+                    this.renderPendingTransactions();
+
+                    document.getElementById('mining-info').style.display = 'none';
+                    document.getElementById('mine-button').disabled = false;
+                    this.miningInProgress = false;
+
+                    return minedBlock;
+                } catch (error) {
+                    console.error('Mining error:', error);
+                    document.getElementById('mining-info').style.display = 'none';
+                    document.getElementById('mine-button').disabled = false;
+                    this.miningInProgress = false;
+                    throw error;
+                }
+            }
+
+            // Find a valid hash with the required number of leading zeros
+            async findValidBlockHash(block) {
+                let { nonce } = block;
+                let hash = '';
+                const prefix = '0'.repeat(this.difficulty);
+                const updateInterval = 50; // Update UI every 50 iterations
+
+                while (!hash.startsWith(prefix)) {
+                    nonce++;
+                    const newBlock = { ...block, nonce };
+                    hash = await this.calculateBlockHash(newBlock);
+
+                    // Update UI occasionally to show mining progress
+                    if (nonce % updateInterval === 0) {
+                        document.getElementById('mining-details').innerHTML = `
+                            <div>Current nonce: ${nonce}</div>
+                            <div>Current hash: <span class="hash"><span class="hash-prefix">${hash.substring(0, this.difficulty)}</span>${hash.substring(this.difficulty)}</span></div>
+                            <div>Target: ${prefix}...</div>
+                        `;
+
+                        // Small delay to allow UI updates
+                        await new Promise(resolve => setTimeout(resolve, 0));
+                    }
+                }
+
+                return { ...block, hash, nonce };
+            }
+
+            // Set mining difficulty
+            setDifficulty(difficulty) {
+                this.difficulty = parseInt(difficulty);
+            }
+
+            // Render the blockchain
+            renderBlockchain() {
+                const container = document.getElementById('blockchain-blocks');
+                container.innerHTML = '';
+
+                // Render blocks in reverse order (newest first)
+                for (let i = this.blockchain.length - 1; i >= 0; i--) {
+                    const block = this.blockchain[i];
+                    const blockElement = document.createElement('div');
+                    blockElement.className = 'block animate-in';
+                    blockElement.setAttribute('data-index', block.index);
+
+                    const hashPrefix = block.hash.substring(0, this.difficulty);
+                    const hashRest = block.hash.substring(this.difficulty);
+
+                    blockElement.innerHTML = `
+                        <div class="block-header">
+                            <div><strong>Block #${block.index}</strong></div>
+                            <div>${new Date(block.timestamp).toLocaleString()}</div>
+                        </div>
+                        <div><strong>Hash:</strong> <span class="hash"><span class="hash-prefix">${hashPrefix}</span>${hashRest}</span></div>
+                        <div><strong>Previous Hash:</strong> <span class="hash">${block.previousHash.substring(0, 15)}...</span></div>
+                        <div class="block-details">
+                            <div><strong>Transactions (${block.transactions.length}):</strong></div>
+                            <div id="block-transactions-${block.index}">
+                                ${block.transactions.map(tx => `
+                                    <div class="transaction">
+                                        <div class="transaction-header">
+                                            <div>${tx.from} → ${tx.to}</div>
+                                            <div>${tx.amount}</div>
+                                        </div>
+                                        ${tx.signature ? `<div><small>Signature: ${tx.signature}</small></div>` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div><strong>Nonce:</strong> ${block.nonce}</div>
+                        </div>
+                    `;
+
+                    // Add click event to toggle block details
+                    blockElement.addEventListener('click', () => {
+                        // Remove active class from all blocks
+                        document.querySelectorAll('.block').forEach(el => {
+                            el.classList.remove('active');
+                        });
+
+                        // Add active class to clicked block
+                        blockElement.classList.add('active');
+                    });
+
+                    container.appendChild(blockElement);
+                }
+            }
+
+            // Render pending transactions
+            renderPendingTransactions() {
+                const tableBody = document.getElementById('pending-transactions-body');
+                const emptyMessage = document.getElementById('no-pending-transactions');
+
+                tableBody.innerHTML = '';
+
+                if (this.pendingTransactions.length === 0) {
+                    document.getElementById('pending-transactions-table').style.display = 'none';
+                    emptyMessage.style.display = 'block';
+                    document.getElementById('mine-button').disabled = true;
+                } else {
+                    document.getElementById('pending-transactions-table').style.display = 'table';
+                    emptyMessage.style.display = 'none';
+                    document.getElementById('mine-button').disabled = false;
+
+                    this.pendingTransactions.forEach(tx => {
+                        const row = document.createElement('tr');
+                        row.className = 'animate-in';
+                        row.innerHTML = `
+                            <td>${tx.from}</td>
+                            <td>${tx.to}</td>
+                            <td>${tx.amount}</td>
+                            <td>${new Date(tx.timestamp).toLocaleString()}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                }
+            }
+
+            // Setup UI event listeners
+            setupEventListeners() {
+                // Tab switching
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        // Update active tab
+                        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+
+                        // Show corresponding content
+                        const tabId = tab.getAttribute('data-tab');
+                        document.querySelectorAll('.tab-content').forEach(content => {
+                            content.classList.remove('active');
+                        });
+                        document.getElementById(`${tabId}-tab`).classList.add('active');
+                    });
+                });
+
+                // Add transaction button
+                document.getElementById('add-transaction-button').addEventListener('click', async () => {
+                    const from = document.getElementById('from').value;
+                    const to = document.getElementById('to').value;
+                    const amount = document.getElementById('amount').value;
+
+                    try {
+                        await this.addTransaction(from, to, amount);
+
+                        // Show success message
+                        const successAlert = document.getElementById('success-alert');
+                        successAlert.textContent = 'Transaction added successfully!';
+                        successAlert.style.display = 'block';
+
+                        // Hide error message if visible
+                        document.getElementById('error-alert').style.display = 'none';
+
+                        // Clear form
+                        document.getElementById('from').value = '';
+                        document.getElementById('to').value = '';
+                        document.getElementById('amount').value = '';
+
+                        // Auto-hide success message after 3 seconds
+                        setTimeout(() => {
+                            successAlert.style.display = 'none';
+                        }, 3000);
+                    } catch (error) {
+                        // Show error message
+                        const errorAlert = document.getElementById('error-alert');
+                        errorAlert.textContent = error.message;
+                        errorAlert.style.display = 'block';
+
+                        // Hide success message if visible
+                        document.getElementById('success-alert').style.display = 'none';
+                    }
+                });
+
+                // Mine block button
+                document.getElementById('mine-button').addEventListener('click', async () => {
+                    try {
+                        await this.mineBlock();
+
+                        // Switch to blockchain tab to show the new block
+                        document.querySelectorAll('.tab')[0].click();
+
+                        // Highlight the newest block
+                        setTimeout(() => {
+                            const blocks = document.querySelectorAll('.block');
+                            if (blocks.length > 0) {
+                                blocks[0].click();
+                            }
+                        }, 100);
+                    } catch (error) {
+                        console.error('Mining error:', error);
+                    }
+                });
+
+                // Difficulty selector
+                document.getElementById('difficulty').addEventListener('change', (e) => {
+                    this.setDifficulty(e.target.value);
+                });
+            }
+        }
+
+        // Initialize blockchain simulator when page is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.blockchainSimulator = new BlockchainSimulator();
+        });
+    </script>
+</body>
+</html>
