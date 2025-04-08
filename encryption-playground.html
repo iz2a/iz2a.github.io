@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encryption Playground</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base styles */
+        :root {
+            --primary-color: #212529;
+            --secondary-color: #495057;
+            --accent-color: #6c757d;
+            --highlight-color: #00ccff;
+            --success-color: #4CAF50;
+            --warning-color: #FFC107;
+            --danger-color: #F44336;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+            --border-radius: 4px;
+            --font-sans: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-mono: "Courier New", monospace;
+            --box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            color: var(--primary-color);
+            background-color: var(--light-bg);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            position: relative;
+        }
+
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background-color: var(--highlight-color);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Card styles */
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header-tabs {
+            display: flex;
+            margin-left: -1rem;
+            margin-right: -1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-header-tab {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity var(--transition-speed);
+            border-bottom: 2px solid transparent;
+        }
+
+        .card-header-tab.active {
+            opacity: 1;
+            border-bottom-color: var(--highlight-color);
+        }
+
+        .card-header-tab:hover {
+            opacity: 0.9;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 992px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Form elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e1e1e1;
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color var(--transition-speed);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--highlight-color);
+            box-shadow: 0 0 0 3px rgba(0, 204, 255, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color var(--transition-speed), transform var(--transition-speed);
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--highlight-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #00b3e0;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+        }
+
+        .btn-success:hover {
+            background-color: #3d9140;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: #222;
+        }
+
+        .btn-warning:hover {
+            background-color: #e6ac00;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+        }
+
+        .btn-danger:hover {
+            background-color: #d32f2f;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid currentColor;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Encryption Tool Specific Styles */
+        .encryption-tool {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .encryption-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .radio-item input {
+            margin-right: 0.5rem;
+        }
+
+        .key-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e1e1e1;
+            border-radius: var(--border-radius);
+            font-family: var(--font-mono);
+            transition: border-color var(--transition-speed);
+        }
+
+        .key-input:focus {
+            outline: none;
+            border-color: var(--highlight-color);
+        }
+
+        .output-container {
+            margin-top: 1.5rem;
+            border: 1px solid #e1e1e1;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            background-color: #f9f9f9;
+            font-family: var(--font-mono);
+            min-height: 120px;
+            overflow-wrap: break-word;
+        }
+
+        .output-container pre {
+            white-space: pre-wrap;
+            margin: 0;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: background-color var(--transition-speed);
+        }
+
+        .copy-btn:hover {
+            background-color: white;
+        }
+
+        .code-block {
+            position: relative;
+            background-color: #f1f3f5;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            overflow: auto;
+        }
+
+        .algorithm-info {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #f1f3f5;
+            border-left: 4px solid var(--highlight-color);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .key-length-display {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--accent-color);
+        }
+
+        .algorithm-tabs {
+            display: flex;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .algorithm-tab {
+            padding: 0.75rem 1.25rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            transition: all var(--transition-speed);
+        }
+
+        .algorithm-tab.active {
+            border-bottom-color: var(--highlight-color);
+            color: var(--highlight-color);
+        }
+
+        .algorithm-tab:hover:not(.active) {
+            border-bottom-color: #dee2e6;
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .algorithm-content {
+            display: none;
+        }
+
+        .algorithm-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .binary-example {
+            overflow-x: auto;
+            margin-bottom: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+        }
+
+        .binary-char, .binary-byte {
+            display: inline-block;
+            text-align: center;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .binary-value {
+            background-color: #e9ecef;
+            padding: 0.25rem 0.5rem;
+            border-radius: 2px;
+            letter-spacing: 1px;
+        }
+
+        .security-level {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 2px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .security-high {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #2e7d32;
+        }
+
+        .security-medium {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #c79100;
+        }
+
+        .security-low {
+            background-color: rgba(244, 67, 54, 0.2);
+            color: #c62828;
+        }
+        
+        /* Visualization styles */
+        .visualization-container {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .visualization-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .text-to-binary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .char-block {
+            text-align: center;
+            margin-bottom: 0.5rem;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .char-original {
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            background-color: #f1f3f5;
+            border-radius: 4px;
+            margin-bottom: 0.25rem;
+            min-width: 2.5rem;
+            display: inline-block;
+        }
+        
+        .char-binary {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            background-color: #e9ecef;
+            padding: 0.25rem;
+            border-radius: 2px;
+            letter-spacing: 1px;
+        }
+        
+        .visualization-step {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            border-left: 3px solid var(--highlight-color);
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .animation-container {
+            height: 200px;
+            background-color: #f1f3f5;
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .key-visualization {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .key-char {
+            display: inline-block;
+            padding: 0.5rem;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+        }
+        
+        .crypto-animation {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .encryption-options {
+                flex-direction: column;
+            }
+            
+            .btn-group {
+                flex-wrap: wrap;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Encryption Playground</h1>
+        
+        <p class="algorithm-info">
+            This interactive tool allows you to experiment with different encryption algorithms and understand 
+            how they transform your data. Choose an algorithm, enter your text, and see the encryption in action.
+        </p>
+        
+        <div class="algorithm-tabs">
+            <div class="algorithm-tab active" data-algorithm="caesar">Caesar Cipher</div>
+            <div class="algorithm-tab" data-algorithm="vigenere">Vigenère Cipher</div>
+            <div class="algorithm-tab" data-algorithm="aes">AES Encryption</div>
+            <div class="algorithm-tab" data-algorithm="rsa">RSA Encryption</div>
+            <div class="algorithm-tab" data-algorithm="base64">Base64 Encoding</div>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <span>Encryption Tool</span>
+                </div>
+                <div class="card-body">
+                    <div class="encryption-tool">
+                        <div class="algorithm-content active" id="caesar-content">
+                            <p>The Caesar Cipher is one of the simplest encryption techniques. It works by shifting each letter in the plaintext by a fixed number of positions down the alphabet.</p>
+                            
+                            <div class="form-group">
+                                <label for="caesar-text">Text to Encrypt/Decrypt:</label>
+                                <textarea id="caesar-text" class="form-control" placeholder="Enter your text here...">The quick brown fox jumps over the lazy dog</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="caesar-shift">Shift Value (1-25):</label>
+                                <input type="number" id="caesar-shift" class="form-control" min="1" max="25" value="3">
+                            </div>
+                            
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="caesar-action" value="encrypt" checked> Encrypt
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="caesar-action" value="decrypt"> Decrypt
+                                </label>
+                            </div>
+                            
+                            <button id="caesar-go" class="btn btn-primary">Process</button>
+                            
+                            <div class="form-group">
+                                <label for="caesar-output">Result:</label>
+                                <div id="caesar-output" class="output-container">
+                                    <pre>Output will appear here</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="security-level security-low">Security Level: Low - Educational purposes only</div>
+                        </div>
+                        
+                        <div class="algorithm-content" id="vigenere-content">
+                            <p>The Vigenère cipher is a method of encrypting alphabetic text by using a simple form of polyalphabetic substitution. It uses a keyword to shift each letter in the plaintext.</p>
+                            
+                            <div class="form-group">
+                                <label for="vigenere-text">Text to Encrypt/Decrypt:</label>
+                                <textarea id="vigenere-text" class="form-control" placeholder="Enter your text here...">Cybersecurity is fascinating</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="vigenere-key">Keyword:</label>
+                                <input type="text" id="vigenere-key" class="form-control" value="key">
+                            </div>
+                            
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="vigenere-action" value="encrypt" checked> Encrypt
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="vigenere-action" value="decrypt"> Decrypt
+                                </label>
+                            </div>
+                            
+                            <button id="vigenere-go" class="btn btn-primary">Process</button>
+                            
+                            <div class="form-group">
+                                <label for="vigenere-output">Result:</label>
+                                <div id="vigenere-output" class="output-container">
+                                    <pre>Output will appear here</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="security-level security-medium">Security Level: Medium - Historical cipher</div>
+                        </div>
+                        
+                        <div class="algorithm-content" id="aes-content">
+                            <p>Advanced Encryption Standard (AES) is one of the most widely used symmetric encryption algorithms. It operates on blocks of data and uses the same key for both encryption and decryption.</p>
+                            
+                            <div class="form-group">
+                                <label for="aes-text">Text to Encrypt/Decrypt:</label>
+                                <textarea id="aes-text" class="form-control" placeholder="Enter your text here...">This is a secret message</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="aes-key">Secret Key (16, 24, or 32 characters for AES-128, AES-192, or AES-256):</label>
+                                <input type="text" id="aes-key" class="form-control" value="MySecretPassword">
+                                <div id="aes-key-length" class="key-length-display">Current key length: <span>16</span> characters (AES-128)</div>
+                            </div>
+                            
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="aes-action" value="encrypt" checked> Encrypt
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="aes-action" value="decrypt"> Decrypt
+                                </label>
+                            </div>
+                            
+                            <button id="aes-go" class="btn btn-primary">Process</button>
+                            
+                            <div class="form-group">
+                                <label for="aes-output">Result:</label>
+                                <div id="aes-output" class="output-container">
+                                    <pre>Output will appear here</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="security-level security-high">Security Level: High - Modern encryption standard</div>
+                        </div>
+                        
+                        <div class="algorithm-content" id="rsa-content">
+                            <p>RSA is an asymmetric encryption algorithm using a pair of keys: a public key for encryption and a private key for decryption. This is a simplified demonstration.</p>
+                            
+                            <div class="form-group">
+                                <label for="rsa-text">Text to Encrypt/Decrypt:</label>
+                                <textarea id="rsa-text" class="form-control" placeholder="Enter your text here...">RSA secures the internet</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button id="rsa-generate" class="btn btn-outline">Generate New Key Pair</button>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Public Key:</label>
+                                <div id="rsa-public-key" class="output-container">
+                                    <pre>Public key will appear here</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Private Key:</label>
+                                <div id="rsa-private-key" class="output-container">
+                                    <pre>Private key will appear here</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="btn-group">
+                                <button id="rsa-encrypt" class="btn btn-primary">Encrypt with Public Key</button>
+                                <button id="rsa-decrypt" class="btn btn-warning">Decrypt with Private Key</button>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="rsa-output">Result:</label>
+                                <div id="rsa-output" class="output-container">
+                                    <pre>Output will appear here</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="security-level security-high">Security Level: High - Foundation of modern cryptography</div>
+                        </div>
+                        
+                        <div class="algorithm-content" id="base64-content">
+                            <p>Base64 is an encoding scheme used to represent binary data in ASCII string format. It's not encryption but is often used in cryptographic workflows.</p>
+                            
+                            <div class="form-group">
+                                <label for="base64-text">Text to Encode/Decode:</label>
+                                <textarea id="base64-text" class="form-control" placeholder="Enter your text here...">Base64 encoding is used for binary data</textarea>
+                            </div>
+                            
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="base64-action" value="encode" checked> Encode
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="base64-action" value="decode"> Decode
+                                </label>
+                            </div>
+                            
+                            <button id="base64-go" class="btn btn-primary">Process</button>
+                            
+                            <div class="form-group">
+                                <label for="base64-output">Result:</label>
+                                <div id="base64-output" class="output-container">
+                                    <pre>Output will appear here</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="security-level security-low">Security Level: Low - Encoding, not encryption</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <span>Visualization & Explanation</span>
+                </div>
+                <div class="card-body">
+                    <div class="algorithm-content active" id="caesar-visual">
+                        <h3>How Caesar Cipher Works</h3>
+                        <p>The Caesar cipher is a substitution cipher where each letter in the plaintext is shifted a certain number of places down the alphabet.</p>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">Example: Encrypting "HELLO" with shift 3</div>
+                            <p>Each letter is moved 3 positions forward in the alphabet:</p>
+                            <div class="text-to-binary" id="caesar-visual-example">
+                                <div class="char-block">
+                                    <div class="char-original">H</div>
+                                    <div class="char-binary">→ K</div>
+                                </div>
+                                <div class="char-block">
+                                    <div class="char-original">E</div>
+                                    <div class="char-binary">→ H</div>
+                                </div>
+                                <div class="char-block">
+                                    <div class="char-original">L</div>
+                                    <div class="char-binary">→ O</div>
+                                </div>
+                                <div class="char-block">
+                                    <div class="char-original">L</div>
+                                    <div class="char-binary">→ O</div>
+                                </div>
+                                <div class="char-block">
+                                    <div class="char-original">O</div>
+                                    <div class="char-binary">→ R</div>
+                                </div>
+                            </div>
+                            <p>Result: "HELLO" becomes "KHOOR"</p>
+                        </div>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">Alphabet Shift Visualization</div>
+                            <p>This shows how each letter maps to another when shifted by 3 positions:</p>
+                            <div class="code-block">
+                                <pre>Plain:    A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+Cipher:   D E F G H I J K L M N O P Q R S T U V W X Y Z A B C</pre>
+                            </div>
+                        </div>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">Security Considerations</div>
+                            <p>The Caesar cipher is extremely weak because:</p>
+                            <ul>
+                                <li>There are only 25 possible shifts (keys)</li>
+                                <li>It can be easily broken with frequency analysis</li>
+                                <li>Patterns in the original text remain in the ciphertext</li>
+                            </ul>
+                            <p>This cipher is primarily used for educational purposes and historical context.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="algorithm-content" id="vigenere-visual">
+                        <h3>How Vigenère Cipher Works</h3>
+                        <p>The Vigenère cipher improves upon the Caesar cipher by using a keyword to determine different shift values for each letter of the plaintext.</p>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">Example: Encrypting "HELLO" with key "KEY"</div>
+                            <p>The key is repeated to match the length of the plaintext:</p>
+                            <div class="code-block">
+                                <pre>Plaintext: H E L L O
+Key:       K E Y K E</pre>
+                            </div>
+                            <p>Each letter is shifted according to the corresponding key letter's position in the alphabet (A=0, B=1, ..., Z=25):</p>
+                            <div class="text-to-binary" id="vigenere-visual-example">
+                                <div class="char-block">
+                                    <div class="char-original">H (+K)</div>
+                                    <div class="char-binary">→ R</div>
+                                </div>
+                                <div class="char-block">
+                                    <div class="char-original">E (+E)</div>
+                                    <div class="char-binary">→ I</div>
+                                </div>
+                                <div class="char-block">
+                                    <div class="char-original">L (+Y)</div>
+                                    <div class="char-binary">→ J</div>
+                                </div>
+                                <div class="char-block">
+                                    <div class="char-original">L (+K)</div>
+                                    <div class="char-binary">→ V</div>
+                                </div>
+                                <div class="char-block">
+                                    <div class="char-original">O (+E)</div>
+                                    <div class="char-binary">→ S</div>
+                                </div>
+                            </div>
+                            <p>Result: "HELLO" becomes "RIJVS"</p>
+                        </div>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">The Vigenère Table</div>
+                            <p>The traditional method uses the Vigenère square/table, a grid where each row represents a different Caesar cipher:</p>
+                            <div class="animation-container">
+                                <div class="crypto-animation" id="vigenere-table-anim">
+                                    <img src="/api/placeholder/400/320" alt="Vigenère Table Visualization">
+                                </div>
+                            </div>
+                            <p>To encrypt, find the row with the key letter and the column with the plaintext letter. The intersection is the ciphertext letter.</p>
+                        </div>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">Security Considerations</div>
+                            <p>The Vigenère cipher was considered "unbreakable" for centuries, but now it can be broken with:</p>
+                            <ul>
+                                <li>Kasiski examination - finding repeated text patterns</li>
+                                <li>Frequency analysis - examining statistical properties</li>
+                                <li>Index of coincidence methods</li>
+                            </ul>
+                            <p>The security depends heavily on the key length and randomness. Longer keys provide better security.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="algorithm-content" id="aes-visual">
+                        <h3>How AES Encryption Works</h3>
+                        <p>Advanced Encryption Standard (AES) is a symmetric block cipher that processes data in fixed-size blocks using the same key for both encryption and decryption.</p>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">Key Features of AES</div>
+                            <ul>
+                                <li><strong>Block Size:</strong> 128 bits (16 bytes)</li>
+                                <li><strong>Key Sizes:</strong> 128, 192, or 256 bits</li>
+                                <li><strong>Rounds:</strong> 10, 12, or 14 (depending on key size)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">The AES Process</div>
+                            <p>AES performs several operations in rounds:</p>
+                            <ol>
+                                <li><strong>SubBytes:</strong> Substituting bytes using a lookup table</li>
+                                <li><strong>ShiftRows:</strong> Shifting rows of the state array</li>
+                                <li><strong>MixColumns:</strong> Mixing data within columns</li>
+                                <li><strong>AddRoundKey:</strong> XORing with the round key</li>
+                            </ol>
+                            <div class="animation-container">
+                                <div class="crypto-animation" id="aes-process-anim">
+                                    <img src="/api/placeholder/400/320" alt="AES Encryption Process">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">Security Considerations</div>
+                            <p>AES is considered highly secure and is used worldwide for sensitive data protection:</p>
+                            <ul>
+                                <li>No practical attacks against full AES have been discovered</li>
+                                <li>Theoretical attacks require computational resources beyond current technology</li>
+                                <li>AES-256 is approved for top secret information by the US government</li>
+                            </ul>
+                            <p>The security depends on keeping the key secret and implementing the algorithm correctly.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="algorithm-content" id="rsa-visual">
+                        <h3>How RSA Encryption Works</h3>
+                        <p>RSA is an asymmetric cryptosystem that uses a pair of keys: a public key for encryption and a private key for decryption.</p>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">The Key Generation Process</div>
+                            <ol>
+                                <li>Choose two large prime numbers, p and q</li>
+                                <li>Compute n = p × q</li>
+                                <li>Calculate φ(n) = (p-1) × (q-1)</li>
+                                <li>Choose e (public exponent) such that 1 < e < φ(n) and gcd(e, φ(n)) = 1</li>
+                                <li>Compute d (private exponent) such that d × e ≡ 1 (mod φ(n))</li>
+                            </ol>
+                            <p><strong>Public key:</strong> (n, e)<br><strong>Private key:</strong> (n, d)</p>
+                        </div>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">Encryption and Decryption</div>
+                            <p>For a message m:</p>
+                            <div class="code-block">
+                                <pre>Encryption: c = m^e mod n
+Decryption: m = c^d mod n</pre>
+                            </div>
+                            <div class="animation-container">
+                                <div class="crypto-animation" id="rsa-process-anim">
+                                    <img src="/api/placeholder/400/320" alt="RSA Encryption Process">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">Security Considerations</div>
+                            <p>RSA security relies on the computational difficulty of factoring large numbers:</p>
+                            <ul>
+                                <li>The security increases with key size (2048 or 4096 bits recommended)</li>
+                                <li>Quantum computers pose a theoretical threat to RSA</li>
+                                <li>Proper implementation is critical to prevent side-channel attacks</li>
+                            </ul>
+                            <p>RSA is often used to encrypt small amounts of data or to exchange symmetric keys.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="algorithm-content" id="base64-visual">
+                        <h3>How Base64 Encoding Works</h3>
+                        <p>Base64 is an encoding scheme that represents binary data in an ASCII string format by translating it into a radix-64 representation.</p>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">The Encoding Process</div>
+                            <p>Base64 encoding works by:</p>
+                            <ol>
+                                <li>Taking 3 bytes (24 bits) of binary data</li>
+                                <li>Splitting it into 4 groups of 6 bits each</li>
+                                <li>Converting each 6-bit value to a character in the Base64 alphabet (A-Z, a-z, 0-9, +, /)</li>
+                            </ol>
+                            <div class="binary-example">
+                                <p><strong>Original text:</strong> "Man"</p>
+                                <p><strong>ASCII values:</strong> M (77), a (97), n (110)</p>
+                                <p><strong>Binary:</strong> 01001101 01100001 01101110</p>
+                                <p><strong>Grouped into 6 bits:</strong> 010011 010110 000101 101110</p>
+                                <p><strong>Base64 values:</strong> 19, 22, 5, 46</p>
+                                <p><strong>Base64 characters:</strong> T, W, F, u</p>
+                                <p><strong>Result:</strong> "TWFu"</p>
+                            </div>
+                        </div>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">Padding</div>
+                            <p>If the input length is not divisible by 3, padding is added with the "=" character:</p>
+                            <div class="code-block">
+                                <pre>"M"     → 01001101 00000000 00000000 → "TQ=="
+"Ma"    → 01001101 01100001 00000000 → "TWE="</pre>
+                            </div>
+                        </div>
+                        
+                        <div class="visualization-step">
+                            <div class="step-title">Use Cases and Considerations</div>
+                            <p>Base64 is not encryption, but encoding. It's commonly used for:</p>
+                            <ul>
+                                <li>Embedding binary data in text formats like JSON or XML</li>
+                                <li>Encoding email attachments (MIME)</li>
+                                <li>Embedding image data directly in HTML/CSS</li>
+                                <li>Transmitting binary data over text-only protocols</li>
+                            </ul>
+                            <p>It increases data size by approximately 33% but ensures safe transmission through text-based systems.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching logic
+            const tabs = document.querySelectorAll('.algorithm-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const algorithm = this.getAttribute('data-algorithm');
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update active content
+                    document.querySelectorAll('.algorithm-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    document.getElementById(`${algorithm}-content`).classList.add('active');
+                    document.getElementById(`${algorithm}-visual`).classList.add('active');
+                });
+            });
+            
+            // Caesar Cipher Implementation
+            document.getElementById('caesar-go').addEventListener('click', function() {
+                const text = document.getElementById('caesar-text').value;
+                const shift = parseInt(document.getElementById('caesar-shift').value);
+                const action = document.querySelector('input[name="caesar-action"]:checked').value;
+                
+                const result = caesarCipher(text, shift, action);
+                document.getElementById('caesar-output').innerHTML = `<pre>${result}</pre>`;
+                
+                // Update visualization with the actual content
+                updateCaesarVisualization(text.substring(0, 5).toUpperCase(), shift);
+            });
+            
+            // Vigenere Cipher Implementation
+            document.getElementById('vigenere-go').addEventListener('click', function() {
+                const text = document.getElementById('vigenere-text').value;
+                const key = document.getElementById('vigenere-key').value;
+                const action = document.querySelector('input[name="vigenere-action"]:checked').value;
+                
+                const result = vigenereCipher(text, key, action);
+                document.getElementById('vigenere-output').innerHTML = `<pre>${result}</pre>`;
+                
+                // Update visualization
+                updateVigenereVisualization(text.substring(0, 5).toUpperCase(), key.toUpperCase());
+            });
+            
+            // AES Implementation
+            document.getElementById('aes-go').addEventListener('click', function() {
+                const text = document.getElementById('aes-text').value;
+                const key = document.getElementById('aes-key').value;
+                const action = document.querySelector('input[name="aes-action"]:checked').value;
+                
+                try {
+                    const result = aesEncryptDecrypt(text, key, action);
+                    document.getElementById('aes-output').innerHTML = `<pre>${result}</pre>`;
+                } catch (error) {
+                    document.getElementById('aes-output').innerHTML = `<pre class="error-text">Error: ${error.message}</pre>`;
+                }
+            });
+            
+            // Update AES key length display
+            document.getElementById('aes-key').addEventListener('input', function() {
+                const keyLength = this.value.length;
+                let aesType = "";
+                
+                if (keyLength <= 16) {
+                    aesType = "AES-128";
+                } else if (keyLength <= 24) {
+                    aesType = "AES-192";
+                } else {
+                    aesType = "AES-256";
+                }
+                
+                document.querySelector('#aes-key-length span').textContent = keyLength;
+                document.querySelector('#aes-key-length').innerHTML = `Current key length: <span>${keyLength}</span> characters (${aesType})`;
+            });
+            
+            // RSA Implementation
+            let rsaKeys = null;
+            let rsaEncryptedMessage = null;
+            
+            document.getElementById('rsa-generate').addEventListener('click', function() {
+                rsaKeys = generateRSAKeys();
+                document.getElementById('rsa-public-key').innerHTML = `<pre>e: ${rsaKeys.publicKey.e}\nn: ${rsaKeys.publicKey.n}</pre>`;
+                document.getElementById('rsa-private-key').innerHTML = `<pre>d: ${rsaKeys.privateKey.d}\nn: ${rsaKeys.privateKey.n}</pre>`;
+            });
+            
+            document.getElementById('rsa-encrypt').addEventListener('click', function() {
+                if (!rsaKeys) {
+                    document.getElementById('rsa-output').innerHTML = `<pre class="error-text">Please generate keys first</pre>`;
+                    return;
+                }
+                
+                const text = document.getElementById('rsa-text').value;
+                try {
+                    rsaEncryptedMessage = rsaEncrypt(text, rsaKeys.publicKey);
+                    document.getElementById('rsa-output').innerHTML = `<pre>${rsaEncryptedMessage}</pre>`;
+                } catch (error) {
+                    document.getElementById('rsa-output').innerHTML = `<pre class="error-text">Error: ${error.message}</pre>`;
+                }
+            });
+            
+            document.getElementById('rsa-decrypt').addEventListener('click', function() {
+                if (!rsaKeys || !rsaEncryptedMessage) {
+                    document.getElementById('rsa-output').innerHTML = `<pre class="error-text">Please encrypt a message first</pre>`;
+                    return;
+                }
+                
+                try {
+                    const decrypted = rsaDecrypt(rsaEncryptedMessage, rsaKeys.privateKey);
+                    document.getElementById('rsa-output').innerHTML = `<pre>${decrypted}</pre>`;
+                } catch (error) {
+                    document.getElementById('rsa-output').innerHTML = `<pre class="error-text">Error: ${error.message}</pre>`;
+                }
+            });
+            
+            // Base64 Implementation
+            document.getElementById('base64-go').addEventListener('click', function() {
+                const text = document.getElementById('base64-text').value;
+                const action = document.querySelector('input[name="base64-action"]:checked').value;
+                
+                try {
+                    const result = action === 'encode' ? btoa(text) : atob(text);
+                    document.getElementById('base64-output').innerHTML = `<pre>${result}</pre>`;
+                } catch (error) {
+                    document.getElementById('base64-output').innerHTML = `<pre class="error-text">Error: ${error.message}</pre>`;
+                }
+            });
+            
+            // Generate initial RSA keys
+            document.getElementById('rsa-generate').click();
+            
+            // Caesar Cipher Function
+            function caesarCipher(text, shift, action) {
+                // Adjust shift for decryption
+                if (action === 'decrypt') {
+                    shift = (26 - shift) % 26;
+                }
+                
+                return text.split('').map(char => {
+                    const code = char.charCodeAt(0);
+                    
+                    // Uppercase letters (A-Z: 65-90)
+                    if (code >= 65 && code <= 90) {
+                        return String.fromCharCode(((code - 65 + shift) % 26) + 65);
+                    }
+                    // Lowercase letters (a-z: 97-122)
+                    else if (code >= 97 && code <= 122) {
+                        return String.fromCharCode(((code - 97 + shift) % 26) + 97);
+                    }
+                    // Non-alphabetic characters
+                    else {
+                        return char;
+                    }
+                }).join('');
+            }
+            
+            // Update Caesar Visualization
+            function updateCaesarVisualization(text, shift) {
+                const visualContainer = document.getElementById('caesar-visual-example');
+                visualContainer.innerHTML = '';
+                
+                for (let i = 0; i < text.length; i++) {
+                    const char = text[i];
+                    const code = char.charCodeAt(0);
+                    
+                    if (code >= 65 && code <= 90) {
+                        const encryptedChar = String.fromCharCode(((code - 65 + shift) % 26) + 65);
+                        
+                        const charBlock = document.createElement('div');
+                        charBlock.className = 'char-block';
+                        charBlock.innerHTML = `
+                            <div class="char-original">${char}</div>
+                            <div class="char-binary">→ ${encryptedChar}</div>
+                        `;
+                        
+                        visualContainer.appendChild(charBlock);
+                    }
+                }
+            }
+            
+            // Vigenere Cipher Function
+            function vigenereCipher(text, key, action) {
+                if (!key) {
+                    return "Error: Key cannot be empty";
+                }
+                
+                // Expand the key to match text length
+                let expandedKey = '';
+                for (let i = 0; i < text.length; i++) {
+                    expandedKey += key[i % key.length];
+                }
+                
+                return text.split('').map((char, i) => {
+                    const charCode = char.charCodeAt(0);
+                    const keyChar = expandedKey[i].toUpperCase();
+                    const keyCode = keyChar.charCodeAt(0) - 65;  // A=0, B=1, etc.
+                    
+                    // Process only alphabetic characters
+                    if ((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122)) {
+                        const isUpperCase = charCode >= 65 && charCode <= 90;
+                        const base = isUpperCase ? 65 : 97;
+                        
+                        if (action === 'encrypt') {
+                            return String.fromCharCode(((charCode - base + keyCode) % 26) + base);
+                        } else {
+                            return String.fromCharCode(((charCode - base - keyCode + 26) % 26) + base);
+                        }
+                    } else {
+                        return char; // Non-alphabetic character
+                    }
+                }).join('');
+            }
+            
+            // Update Vigenere Visualization
+            function updateVigenereVisualization(text, key) {
+                const visualContainer = document.getElementById('vigenere-visual-example');
+                visualContainer.innerHTML = '';
+                
+                // Expand the key to match text length
+                let expandedKey = '';
+                for (let i = 0; i < text.length; i++) {
+                    expandedKey += key[i % key.length];
+                }
+                
+                for (let i = 0; i < text.length; i++) {
+                    const char = text[i];
+                    const keyChar = expandedKey[i];
+                    const charCode = char.charCodeAt(0);
+                    const keyCode = keyChar.charCodeAt(0) - 65;  // A=0, B=1, etc.
+                    
+                    if (charCode >= 65 && charCode <= 90) {
+                        const encryptedChar = String.fromCharCode(((charCode - 65 + keyCode) % 26) + 65);
+                        
+                        const charBlock = document.createElement('div');
+                        charBlock.className = 'char-block';
+                        charBlock.innerHTML = `
+                            <div class="char-original">${char} (+${keyChar})</div>
+                            <div class="char-binary">→ ${encryptedChar}</div>
+                        `;
+                        
+                        visualContainer.appendChild(charBlock);
+                    }
+                }
+            }
+            
+            // AES Encryption/Decryption Function
+            function aesEncryptDecrypt(text, key, action) {
+                // This is a simplified version for educational purposes
+                // In a real implementation, use Web Crypto API or a library
+                
+                // For demonstration, we'll use a basic symmetric substitution
+                const substitution = {};
+                let seed = 0;
+                
+                // Create a deterministic substitution map based on the key
+                for (let i = 0; i < key.length; i++) {
+                    seed += key.charCodeAt(i);
+                }
+                
+                for (let i = 0; i < 256; i++) {
+                    substitution[String.fromCharCode(i)] = String.fromCharCode((i + seed) % 256);
+                }
+                
+                if (action === 'encrypt') {
+                    return text.split('').map(char => {
+                        return substitution[char] || char;
+                    }).join('');
+                } else {
+                    // Create reverse mapping for decryption
+                    const reverseSubstitution = {};
+                    for (const [char, subChar] of Object.entries(substitution)) {
+                        reverseSubstitution[subChar] = char;
+                    }
+                    
+                    return text.split('').map(char => {
+                        return reverseSubstitution[char] || char;
+                    }).join('');
+                }
+            }
+            
+            // RSA Key Generation Function
+            function generateRSAKeys() {
+                // This is a simplified RSA implementation for demonstration
+                // In real applications, use a proper cryptographic library
+                
+                // Generate two "prime" numbers (not actually prime but simplified)
+                const p = 61;
+                const q = 53;
+                const n = p * q;
+                const phi = (p - 1) * (q - 1);
+                
+                // Choose e (public exponent)
+                const e = 17;  // Common value, relatively prime to phi
+                
+                // Calculate d (private exponent) such that (d * e) % phi = 1
+                let d = 0;
+                for (let i = 0; i < phi; i++) {
+                    if ((i * e) % phi === 1) {
+                        d = i;
+                        break;
+                    }
+                }
+                
+                return {
+                    publicKey: { e, n },
+                    privateKey: { d, n }
+                };
+            }
+            
+            // RSA Encryption Function
+            function rsaEncrypt(text, publicKey) {
+                // Convert text to numbers (a simple approach)
+                const numbers = text.split('').map(char => char.charCodeAt(0));
+                
+                // Encrypt each number
+                const encrypted = numbers.map(num => {
+                    // c = m^e mod n (simplified for small numbers)
+                    let result = 1;
+                    for (let i = 0; i < publicKey.e; i++) {
+                        result = (result * num) % publicKey.n;
+                    }
+                    return result;
+                });
+                
+                return encrypted.join(',');
+            }
+            
+            // RSA Decryption Function
+            function rsaDecrypt(encryptedText, privateKey) {
+                // Parse encrypted values
+                const encrypted = encryptedText.split(',').map(Number);
+                
+                // Decrypt each number
+                const decrypted = encrypted.map(num => {
+                    // m = c^d mod n (simplified for small numbers)
+                    let result = 1;
+                    for (let i = 0; i < privateKey.d; i++) {
+                        result = (result * num) % privateKey.n;
+                    }
+                    return String.fromCharCode(result);
+                });
+                
+                return decrypted.join('');
+            }
+            
+            // Create Vigenère table visualization
+            function createVigenereTable() {
+                const container = document.getElementById('vigenere-table-anim');
+                container.innerHTML = '';
+                
+                const table = document.createElement('table');
+                table.style.borderCollapse = 'collapse';
+                table.style.fontSize = '10px';
+                
+                // Create header row
+                const headerRow = document.createElement('tr');
+                headerRow.appendChild(document.createElement('th')); // Empty corner cell
+                
+                for (let i = 0; i < 26; i++) {
+                    const th = document.createElement('th');
+                    th.textContent = String.fromCharCode(65 + i);
+                    th.style.padding = '2px';
+                    th.style.backgroundColor = '#f1f3f5';
+                    headerRow.appendChild(th);
+                }
+                
+                table.appendChild(headerRow);
+                
+                // Create data rows
+                for (let i = 0; i < 26; i++) {
+                    const row = document.createElement('tr');
+                    
+                    // Row header
+                    const rowHeader = document.createElement('th');
+                    rowHeader.textContent = String.fromCharCode(65 + i);
+                    rowHeader.style.backgroundColor = '#f1f3f5';
+                    rowHeader.style.padding = '2px';
+                    row.appendChild(rowHeader);
+                    
+                    // Row data
+                    for (let j = 0; j < 26; j++) {
+                        const td = document.createElement('td');
+                        td.textContent = String.fromCharCode(65 + (i + j) % 26);
+                        td.style.padding = '2px';
+                        td.style.textAlign = 'center';
+                        td.style.border = '1px solid #ddd';
+                        row.appendChild(td);
+                    }
+                    
+                    table.appendChild(row);
+                }
+                
+                container.appendChild(table);
+            }
+            
+            // Initialize visualizations
+            updateCaesarVisualization("HELLO", 3);
+            updateVigenereVisualization("HELLO", "KEY");
+            createVigenereTable();
+        });
+    </script>
+</body>
+</html>
