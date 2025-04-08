@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Cybersecurity Learning - Aziz Alghamdi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base styles that match your existing website */
+        :root {
+            --primary-color: #212529;
+            --secondary-color: #495057;
+            --accent-color: #6c757d;
+            --text-color: #333333;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+            --border-radius: 4px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            position: relative;
+        }
+
+        .binary-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            left: 0;
+            background-size: cover;
+            opacity: 0.015;
+            z-index: 0;
+            pointer-events: none;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNDAwIDQwMCI+CiAgPHN0eWxlPgogICAgdGV4dCB7IGZvbnQtZmFtaWx5OiBtb25vc3BhY2U7IGZvbnQtc2l6ZTogMTBweDsgZmlsbDogIzMzMzsgfQogIDwvc3R5bGU+CiAgPGcgaWQ9ImJpbmFyeSI+CiAgICA8dGV4dCB4PSIxMCIgeT0iMTAiPjAxMTAwMTAxPC90ZXh0PgogICAgPHRleHQgeD0iNjAiIHk9IjEwIj4xMTAwMTExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjExMCIgeT0iMTAiPjAxMDAxMDExPC90ZXh0PgogICAgPHRleHQgeD0iMTYwIiB5PSIxMCI+MTEwMTAxMDA8L3RleHQ+CiAgICA8dGV4dCB4PSIyMTAiIHk9IjEwIj4wMTEwMTEwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjI2MCIgeT0iMTAiPjExMTAxMDAxPC90ZXh0PgogICAgPHRleHQgeD0iMzEwIiB5PSIxMCI+MDExMDAwMTA8L3RleHQ+CiAgICA8dGV4dCB4PSIzNjAiIHk9IjEwIj4xMDAxMDExMTwvdGV4dD4KICAgIAogICAgPHRleHQgeD0iMTAiIHk9IjMwIj4xMDExMDAxMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjYwIiB5PSIzMCI+MDAxMDExMDE8L3RleHQ+CiAgICA8dGV4dCB4PSIxMTAiIHk9IjMwIj4xMTAxMDAwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjE2MCIgeT0iMzAiPjAxMDExMTAwPC90ZXh0PgogICAgPHRleHQgeD0iMjEwIiB5PSIzMCI+MDEwMDAxMTE8L3RleHQ+CiAgICA8dGV4dCB4PSIyNjAiIHk9IjMwIj4xMTAxMDExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjMxMCIgeT0iMzAiPjAxMDAxMDAwPC90ZXh0PgogICAgPHRleHQgeD0iMzYwIiB5PSIzMCI+MTExMDAxMDE8L3RleHQ+CiAgPC9nPgo8L3N2Zz4=');
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 60px;
+            background-color: var(--secondary-color);
+            bottom: -10px;
+            left: 0;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--secondary-color);
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        /* Interactive learning section specific styles */
+        .interactive-section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .game-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-top: 3px solid transparent;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border-top-color: var(--secondary-color);
+        }
+
+        .game-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .game-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .game-card:hover .game-image::before {
+            opacity: 1;
+        }
+
+        .game-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+        }
+
+        .game-description {
+            color: var(--text-color);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .game-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .skill-tag {
+            background-color: #f1f3f5;
+            color: var(--secondary-color);
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 3px;
+            border: 1px solid #dee2e6;
+        }
+
+        .game-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+
+        .game-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .game-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        .coming-soon {
+            background-color: rgba(220, 53, 69, 0.8);
+        }
+
+        /* Category tabs */
+        .category-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #dee2e6;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .category-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            color: var(--text-color);
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .category-tab:hover {
+            color: var(--secondary-color);
+        }
+
+        .category-tab.active {
+            border-bottom-color: var(--secondary-color);
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .info-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .info-title {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .info-title i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-tabs {
+                padding-bottom: 10px;
+            }
+
+            .category-tab {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="binary-bg"></div>
+
+    <section class="interactive-section" id="interactive">
+        <div class="container">
+            <h2 class="section-title">Interactive Learning</h2>
+            <p class="section-subtitle">Put your cybersecurity skills to the test with these interactive challenges, games, and tools. Each activity is designed to demonstrate important security concepts in an engaging way.</p>
+
+            <div class="info-box">
+                <div class="info-title">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Why interactive learning?</span>
+                </div>
+                <p>Cybersecurity skills are best developed through hands-on practice. These interactive elements allow you to experience real-world security scenarios in a safe environment, helping you build practical knowledge that goes beyond theoretical understanding.</p>
+            </div>
+
+            <div class="category-tabs">
+                <div class="category-tab active" data-category="all">All</div>
+                <div class="category-tab" data-category="games">Challenges & Games</div>
+                <div class="category-tab" data-category="tools">Interactive Tools</div>
+                <div class="category-tab" data-category="simulations">Simulations</div>
+            </div>
+
+            <div class="games-grid">
+                <!-- Cybersecurity Terminal Game -->
+                <div class="game-card" data-categories="games challenges">
+                    <div class="game-image" style="background-image: url('/api/placeholder/600/400');">
+                        <div class="game-badge">New</div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Cybersecurity Terminal Challenge</h3>
+                        <p class="game-description">Test your command-line skills in this terminal-based cybersecurity challenge. Navigate through a simulated system, find vulnerabilities, and escalate privileges to complete the mission.</p>
+                        <div class="game-skills">
+                            <span class="skill-tag">Command Line</span>
+                            <span class="skill-tag">Linux</span>
+                            <span class="skill-tag">Privilege Escalation</span>
+                        </div>
+                        <a href="terminal-game.html" class="game-link">Start Challenge</a>
+                    </div>
+                </div>
+
+                <!-- CTF Game -->
+                <div class="game-card" data-categories="games challenges">
+                    <div class="game-image" style="background-image: url('/api/placeholder/600/400');">
+                        <div class="game-badge coming-soon">Coming Soon</div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Capture The Flag Challenge</h3>
+                        <p class="game-description">Multiple mini-challenges that test various cybersecurity skills. Find hidden flags by solving puzzles involving cryptography, web security, forensics, and more.</p>
+                        <div class="game-skills">
+                            <span class="skill-tag">CTF</span>
+                            <span class="skill-tag">Problem Solving</span>
+                            <span class="skill-tag">Cryptography</span>
+                        </div>
+                        <a href="ctf-game.html" class="game-link">Coming Soon</a>
+                    </div>
+                </div>
+
+                <!-- Encryption Playground -->
+                <div class="game-card" data-categories="tools interactive">
+                    <div class="game-image" style="background-image: url('/api/placeholder/600/400');">
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Encryption Playground</h3>
+                        <p class="game-description">Experiment with different encryption algorithms in real-time. Encrypt your own messages, learn how various ciphers work, and understand the importance of strong encryption.</p>
+                        <div class="game-skills">
+                            <span class="skill-tag">Cryptography</span>
+                            <span class="skill-tag">Encryption</span>
+                            <span class="skill-tag">Ciphers</span>
+                        </div>
+                        <a href="encryption-playground.html" class="game-link">Try It Out</a>
+                    </div>
+                </div>
+
+                <!-- Network Playground -->
+                <div class="game-card" data-categories="tools simulations">
+                    <div class="game-image" style="background-image: url('/api/placeholder/600/400');">
+                        <div class="game-badge coming-soon">Coming Soon</div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Network Security Playground</h3>
+                        <p class="game-description">Visualize and simulate different network attacks and defense mechanisms. Configure firewalls, detect intrusions, and learn how to protect network infrastructure.</p>
+                        <div class="game-skills">
+                            <span class="skill-tag">Network Security</span>
+                            <span class="skill-tag">Firewalls</span>
+                            <span class="skill-tag">Intrusion Detection</span>
+                        </div>
+                        <a href="network-playground.html" class="game-link">Coming Soon</a>
+                    </div>
+                </div>
+
+                <!-- Blockchain Explorer -->
+                <div class="game-card" data-categories="tools simulations">
+                    <div class="game-image" style="background-image: url('/api/placeholder/600/400');">
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Blockchain Explorer</h3>
+                        <p class="game-description">Interactive visualization of how blockchain technology works. Create transactions, mine blocks, and understand the cryptographic principles that make blockchain secure.</p>
+                        <div class="game-skills">
+                            <span class="skill-tag">Blockchain</span>
+                            <span class="skill-tag">Cryptography</span>
+                            <span class="skill-tag">Distributed Systems</span>
+                        </div>
+                        <a href="blockchain.html" class="game-link">Explore</a>
+                    </div>
+                </div>
+
+                <!-- Social Engineering Quiz -->
+                <div class="game-card" data-categories="games challenges">
+                    <div class="game-image" style="background-image: url('/api/placeholder/600/400');">
+                        <div class="game-badge">New</div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Social Engineering Quiz</h3>
+                        <p class="game-description">Test your ability to identify phishing attempts, scams, and other social engineering tactics. Learn to spot the warning signs that indicate when someone is trying to manipulate you.</p>
+                        <div class="game-skills">
+                            <span class="skill-tag">Social Engineering</span>
+                            <span class="skill-tag">Phishing</span>
+                            <span class="skill-tag">Security Awareness</span>
+                        </div>
+                        <a href="social-engineering-quiz.html" class="game-link">Take the Quiz</a>
+                    </div>
+                </div>
+
+                <!-- Digital Forensics -->
+                <div class="game-card" data-categories="games challenges">
+                    <div class="game-image" style="background-image: url('/api/placeholder/600/400');">
+                        <div class="game-badge">New</div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Digital Forensics Challenge</h3>
+                        <p class="game-description">Investigate a simulated cyber incident by analyzing digital evidence, system logs, and other artifacts. Determine what happened, how it happened, and who was responsible.</p>
+                        <div class="game-skills">
+                            <span class="skill-tag">Digital Forensics</span>
+                            <span class="skill-tag">Log Analysis</span>
+                            <span class="skill-tag">Incident Response</span>
+                        </div>
+                        <a href="digital-forensics.html" class="game-link">Investigate</a>
+                    </div>
+                </div>
+
+                <!-- Password Security Tool -->
+                <div class="game-card" data-categories="tools interactive">
+                    <div class="game-image" style="background-image: url('/api/placeholder/600/400');">
+                        <div class="game-badge coming-soon">Coming Soon</div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Password Security Analyzer</h3>
+                        <p class="game-description">Test password strength, generate secure passwords, and learn about common password vulnerabilities. Understand why password security matters and best practices for protection.</p>
+                        <div class="game-skills">
+                            <span class="skill-tag">Password Security</span>
+                            <span class="skill-tag">Authentication</span>
+                            <span class="skill-tag">Brute Force</span>
+                        </div>
+                        <a href="#" class="game-link">Coming Soon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter functionality for category tabs
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            const gameCards = document.querySelectorAll('.game-card');
+
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+
+                    // Get selected category
+                    const selectedCategory = this.getAttribute('data-category');
+
+                    // Filter game cards
+                    gameCards.forEach(card => {
+                        if (selectedCategory === 'all') {
+                            card.style.display = 'flex';
+                        } else {
+                            const categories = card.getAttribute('data-categories');
+                            if (categories && categories.includes(selectedCategory)) {
+                                card.style.display = 'flex';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
