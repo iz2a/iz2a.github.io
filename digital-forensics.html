@@ -551,6 +551,38 @@
             cursor: pointer;
             font-size: 24px;
         }
+        .cyber-visualization {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.35;
+        }
+
+        .binary-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            left: 0;
+            background-size: cover;
+            opacity: 0.015;
+            z-index: 0;
+            pointer-events: none;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNDAwIDQwMCI+CiAgPHN0eWxlPgogICAgdGV4dCB7IGZvbnQtZmFtaWx5OiBtb25vc3BhY2U7IGZvbnQtc2l6ZTogMTBweDsgZmlsbDogIzMzMzsgfQogIDwvc3R5bGU+CiAgPGcgaWQ9ImJpbmFyeSI+CiAgICA8dGV4dCB4PSIxMCIgeT0iMTAiPjAxMTAwMTAxPC90ZXh0PgogICAgPHRleHQgeD0iNjAiIHk9IjEwIj4xMTAwMTExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjExMCIgeT0iMTAiPjAxMDAxMDExPC90ZXh0PgogICAgPHRleHQgeD0iMTYwIiB5PSIxMCI+MTEwMTAxMDA8L3RleHQ+CiAgICA8dGV4dCB4PSIyMTAiIHk9IjEwIj4wMTEwMTEwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjI2MCIgeT0iMTAiPjExMTAxMDAxPC90ZXh0PgogICAgPHRleHQgeD0iMzEwIiB5PSIxMCI+MDExMDAwMTA8L3RleHQ+CiAgICA8dGV4dCB4PSIzNjAiIHk9IjEwIj4xMDAxMDExMTwvdGV4dD4KICAgIAogICAgPHRleHQgeD0iMTAiIHk9IjMwIj4xMDExMDAxMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjYwIiB5PSIzMCI+MDAxMDExMDE8L3RleHQ+CiAgICA8dGV4dCB4PSIxMTAiIHk9IjMwIj4xMTAxMDAwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjE2MCIgeT0iMzAiPjAxMDExMTAwPC90ZXh0PgogICAgPHRleHQgeD0iMjEwIiB5PSIzMCI+MDEwMDAxMTE8L3RleHQ+CiAgICA8dGV4dCB4PSIyNjAiIHk9IjMwIj4xMTAxMDExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjMxMCIgeT0iMzAiPjAxMDAxMDAwPC90ZXh0PgogICAgPHRleHQgeD0iMzYwIiB5PSIzMCI+MTExMDAxMDE8L3RleHQ+CiAgPC9nPgo8L3N2Zz4=');
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+            z-index: 1;
+        }
+
         /* Cyber Design Elements */
         .cyber-accent {
             position: relative;
@@ -621,6 +653,13 @@
             position: relative;
             display: inline-block;
             z-index: 1;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--secondary-color);
+            max-width: 800px;
+            margin-bottom: 40px;
         }
         /* Footer */
         footer {
@@ -775,6 +814,9 @@
             </nav>
         </div>
     </header>
+    <!-- Unique Cybersecurity Visualization -->
+    <div id="cyber-visualization" class="cyber-visualization"></div>
+    <div class="binary-bg"></div>
     <div class="container">
         <div class="game-header">
             <h1 class="game-title">Digital Forensics Challenge</h1>
