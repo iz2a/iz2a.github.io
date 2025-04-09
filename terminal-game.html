@@ -7,31 +7,34 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Base styles that match your existing website */
-        :root {
-            --primary-color: #212529;
-            --secondary-color: #495057;
-            --accent-color: #6c757d;
-            --cursor-color: #6c757d;
-            --bg-color: #212529;
-            --text-color: #333333;
-            --light-bg: #f8f9fa;
-            --dark-bg: #212529;
-            --error-color: #ee0000;
-            --border-radius: 4px;
-            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
+      /* Add missing color variables */
+:root {
+    --primary-color: #212529;
+    --secondary-color: #495057;
+    --accent-color: #6c757d;
+    --cursor-color: #6c757d;
+    --bg-color: #212529;
+    --text-color: #333333;
+    --light-bg: #f8f9fa;
+    --dark-bg: #212529;
+    --error-color: #ee0000;
+    --highlight-color: #4a4a4a; /* Added missing variable */
+    --success-color: #4a4a4a; /* Added missing variable */
+    --border-radius: 4px;
+    --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Times New Roman', monospace;
-            padding: 20px;
-            margin: 0;
-            min-height: 600px;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Times New Roman', monospace;
+    padding: 2vmin; /* Changed from 20px to relative unit */
+    margin: 0;
+    min-height: 100vh; /* Changed from 600px to 100vh */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
         .terminal-container {
             flex: 1;
@@ -79,16 +82,16 @@
             background-color: #606260;
         }
 
-        .terminal-output {
+       .terminal-output {
             flex: 1;
             overflow-y: auto;
             margin-bottom: 10px;
             scrollbar-width: thin;
             scrollbar-color: var(--accent-color) var(--bg-color);
-            min-height: 350px;
-            max-height: 500px;
+            min-height: 40vh; /* Changed from 350px to 40vh */
+            max-height: 60vh; /* Changed from 500px to 60vh */
             padding-right: 5px;
-        }
+}
 
         .terminal-output::-webkit-scrollbar {
             width: 8px;
@@ -114,16 +117,16 @@
             margin-right: 10px;
         }
 
-        #terminal-input {
-            background-color: transparent;
-            border: none;
-            color: var(--text-color);
-            font-family: 'Courier New', monospace;
-            font-size: 16px;
-            width: 100%;
-            outline: none;
-            caret-color: var(--cursor-color);
-        }
+       #terminal-input {
+    background-color: transparent;
+    border: none;
+    color: var(--text-color);
+    font-family: 'Courier New', monospace;
+    font-size: 1rem; /* Changed from 16px to relative unit */
+    width: 100%;
+    outline: none;
+    caret-color: var(--cursor-color);
+}
         .cyber-visualization {
             position: fixed;
             top: 0;
@@ -219,21 +222,21 @@
             background-size: 18px 18px;
         }
 
-        .section-title {
-            font-size: 36px;
-            margin-bottom: 35px;
-            color: var(--primary-color);
-            position: relative;
-            display: inline-block;
-            z-index: 1;
-        }
+       .section-title {
+    font-size: 2.25rem; /* Changed from 36px */
+    margin-bottom: 2rem; /* Changed from 35px */
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+}
 
-        .section-subtitle {
-            font-size: 18px;
-            color: var(--secondary-color);
-            max-width: 800px;
-            margin-bottom: 40px;
-        }
+      .section-subtitle {
+    font-size: 1.125rem; /* Changed from 18px */
+    color: var(--secondary-color);
+    max-width: 100%; /* Changed from 800px */
+    margin-bottom: 2.5rem; /* Changed from 40px */
+}
 
         /* Header styles */
         header {
@@ -476,31 +479,37 @@
             }
         }
 
-        .help-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--text-color);
-            margin-top: 5px;
-            padding: 0 10px;
-        }
+.help-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--text-color);
+    margin-top: 0.5rem; /* Changed from 5px */
+    padding: 0 1rem; /* Changed from 10px */
+    width: 100%; /* Ensure it takes full width */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
 
-        .help-panel.visible {
-            max-height: 500px;
-            padding: 10px;
-        }
+.help-panel.visible {
+    max-height: 90vh; /* Changed from 500px to viewport-relative unit */
+    padding: 1rem; /* Changed from 10px */
+}
 
-        .help-command {
-            margin: 5px 0;
-        }
+.help-command {
+    margin: 0.5rem 0; /* Changed from 5px */
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+}
 
-        .command-name {
-            color: var(--highlight-color);
-            margin-right: 10px;
-            display: inline-block;
-            width: 100px;
-        }
+.command-name {
+    color: var(--highlight-color);
+    margin-right: 1rem; /* Changed from 10px */
+    display: inline-block;
+    width: auto; /* Changed from fixed 100px */
+    min-width: 6rem; /* Minimum width instead of fixed */
+    font-weight: bold; /* Added to make it stand out */
+}
         /* Footer */
         footer {
             background-color: var(--dark-bg);
@@ -594,6 +603,66 @@
                 padding: 10px;
             }
         }
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem; /* Changed from 10px */
+    margin-top: 1rem; /* Changed from 15px */
+    justify-content: center; /* Center buttons */
+}
+
+button.terminal-button {
+    background-color: rgba(238, 0, 0, 0.98);
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+    border-radius: 4px;
+    padding: 0.5rem 1rem; /* Changed from fixed pixels */
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem; /* Changed from 14px */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    flex: 1; /* Allow buttons to grow */
+    min-width: 6rem; /* Minimum width */
+    max-width: 12rem; /* Maximum width */
+        /* Enhanced media queries for better responsiveness */
+@media (max-width: 768px) {
+    .terminal-container {
+        padding: 0.75rem; /* Changed from 10px to relative unit */
+    }
+    
+    .nav-links {
+        display: none; /* Hide standard navigation on mobile */
+    }
+    
+    .mobile-menu-btn {
+        display: block; /* Show mobile menu button */
+    }
+    
+    .terminal-input-line {
+        flex-direction: column; /* Stack prompt and input on small screens */
+    }
+    
+    .button-group {
+        flex-direction: column; /* Stack buttons on small screens */
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr; /* Single column layout on mobile */
+        gap: 2rem; /* Changed from 50px */
+    }
+}
+
+/* Add this JavaScript to toggle mobile menu */
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    
+    mobileMenuBtn.addEventListener('click', function() {
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+    });
+});
     </style>
 </head>
 <body>
@@ -1287,25 +1356,24 @@
 
             // Reset button
             resetButton.addEventListener('click', function() {
-                if (confirm('Are you sure you want to reset the game? All progress will be lost.')) {
-                    gameState = {
-                        currentUser: 'guest',
-                        currentLevel: 0,
-                        maxLevel: 5,
-                        completedChallenges: [],
-                        filesDiscovered: [],
-                        inventory: [],
-                        badges: [],
-                        hints: {
-                            used: 0,
-                            available: 3
-                        }
-                    };
-                    terminalPrompt.textContent = 'guest@securesystem:~$';
-                    initGame();
-                }
-            });
-
+    if (confirm('Are you sure you want to reset the game? All progress will be lost.')) {
+        gameState = {
+            currentUser: 'guest',
+            currentLevel: 0,
+            maxLevel: 5,
+            completedChallenges: [],
+            filesDiscovered: [],
+            inventory: [],
+            badges: [],
+            hints: {
+                used: 0,
+                available: 3
+            }
+        };
+        terminalPrompt.textContent = 'guest@securesystem:~$'; // Fixed missing quote
+        initGame();
+    }
+});
             // Add typing sound effect
             function playTypeSound() {
                 const typeSound = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABbgCJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJ//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAQTAAAAAAAAW+66rKABAAAAAAAAAAAAAAAAAP/7UEAAABXhxz1RUABRGbl8jhAAVH2MLdwIABMF1MWlMAAAuXOJLQAAAKCPgAAAAAgbCAfx+H4+CEMIQhCEIQhCEIQhB+CHwQAAAAAACAIAgCATg+D4fB8IQhCEAAAABzz/0hCE5///55CEIQhCEAQcoAFCEIQhCEIQnKcHKAHCdEESYYDGXJQYABgBgKUPNjHLCQZG3JYAgGHbGIgiUrHQLwTIMowIABzYBBAxkDnI5mQdJ1HZB+g6Q54yQ/AXkA/EyuSQME5LCQZR2XbqYSWEgyTtxkAQbqALxMg5upmwfSZW0EDfgD0nbi5LoFTkrYZ9tMgARR12SAQEAAAAAAAAAAAAAAAAAAAf/7AEAAAAWAfGfwYAAInA+MvgzgAQAgBAAAAAAgAAAACAEAIAQAAAAAAIAAAAQPKAKIDBMPNIdCYzKAEICbYVEg8CmDJmOcYeAwBimLhIiAMAgkSAgCKGJgcBpDAYJAQGKgUACgGYFhgiImCgMYDAQCAQAUWoLkBgkDDoG9BgQAAQmYTAR5BwENJe/+jgQB3ABYDVCMNgAGYBZAcMf/7kEAAAAYoaKn8HgAKMjpVvgzABQwz/PUMAEDfgIAuYJAYWAIgAIBIBDgDzBg0MFk///+LBmUQA6X//8wYTg4wWOdL///+YNEhJB6PmxAAgYYAAfhEDxaWZJJBmciIf//TAwEFglErMtGGEcP//3///////ULLDQiAgL////////1WsyYnAX////////qQCDhJBgPTWAFQIYwCQZtgAwYHgAoWZqAf/9/AxkxQKyg////////qJiVAr////////o/UiFFQfWZNd////+tKkxBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//sQRAwABfBxLfwzgAoXJWm+BoACrCpXrYJEAM2nif8GYAAAEAAAGBAGIAC4YMGDBAAAAAAAAA0MDBQIECBAgQAAAAQMFCBNSTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr/+xBEFQAFe2vL4MMAApENWXwYYAAAA0gBQAAoAAADSAAAAEqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
@@ -1322,71 +1390,73 @@
             };
 
             // Add some visual polish with matrix effect on start
-            function createMatrixEffect() {
-                // Create a temporary canvas for the matrix effect
-                const matrixCanvas = document.createElement('canvas');
-                matrixCanvas.width = window.innerWidth;
-                matrixCanvas.height = window.innerHeight;
-                matrixCanvas.style.position = 'absolute';
-                matrixCanvas.style.top = '0';
-                matrixCanvas.style.left = '0';
-                matrixCanvas.style.zIndex = '10';
-                document.querySelector('.terminal-container').appendChild(matrixCanvas);
+            // Fix matrix effect scaling
+function createMatrixEffect() {
+    // Create a temporary canvas for the matrix effect
+    const matrixCanvas = document.createElement('canvas');
+    matrixCanvas.width = window.innerWidth; // Fixed canvas reference
+    matrixCanvas.height = window.innerHeight; // Fixed canvas reference
+    matrixCanvas.style.position = 'absolute';
+    matrixCanvas.style.top = '0';
+    matrixCanvas.style.left = '0';
+    matrixCanvas.style.zIndex = '10';
+    document.querySelector('.terminal-container').appendChild(matrixCanvas);
 
-                const ctx = matrixCanvas.getContext('2d');
+    const ctx = matrixCanvas.getContext('2d');
 
-                // Matrix characters
-                const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
+    // Matrix characters
+    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
 
-                // Set up columns
-                const columns = matrixCanvas.width / 15;
-                const drops = [];
+    // Set up columns - scale based on viewport width
+    const fontSize = Math.max(10, window.innerWidth / 80); // Responsive font size
+    const columns = Math.floor(matrixCanvas.width / fontSize); // Scale columns based on font size
+    const drops = [];
 
-                // Initialize drops
-                for (let i = 0; i < columns; i++) {
-                    drops[i] = Math.floor(Math.random() * -20);
-                }
+    // Initialize drops
+    for (let i = 0; i < columns; i++) {
+        drops[i] = Math.floor(Math.random() * -20);
+    }
 
-                // Draw matrix effect
-                function drawMatrix() {
-                    // Set semi-transparent black background to create fade effect
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                    ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+    // Draw matrix effect
+    function drawMatrix() {
+        // Set semi-transparent black background to create fade effect
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
 
-                    // Set text color
-                    ctx.fillStyle = '#0f0';
-                    ctx.font = '15px monospace';
+        // Set text color
+        ctx.fillStyle = '#0f0';
+        ctx.font = `${fontSize}px monospace`;
 
-                    // Draw characters
-                    for (let i = 0; i < drops.length; i++) {
-                        // Random character
-                        const text = chars[Math.floor(Math.random() * chars.length)];
+        // Draw characters
+        for (let i = 0; i < drops.length; i++) {
+            // Random character
+            const text = chars[Math.floor(Math.random() * chars.length)];
 
-                        // x = i * font width, y = drop position * font height
-                        ctx.fillText(text, i * 15, drops[i] * 15);
+            // x = i * font size, y = drop position * font size
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-                        // Send drop back to top randomly after it reaches the bottom
-                        if (drops[i] * 15 > matrixCanvas.height && Math.random() > 0.99) {
-                            drops[i] = 0;
-                        }
-
-                        // Increment drop position
-                        drops[i]++;
-                    }
-                }
-
-                // Animate matrix effect
-                const matrixInterval = setInterval(drawMatrix, 33);
-
-                // Remove matrix effect after a few seconds
-                setTimeout(() => {
-                    clearInterval(matrixInterval);
-                    matrixCanvas.remove();
-
-                    // Proceed with game initialization
-                    initGame();
-                }, 3000);
+            // Send drop back to top randomly after it reaches the bottom
+            if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.99) {
+                drops[i] = 0;
             }
+
+            // Increment drop position
+            drops[i]++;
+        }
+    }
+
+    // Animate matrix effect
+    const matrixInterval = setInterval(drawMatrix, 33);
+
+    // Remove matrix effect after a few seconds
+    setTimeout(() => {
+        clearInterval(matrixInterval);
+        matrixCanvas.remove();
+
+        // Proceed with game initialization
+        initGame();
+    }, 3000);
+}
 
             // Start with matrix effect
             createMatrixEffect();
