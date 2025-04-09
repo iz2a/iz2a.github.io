@@ -622,6 +622,7 @@
             </nav>
         </div>
     </header>
+    <div id="cyber-visualization" class="cyber-visualization"></div>
     <div class="terminal-container">
         <div class="terminal-header">
             <div class="terminal-title">CyberSec Terminal Challenge v1.0</div>
@@ -1300,7 +1301,7 @@
                             available: 3
                         }
                     };
-                    terminalPrompt.textContent = 'guest@securesystem:~;
+                    terminalPrompt.textContent = 'guest@securesystem:~$';
                     initGame();
                 }
             });
@@ -1324,8 +1325,8 @@
             function createMatrixEffect() {
                 // Create a temporary canvas for the matrix effect
                 const matrixCanvas = document.createElement('canvas');
-                matrixCanvas.width = canvas.width;
-                matrixCanvas.height = canvas.height;
+                matrixCanvas.width = window.innerWidth;
+                matrixCanvas.height = window.innerHeight;
                 matrixCanvas.style.position = 'absolute';
                 matrixCanvas.style.top = '0';
                 matrixCanvas.style.left = '0';
