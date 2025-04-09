@@ -45,6 +45,10 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 0 10px rgb(255, 255, 255);
+      
+    margin-bottom: 1rem; /* Add some space before the terminal info */
+    min-height: 60vh; /* Ensure terminal takes at least 60% of viewport height */
+    
         }
 
         .terminal-header {
@@ -512,31 +516,32 @@
 }
         /* Footer */
         footer {
-            background-color: var(--dark-bg);
-            color: white;
-            padding: 60px 0 30px;
-            margin-top: 60px;
-        }
+    background-color: var(--dark-bg);
+    color: white;
+    padding: 2rem 0 1rem; /* Reduced from 60px 0 30px */
+    margin-top: 2rem; /* Reduced from 60px */
+    /* Consider adding this to make footer stay at bottom without taking space */
+    flex-shrink: 0; 
+}
 
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            margin-bottom: 40px;
-        }
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem; /* Reduced from 50px */
+    margin-bottom: 1.5rem; /* Reduced from 40px */
+}
 
-        .footer-about h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: white;
-        }
+.footer-about h3, .footer-links h3 {
+    font-size: 1.5rem; /* Reduced from 24px */
+    margin-bottom: 1rem; /* Reduced from 20px */
+    color: white;
+}
 
-        .footer-about p {
-            margin-bottom: 20px;
-            opacity: 0.8;
-            line-height: 1.7;
-        }
-
+.footer-about p {
+    margin-bottom: 1rem; /* Reduced from 20px */
+    opacity: 0.8;
+    line-height: 1.5; /* Slightly reduced from 1.7 */
+}
         .social-links {
             display: flex;
             gap: 15px;
