@@ -1,16 +1,16 @@
 /**
  * Website Translation Service - English to Arabic
  *
- * This script adds translation functionality to your website using the LibreTranslate API.
- * Modified to work with your existing language switcher.
+ * This script adds translation functionality to your website using Google Translate
+ * without requiring an API key.
+ *
+ * Designed to work with your existing language switcher.
  */
 
 // Configuration
 const CONFIG = {
-  // LibreTranslate API URL - you can use a public instance or self-host
-  apiUrl: 'https://libretranslate.com/translate',
-  // API key if required (many public instances require one)
-  apiKey: '', // Get a free API key from LibreTranslate or use another instance
+  // Use Google's unofficial translation endpoint that doesn't require API key
+  apiUrl: 'https://translate.googleapis.com/translate_a/single',
   // Source and target languages
   sourceLang: 'en',
   targetLang: 'ar',
@@ -116,21 +116,25 @@ async function translateToArabic() {
         if (Date.now() - translations[cacheKey].timestamp > CONFIG.cacheDuration) {
           // Update cache in background
           translationPromises.push(translateText(originalText).then(translatedText => {
-            translations[cacheKey] = {
-              text: translatedText,
-              timestamp: Date.now()
-            };
-            element.innerText = translatedText;
+            if (translatedText) {
+              translations[cacheKey] = {
+                text: translatedText,
+                timestamp: Date.now()
+              };
+              element.innerText = translatedText;
+            }
           }));
         }
       } else {
         // No cached translation, translate now
         translationPromises.push(translateText(originalText).then(translatedText => {
-          translations[cacheKey] = {
-            text: translatedText,
-            timestamp: Date.now()
-          };
-          element.innerText = translatedText;
+          if (translatedText) {
+            translations[cacheKey] = {
+              text: translatedText,
+              timestamp: Date.now()
+            };
+            element.innerText = translatedText;
+          }
         }));
       }
     }
@@ -159,46 +163,72 @@ function restoreOriginalText() {
   });
 }
 
-// Translate a single text using LibreTranslate API
+// Translate a single text using Google Translate without API key
 async function translateText(text) {
-  // Use the free LibreTranslate API
   try {
     // Rate limiting - avoid too many requests at once
     await new Promise(resolve => setTimeout(resolve, Math.random() * 1000));
 
-    const response = await fetch(CONFIG.apiUrl, {
-      method: 'POST',
-      body: JSON.stringify({
-        q: text,
-        source: CONFIG.sourceLang,
-        target: CONFIG.targetLang,
-        format: 'text',
-        api_key: CONFIG.apiKey
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+    // URL encode the text
+    const encodedText = encodeURIComponent(text);
+
+    // Build the query parameters
+    const params = new URLSearchParams({
+      client: 'gtx',        // Use 'gtx' client (no API key required)
+      sl: CONFIG.sourceLang, // Source language
+      tl: CONFIG.targetLang, // Target language
+      dt: 't',              // Return translated text
+      q: encodedText        // Text to translate
     });
+
+    // Make the request
+    const response = await fetch(`${CONFIG.apiUrl}?${params.toString()}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const result = await response.json();
-    return result.translatedText;
+    // Parse the response - Google returns a nested array structure
+    const data = await response.json();
+
+    // The translation is in the first element of the first array
+    // Structure is typically: [[["translated text","original text",null,null,1]],null,"en"]
+    if (data && data[0] && data[0][0] && data[0][0][0]) {
+      return data[0][0][0];
+    } else {
+      console.error('Unexpected translation response format:', data);
+      return null;
+    }
   } catch (error) {
     console.error('Translation API error:', error);
     // If API fails, try fallback method
-    return tryFallbackTranslation(text);
+    return tryFallbackMethod(text);
   }
 }
 
-// Fallback method using Google Translate widget
-function tryFallbackTranslation(text) {
-  // This is a simple fallback that won't actually translate but will
-  // at least show the original text rather than nothing
-  console.warn('Using fallback translation method');
-  return text;
+// Fallback translation method
+async function tryFallbackMethod(text) {
+  try {
+    // Alternative endpoint
+    const url = `https://translation.googleapis.com/language/translate/v2?source=${CONFIG.sourceLang}&target=${CONFIG.targetLang}&q=${encodeURIComponent(text)}`;
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data && data.data && data.data.translations && data.data.translations[0]) {
+      return data.data.translations[0].translatedText;
+    }
+
+    return null;
+  } catch (error) {
+    console.error('Fallback translation error:', error);
+    return text; // Return original text as last resort
+  }
 }
 
 // Save translations to local storage
