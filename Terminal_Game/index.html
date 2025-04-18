@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Terminal Challenge</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none; color: white;">
+                        <i class="fas fa-shield-alt"></i>
+                        Aziz Alghamdi عزيز الغامدي
+                    </a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="/iz2a.github.io/index.html">Home</a></li>
+                    <li><a href="/iz2a.github.io/index.html#about">About</a></li>
+                    <li><a href="/iz2a.github.io/index.html#education">Education</a></li>
+                    <li><a href="/iz2a.github.io/index.html#research">Research</a></li>
+                    <li><a href="/iz2a.github.io/index.html#projects">Projects</a></li>
+                    <li><a href="/iz2a.github.io/index.html#certifications">Certifications</a></li>
+                    <li><a href="/iz2a.github.io/index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="cyber-visualization" class="cyber-visualization">
+        <div class="binary-bg"></div>
+    </div>
+
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-title">CyberSec Terminal Challenge v1.0</div>
+            <div class="terminal-controls">
+                <div class="control-btn control-close"></div>
+                <div class="control-btn control-minimize"></div>
+                <div class="control-btn control-expand"></div>
+            </div>
+        </div>
+
+        <div class="game-status">
+            <div class="game-progress">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="status-info">Challenge Progress</div>
+        </div>
+
+        <div class="terminal-output" id="terminal-output">
+            <!-- Terminal output will be displayed here -->
+        </div>
+
+        <div class="terminal-input-line">
+            <div class="terminal-prompt" id="terminal-prompt">guest@securesystem:~$</div>
+            <input type="text" id="terminal-input" autofocus spellcheck="false" autocomplete="off">
+        </div>
+    </div>
+
+    <div class="terminal-info">
+        <p>Type 'help' to see available commands. Complete the cybersecurity challenges to earn badges.</p>
+        <div class="button-group">
+            <button class="terminal-button" id="help-button">Show Help</button>
+            <button class="terminal-button" id="hint-button">Get Hint</button>
+            <button class="terminal-button" id="badges-button">View Badges</button>
+            <button class="terminal-button" id="reset-button">Reset Game</button>
+        </div>
+    </div>
+
+    <div class="help-panel" id="help-panel">
+        <h3>Available Commands</h3>
+        <div class="help-command">
+            <span class="command-name">help</span> - Display available commands
+        </div>
+        <div class="help-command">
+            <span class="command-name">clear</span> - Clear the terminal
+        </div>
+        <div class="help-command">
+            <span class="command-name">ls</span> - List files and directories
+        </div>
+        <div class="help-command">
+            <span class="command-name">cat [file]</span> - Display file contents
+        </div>
+        <div class="help-command">
+            <span class="command-name">scan</span> - Scan system for vulnerabilities
+        </div>
+        <div class="help-command">
+            <span class="command-name">crack [file]</span> - Attempt to crack a password file
+        </div>
+        <div class="help-command">
+            <span class="command-name">decrypt [file]</span> - Decrypt an encrypted file with a key
+        </div>
+        <div class="help-command">
+            <span class="command-name">whoami</span> - Display current user
+        </div>
+        <div class="help-command">
+            <span class="command-name">login [user]</span> - Login as a different user
+        </div>
+        <div class="help-command">
+            <span class="command-name">man [command]</span> - Display manual page for a command
+        </div>
+        <div class="help-command">
+            <span class="command-name">find [pattern]</span> - Search for files matching a pattern
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Aziz Alghamdi</h3>
+                    <p>Cybersecurity professional specializing in digital forensics, incident response, and the application
+                        of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in
+                        Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
+                    <div class="social-links">
+                        <a href="https://linkedin.com" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/iz2a" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i
+                                class="fab fa-researchgate"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="/iz2a.github.io/index.html#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
+                        <li><a href="/iz2a.github.io/index.html#education"><i class="fas fa-chevron-right"></i> Education</a></li>
+                        <li><a href="/iz2a.github.io/index.html#research"><i class="fas fa-chevron-right"></i> Research</a></li>
+                        <li><a href="/iz2a.github.io/index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                        <li><a href="/iz2a.github.io/index.html#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
+                        <li><a href="/iz2a.github.io/index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="/iz2a.github.io/interactive.html"><i class="fas fa-chevron-right"></i> Interactive Learning</a></li>
+                        <li><a href="/iz2a.github.io/MyResume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="challenges.js"></script>
+    <script src="terminal.js"></script>
+    <script src="visualization.js"></script>
+    <script src="translator.js"></script>
+</body>
+</html>
