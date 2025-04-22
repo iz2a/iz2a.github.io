@@ -545,681 +545,699 @@
 </head>
 
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <a href="index.html" style="text-decoration: none; color: white;">
-                        <i class="fas fa-shield-alt"></i>
-                        Aziz Alghamdi عزيز الغامدي
-                    </a>
+<!-- Header -->
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; color: white;">
+                    <i class="fas fa-shield-alt"></i>
+                    Aziz Alghamdi عزيز الغامدي
+                </a>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#education">Education</a></li>
+                <li><a href="index.html#research">Research</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#certifications">Certifications</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Unique Cybersecurity Visualization -->
+<div id="cyber-visualization" class="cyber-visualization"></div>
+<div class="binary-bg"></div>
+
+<section class="interactive-section" id="interactive">
+    <div class="cyber-line cyber-line-left"></div>
+    <div class="cyber-line cyber-line-right"></div>
+    <div class="cyber-dots"></div>
+    <div class="container">
+        <h2 class="section-title cyber-accent">Interactive Learning</h2>
+        <p class="section-subtitle">Put your cybersecurity skills to the test with these interactive challenges, games,
+            and tools. Each activity is designed to demonstrate important security concepts in an engaging way.</p>
+
+        <div class="info-box">
+            <div class="info-title">
+                <i class="fas fa-info-circle"></i>
+                <span>Why interactive learning?</span>
+            </div>
+            <p>Cybersecurity skills are best developed through hands-on practice. These interactive elements allow you
+                to experience real-world security scenarios in a safe environment, helping you build practical knowledge
+                that goes beyond theoretical understanding.</p>
+        </div>
+
+        <div class="category-tabs">
+            <div class="category-tab active" data-category="all">All</div>
+            <div class="category-tab" data-category="games">Challenges & Games</div>
+            <div class="category-tab" data-category="tools">Interactive Tools</div>
+            <div class="category-tab" data-category="simulations">Simulations</div>
+        </div>
+
+        <div class="games-grid">
+            <!-- Cybersecurity Terminal Game -->
+            <div class="game-card" data-categories="games challenges">
+                <div class="game-image" style="background-image: url('images/CybersecurityTerminalChallenge.png');">
+                    <div class="game-badge">New</div>
                 </div>
-                <div class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
+                <div class="game-content">
+                    <h3 class="game-title">Cybersecurity Terminal Challenge</h3>
+                    <p class="game-description">Test your command-line skills in this terminal-based cybersecurity
+                        challenge. Navigate through a simulated system, find vulnerabilities, and escalate privileges to
+                        complete the mission.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Command Line</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Privilege Escalation</span>
+                    </div>
+                    <a href="Terminal_Game/index.html" class="game-link">Start Challenge</a>
                 </div>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#about">About</a></li>
-                    <li><a href="index.html#education">Education</a></li>
-                    <li><a href="index.html#research">Research</a></li>
-                    <li><a href="index.html#projects">Projects</a></li>
-                    <li><a href="index.html#certifications">Certifications</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
+            </div>
+
+            <!-- CTF Game
+            <div class="game-card" data-categories="games challenges">
+                <div class="game-image" style="background-image: url('images/CaptureTheFlagChallenge.png');">
+                    <div class="game-badge coming-soon">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Capture The Flag Challenge</h3>
+                    <p class="game-description">Multiple mini-challenges that test various cybersecurity skills. Find hidden flags by solving puzzles involving cryptography, web security, forensics, and more.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">CTF</span>
+                        <span class="skill-tag">Problem Solving</span>
+                        <span class="skill-tag">Cryptography</span>
+                    </div>
+                    <a href="ctf-game.html" class="game-link">Try It Out</a>
+                </div>
+            </div>-->
+
+            <!-- Encryption Playground -->
+            <div class="game-card" data-categories="tools interactive">
+                <div class="game-image" style="background-image: url('images/EncryptionPlayground.png');">
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Encryption Playground</h3>
+                    <p class="game-description">Experiment with different encryption algorithms in real-time. Encrypt
+                        your own messages, learn how various ciphers work, and understand the importance of strong
+                        encryption.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Cryptography</span>
+                        <span class="skill-tag">Encryption</span>
+                        <span class="skill-tag">Ciphers</span>
+                    </div>
+                    <a href="encryption-playground.html" class="game-link">Try It Out</a>
+                </div>
+            </div>
+
+            <!-- Network Playground -->
+            <div class="game-card" data-categories="tools simulations">
+                <div class="game-image" style="background-image: url('images/NetworkSecurityPlayground.png');">
+                    <div class="game-badge coming-soon">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Network Security Playground</h3>
+                    <p class="game-description">Visualize and simulate different network attacks and defense mechanisms.
+                        Configure firewalls, detect intrusions, and learn how to protect network infrastructure.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Network Security</span>
+                        <span class="skill-tag">Firewalls</span>
+                        <span class="skill-tag">Intrusion Detection</span>
+                    </div>
+                    <a href="network-playground.html" class="game-link">Try It Out</a>
+                </div>
+            </div>
+
+            <!-- Blockchain Explorer -->
+            <div class="game-card" data-categories="tools simulations">
+                <div class="game-image" style="background-image: url('images/BlockchainExplorer.png');">
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Blockchain Explorer</h3>
+                    <p class="game-description">Interactive visualization of how blockchain technology works. Create
+                        transactions, mine blocks, and understand the cryptographic principles that make blockchain
+                        secure.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Blockchain</span>
+                        <span class="skill-tag">Cryptography</span>
+                        <span class="skill-tag">Distributed Systems</span>
+                    </div>
+                    <a href="blockchain.html" class="game-link">Explore</a>
+                </div>
+            </div>
+
+            <!-- Social Engineering Quiz -->
+            <div class="game-card" data-categories="games challenges">
+                <div class="game-image" style="background-image: url('images/SocialEngineeringQuiz.png');">
+                    <div class="game-badge">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Social Engineering Quiz</h3>
+                    <p class="game-description">Test your ability to identify phishing attempts, scams, and other social
+                        engineering tactics. Learn to spot the warning signs that indicate when someone is trying to
+                        manipulate you.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Social Engineering</span>
+                        <span class="skill-tag">Phishing</span>
+                        <span class="skill-tag">Security Awareness</span>
+                    </div>
+                    <a href="social-engineering-quiz.html" class="game-link">Take the Quiz</a>
+                </div>
+            </div>
+
+
+            <!-- Digital Forensics -->
+            <div class="game-card" data-categories="games challenges">
+                <div class="game-image" style="background-image: url('images/DigitalForensicsChallenge.png');">
+                    <div class="game-badge">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Digital Forensics Challenge</h3>
+                    <p class="game-description">Investigate a simulated cyber incident by analyzing digital evidence,
+                        system logs, and other artifacts. Determine what happened, how it happened, and who was
+                        responsible.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Digital Forensics</span>
+                        <span class="skill-tag">Log Analysis</span>
+                        <span class="skill-tag">Incident Response</span>
+                    </div>
+                    <a href="digital-forensics.html" class="game-link">Investigate</a>
+                </div>
+            </div>
+
+            <!-- Password Security Tool -->
+            <div class="game-card" data-categories="tools interactive">
+                <div class="game-image" style="background-image: url('images/PasswordSecurityAnalyzer.png');">
+                    <div class="game-badge coming-soon">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Password Security Analyzer</h3>
+                    <p class="game-description">Test password strength, generate secure passwords, and learn about
+                        common password vulnerabilities. Understand why password security matters and best practices for
+                        protection.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Password Security</span>
+                        <span class="skill-tag">Authentication</span>
+                        <span class="skill-tag">Brute Force</span>
+                    </div>
+                    <a href="password_security.html" class="game-link">Try It Out</a>
+                </div>
+            </div>
+            <div class="game-card" data-categories="games challenges">
+                <div class="game-image" style="background-image: url('images/WebVulnerabilityChallenge.png');">
+                    <div class="game-badge">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Web Vulnerability Hacking Challenge</h3>
+                    <p class="game-description">Test your cybersecurity skills by finding and exploiting common web
+                        vulnerabilities in a controlled environment. Learn how attackers compromise websites through SQL
+                        injection, XSS, and other attack vectors.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Web Security</span>
+                        <span class="skill-tag">SQL Injection</span>
+                        <span class="skill-tag">Penetration Testing</span>
+                    </div>
+                    <a href="hack/web_hack_challenge.html" class="game-link">Start Challenge</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>Aziz Alghamdi</h3>
+                <p>Cybersecurity professional specializing in digital forensics, incident response, and the application
+                    of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in
+                    Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
+                <div class="social-links">
+                    <a href="https://linkedin.com" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/iz2a" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i
+                            class="fab fa-researchgate"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul class="quick-links">
+                    <li><a href="index.html#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
+                    <li><a href="index.html#education"><i class="fas fa-chevron-right"></i> Education</a></li>
+                    <li><a href="index.html#research"><i class="fas fa-chevron-right"></i> Research</a></li>
+                    <li><a href="index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                    <li><a href="index.html#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
+                    <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Learning</a></li>
+                    <li><a href="MyResume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
                 </ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Unique Cybersecurity Visualization -->
-    <div id="cyber-visualization" class="cyber-visualization"></div>
-    <div class="binary-bg"></div>
-
-    <section class="interactive-section" id="interactive">
-        <div class="cyber-line cyber-line-left"></div>
-        <div class="cyber-line cyber-line-right"></div>
-        <div class="cyber-dots"></div>
-        <div class="container">
-            <h2 class="section-title cyber-accent">Interactive Learning</h2>
-            <p class="section-subtitle">Put your cybersecurity skills to the test with these interactive challenges, games, and tools. Each activity is designed to demonstrate important security concepts in an engaging way.</p>
-
-            <div class="info-box">
-                <div class="info-title">
-                    <i class="fas fa-info-circle"></i>
-                    <span>Why interactive learning?</span>
-                </div>
-                <p>Cybersecurity skills are best developed through hands-on practice. These interactive elements allow you to experience real-world security scenarios in a safe environment, helping you build practical knowledge that goes beyond theoretical understanding.</p>
-            </div>
-
-            <div class="category-tabs">
-                <div class="category-tab active" data-category="all">All</div>
-                <div class="category-tab" data-category="games">Challenges & Games</div>
-                <div class="category-tab" data-category="tools">Interactive Tools</div>
-                <div class="category-tab" data-category="simulations">Simulations</div>
-            </div>
-
-            <div class="games-grid">
-                <!-- Cybersecurity Terminal Game -->
-                <div class="game-card" data-categories="games challenges">
-                    <div class="game-image" style="background-image: url('images/CybersecurityTerminalChallenge.png');">
-                        <div class="game-badge">New</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">Cybersecurity Terminal Challenge</h3>
-                        <p class="game-description">Test your command-line skills in this terminal-based cybersecurity challenge. Navigate through a simulated system, find vulnerabilities, and escalate privileges to complete the mission.</p>
-                        <div class="game-skills">
-                            <span class="skill-tag">Command Line</span>
-                            <span class="skill-tag">Linux</span>
-                            <span class="skill-tag">Privilege Escalation</span>
-                        </div>
-                        <a href="Terminal_Game/index.html" class="game-link">Start Challenge</a>
-                    </div>
-                </div>
-
-                <!-- CTF Game
-                <div class="game-card" data-categories="games challenges">
-                    <div class="game-image" style="background-image: url('images/CaptureTheFlagChallenge.png');">
-                        <div class="game-badge coming-soon">New</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">Capture The Flag Challenge</h3>
-                        <p class="game-description">Multiple mini-challenges that test various cybersecurity skills. Find hidden flags by solving puzzles involving cryptography, web security, forensics, and more.</p>
-                        <div class="game-skills">
-                            <span class="skill-tag">CTF</span>
-                            <span class="skill-tag">Problem Solving</span>
-                            <span class="skill-tag">Cryptography</span>
-                        </div>
-                        <a href="ctf-game.html" class="game-link">Try It Out</a>
-                    </div>
-                </div>-->
-
-                <!-- Encryption Playground -->
-                <div class="game-card" data-categories="tools interactive">
-                    <div class="game-image" style="background-image: url('images/EncryptionPlayground.png');">
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">Encryption Playground</h3>
-                        <p class="game-description">Experiment with different encryption algorithms in real-time. Encrypt your own messages, learn how various ciphers work, and understand the importance of strong encryption.</p>
-                        <div class="game-skills">
-                            <span class="skill-tag">Cryptography</span>
-                            <span class="skill-tag">Encryption</span>
-                            <span class="skill-tag">Ciphers</span>
-                        </div>
-                        <a href="encryption-playground.html" class="game-link">Try It Out</a>
-                    </div>
-                </div>
-
-                <!-- Network Playground -->
-                <div class="game-card" data-categories="tools simulations">
-                    <div class="game-image" style="background-image: url('images/NetworkSecurityPlayground.png');">
-                        <div class="game-badge coming-soon">New</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">Network Security Playground</h3>
-                        <p class="game-description">Visualize and simulate different network attacks and defense mechanisms. Configure firewalls, detect intrusions, and learn how to protect network infrastructure.</p>
-                        <div class="game-skills">
-                            <span class="skill-tag">Network Security</span>
-                            <span class="skill-tag">Firewalls</span>
-                            <span class="skill-tag">Intrusion Detection</span>
-                        </div>
-                        <a href="network-playground.html" class="game-link">Try It Out</a>
-                    </div>
-                </div>
-
-                <!-- Blockchain Explorer -->
-                <div class="game-card" data-categories="tools simulations">
-                    <div class="game-image" style="background-image: url('images/BlockchainExplorer.png');">
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">Blockchain Explorer</h3>
-                        <p class="game-description">Interactive visualization of how blockchain technology works. Create transactions, mine blocks, and understand the cryptographic principles that make blockchain secure.</p>
-                        <div class="game-skills">
-                            <span class="skill-tag">Blockchain</span>
-                            <span class="skill-tag">Cryptography</span>
-                            <span class="skill-tag">Distributed Systems</span>
-                        </div>
-                        <a href="blockchain.html" class="game-link">Explore</a>
-                    </div>
-                </div>
-
-                <!-- Social Engineering Quiz -->
-                <div class="game-card" data-categories="games challenges">
-                    <div class="game-image" style="background-image: url('images/SocialEngineeringQuiz.png');">
-                        <div class="game-badge">New</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">Social Engineering Quiz</h3>
-                        <p class="game-description">Test your ability to identify phishing attempts, scams, and other social engineering tactics. Learn to spot the warning signs that indicate when someone is trying to manipulate you.</p>
-                        <div class="game-skills">
-                            <span class="skill-tag">Social Engineering</span>
-                            <span class="skill-tag">Phishing</span>
-                            <span class="skill-tag">Security Awareness</span>
-                        </div>
-                        <a href="social-engineering-quiz.html" class="game-link">Take the Quiz</a>
-                    </div>
-                </div>
-
-
-                <!-- Digital Forensics -->
-                <div class="game-card" data-categories="games challenges">
-                    <div class="game-image" style="background-image: url('images/DigitalForensicsChallenge.png');">
-                        <div class="game-badge">New</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">Digital Forensics Challenge</h3>
-                        <p class="game-description">Investigate a simulated cyber incident by analyzing digital evidence, system logs, and other artifacts. Determine what happened, how it happened, and who was responsible.</p>
-                        <div class="game-skills">
-                            <span class="skill-tag">Digital Forensics</span>
-                            <span class="skill-tag">Log Analysis</span>
-                            <span class="skill-tag">Incident Response</span>
-                        </div>
-                        <a href="digital-forensics.html" class="game-link">Investigate</a>
-                    </div>
-                </div>
-
-                <!-- Password Security Tool -->
-                <div class="game-card" data-categories="tools interactive">
-                    <div class="game-image" style="background-image: url('images/PasswordSecurityAnalyzer.png');">
-                        <div class="game-badge coming-soon">New</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">Password Security Analyzer</h3>
-                        <p class="game-description">Test password strength, generate secure passwords, and learn about common password vulnerabilities. Understand why password security matters and best practices for protection.</p>
-                        <div class="game-skills">
-                            <span class="skill-tag">Password Security</span>
-                            <span class="skill-tag">Authentication</span>
-                            <span class="skill-tag">Brute Force</span>
-                        </div>
-                        <a href="password_security.html" class="game-link">Try It Out</a>
-                    </div>
-                </div>
-                   <div class="game-card" data-categories="games challenges">
-                    <div class="game-image" style="background-image: url('images/SocialEngineeringQuiz.png');">
-                        <div class="game-badge">New</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">Web Vulnerability Hacking Challenge</h3>
-                        <p class="game-description">Test your ability to identify phishing attempts, scams, and other social engineering tactics. Learn to spot the warning signs that indicate when someone is trying to manipulate you.</p>
-                        <div class="game-skills">
-                            <span class="skill-tag">Social Engineering</span>
-                            <span class="skill-tag">Phishing</span>
-                            <span class="skill-tag">Security Awareness</span>
-                        </div>
-                        <a href="hack/web_hack_challenge.html" class="game-link">Take the Quiz</a>
-                    </div>
-                </div>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-about">
-                    <h3>Aziz Alghamdi</h3>
-                    <p>Cybersecurity professional specializing in digital forensics, incident response, and the application
-                        of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in
-                        Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
-                    <div class="social-links">
-                        <a href="https://linkedin.com" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://github.com/iz2a" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="https://x.com" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i
-                                class="fab fa-researchgate"></i></a>
-                    </div>
-                </div>
-
-                <div class="footer-links">
-                    <h3>Quick Links</h3>
-                    <ul class="quick-links">
-                        <li><a href="index.html#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
-                        <li><a href="index.html#education"><i class="fas fa-chevron-right"></i> Education</a></li>
-                        <li><a href="index.html#research"><i class="fas fa-chevron-right"></i> Research</a></li>
-                        <li><a href="index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
-                        <li><a href="index.html#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
-                        <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
-                        <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Learning</a></li>
-                        <li><a href="MyResume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
-            </div>
+        <div class="copyright">
+            <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <!-- Cybersecurity Visualization Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Create visualization container
-            const container = document.getElementById('cyber-visualization');
+<!-- Cybersecurity Visualization Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Create visualization container
+        const container = document.getElementById('cyber-visualization');
 
-            // Set size to full window
-            const width = window.innerWidth;
-            const height = window.innerHeight;
+        // Set size to full window
+        const width = window.innerWidth;
+        const height = window.innerHeight;
 
-            // Create SVG element
-            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            svg.setAttribute('width', width);
-            svg.setAttribute('height', height);
-            svg.style.position = 'absolute';
-            svg.style.top = '0';
-            svg.style.left = '0';
-            svg.style.zIndex = '-1';
-            container.appendChild(svg);
+        // Create SVG element
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('width', width);
+        svg.setAttribute('height', height);
+        svg.style.position = 'absolute';
+        svg.style.top = '0';
+        svg.style.left = '0';
+        svg.style.zIndex = '-1';
+        container.appendChild(svg);
 
-            // Node and connection data
-            const nodeCount = 40;
-            const nodes = [];
-            const connections = [];
-            const packetData = [];
-            const alerts = [];
+        // Node and connection data
+        const nodeCount = 40;
+        const nodes = [];
+        const connections = [];
+        const packetData = [];
+        const alerts = [];
 
-            // Create nodes
-            for (let i = 0; i < nodeCount; i++) {
-                const node = {
-                    id: i,
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    radius: Math.random() * 3 + 2,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    type: Math.random() > 0.8 ? 'server' : 'client',
-                    secure: Math.random() > 0.2
-                };
-                nodes.push(node);
-            }
+        // Create nodes
+        for (let i = 0; i < nodeCount; i++) {
+            const node = {
+                id: i,
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 3 + 2,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                type: Math.random() > 0.8 ? 'server' : 'client',
+                secure: Math.random() > 0.2
+            };
+            nodes.push(node);
+        }
 
-            // Create connections between nodes
-            for (let i = 0; i < nodes.length; i++) {
-                const connectionCount = Math.floor(Math.random() * 3) + 1;
-                for (let j = 0; j < connectionCount; j++) {
-                    const target = Math.floor(Math.random() * nodes.length);
-                    if (i !== target) {
-                        connections.push({
-                            source: i,
-                            target: target,
-                            active: Math.random() > 0.3,
-                            secure: Math.random() > 0.25,
-                            width: Math.random() * 0.8 + 0.2
-                        });
-                    }
+        // Create connections between nodes
+        for (let i = 0; i < nodes.length; i++) {
+            const connectionCount = Math.floor(Math.random() * 3) + 1;
+            for (let j = 0; j < connectionCount; j++) {
+                const target = Math.floor(Math.random() * nodes.length);
+                if (i !== target) {
+                    connections.push({
+                        source: i,
+                        target: target,
+                        active: Math.random() > 0.3,
+                        secure: Math.random() > 0.25,
+                        width: Math.random() * 0.8 + 0.2
+                    });
                 }
             }
+        }
 
-            // Create SVG definitions for effects
-            const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-            svg.appendChild(defs);
+        // Create SVG definitions for effects
+        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        svg.appendChild(defs);
 
-            // Create glow filter
-            const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
-            filter.setAttribute('id', 'glow');
-            filter.setAttribute('x', '-50%');
-            filter.setAttribute('y', '-50%');
-            filter.setAttribute('width', '200%');
-            filter.setAttribute('height', '200%');
+        // Create glow filter
+        const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+        filter.setAttribute('id', 'glow');
+        filter.setAttribute('x', '-50%');
+        filter.setAttribute('y', '-50%');
+        filter.setAttribute('width', '200%');
+        filter.setAttribute('height', '200%');
 
-            const feGaussianBlur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
-            feGaussianBlur.setAttribute('stdDeviation', '1.5');
-            feGaussianBlur.setAttribute('result', 'blur');
-            filter.appendChild(feGaussianBlur);
+        const feGaussianBlur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
+        feGaussianBlur.setAttribute('stdDeviation', '1.5');
+        feGaussianBlur.setAttribute('result', 'blur');
+        filter.appendChild(feGaussianBlur);
 
-            const feComposite = document.createElementNS('http://www.w3.org/2000/svg', 'feComposite');
-            feComposite.setAttribute('in', 'SourceGraphic');
-            feComposite.setAttribute('in2', 'blur');
-            feComposite.setAttribute('operator', 'over');
-            filter.appendChild(feComposite);
+        const feComposite = document.createElementNS('http://www.w3.org/2000/svg', 'feComposite');
+        feComposite.setAttribute('in', 'SourceGraphic');
+        feComposite.setAttribute('in2', 'blur');
+        feComposite.setAttribute('operator', 'over');
+        filter.appendChild(feComposite);
 
-            defs.appendChild(filter);
+        defs.appendChild(filter);
 
-            // Add gradient definitions
-            const secureGradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
-            secureGradient.setAttribute('id', 'secureGradient');
-            secureGradient.innerHTML = `
+        // Add gradient definitions
+        const secureGradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+        secureGradient.setAttribute('id', 'secureGradient');
+        secureGradient.innerHTML = `
             <stop offset="0%" stop-color="#2c2c2c" />
             <stop offset="100%" stop-color="#454545" />
         `;
-            defs.appendChild(secureGradient);
+        defs.appendChild(secureGradient);
 
-            const insecureGradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
-            insecureGradient.setAttribute('id', 'insecureGradient');
-            insecureGradient.innerHTML = `
+        const insecureGradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+        insecureGradient.setAttribute('id', 'insecureGradient');
+        insecureGradient.innerHTML = `
             <stop offset="0%" stop-color="#3a3a3a" />
             <stop offset="100%" stop-color="#1a1a1a" />
         `;
-            defs.appendChild(insecureGradient);
+        defs.appendChild(insecureGradient);
 
-            // Group for connections
-            const connectionsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            svg.appendChild(connectionsGroup);
+        // Group for connections
+        const connectionsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        svg.appendChild(connectionsGroup);
 
-            // Group for packets
-            const packetsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            svg.appendChild(packetsGroup);
+        // Group for packets
+        const packetsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        svg.appendChild(packetsGroup);
 
-            // Group for nodes
-            const nodesGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            svg.appendChild(nodesGroup);
+        // Group for nodes
+        const nodesGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        svg.appendChild(nodesGroup);
 
-            // Group for alerts
-            const alertsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            svg.appendChild(alertsGroup);
+        // Group for alerts
+        const alertsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        svg.appendChild(alertsGroup);
 
-            // Draw connections
-            connections.forEach((connection, index) => {
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', nodes[connection.source].x);
-                line.setAttribute('y1', nodes[connection.source].y);
-                line.setAttribute('x2', nodes[connection.target].x);
-                line.setAttribute('y2', nodes[connection.target].y);
-                line.setAttribute('stroke', connection.secure ? '#3a3a3a' : '#1a1a1a');
-                line.setAttribute('stroke-width', connection.width);
-                line.setAttribute('stroke-opacity', connection.active ? 0.5 : 0.2);
-                line.setAttribute('data-index', index);
+        // Draw connections
+        connections.forEach((connection, index) => {
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', nodes[connection.source].x);
+            line.setAttribute('y1', nodes[connection.source].y);
+            line.setAttribute('x2', nodes[connection.target].x);
+            line.setAttribute('y2', nodes[connection.target].y);
+            line.setAttribute('stroke', connection.secure ? '#3a3a3a' : '#1a1a1a');
+            line.setAttribute('stroke-width', connection.width);
+            line.setAttribute('stroke-opacity', connection.active ? 0.5 : 0.2);
+            line.setAttribute('data-index', index);
+
+            if (connection.active) {
+                line.setAttribute('stroke-dasharray', '3,3');
+                setInterval(() => {
+                    const offset = parseInt(line.getAttribute('stroke-dashoffset') || 0);
+                    line.setAttribute('stroke-dashoffset', (offset + 1) % 6);
+                }, 100);
+            }
+
+            connectionsGroup.appendChild(line);
+        });
+
+        // Draw nodes
+        nodes.forEach((node, index) => {
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', node.x);
+            circle.setAttribute('cy', node.y);
+            circle.setAttribute('r', node.radius);
+            circle.setAttribute('fill', node.secure ? 'url(#secureGradient)' : 'url(#insecureGradient)');
+            circle.setAttribute('data-index', index);
+
+            if (node.type === 'server') {
+                circle.setAttribute('filter', 'url(#glow)');
+                circle.setAttribute('r', node.radius + 1);
+            }
+
+            nodesGroup.appendChild(circle);
+
+            // Add hexagon for server nodes
+            if (node.type === 'server') {
+                const hexSize = node.radius * 2.5;
+                const hexagon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                const points = [];
+
+                for (let i = 0; i < 6; i++) {
+                    const angle = (Math.PI / 3) * i - Math.PI / 2;
+                    const x = node.x + hexSize * Math.cos(angle);
+                    const y = node.y + hexSize * Math.sin(angle);
+                    points.push(`${x},${y}`);
+                }
+
+                hexagon.setAttribute('points', points.join(' '));
+                hexagon.setAttribute('fill', 'none');
+                hexagon.setAttribute('stroke', '#454545');
+                hexagon.setAttribute('stroke-width', '0.5');
+                hexagon.setAttribute('opacity', '0.3');
+                nodesGroup.appendChild(hexagon);
+            }
+        });
+
+        // Animation function
+        function animate() {
+            // Move nodes
+            nodes.forEach((node, i) => {
+                // Update position
+                node.x += node.vx;
+                node.y += node.vy;
+
+                // Boundary check
+                if (node.x < 0 || node.x > width) node.vx = -node.vx;
+                if (node.y < 0 || node.y > height) node.vy = -node.vy;
+
+                // Update node element
+                const circle = nodesGroup.querySelector(`circle[data-index="${i}"]`);
+                if (circle) {
+                    circle.setAttribute('cx', node.x);
+                    circle.setAttribute('cy', node.y);
+                }
+
+                // Update server hexagon if present
+                if (node.type === 'server') {
+                    const hexagon = nodesGroup.querySelectorAll('polygon')[nodes.filter(n => n.type === 'server').indexOf(node)];
+                    if (hexagon) {
+                        const hexSize = node.radius * 2.5;
+                        const points = [];
+
+                        for (let i = 0; i < 6; i++) {
+                            const angle = (Math.PI / 3) * i - Math.PI / 2;
+                            const x = node.x + hexSize * Math.cos(angle);
+                            const y = node.y + hexSize * Math.sin(angle);
+                            points.push(`${x},${y}`);
+                        }
+
+                        hexagon.setAttribute('points', points.join(' '));
+                    }
+                }
+            });
+
+            // Update connection lines
+            connections.forEach((connection, i) => {
+                const line = connectionsGroup.querySelector(`line[data-index="${i}"]`);
+                if (line) {
+                    line.setAttribute('x1', nodes[connection.source].x);
+                    line.setAttribute('y1', nodes[connection.source].y);
+                    line.setAttribute('x2', nodes[connection.target].x);
+                    line.setAttribute('y2', nodes[connection.target].y);
+                }
+            });
+
+            // Handle packet animations
+            if (Math.random() > 0.95) {
+                const connectionIndex = Math.floor(Math.random() * connections.length);
+                const connection = connections[connectionIndex];
 
                 if (connection.active) {
-                    line.setAttribute('stroke-dasharray', '3,3');
-                    setInterval(() => {
-                        const offset = parseInt(line.getAttribute('stroke-dashoffset') || 0);
-                        line.setAttribute('stroke-dashoffset', (offset + 1) % 6);
-                    }, 100);
+                    const sourceNode = nodes[connection.source];
+                    const targetNode = nodes[connection.target];
+
+                    const packet = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    packet.setAttribute('cx', sourceNode.x);
+                    packet.setAttribute('cy', sourceNode.y);
+                    packet.setAttribute('r', 1.5);
+                    packet.setAttribute('fill', connection.secure ? '#4a4a4a' : '#2a2a2a');
+                    packetsGroup.appendChild(packet);
+
+                    const packetObj = {
+                        element: packet,
+                        source: connection.source,
+                        target: connection.target,
+                        progress: 0,
+                        speed: Math.random() * 0.02 + 0.01,
+                        secure: connection.secure
+                    };
+
+                    packetData.push(packetObj);
                 }
-
-                connectionsGroup.appendChild(line);
-            });
-
-            // Draw nodes
-            nodes.forEach((node, index) => {
-                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                circle.setAttribute('cx', node.x);
-                circle.setAttribute('cy', node.y);
-                circle.setAttribute('r', node.radius);
-                circle.setAttribute('fill', node.secure ? 'url(#secureGradient)' : 'url(#insecureGradient)');
-                circle.setAttribute('data-index', index);
-
-                if (node.type === 'server') {
-                    circle.setAttribute('filter', 'url(#glow)');
-                    circle.setAttribute('r', node.radius + 1);
-                }
-
-                nodesGroup.appendChild(circle);
-
-                // Add hexagon for server nodes
-                if (node.type === 'server') {
-                    const hexSize = node.radius * 2.5;
-                    const hexagon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                    const points = [];
-
-                    for (let i = 0; i < 6; i++) {
-                        const angle = (Math.PI / 3) * i - Math.PI / 2;
-                        const x = node.x + hexSize * Math.cos(angle);
-                        const y = node.y + hexSize * Math.sin(angle);
-                        points.push(`${x},${y}`);
-                    }
-
-                    hexagon.setAttribute('points', points.join(' '));
-                    hexagon.setAttribute('fill', 'none');
-                    hexagon.setAttribute('stroke', '#454545');
-                    hexagon.setAttribute('stroke-width', '0.5');
-                    hexagon.setAttribute('opacity', '0.3');
-                    nodesGroup.appendChild(hexagon);
-                }
-            });
-
-            // Animation function
-            function animate() {
-                // Move nodes
-                nodes.forEach((node, i) => {
-                    // Update position
-                    node.x += node.vx;
-                    node.y += node.vy;
-
-                    // Boundary check
-                    if (node.x < 0 || node.x > width) node.vx = -node.vx;
-                    if (node.y < 0 || node.y > height) node.vy = -node.vy;
-
-                    // Update node element
-                    const circle = nodesGroup.querySelector(`circle[data-index="${i}"]`);
-                    if (circle) {
-                        circle.setAttribute('cx', node.x);
-                        circle.setAttribute('cy', node.y);
-                    }
-
-                    // Update server hexagon if present
-                    if (node.type === 'server') {
-                        const hexagon = nodesGroup.querySelectorAll('polygon')[nodes.filter(n => n.type === 'server').indexOf(node)];
-                        if (hexagon) {
-                            const hexSize = node.radius * 2.5;
-                            const points = [];
-
-                            for (let i = 0; i < 6; i++) {
-                                const angle = (Math.PI / 3) * i - Math.PI / 2;
-                                const x = node.x + hexSize * Math.cos(angle);
-                                const y = node.y + hexSize * Math.sin(angle);
-                                points.push(`${x},${y}`);
-                            }
-
-                            hexagon.setAttribute('points', points.join(' '));
-                        }
-                    }
-                });
-
-                // Update connection lines
-                connections.forEach((connection, i) => {
-                    const line = connectionsGroup.querySelector(`line[data-index="${i}"]`);
-                    if (line) {
-                        line.setAttribute('x1', nodes[connection.source].x);
-                        line.setAttribute('y1', nodes[connection.source].y);
-                        line.setAttribute('x2', nodes[connection.target].x);
-                        line.setAttribute('y2', nodes[connection.target].y);
-                    }
-                });
-
-                // Handle packet animations
-                if (Math.random() > 0.95) {
-                    const connectionIndex = Math.floor(Math.random() * connections.length);
-                    const connection = connections[connectionIndex];
-
-                    if (connection.active) {
-                        const sourceNode = nodes[connection.source];
-                        const targetNode = nodes[connection.target];
-
-                        const packet = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                        packet.setAttribute('cx', sourceNode.x);
-                        packet.setAttribute('cy', sourceNode.y);
-                        packet.setAttribute('r', 1.5);
-                        packet.setAttribute('fill', connection.secure ? '#4a4a4a' : '#2a2a2a');
-                        packetsGroup.appendChild(packet);
-
-                        const packetObj = {
-                            element: packet,
-                            source: connection.source,
-                            target: connection.target,
-                            progress: 0,
-                            speed: Math.random() * 0.02 + 0.01,
-                            secure: connection.secure
-                        };
-
-                        packetData.push(packetObj);
-                    }
-                }
-
-                // Update existing packets
-                for (let i = packetData.length - 1; i >= 0; i--) {
-                    const packet = packetData[i];
-                    packet.progress += packet.speed;
-
-                    if (packet.progress >= 1) {
-                        // Packet reached destination
-                        packetsGroup.removeChild(packet.element);
-                        packetData.splice(i, 1);
-
-                        // Sometimes generate security alert
-                        if (!packet.secure && Math.random() > 0.7) {
-                            createAlert(nodes[packet.target].x, nodes[packet.target].y);
-                        }
-                    } else {
-                        // Update packet position
-                        const sourceNode = nodes[packet.source];
-                        const targetNode = nodes[packet.target];
-
-                        const x = sourceNode.x + (targetNode.x - sourceNode.x) * packet.progress;
-                        const y = sourceNode.y + (targetNode.y - sourceNode.y) * packet.progress;
-
-                        packet.element.setAttribute('cx', x);
-                        packet.element.setAttribute('cy', y);
-                    }
-                }
-
-                // Update alerts
-                for (let i = alerts.length - 1; i >= 0; i--) {
-                    const alert = alerts[i];
-                    alert.opacity -= 0.01;
-
-                    if (alert.opacity <= 0) {
-                        // Remove faded alert
-                        alertsGroup.removeChild(alert.element);
-                        alerts.splice(i, 1);
-                    } else {
-                        // Update alert opacity
-                        alert.element.setAttribute('opacity', alert.opacity);
-
-                        // Expand alert radius
-                        alert.radius += 0.3;
-                        alert.element.setAttribute('r', alert.radius);
-                    }
-                }
-
-                requestAnimationFrame(animate);
             }
 
-            // Function to create security alert animation
-            function createAlert(x, y) {
-                const alertCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                alertCircle.setAttribute('cx', x);
-                alertCircle.setAttribute('cy', y);
-                alertCircle.setAttribute('r', 5);
-                alertCircle.setAttribute('fill', 'none');
-                alertCircle.setAttribute('stroke', '#333333');
-                alertCircle.setAttribute('stroke-width', '1');
-                alertCircle.setAttribute('opacity', '0.8');
+            // Update existing packets
+            for (let i = packetData.length - 1; i >= 0; i--) {
+                const packet = packetData[i];
+                packet.progress += packet.speed;
 
-                alertsGroup.appendChild(alertCircle);
+                if (packet.progress >= 1) {
+                    // Packet reached destination
+                    packetsGroup.removeChild(packet.element);
+                    packetData.splice(i, 1);
 
-                alerts.push({
-                    element: alertCircle,
-                    opacity: 0.8,
-                    radius: 5
-                });
+                    // Sometimes generate security alert
+                    if (!packet.secure && Math.random() > 0.7) {
+                        createAlert(nodes[packet.target].x, nodes[packet.target].y);
+                    }
+                } else {
+                    // Update packet position
+                    const sourceNode = nodes[packet.source];
+                    const targetNode = nodes[packet.target];
+
+                    const x = sourceNode.x + (targetNode.x - sourceNode.x) * packet.progress;
+                    const y = sourceNode.y + (targetNode.y - sourceNode.y) * packet.progress;
+
+                    packet.element.setAttribute('cx', x);
+                    packet.element.setAttribute('cy', y);
+                }
             }
 
-            // Handle window resize
-            window.addEventListener('resize', function () {
-                svg.setAttribute('width', window.innerWidth);
-                svg.setAttribute('height', window.innerHeight);
+            // Update alerts
+            for (let i = alerts.length - 1; i >= 0; i--) {
+                const alert = alerts[i];
+                alert.opacity -= 0.01;
+
+                if (alert.opacity <= 0) {
+                    // Remove faded alert
+                    alertsGroup.removeChild(alert.element);
+                    alerts.splice(i, 1);
+                } else {
+                    // Update alert opacity
+                    alert.element.setAttribute('opacity', alert.opacity);
+
+                    // Expand alert radius
+                    alert.radius += 0.3;
+                    alert.element.setAttribute('r', alert.radius);
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // Function to create security alert animation
+        function createAlert(x, y) {
+            const alertCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            alertCircle.setAttribute('cx', x);
+            alertCircle.setAttribute('cy', y);
+            alertCircle.setAttribute('r', 5);
+            alertCircle.setAttribute('fill', 'none');
+            alertCircle.setAttribute('stroke', '#333333');
+            alertCircle.setAttribute('stroke-width', '1');
+            alertCircle.setAttribute('opacity', '0.8');
+
+            alertsGroup.appendChild(alertCircle);
+
+            alerts.push({
+                element: alertCircle,
+                opacity: 0.8,
+                radius: 5
             });
+        }
 
-            // Mouse interaction
-            let isDragging = false;
-            let selectedNode = null;
+        // Handle window resize
+        window.addEventListener('resize', function () {
+            svg.setAttribute('width', window.innerWidth);
+            svg.setAttribute('height', window.innerHeight);
+        });
 
-            svg.addEventListener('mousedown', function (e) {
+        // Mouse interaction
+        let isDragging = false;
+        let selectedNode = null;
+
+        svg.addEventListener('mousedown', function (e) {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            // Check if clicked on a node
+            for (let i = 0; i < nodes.length; i++) {
+                const node = nodes[i];
+                const dx = mouseX - node.x;
+                const dy = mouseY - node.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance <= node.radius * 2) {
+                    isDragging = true;
+                    selectedNode = i;
+                    break;
+                }
+            }
+        });
+
+        svg.addEventListener('mousemove', function (e) {
+            if (isDragging && selectedNode !== null) {
                 const mouseX = e.clientX;
                 const mouseY = e.clientY;
 
-                // Check if clicked on a node
-                for (let i = 0; i < nodes.length; i++) {
-                    const node = nodes[i];
-                    const dx = mouseX - node.x;
-                    const dy = mouseY - node.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance <= node.radius * 2) {
-                        isDragging = true;
-                        selectedNode = i;
-                        break;
-                    }
-                }
-            });
-
-            svg.addEventListener('mousemove', function (e) {
-                if (isDragging && selectedNode !== null) {
-                    const mouseX = e.clientX;
-                    const mouseY = e.clientY;
-
-                    nodes[selectedNode].x = mouseX;
-                    nodes[selectedNode].y = mouseY;
-                    nodes[selectedNode].vx = 0;
-                    nodes[selectedNode].vy = 0;
-                }
-            });
-
-            svg.addEventListener('mouseup', function () {
-                isDragging = false;
-                selectedNode = null;
-            });
-
-            // Start animation
-            animate();
+                nodes[selectedNode].x = mouseX;
+                nodes[selectedNode].y = mouseY;
+                nodes[selectedNode].vx = 0;
+                nodes[selectedNode].vy = 0;
+            }
         });
-    </script>
 
-    <!-- Category Filtering Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Filter functionality for category tabs
-            const categoryTabs = document.querySelectorAll('.category-tab');
-            const gameCards = document.querySelectorAll('.game-card');
+        svg.addEventListener('mouseup', function () {
+            isDragging = false;
+            selectedNode = null;
+        });
 
-            categoryTabs.forEach(tab => {
-                tab.addEventListener('click', function () {
-                    // Remove active class from all tabs
-                    categoryTabs.forEach(t => t.classList.remove('active'));
+        // Start animation
+        animate();
+    });
+</script>
 
-                    // Add active class to clicked tab
-                    this.classList.add('active');
+<!-- Category Filtering Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Filter functionality for category tabs
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const gameCards = document.querySelectorAll('.game-card');
 
-                    // Get selected category
-                    const selectedCategory = this.getAttribute('data-category');
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                // Remove active class from all tabs
+                categoryTabs.forEach(t => t.classList.remove('active'));
 
-                    // Filter game cards
-                    gameCards.forEach(card => {
-                        if (selectedCategory === 'all') {
+                // Add active class to clicked tab
+                this.classList.add('active');
+
+                // Get selected category
+                const selectedCategory = this.getAttribute('data-category');
+
+                // Filter game cards
+                gameCards.forEach(card => {
+                    if (selectedCategory === 'all') {
+                        card.style.display = 'flex';
+                    } else {
+                        const categories = card.getAttribute('data-categories');
+                        if (categories && categories.includes(selectedCategory)) {
                             card.style.display = 'flex';
                         } else {
-                            const categories = card.getAttribute('data-categories');
-                            if (categories && categories.includes(selectedCategory)) {
-                                card.style.display = 'flex';
-                            } else {
-                                card.style.display = 'none';
-                            }
+                            card.style.display = 'none';
                         }
-                    });
-                });
-            });
-
-            // Mobile menu toggle
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            const navLinks = document.querySelector('.nav-links');
-
-            if (menuBtn) {
-                menuBtn.addEventListener('click', function () {
-                    navLinks.classList.toggle('active');
-                });
-            }
-
-            // Close menu when clicking on a link
-            const links = document.querySelectorAll('.nav-links a');
-            links.forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
+                    }
                 });
             });
         });
-    </script>
+
+        // Mobile menu toggle
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (menuBtn) {
+            menuBtn.addEventListener('click', function () {
+                navLinks.classList.toggle('active');
+            });
+        }
+
+        // Close menu when clicking on a link
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    });
+</script>
 <script src="translator.js"></script>
 </body>
 
