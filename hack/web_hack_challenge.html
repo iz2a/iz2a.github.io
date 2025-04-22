@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Vulnerability Hacking Challenge - Aziz Alghamdi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base styles that match your existing website */
+        :root {
+            --primary-color: #212529;
+            --secondary-color: #495057;
+            --accent-color: #6c757d;
+            --text-color: #333333;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+            --border-radius: 4px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            position: relative;
+        }
+
+        .cyber-visualization {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.35;
+        }
+
+        .binary-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            left: 0;
+            background-size: cover;
+            opacity: 0.015;
+            z-index: 0;
+            pointer-events: none;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNDAwIDQwMCI+CiAgPHN0eWxlPgogICAgdGV4dCB7IGZvbnQtZmFtaWx5OiBtb25vc3BhY2U7IGZvbnQtc2l6ZTogMTBweDsgZmlsbDogIzMzMzsgfQogIDwvc3R5bGU+CiAgPGcgaWQ9ImJpbmFyeSI+CiAgICA8dGV4dCB4PSIxMCIgeT0iMTAiPjAxMTAwMTAxPC90ZXh0PgogICAgPHRleHQgeD0iNjAiIHk9IjEwIj4xMTAwMTExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjExMCIgeT0iMTAiPjAxMDAxMDExPC90ZXh0PgogICAgPHRleHQgeD0iMTYwIiB5PSIxMCI+MTEwMTAxMDA8L3RleHQ+CiAgICA8dGV4dCB4PSIyMTAiIHk9IjEwIj4wMTEwMTEwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjI2MCIgeT0iMTAiPjExMTAxMDAxPC90ZXh0PgogICAgPHRleHQgeD0iMzEwIiB5PSIxMCI+MDExMDAwMTA8L3RleHQ+CiAgICA8dGV4dCB4PSIzNjAiIHk9IjEwIj4xMDAxMDExMTwvdGV4dD4KICAgIAogICAgPHRleHQgeD0iMTAiIHk9IjMwIj4xMDExMDAxMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjYwIiB5PSIzMCI+MDAxMDExMDE8L3RleHQ+CiAgICA8dGV4dCB4PSIxMTAiIHk9IjMwIj4xMTAxMDAwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjE2MCIgeT0iMzAiPjAxMDExMTAwPC90ZXh0PgogICAgPHRleHQgeD0iMjEwIiB5PSIzMCI+MDEwMDAxMTE8L3RleHQ+CiAgICA8dGV4dCB4PSIyNjAiIHk9IjMwIj4xMTAxMDExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjMxMCIgeT0iMzAiPjAxMDAxMDAwPC90ZXh0PgogICAgPHRleHQgeD0iMzYwIiB5PSIzMCI+MTExMDAxMDE8L3RleHQ+CiAgPC9nPgo8L3N2Zz4=');
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Cyber Design Elements */
+        .cyber-accent {
+            position: relative;
+        }
+
+        .cyber-accent::before {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 60px;
+            background-color: var(--secondary-color);
+            bottom: -12px;
+            left: 0;
+        }
+
+        .cyber-accent::after {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 30px;
+            background-color: #adb5bd;
+            bottom: -12px;
+            left: 70px;
+        }
+
+        .cyber-line {
+            position: absolute;
+            width: 1px;
+            background-color: rgba(73, 80, 87, 0.1);
+            z-index: 0;
+        }
+
+        .cyber-line-left {
+            left: 15%;
+            top: 0;
+            height: 100%;
+        }
+
+        .cyber-line-right {
+            right: 15%;
+            top: 0;
+            height: 100%;
+        }
+
+        .cyber-dots {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 180px;
+            height: 180px;
+            z-index: 0;
+            opacity: 0.08;
+        }
+
+        .cyber-dots::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(var(--secondary-color) 2px, transparent 2px);
+            background-size: 18px 18px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 35px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--secondary-color);
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        /* Header styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        header:after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: #adb5bd;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 500;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #1e1e1e;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Web Hack Challenge Specific Styles */
+        .hack-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            border-top: 3px solid var(--secondary-color);
+            min-height: 60vh;
+        }
+
+        .hack-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hack-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .hack-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .hack-status {
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .hack-progress {
+            height: 8px;
+            width: 100%;
+            background-color: rgba(76, 175, 80, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .hack-progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #4CAF50;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .status-info {
+            font-size: 14px;
+            color: var(--secondary-color);
+            text-align: right;
+        }
+
+        .hack-output {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding-right: 5px;
+            min-height: 40vh;
+            max-height: 60vh;
+        }
+
+        .hack-input-line {
+            display: flex;
+            margin-top: 10px;
+            align-items: center;
+        }
+
+        .hack-prompt {
+            color: #4CAF50;
+            margin-right: 10px;
+        }
+
+        #hack-input {
+            background-color: transparent;
+            border: none;
+            color: #4CAF50;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+            caret-color: #4CAF50;
+        }
+
+        .hack-output-line {
+            margin: 5px 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .hack-info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #4CAF50;
+            text-align: center;
+        }
+
+        .hack-button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        button.hack-button {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+            border-radius: 4px;
+            padding: 8px 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-width: 100px;
+        }
+
+        button.hack-button:hover {
+            background-color: rgba(76, 175, 80, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        /* Challenge info card */
+        .challenge-card {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid #4CAF50;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .challenge-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 5px;
+        }
+
+        .challenge-description {
+            margin-bottom: 10px;
+            color: rgba(96, 100, 95, 0.3);
+        }
+
+        .info-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .info-title {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .info-title i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        /* Text styles */
+        .error-text {
+            color: #ff3333;
+        }
+
+        .success-text {
+            color: #4CAF50;
+        }
+
+        .highlight-text {
+            color: #006445;
+            font-weight: bold;
+        }
+
+        .info-text {
+            color: #2196F3;
+        }
+
+        .code-text {
+            color: #FFC107;
+            font-family: monospace;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-about h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .footer-links h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .quick-links {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .quick-links a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .quick-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .quick-links a i {
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hack-container {
+                padding: 10px;
+            }
+
+            .hack-button-group {
+                flex-direction: column;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--primary-color);
+                padding: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none; color: white;">
+                        <i class="fas fa-shield-alt"></i>
+                        Aziz Alghamdi عزيز الغامدي
+                    </a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#education">Education</a></li>
+                    <li><a href="index.html#research">Research</a></li>
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="index.html#certifications">Certifications</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Unique Cybersecurity Visualization -->
+    <div id="cyber-visualization" class="cyber-visualization"></div>
+    <div class="binary-bg"></div>
+
+    <section class="interactive-section" id="interactive">
+        <div class="cyber-line cyber-line-left"></div>
+        <div class="cyber-line cyber-line-right"></div>
+        <div class="cyber-dots"></div>
+        <div class="container">
+            <h2 class="section-title cyber-accent">Web Vulnerability Hacking Challenge</h2>
+            <p class="section-subtitle">Test your cybersecurity skills by finding and exploiting common web vulnerabilities in a controlled environment. These challenges simulate real-world scenarios to enhance your understanding of web application security.</p>
+
+            <div class="info-box">
+                <div class="info-title">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Why Practice Web Security?</span>
+                </div>
+                <p>Web applications are among the most common targets for cybercriminals. By understanding how vulnerabilities can be exploited, you'll be better equipped to protect against these attacks. All challenges are designed for educational purposes and should only be practiced in designated lab environments.</p>
+            </div>
+
+            <div class="challenge-card">
+                <div class="challenge-title">Current Challenge: <span id="current-challenge">SQL Injection Vulnerability</span></div>
+                <div class="challenge-description">Find vulnerabilities in the simulated web application and exploit them to complete challenges.</div>
+            </div>
+
+            <div class="hack-container">
+                <div class="hack-header">
+                    <div class="hack-title">Web Vulnerability Terminal</div>
+                    <div class="hack-controls">
+                        <div class="control-btn control-close" style="background-color: #ff5f56;"></div>
+                        <div class="control-btn control-minimize" style="background-color: #ffbd2e;"></div>
+                        <div class="control-btn control-expand" style="background-color: #27c93f;"></div>
+                    </div>
+                </div>
+
+                <div class="hack-status">
+                    <div class="hack-progress">
+                        <div class="hack-progress-bar" id="hack-progress-bar"></div>
+                    </div>
+                    <div class="status-info">Challenge Progress</div>
+                </div>
+
+                <div class="hack-output" id="hack-output">
+                    <!-- Terminal output will be displayed here -->
+                </div>
+
+                <div class="hack-input-line">
+                    <div class="hack-prompt" id="hack-prompt">hacker@webapp:~$</div>
+                    <input type="text" id="hack-input" autofocus spellcheck="false" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="hack-info">
+                <p>Type 'help' to see available commands. Complete the challenges to test your web security knowledge.</p>
+                <div class="hack-button-group">
+                    <button class="hack-button" id="hack-help-button">Show Help</button>
+                    <button class="hack-button" id="hack-hint-button">Get Hint</button>
+                    <button class="hack-button" id="hack-reset-button">Reset Challenge</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Aziz Alghamdi</h3>
+                    <p>Cybersecurity professional specializing in digital forensics, incident response, and the application
+                        of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in
+                        Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
+                    <div class="social-links">
+                        <a href="https://linkedin.com" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/iz2a" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i
+                                class="fab fa-researchgate"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="index.html#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
+                        <li><a href="index.html#education"><i class="fas fa-chevron-right"></i> Education</a></li>
+                        <li><a href="index.html#research"><i class="fas fa-chevron-right"></i> Research</a></li>
+                        <li><a href="index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                        <li><a href="index.html#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
+                        <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Learning</a></li>
+                        <li><a href="MyResume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="web_hack_challenge.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize web hacking challenge
+            if (window.webHackChallenge && typeof window.webHackChallenge.init === 'function') {
+                window.webHackChallenge.init();
+            }
+
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
