@@ -114,7 +114,7 @@ async function downloadPDF() {
     const canvas = await html2canvas(cert);
     const imgData = canvas.toDataURL('image/png');
 
-    const pdf = new jsPDF('landscape', 'pt', 'a4');
+    const pdf = new jsPDF('2 x 3', 'pt', 'a4');
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
