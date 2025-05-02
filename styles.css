@@ -1040,6 +1040,100 @@
                 padding: 25px;
             }
         }
+       .cyber-visualization {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.35;
+        }
+
+        .binary-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            left: 0;
+            background-size: cover;
+            opacity: 0.015;
+            z-index: 0;
+            pointer-events: none;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNDAwIDQwMCI+CiAgPHN0eWxlPgogICAgdGV4dCB7IGZvbnQtZmFtaWx5OiBtb25vc3BhY2U7IGZvbnQtc2l6ZTogMTBweDsgZmlsbDogIzMzMzsgfQogIDwvc3R5bGU+CiAgPGcgaWQ9ImJpbmFyeSI+CiAgICA8dGV4dCB4PSIxMCIgeT0iMTAiPjAxMTAwMTAxPC90ZXh0PgogICAgPHRleHQgeD0iNjAiIHk9IjEwIj4xMTAwMTExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjExMCIgeT0iMTAiPjAxMDAxMDExPC90ZXh0PgogICAgPHRleHQgeD0iMTYwIiB5PSIxMCI+MTEwMTAxMDA8L3RleHQ+CiAgICA8dGV4dCB4PSIyMTAiIHk9IjEwIj4wMTEwMTEwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjI2MCIgeT0iMTAiPjExMTAxMDAxPC90ZXh0PgogICAgPHRleHQgeD0iMzEwIiB5PSIxMCI+MDExMDAwMTA8L3RleHQ+CiAgICA8dGV4dCB4PSIzNjAiIHk9IjEwIj4xMDAxMDExMTwvdGV4dD4KICAgIAogICAgPHRleHQgeD0iMTAiIHk9IjMwIj4xMDExMDAxMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjYwIiB5PSIzMCI+MDAxMDExMDE8L3RleHQ+CiAgICA8dGV4dCB4PSIxMTAiIHk9IjMwIj4xMTAxMDAwMTwvdGV4dD4KICAgIDx0ZXh0IHg9IjE2MCIgeT0iMzAiPjAxMDExMTAwPC90ZXh0PgogICAgPHRleHQgeD0iMjEwIiB5PSIzMCI+MDEwMDAxMTE8L3RleHQ+CiAgICA8dGV4dCB4PSIyNjAiIHk9IjMwIj4xMTAxMDExMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjMxMCIgeT0iMzAiPjAxMDAxMDAwPC90ZXh0PgogICAgPHRleHQgeD0iMzYwIiB5PSIzMCI+MTExMDAxMDE8L3RleHQ+CiAgPC9nPgo8L3N2Zz4=');
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Cyber Design Elements */
+        .cyber-accent {
+            position: relative;
+        }
+
+        .cyber-accent::before {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 60px;
+            background-color: var(--secondary-color);
+            bottom: -12px;
+            left: 0;
+        }
+
+        .cyber-accent::after {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 30px;
+            background-color: #adb5bd;
+            bottom: -12px;
+            left: 70px;
+        }
+
+        .cyber-line {
+            position: absolute;
+            width: 1px;
+            background-color: rgba(73, 80, 87, 0.1);
+            z-index: 0;
+        }
+
+        .cyber-line-left {
+            left: 15%;
+            top: 0;
+            height: 100%;
+        }
+
+        .cyber-line-right {
+            right: 15%;
+            top: 0;
+            height: 100%;
+        }
+
+        .cyber-dots {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 180px;
+            height: 180px;
+            z-index: 0;
+            opacity: 0.08;
+        }
+
+        .cyber-dots::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(var(--secondary-color) 2px, transparent 2px);
+            background-size: 18px 18px;
+        }
 
         /* Language Switcher Styles */
         .language-switcher {
