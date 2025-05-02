@@ -1594,220 +1594,275 @@
             });
         });
 
-        // Category tab switching
-        const initCategoryTabs = () => {
-            const categoryTabs = document.querySelectorAll('.category-tab');
+        // Category tab switching - make sure it works in each framework content section
+        const allCategoryTabs = document.querySelectorAll('.category-tab');
 
-            categoryTabs.forEach(tab => {
-                tab.addEventListener('click', function () {
-                    const category = this.getAttribute('data-category');
-                    const parentContainer = this.closest('.framework-content');
+        allCategoryTabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                const category = this.getAttribute('data-category');
+                const parentContainer = this.closest('.framework-content');
 
-                    // Remove active class from all category tabs in this framework
-                    const siblingTabs = parentContainer.querySelectorAll('.category-tab');
-                    siblingTabs.forEach(t => t.classList.remove('active'));
+                // Remove active class from all category tabs in this framework
+                const siblingTabs = parentContainer.querySelectorAll('.category-tab');
+                siblingTabs.forEach(t => t.classList.remove('active'));
 
-                    // Add active class to clicked tab
-                    this.classList.add('active');
+                // Add active class to clicked tab
+                this.classList.add('active');
 
-                    // Update controls table title based on the active framework and category
-                    const activeFramework = document.querySelector('.framework-tab.active').getAttribute('data-framework');
-                    const controlsTitle = parentContainer.querySelector('.controls-title');
-
-                    if (controlsTitle) {
-                        updateControlsTitle(activeFramework, category, controlsTitle);
-                    }
-
-                    // Here you would typically load different control data based on the category
-                    // For demo purposes, we're just updating the title
-                });
-            });
-        };
-
-        // Initialize category tabs
-        initCategoryTabs();
-
-        // Function to update controls title based on framework and category
-        function updateControlsTitle(framework, category, titleElement) {
-            if (framework === 'nist') {
-                switch (category) {
-                    case 'identify':
-                        titleElement.textContent = 'Identify (ID) Function Controls';
-                        break;
-                    case 'protect':
-                        titleElement.textContent = 'Protect (PR) Function Controls';
-                        break;
-                    case 'detect':
-                        titleElement.textContent = 'Detect (DE) Function Controls';
-                        break;
-                    case 'respond':
-                        titleElement.textContent = 'Respond (RS) Function Controls';
-                        break;
-                    case 'recover':
-                        titleElement.textContent = 'Recover (RC) Function Controls';
-                        break;
+                // Update controls table title
+                const controlsTitle = parentContainer.querySelector('.controls-title');
+                if (controlsTitle) {
+                    const activeFramework = parentContainer.id.split('-')[0];
+                    updateControlsTitle(activeFramework, category, controlsTitle);
                 }
-            } else if (framework === 'iso') {
-                switch (category) {
-                    case 'a5':
-                        titleElement.textContent = 'A5: Information Security Policies';
-                        break;
-                    case 'a6':
-                        titleElement.textContent = 'A6: Organization of Information Security';
-                        break;
-                    case 'a7':
-                        titleElement.textContent = 'A7: Human Resource Security';
-                        break;
-                    case 'a8':
-                        titleElement.textContent = 'A8: Asset Management';
-                        break;
-                    case 'a9':
-                        titleElement.textContent = 'A9: Access Control';
-                        break;
-                    case 'more':
-                        titleElement.textContent = 'Additional ISO Controls';
-                        break;
-                }
-            } else if (framework === 'cis') {
-                switch (category) {
-                    case 'ig1':
-                        titleElement.textContent = 'Basic Controls (Implementation Group 1)';
-                        break;
-                    case 'ig2':
-                        titleElement.textContent = 'Foundational Controls (Implementation Group 2)';
-                        break;
-                    case 'ig3':
-                        titleElement.textContent = 'Organizational Controls (Implementation Group 3)';
-                        break;
-                }
-            } else if (framework === 'pci') {
-                switch (category) {
-                    case 'req1':
-                        titleElement.textContent = 'Requirement 1: Install and maintain network security controls';
-                        break;
-                    case 'req2':
-                        titleElement.textContent = 'Requirement 2: Apply secure configurations';
-                        break;
-                    case 'req3':
-                        titleElement.textContent = 'Requirement 3: Protect stored account data';
-                        break;
-                    case 'req4':
-                        titleElement.textContent = 'Requirement 4: Protect data in transit';
-                        break;
-                    case 'more':
-                        titleElement.textContent = 'Additional PCI DSS Requirements';
-                        break;
-                }
-            }
-        }
-
-        // Search functionality for controls
-        const initSearchFunctionality = () => {
-            const searchInputs = document.querySelectorAll('.search-input');
-
-            searchInputs.forEach(input => {
-                input.addEventListener('keyup', function () {
-                    const searchTerm = this.value.toLowerCase();
-                    const parentFramework = this.closest('.framework-content');
-                    const controlRows = parentFramework.querySelectorAll('.controls-table tbody tr');
-
-                    controlRows.forEach(row => {
-                        const controlId = row.querySelector('.control-id').textContent.toLowerCase();
-                        const controlDesc = row.querySelector('.control-description').textContent.toLowerCase();
-
-                        if (controlId.includes(searchTerm) || controlDesc.includes(searchTerm)) {
-                            row.style.display = '';
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    });
-                });
-            });
-        };
-
-        // Initialize search functionality
-        initSearchFunctionality();
-
-        // Status filter functionality
-        const initStatusFilter = () => {
-            const statusSelects = document.querySelectorAll('.search-filter select');
-
-            statusSelects.forEach(select => {
-                select.addEventListener('change', function () {
-                    const selectedStatus = this.value.toLowerCase();
-                    const parentFramework = this.closest('.framework-content');
-                    const controlRows = parentFramework.querySelectorAll('.controls-table tbody tr');
-
-                    controlRows.forEach(row => {
-                        const statusCell = row.querySelector('.control-status');
-                        if (!statusCell) return;
-
-                        const statusBadge = statusCell.querySelector('.status-badge');
-                        if (!statusBadge) return;
-
-                        const rowStatus = statusBadge.textContent.toLowerCase();
-
-                        if (selectedStatus === 'all statuses' || rowStatus === selectedStatus.toLowerCase()) {
-                            row.style.display = '';
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    });
-                });
-            });
-        };
-
-        // Initialize status filter
-        initStatusFilter();
-
-        // Enable all control rows to show detail when clicked
-        const initControlRowClicks = () => {
-            const controlRows = document.querySelectorAll('.controls-table tbody tr');
-
-            controlRows.forEach(row => {
-                row.addEventListener('click', function () {
-                    // Remove selected class from all rows
-                    controlRows.forEach(r => r.classList.remove('selected'));
-
-                    // Add selected class to clicked row
-                    this.classList.add('selected');
-
-                    // Show control detail with data from this row
-                    showControlDetail(this);
-                });
-            });
-        };
-
-        // Initialize control row clicks
-        initControlRowClicks();
-
-        // Download template buttons
-        const downloadButtons = document.querySelectorAll('.btn-outline[title="Download Template"]');
-        downloadButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const framework = this.closest('.framework-content').id.split('-')[0];
-                alert(`Download ${framework.toUpperCase()} template started!`);
-                // Here you would implement actual download functionality
             });
         });
 
-        // Generate report buttons
-        const reportButtons = document.querySelectorAll('.btn-outline[title="Generate Report"]');
+        // Download Template buttons - Fix to address the immediate issue
+        const downloadButtons = document.querySelectorAll('.btn-outline');
+        downloadButtons.forEach(button => {
+            if (button.innerHTML.includes('Download Template')) {
+                button.addEventListener('click', function () {
+                    const frameworkContent = this.closest('.framework-content');
+                    let framework = "framework";
+
+                    if (frameworkContent) {
+                        framework = frameworkContent.id.split('-')[0];
+                    }
+
+                    alert(`Download ${framework.toUpperCase()} template started!`);
+                    console.log(`Download template for ${framework} framework`);
+                    // Here you would implement actual download functionality
+                });
+            }
+        });
+
+        // Generate Report buttons - Fix to address the immediate issue
+        const reportButtons = document.querySelectorAll('.btn-outline');
         reportButtons.forEach(button => {
+            if (button.innerHTML.includes('Generate Report')) {
+                button.addEventListener('click', function () {
+                    const frameworkContent = this.closest('.framework-content');
+                    let framework = "framework";
+
+                    if (frameworkContent) {
+                        framework = frameworkContent.id.split('-')[0];
+                    }
+
+                    alert(`Generating ${framework.toUpperCase()} report!`);
+                    console.log(`Generate report for ${framework} framework`);
+                    // Here you would implement actual report generation
+                });
+            }
+        });
+
+        // Enable all control rows to show detail when clicked
+        const controlRows = document.querySelectorAll('.controls-table tbody tr');
+        controlRows.forEach(row => {
+            row.addEventListener('click', function () {
+                // Remove selected class from all rows
+                const allRows = document.querySelectorAll('.controls-table tbody tr');
+                allRows.forEach(r => r.classList.remove('selected'));
+
+                // Add selected class to clicked row
+                this.classList.add('selected');
+
+                // Get data from the clicked row
+                const controlId = this.querySelector('.control-id').textContent;
+                const controlDesc = this.querySelector('.control-description').textContent;
+                const statusBadge = this.querySelector('.status-badge').outerHTML || '';
+                const lastAssessment = this.querySelector('td:last-child').textContent;
+
+                // Update control detail with row data
+                const controlDetail = document.getElementById('control-detail');
+                if (controlDetail) {
+                    // Update basic info
+                    const detailId = controlDetail.querySelector('.detail-id');
+                    if (detailId) detailId.textContent = controlId;
+
+                    const detailName = controlDetail.querySelector('.detail-name');
+                    if (detailName) detailName.textContent = controlDesc;
+
+                    // Show the control detail
+                    controlDetail.style.display = 'block';
+
+                    // Scroll to the control detail
+                    controlDetail.scrollIntoView({behavior: 'smooth', block: 'start'});
+                }
+            });
+        });
+
+        // Search functionality for controls
+        const searchInputs = document.querySelectorAll('.search-input');
+        searchInputs.forEach(input => {
+            input.addEventListener('keyup', function () {
+                const searchTerm = this.value.toLowerCase();
+                const parentFramework = this.closest('.framework-content');
+                const controlRows = parentFramework.querySelectorAll('.controls-table tbody tr');
+
+                controlRows.forEach(row => {
+                    const controlId = row.querySelector('.control-id').textContent.toLowerCase();
+                    const controlDesc = row.querySelector('.control-description').textContent.toLowerCase();
+
+                    if (controlId.includes(searchTerm) || controlDesc.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Status filter functionality
+        const statusSelects = document.querySelectorAll('.search-filter select');
+        statusSelects.forEach(select => {
+            select.addEventListener('change', function () {
+                const selectedStatus = this.value.toLowerCase();
+                const parentFramework = this.closest('.framework-content');
+                const controlRows = parentFramework.querySelectorAll('.controls-table tbody tr');
+
+                controlRows.forEach(row => {
+                    if (selectedStatus === 'all statuses') {
+                        row.style.display = '';
+                        return;
+                    }
+
+                    const statusCell = row.querySelector('.control-status');
+                    if (!statusCell) return;
+
+                    const statusBadge = statusCell.querySelector('.status-badge');
+                    if (!statusBadge) return;
+
+                    const rowStatus = statusBadge.textContent.toLowerCase();
+
+                    if (rowStatus === selectedStatus.toLowerCase()) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Assessment form buttons
+        const saveButton = document.querySelector('.assessment-form .btn-outline:last-child');
+        if (saveButton) {
+            saveButton.addEventListener('click', function () {
+                saveControlAssessment();
+            });
+        }
+
+        const cancelButton = document.querySelector('.assessment-form .btn-outline:nth-last-child(2)');
+        if (cancelButton) {
+            cancelButton.addEventListener('click', function () {
+                hideControlDetail();
+            });
+        }
+
+        // Make sure the close button in control detail works
+        const closeDetailButton = document.querySelector('.detail-close');
+        if (closeDetailButton) {
+            closeDetailButton.addEventListener('click', function () {
+                hideControlDetail();
+            });
+        }
+
+        // Initialize any comparison view elements if present
+        const comparisonButtons = document.querySelectorAll('#comparison-content .btn-outline');
+        comparisonButtons.forEach(button => {
             button.addEventListener('click', function () {
-                const framework = this.closest('.framework-content').id.split('-')[0];
-                alert(`Generating ${framework.toUpperCase()} report!`);
-                // Here you would implement actual report generation
+                alert("Downloading comparison data!");
             });
         });
     });
 
+    // Function to update controls title based on framework and category
+    function updateControlsTitle(framework, category, titleElement) {
+        if (framework === 'nist') {
+            switch (category) {
+                case 'identify':
+                    titleElement.textContent = 'Identify (ID) Function Controls';
+                    break;
+                case 'protect':
+                    titleElement.textContent = 'Protect (PR) Function Controls';
+                    break;
+                case 'detect':
+                    titleElement.textContent = 'Detect (DE) Function Controls';
+                    break;
+                case 'respond':
+                    titleElement.textContent = 'Respond (RS) Function Controls';
+                    break;
+                case 'recover':
+                    titleElement.textContent = 'Recover (RC) Function Controls';
+                    break;
+            }
+        } else if (framework === 'iso') {
+            switch (category) {
+                case 'a5':
+                    titleElement.textContent = 'A5: Information Security Policies';
+                    break;
+                case 'a6':
+                    titleElement.textContent = 'A6: Organization of Information Security';
+                    break;
+                case 'a7':
+                    titleElement.textContent = 'A7: Human Resource Security';
+                    break;
+                case 'a8':
+                    titleElement.textContent = 'A8: Asset Management';
+                    break;
+                case 'a9':
+                    titleElement.textContent = 'A9: Access Control';
+                    break;
+                case 'more':
+                    titleElement.textContent = 'Additional ISO Controls';
+                    break;
+            }
+        } else if (framework === 'cis') {
+            switch (category) {
+                case 'ig1':
+                    titleElement.textContent = 'Basic Controls (Implementation Group 1)';
+                    break;
+                case 'ig2':
+                    titleElement.textContent = 'Foundational Controls (Implementation Group 2)';
+                    break;
+                case 'ig3':
+                    titleElement.textContent = 'Organizational Controls (Implementation Group 3)';
+                    break;
+            }
+        } else if (framework === 'pci') {
+            switch (category) {
+                case 'req1':
+                    titleElement.textContent = 'Requirement 1: Install and maintain network security controls';
+                    break;
+                case 'req2':
+                    titleElement.textContent = 'Requirement 2: Apply secure configurations';
+                    break;
+                case 'req3':
+                    titleElement.textContent = 'Requirement 3: Protect stored account data';
+                    break;
+                case 'req4':
+                    titleElement.textContent = 'Requirement 4: Protect data in transit';
+                    break;
+                case 'more':
+                    titleElement.textContent = 'Additional PCI DSS Requirements';
+                    break;
+            }
+        }
+    }
+
     // Function to show control detail
     function showControlDetail(rowElement) {
-        // Get data from the clicked row
+        // If no specific row is provided, show detail for the selected row
+        if (!rowElement) {
+            rowElement = document.querySelector('.controls-table tbody tr.selected');
+            if (!rowElement) return;
+        }
+
+        // Get data from the row
         const controlId = rowElement.querySelector('.control-id').textContent;
         const controlDesc = rowElement.querySelector('.control-description').textContent;
-        const statusBadge = rowElement.querySelector('.status-badge').outerHTML;
+        const statusElement = rowElement.querySelector('.status-badge');
+        const statusBadge = statusElement ? statusElement.outerHTML : '';
         const lastAssessment = rowElement.querySelector('td:last-child').textContent;
 
         // Get the control detail element
@@ -1815,12 +1870,15 @@
 
         // Update control detail with row data
         if (controlDetail) {
-            controlDetail.querySelector('.detail-id').textContent = controlId;
-            controlDetail.querySelector('.detail-name').textContent = controlDesc;
+            const detailId = controlDetail.querySelector('.detail-id');
+            if (detailId) detailId.textContent = controlId;
+
+            const detailName = controlDetail.querySelector('.detail-name');
+            if (detailName) detailName.textContent = controlDesc;
 
             // Update status in detail view
             const detailStatusValue = controlDetail.querySelector('.detail-info .detail-item:nth-child(4) .detail-value');
-            if (detailStatusValue) {
+            if (detailStatusValue && statusBadge) {
                 detailStatusValue.innerHTML = statusBadge;
             }
 
@@ -1832,8 +1890,8 @@
 
             // Set the form status dropdown to match the current status
             const statusSelect = controlDetail.querySelector('.assessment-form select');
-            if (statusSelect) {
-                const currentStatus = rowElement.querySelector('.status-badge').textContent;
+            if (statusSelect && statusElement) {
+                const currentStatus = statusElement.textContent;
                 for (let i = 0; i < statusSelect.options.length; i++) {
                     if (statusSelect.options[i].text === currentStatus) {
                         statusSelect.selectedIndex = i;
@@ -1873,7 +1931,7 @@
         const assessmentNotes = controlDetail.querySelector('.assessment-form textarea');
         const evidenceRefs = controlDetail.querySelector('.assessment-form input[type="text"]');
 
-        if (!statusSelect || !assessmentDate || !assessmentNotes || !evidenceRefs) return;
+        if (!statusSelect || !assessmentDate) return;
 
         // Get the selected row
         const selectedRow = document.querySelector('.controls-table tbody tr.selected');
@@ -1905,11 +1963,13 @@
 
         // Update the date in the row
         const dateCell = selectedRow.querySelector('td:last-child');
-        if (dateCell) {
+        if (dateCell && assessmentDate.value) {
             // Convert YYYY-MM-DD to MMM DD, YYYY format
             const date = new Date(assessmentDate.value);
-            const options = {month: 'short', day: 'numeric', year: 'numeric'};
-            dateCell.textContent = date.toLocaleDateString('en-US', options);
+            if (!isNaN(date.getTime())) {
+                const options = {month: 'short', day: 'numeric', year: 'numeric'};
+                dateCell.textContent = date.toLocaleDateString('en-US', options);
+            }
         }
 
         // Show success message
@@ -1919,19 +1979,15 @@
         hideControlDetail();
     }
 
-    // Add event listeners for assessment form buttons
+    // Initialize showControlDetail function on directly clicked elements
     document.addEventListener('DOMContentLoaded', function () {
-        // Save button in assessment form
-        const saveButton = document.querySelector('.assessment-form .btn-outline:last-child');
-        if (saveButton) {
-            saveButton.addEventListener('click', saveControlAssessment);
-        }
-
-        // Cancel button in assessment form
-        const cancelButton = document.querySelector('.assessment-form .btn-outline:nth-last-child(2)');
-        if (cancelButton) {
-            cancelButton.addEventListener('click', hideControlDetail);
-        }
+        // Make sure the first table's rows are clickable for demonstration
+        const initialRows = document.querySelectorAll('#nist-content .controls-table tbody tr');
+        initialRows.forEach(row => {
+            row.onclick = function () {
+                showControlDetail(this);
+            };
+        });
     });
 </script>
 </body>
