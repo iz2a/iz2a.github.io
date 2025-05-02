@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Security Playground</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/Interactive_Section/css/network-playground.css">
+
+</head>
+<body>
+
+<!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../../index.html" style="text-decoration: none; color: white;">
+                        <i class="fas fa-shield-alt"></i>
+                        Aziz Alghamdi عزيز الغامدي
+                    </a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                    <li><a href="../../index.html#education">Education</a></li>
+                    <li><a href="../../index.html#research">Research</a></li>
+                    <li><a href="../../index.html#projects">Projects</a></li>
+                    <li><a href="../../index.html#certifications">Certifications</a></li>
+                    <li><a href="../../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <div class="header">
+            <h1>Network Security Playground</h1>
+            <p>Simulate cyber attacks and defense mechanisms in real-time</p>
+        </div>
+        
+        <div class="instructions">
+            <h3>How to Use This Visualization</h3>
+            <p>This interactive playground simulates a network environment where you can:</p>
+            <ul>
+                <li><strong>Click on nodes</strong> to select them and view their details</li>
+                <li><strong>Drag nodes</strong> to reorganize the network topology</li>
+                <li><strong>Launch attacks</strong> to see how they propagate through the network</li>
+                <li><strong>Deploy defenses</strong> to protect against various types of attacks</li>
+                <li>Watch the <strong>security logs</strong> to monitor network events in real-time</li>
+            </ul>
+        </div>
+        
+        <div class="stats-container">
+            <div class="stat-card stat-normal" id="nodes-stat">
+                <h3 class="stat-title">Network Nodes</h3>
+                <div class="stat-value" id="node-count">0</div>
+                <div class="stat-desc">Active devices on network</div>
+            </div>
+            
+            <div class="stat-card stat-normal" id="traffic-stat">
+                <h3 class="stat-title">Traffic Volume</h3>
+                <div class="stat-value" id="traffic-volume">0</div>
+                <div class="stat-desc">Packets per minute</div>
+            </div>
+            
+            <div class="stat-card stat-normal" id="security-stat">
+                <h3 class="stat-title">Security Level</h3>
+                <div class="stat-value" id="security-level">100%</div>
+                <div class="stat-desc">Overall network protection</div>
+            </div>
+            
+            <div class="stat-card stat-normal" id="incident-stat">
+                <h3 class="stat-title">Security Incidents</h3>
+                <div class="stat-value" id="incident-count">0</div>
+                <div class="stat-desc">Detected attacks & breaches</div>
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #4CAF50;"></span>
+                <span>Secure Node</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #FFC107;"></span>
+                <span>Vulnerable Node</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #F44336;"></span>
+                <span>Compromised Node</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #2196F3;"></span>
+                <span>Internet Gateway</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #9C27B0;"></span>
+                <span>Security Device</span>
+            </div>
+        </div>
+        
+        <div class="visualization">
+            <canvas id="canvas"></canvas>
+            <div class="tooltip" id="tooltip"></div>
+        </div>
+        
+        <div class="controls-container">
+            <div class="control-panel">
+                <h3 class="panel-title">Network Controls</h3>
+                
+                <div class="form-group">
+                    <label for="node-slider">Network Size</label>
+                    <div class="slider-container">
+                        <input type="range" id="node-slider" class="slider form-control" min="5" max="30" value="15">
+                        <span class="slider-value" id="node-slider-value">15</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="vulnerability-slider">Vulnerability Level</label>
+                    <div class="slider-container">
+                        <input type="range" id="vulnerability-slider" class="slider form-control" min="0" max="100" value="30">
+                        <span class="slider-value" id="vulnerability-slider-value">30%</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="traffic-slider">Traffic Intensity</label>
+                    <div class="slider-container">
+                        <input type="range" id="traffic-slider" class="slider form-control" min="1" max="10" value="5">
+                        <span class="slider-value" id="traffic-slider-value">5</span>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="add-node-btn">Add Node</button>
+                    <button class="btn btn-info" id="add-security-btn">Add Security Device</button>
+                    <button class="btn" id="reset-btn">Reset Network</button>
+                </div>
+            </div>
+            
+            <div class="control-panel">
+                <h3 class="panel-title">Security Operations</h3>
+                
+                <div class="control-group">
+                    <h4>Attack Simulation</h4>
+                    <div class="btn-group">
+                        <button class="btn btn-danger" id="ddos-btn">DDoS Attack</button>
+                        <button class="btn btn-danger" id="malware-btn">Malware Injection</button>
+                        <button class="btn btn-warning" id="brute-force-btn">Brute Force</button>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h4>Defense Measures</h4>
+                    <div class="btn-group">
+                        <button class="btn btn-success" id="firewall-btn">Deploy Firewall</button>
+                        <button class="btn btn-success" id="ids-btn">Enable IDS/IPS</button>
+                        <button class="btn btn-success" id="patch-btn">Patch Vulnerabilities</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logs-container" id="logs">
+            <div class="log-entry">
+                <span class="log-timestamp">[00:00:00]</span>
+                <span class="log-info">Network security visualization initialized.</span>
+            </div>
+        </div>
+    </div>
+
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Aziz Alghamdi</h3>
+                    <p>Cybersecurity professional specializing in digital forensics, incident response, and the application
+                        of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in
+                        Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
+                    <div class="social-links">
+                        <a href="https://linkedin.com" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/iz2a" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i
+                                class="fab fa-researchgate"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="../../index.html#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
+                        <li><a href="../../index.html#education"><i class="fas fa-chevron-right"></i> Education</a></li>
+                        <li><a href="../../index.html#research"><i class="fas fa-chevron-right"></i> Research</a></li>
+                        <li><a href="../../index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                        <li><a href="../../index.html#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
+                        <li><a href="../../index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Learning</a></li>
+                        <li><a href="../../MyResume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<script src="/Interactive_Section/javascript/network-playground.js"></script>
+<script src="/Interactive_Section/javascript/cyber-vis.js"></script>
+<script src="../../translator.js"></script>
+</body>
+</html>

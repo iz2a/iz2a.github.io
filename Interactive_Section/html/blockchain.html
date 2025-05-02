@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Explorer Simulation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/Interactive_Section/css/blockchain.css">
+</head>
+<body>
+
+<!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../../index.html" style="text-decoration: none; color: white;">
+                        <i class="fas fa-shield-alt"></i>
+                        Aziz Alghamdi عزيز الغامدي
+                    </a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                    <li><a href="../../index.html#education">Education</a></li>
+                    <li><a href="../../index.html#research">Research</a></li>
+                    <li><a href="../../index.html#projects">Projects</a></li>
+                    <li><a href="../../index.html#certifications">Certifications</a></li>
+                    <li><a href="../../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- Unique Cybersecurity Visualization -->
+    <div id="cyber-visualization" class="cyber-visualization"></div>
+    <div class="binary-bg"></div>
+
+    <div class="container">
+        <h2 class="section-title cyber-accent">Blockchain Explorer</h2>
+
+        <div class="cyber-box">
+            <p>This interactive blockchain simulation allows you to create transactions, mine new blocks, and explore the mechanics behind blockchain technology. Experiment with different mining difficulties and see how cryptographic hashing secures the entire system.</p>
+        </div>
+
+        <div class="blockchain-container">
+            <div class="tabs">
+                <div class="tab active" data-tab="blockchain">Blockchain</div>
+                <div class="tab" data-tab="transactions">Pending Transactions</div>
+                <div class="tab" data-tab="create">Create Transaction</div>
+            </div>
+
+            <!-- Blockchain Tab -->
+            <div class="tab-content active" id="blockchain-tab">
+                <div class="info-box">
+                    <p>The blockchain below represents a series of connected blocks. Each block contains transactions and is cryptographically linked to the previous block through its hash. Click on any block to view its details.</p>
+                </div>
+                <div id="blockchain-blocks">
+                    <!-- Blocks will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Transactions Tab -->
+            <div class="tab-content" id="transactions-tab">
+                <div class="info-box">
+                    <p>Pending transactions are waiting to be included in the next block. When you mine a new block, all pending transactions will be added to the blockchain.</p>
+                </div>
+
+                <div id="pending-transactions-container">
+                    <table id="pending-transactions-table">
+                        <thead>
+                            <tr>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Amount</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pending-transactions-body">
+                            <!-- Pending transactions will be rendered here -->
+                        </tbody>
+                    </table>
+                    <div id="no-pending-transactions" style="display: none;">
+                        <p>There are no pending transactions.</p>
+                    </div>
+                </div>
+
+                <button id="mine-button" class="btn" disabled>Mine New Block</button>
+
+                <div class="difficulty-control">
+                    <label for="difficulty">Mining Difficulty:</label>
+                    <select id="difficulty">
+                        <option value="1">Easy (1)</option>
+                        <option value="2" selected>Medium (2)</option>
+                        <option value="3">Hard (3)</option>
+                        <option value="4">Expert (4)</option>
+                    </select>
+                </div>
+
+                <div id="mining-info" class="mining-info">
+                    <div><span class="loader"></span> Mining in progress...</div>
+                    <div id="mining-details"></div>
+                </div>
+            </div>
+
+            <!-- Create Transaction Tab -->
+            <div class="tab-content" id="create-tab">
+                <div class="info-box">
+                    <p>Create a new transaction that will be added to the pending transactions pool. In a real blockchain, these transactions would be signed with your private key to prove authenticity.</p>
+                </div>
+
+                <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
+                <div id="success-alert" class="alert alert-success" style="display: none;"></div>
+
+                <div class="form-group">
+                    <label for="from">From Address:</label>
+                    <input type="text" id="from" class="form-control" placeholder="Enter sender address">
+                </div>
+
+                <div class="form-group">
+                    <label for="to">To Address:</label>
+                    <input type="text" id="to" class="form-control" placeholder="Enter recipient address">
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Amount:</label>
+                    <input type="text" id="amount" class="form-control" placeholder="Enter amount">
+                </div>
+
+                <button id="add-transaction-button" class="btn">Add Transaction</button>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <h3 style="margin-bottom: 10px;">About Digital Signatures</h3>
+                    <p>In actual blockchain networks, each transaction is secured by a digital signature created with the sender's private key. This signature can be verified using the sender's public key to ensure the transaction is authentic.</p>
+                    <div style="margin-top: 10px; font-family: monospace; background-color: rgba(0,0,0,0.05); padding: 10px;">
+                        signature = sign(sha256(transaction data), privateKey)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+    </script>
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Aziz Alghamdi</h3>
+                    <p>Cybersecurity professional specializing in digital forensics, incident response, and the application
+                        of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in
+                        Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
+                    <div class="social-links">
+                        <a href="https://linkedin.com" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/iz2a" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i
+                                class="fab fa-researchgate"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="../../index.html#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
+                        <li><a href="../../index.html#education"><i class="fas fa-chevron-right"></i> Education</a></li>
+                        <li><a href="../../index.html#research"><i class="fas fa-chevron-right"></i> Research</a></li>
+                        <li><a href="../../index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                        <li><a href="../../index.html#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
+                        <li><a href="../../index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Learning</a></li>
+                        <li><a href="../../MyResume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+<script src="/Interactive_Section/javascript/blockchain.js"></script>
+<script src="/Interactive_Section/javascript/cyber-vis.js"></script>
+
+<script src="../../translator.js"></script>
+</body>
+</html>

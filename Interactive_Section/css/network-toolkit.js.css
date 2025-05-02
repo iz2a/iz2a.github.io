@@ -1,0 +1,922 @@
+        /* Base styles that match your existing website */
+        :root {
+            --primary-color: #212529;
+            --secondary-color: #495057;
+            --accent-color: #6c757d;
+            --text-color: #333333;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+            --border-radius: 4px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            --wireshark-color: #1679a7;
+            --nmap-color: #d63384;
+            --firewall-color: #fd7e14;
+            --ids-color: #20c997;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        header:after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: #adb5bd;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 500;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: white;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Network Toolkit specific styles */
+        .toolkit-section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 35px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--secondary-color);
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .cyber-accent {
+            position: relative;
+        }
+
+        .cyber-accent::before {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 60px;
+            background-color: var(--secondary-color);
+            bottom: -12px;
+            left: 0;
+        }
+
+        .cyber-accent::after {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 30px;
+            background-color: #adb5bd;
+            bottom: -12px;
+            left: 70px;
+        }
+
+        /* Tools Layout */
+        .tools-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .tool-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .tool-tab {
+            padding: 12px 25px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            border: 1px solid #dee2e6;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tool-tab:hover {
+            background-color: #f1f3f5;
+        }
+
+        .tool-tab.active {
+            border-color: var(--secondary-color);
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .tool-tab i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .tool-tab.wireshark.active {
+            background-color: var(--wireshark-color);
+            border-color: var(--wireshark-color);
+        }
+
+        .tool-tab.nmap.active {
+            background-color: var(--nmap-color);
+            border-color: var(--nmap-color);
+        }
+
+        .tool-tab.firewall.active {
+            background-color: var(--firewall-color);
+            border-color: var(--firewall-color);
+        }
+
+        .tool-tab.ids.active {
+            background-color: var(--ids-color);
+            border-color: var(--ids-color);
+        }
+
+        .tool-content {
+            display: none;
+        }
+
+        .tool-content.active {
+            display: block;
+        }
+
+        .tool-interface {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+
+        /* Tool Header */
+        .tool-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            align-items: center;
+        }
+
+        .tool-header.wireshark {
+            background-color: var(--wireshark-color);
+        }
+
+        .tool-header.nmap {
+            background-color: var(--nmap-color);
+        }
+
+        .tool-header.firewall {
+            background-color: var(--firewall-color);
+        }
+
+        .tool-header.ids {
+            background-color: var(--ids-color);
+        }
+
+        .tool-title {
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .tool-title i {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        .tool-controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .tool-btn {
+            padding: 6px 12px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: var(--border-radius);
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .tool-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Tool Body */
+        .tool-body {
+            padding: 25px;
+        }
+
+        .tool-description {
+            margin-bottom: 25px;
+            color: var(--accent-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #dee2e6;
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary {
+            background-color: #e9ecef;
+            color: var(--text-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #dee2e6;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn.wireshark {
+            background-color: var(--wireshark-color);
+        }
+
+        .btn.nmap {
+            background-color: var(--nmap-color);
+        }
+
+        .btn.firewall {
+            background-color: var(--firewall-color);
+        }
+
+        .btn.ids {
+            background-color: var(--ids-color);
+        }
+
+        /* Tool Results */
+        .tool-results {
+            margin-top: 30px;
+            border-top: 1px solid #dee2e6;
+            padding-top: 25px;
+        }
+
+        .results-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .terminal {
+            background-color: #212529;
+            color: #f8f9fa;
+            font-family: 'Courier New', monospace;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            height: 350px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            font-style: normal;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .terminal::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .terminal::-webkit-scrollbar-thumb {
+            background-color: #495057;
+            border-radius: 6px;
+        }
+
+        .terminal::-webkit-scrollbar-track {
+            background-color: #343a40;
+        }
+
+        .terminal-green {
+            color: #20c997;
+        }
+
+        .terminal-red {
+            color: #dc3545;
+        }
+
+        .terminal-yellow {
+            color: #ffc107;
+        }
+
+        .terminal-blue {
+            color: #0dcaf0;
+        }
+
+        .terminal-prompt {
+            color: #20c997;
+            font-weight: bold;
+        }
+
+        .terminal-command {
+            color: white;
+        }
+
+        /* Packet Capture Table */
+        .packet-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            font-style: normal;
+            font-size: 14px;
+        }
+
+        .packet-table th,
+        .packet-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .packet-table th {
+            background-color: #f1f3f5;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .packet-table tbody tr:hover {
+            background-color: #f8f9fa;
+            cursor: pointer;
+        }
+
+        .packet-table tbody tr.selected {
+            background-color: rgba(22, 121, 167, 0.1);
+        }
+
+        .packet-time {
+            color: #6c757d;
+        }
+
+        .packet-src,
+        .packet-dst {
+            font-weight: 500;
+        }
+
+        .packet-protocol {
+            font-weight: bold;
+            color: #212529;
+        }
+
+        .packet-protocol.tcp {
+            color: #0d6efd;
+        }
+
+        .packet-protocol.udp {
+            color: #6f42c1;
+        }
+
+        .packet-protocol.http {
+            color: #20c997;
+        }
+
+        .packet-protocol.https {
+            color: #198754;
+        }
+
+        .packet-protocol.dns {
+            color: #fd7e14;
+        }
+
+        .packet-protocol.icmp {
+            color: #dc3545;
+        }
+
+        .packet-info {
+            color: #6c757d;
+            max-width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Packet Inspector */
+        .packet-inspector {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-style: normal;
+        }
+
+        .inspector-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .inspector-tabs {
+            display: flex;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 15px;
+        }
+
+        .inspector-tab {
+            padding: 8px 15px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .inspector-tab.active {
+            border-bottom-color: var(--wireshark-color);
+            font-weight: bold;
+        }
+
+        .layer-block {
+            margin-bottom: 15px;
+        }
+
+        .layer-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .layer-content {
+            margin-left: 15px;
+            line-height: 1.6;
+        }
+
+        .field-name {
+            color: #495057;
+            display: inline-block;
+            width: 160px;
+        }
+
+        .field-value {
+            color: #212529;
+            font-weight: 500;
+        }
+
+        /* Nmap Results */
+        .nmap-results-container {
+            max-height: 500px;
+            overflow-y: auto;
+            margin-bottom: 30px;
+        }
+
+        .host-block {
+            background-color: white;
+            border-radius: var(--border-radius);
+            border: 1px solid #dee2e6;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .host-header {
+            background-color: #f1f3f5;
+            padding: 12px 15px;
+            font-weight: bold;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .host-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: white;
+            font-weight: 500;
+        }
+
+        .host-status.up {
+            background-color: #20c997;
+        }
+
+        .host-status.down {
+            background-color: #dc3545;
+        }
+
+        .host-details {
+            padding: 15px;
+        }
+
+        .host-info {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f1f3f5;
+            font-family: 'Courier New', monospace;
+            font-style: normal;
+        }
+
+        .port-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Courier New', monospace;
+            font-style: normal;
+        }
+
+        .port-table th,
+        .port-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #f1f3f5;
+        }
+
+        .port-table th {
+            font-weight: 600;
+            background-color: #f8f9fa;
+        }
+
+        .port-number {
+            font-weight: bold;
+            color: #d63384;
+        }
+
+        .port-state {
+            font-weight: 500;
+        }
+
+        .port-state.open {
+            color: #198754;
+        }
+
+        .port-state.closed {
+            color: #6c757d;
+        }
+
+        .port-state.filtered {
+            color: #fd7e14;
+        }
+
+        .port-protocol {
+            color: #6f42c1;
+        }
+
+        .port-service {
+            color: #0d6efd;
+        }
+
+        /* Firewall Configuration */
+        .rule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .rule-table th,
+        .rule-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .rule-table th {
+            background-color: #f1f3f5;
+            font-weight: 600;
+        }
+
+        .rule-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .rule-action {
+            font-weight: bold;
+        }
+
+        .rule-action.allow {
+            color: #198754;
+        }
+
+        .rule-action.deny {
+            color: #dc3545;
+        }
+
+        .rule-action.log {
+            color: #0d6efd;
+        }
+
+        .rule-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .rule-btn {
+            background-color: transparent;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .rule-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .add-rule-form {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #dee2e6;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* IDS Alert Table */
+        .alert-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .alert-table th,
+        .alert-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .alert-table th {
+            background-color: #f1f3f5;
+            font-weight: 600;
+        }
+
+        .alert-table tbody tr:hover {
+            background-color: #f8f9fa;
+            cursor: pointer;
+        }
+
+        .alert-severity {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .alert-severity.high {
+            background-color: #dc3545;
+        }
+
+        .alert-severity.medium {
+            background-color: #fd7e14;
+        }
+
+        .alert-severity.low {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .alert-time {
+            color: #6c757d;
+            font-family: 'Courier New', monospace;
+            font-style: normal;
+        }
+
+        .alert-message {
+            font-weight: 500;
+        }
+
+        .alert-src,
+        .alert-dst {
+            font-family: 'Courier New', monospace;
+            font-style: normal;
+        }
+
+        /* Alert Detail View */
+        .alert-detail {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #dee2e6;
+        }
+
+        .detail-header {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .detail-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .detail-label {
+            width: 150px;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .detail-section-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .packet-data {
+            background-color: #212529;
+            color: #f8f9fa;
+            font-family: 'Courier New', monospace;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-style: normal;
+            line-height: 1.5;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--primary-color);
+                padding: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .tool-tabs {
+                flex-wrap: wrap;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+
+            .form-row .form-group {
+                min-width: 100%;
+            }
+        }

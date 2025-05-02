@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encryption Playground - Aziz Alghamdi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/Interactive_Section/css/encryption-playground.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../../index.html" style="text-decoration: none; color: white;">
+                        <i class="fas fa-shield-alt"></i>
+                        Aziz Alghamdi عزيز الغامدي
+                    </a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                    <li><a href="../../index.html#education">Education</a></li>
+                    <li><a href="../../index.html#research">Research</a></li>
+                    <li><a href="../../index.html#projects">Projects</a></li>
+                    <li><a href="../../index.html#certifications">Certifications</a></li>
+                    <li><a href="../../index.html#contact">Contact</a></li>
+                    <li><a href="interactive.html">Interactive</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Unique Cybersecurity Visualization -->
+    <div id="cyber-visualization" class="cyber-visualization"></div>
+    <div class="binary-bg"></div>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="cyber-line cyber-line-left"></div>
+        <div class="cyber-line cyber-line-right"></div>
+        <div class="cyber-dots"></div>
+        <div class="container">
+            <h1 class="page-title cyber-accent">Encryption Playground</h1>
+
+            <p class="algorithm-info">
+                This interactive tool allows you to experiment with different encryption algorithms and understand
+                how they transform your data. Choose an algorithm, enter your text, and see the encryption in action.
+            </p>
+
+            <div class="algorithm-tabs">
+                <div class="algorithm-tab active" data-algorithm="caesar">Caesar Cipher</div>
+                <div class="algorithm-tab" data-algorithm="vigenere">Vigenère Cipher</div>
+                <div class="algorithm-tab" data-algorithm="aes">AES Encryption</div>
+                <div class="algorithm-tab" data-algorithm="rsa">RSA Encryption</div>
+                <div class="algorithm-tab" data-algorithm="base64">Base64 Encoding</div>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header">
+                        <span>Encryption Tool</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="algorithm-content active" id="caesar-content">
+                            <p>The Caesar Cipher is one of the simplest encryption techniques. It works by shifting each letter in the plaintext by a fixed number of positions down the alphabet.</p>
+
+                            <div class="form-group">
+                                <label for="caesar-text">Text to Encrypt/Decrypt:</label>
+                                <textarea id="caesar-text" class="form-control" placeholder="Enter your text here...">The quick brown fox jumps over the lazy dog</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="caesar-shift">Shift Value (1-25):</label>
+                                <input type="number" id="caesar-shift" class="form-control" min="1" max="25" value="3">
+                            </div>
+
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="caesar-action" value="encrypt" checked> Encrypt
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="caesar-action" value="decrypt"> Decrypt
+                                </label>
+                            </div>
+
+                            <button id="caesar-go" class="btn">Process</button>
+
+                            <div class="form-group">
+                                <label for="caesar-output">Result:</label>
+                                <div id="caesar-output" class="output-container">
+                                    <pre>Output will appear here</pre>
+                                </div>
+                            </div>
+
+                            <div class="security-level security-low">Security Level: Low - Educational purposes only</div>
+                        </div>
+
+                        <div class="algorithm-content" id="vigenere-content">
+                            <p>The Vigenère cipher is a method of encrypting alphabetic text by using a simple form of polyalphabetic substitution. It uses a keyword to shift each letter in the plaintext.</p>
+
+                            <div class="form-group">
+                                <label for="vigenere-text">Text to Encrypt/Decrypt:</label>
+                                <textarea id="vigenere-text" class="form-control" placeholder="Enter your text here...">Cybersecurity is fascinating</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="vigenere-key">Keyword:</label>
+                                <input type="text" id="vigenere-key" class="form-control" value="key">
+                            </div>
+
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="vigenere-action" value="encrypt" checked> Encrypt
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="vigenere-action" value="decrypt"> Decrypt
+                                </label>
+                            </div>
+
+                            <button id="vigenere-go" class="btn">Process</button>
+
+                            <div class="form-group">
+                                <label for="vigenere-output">Result:</label>
+                                <div id="vigenere-output" class="output-container">
+                                    <pre>Output will appear here</pre>
+                                </div>
+                            </div>
+
+                            <div class="security-level security-medium">Security Level: Medium - Historical cipher</div>
+                        </div>
+
+                        <div class="algorithm-content" id="aes-content">
+                            <p>Advanced Encryption Standard (AES) is one of the most widely used symmetric encryption algorithms. It operates on blocks of data and uses the same key for both encryption and decryption.</p>
+
+                            <div class="form-group">
+                                <label for="aes-text">Text to Encrypt/Decrypt:</label>
+                                <textarea id="aes-text" class="form-control" placeholder="Enter your text here...">This is a secret message</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="aes-key">Secret Key (16, 24, or 32 characters for AES-128, AES-192, or AES-256):</label>
+                                <input type="text" id="aes-key" class="form-control" value="MySecretPassword">
+                                <div id="aes-key-length" style="margin-top: 5px; font-size: 14px; color: var(--accent-color);">Current key length: <span>16</span> characters (AES-128)</div>
+                            </div>
+
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="aes-action" value="encrypt" checked> Encrypt
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="aes-action" value="decrypt"> Decrypt
+                                </label>
+                            </div>
+
+                            <button id="aes-go" class="btn">Process</button>
+
+                            <div class="form-group">
+                                <label for="aes-output">Result:</label>
+                                <div id="aes-output" class="output-container">
+                                    <pre>Output will appear here</pre>
+                                </div>
+                            </div>
+
+                            <div class="security-level security-high">Security Level: High - Modern encryption standard</div>
+                        </div>
+
+                        <div class="algorithm-content" id="rsa-content">
+                            <p>RSA is an asymmetric encryption algorithm using a pair of keys: a public key for encryption and a private key for decryption. This is a simplified demonstration.</p>
+
+                            <div class="form-group">
+                                <label for="rsa-text">Text to Encrypt/Decrypt:</label>
+                                <textarea id="rsa-text" class="form-control" placeholder="Enter your text here...">RSA secures the internet</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <button id="rsa-generate" class="btn" style="background-color: var(--accent-color);">Generate New Key Pair</button>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Public Key:</label>
+                                <div id="rsa-public-key" class="output-container">
+                                    <pre>Public key will appear here</pre>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Private Key:</label>
+                                <div id="rsa-private-key" class="output-container">
+                                    <pre>Private key will appear here</pre>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                                <button id="rsa-encrypt" class="btn">Encrypt with Public Key</button>
+                                <button id="rsa-decrypt" class="btn" style="background-color: var(--accent-color);">Decrypt with Private Key</button>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="rsa-output">Result:</label>
+                                <div id="rsa-output" class="output-container">
+                                    <pre>Output will appear here</pre>
+                                </div>
+                            </div>
+
+                            <div class="security-level security-high">Security Level: High - Foundation of modern cryptography</div>
+                        </div>
+
+                        <div class="algorithm-content" id="base64-content">
+                            <p>Base64 is an encoding scheme used to represent binary data in ASCII string format. It's not encryption but is often used in cryptographic workflows.</p>
+
+                            <div class="form-group">
+                                <label for="base64-text">Text to Encode/Decode:</label>
+                                <textarea id="base64-text" class="form-control" placeholder="Enter your text here...">Base64 encoding is used for binary data</textarea>
+                            </div>
+
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="base64-action" value="encode" checked> Encode
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="base64-action" value="decode"> Decode
+                                </label>
+                            </div>
+
+                            <button id="base64-go" class="btn">Process</button>
+
+                            <div class="form-group">
+                                <label for="base64-output">Result:</label>
+                                <div id="base64-output" class="output-container">
+                                    <pre>Output will appear here</pre>
+                                </div>
+                            </div>
+
+                            <div class="security-level security-low">Security Level: Low - Encoding, not encryption</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span>Visualization & Explanation</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="algorithm-content active" id="caesar-visual">
+                            <h3>How Caesar Cipher Works</h3>
+                            <p>The Caesar cipher is a substitution cipher where each letter in the plaintext is shifted a certain number of places down the alphabet.</p>
+
+                            <div class="visualization-step">
+                                <div class="step-title">Example: Encrypting "HELLO" with shift 3</div>
+                                <p>Each letter is moved 3 positions forward in the alphabet:</p>
+                                <div class="text-to-binary" id="caesar-visual-example">
+                                    <div class="char-block">
+                                        <div class="char-original">H</div>
+                                        <div class="char-binary">→ K</div>
+                                    </div>
+                                    <div class="char-block">
+                                        <div class="char-original">E</div>
+                                        <div class="char-binary">→ H</div>
+                                    </div>
+                                    <div class="char-block">
+                                        <div class="char-original">L</div>
+                                        <div class="char-binary">→ O</div>
+                                    </div>
+                                    <div class="char-block">
+                                        <div class="char-original">L</div>
+                                        <div class="char-binary">→ O</div>
+                                    </div>
+                                    <div class="char-block">
+                                        <div class="char-original">O</div>
+                                        <div class="char-binary">→ R</div>
+                                    </div>
+                                </div>
+                                <p>Result: "HELLO" becomes "KHOOR"</p>
+                            </div>
+
+                            <div class="visualization-step">
+                                <div class="step-title">Alphabet Shift Visualization</div>
+                                <p>This shows how each letter maps to another when shifted by 3 positions:</p>
+                                <div class="code-block">
+                                    <pre>Plain:    A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+Cipher:   D E F G H I J K L M N O P Q R S T U V W X Y Z A B C</pre>
+                                </div>
+                            </div>
+
+                            <div class="visualization-step">
+                                <div class="step-title">Security Considerations</div>
+                                <p>The Caesar cipher is extremely weak because:</p>
+                                <ul>
+                                    <li>There are only 25 possible shifts (keys)</li>
+                                    <li>It can be easily broken with frequency analysis</li>
+                                    <li>Patterns in the original text remain in the ciphertext</li>
+                                </ul>
+                                <p>This cipher is primarily used for educational purposes and historical context.</p>
+                            </div>
+                        </div>
+
+                        <div class="algorithm-content" id="vigenere-visual">
+                            <h3>How Vigenère Cipher Works</h3>
+                            <p>The Vigenère cipher improves upon the Caesar cipher by using a keyword to determine different shift values for each letter of the plaintext.</p>
+
+                            <div class="visualization-step">
+                                <div class="step-title">Example: Encrypting "HELLO" with key "KEY"</div>
+                                <p>The key is repeated to match the length of the plaintext:</p>
+                                <div class="code-block">
+                                    <pre>Plaintext: H E L L O
+Key:       K E Y K E</pre>
+                                </div>
+                                <p>Each letter is shifted according to the corresponding key letter's position in the alphabet (A=0, B=1, ..., Z=25):</p>
+                                <div class="text-to-binary" id="vigenere-visual-example">
+                                    <div class="char-block">
+                                        <div class="char-original">H (+K)</div>
+                                        <div class="char-binary">→ R</div>
+                                    </div>
+                                    <div class="char-block">
+                                        <div class="char-original">E (+E)</div>
+                                        <div class="char-binary">→ I</div>
+                                    </div>
+                                    <div class="char-block">
+                                        <div class="char-original">L (+Y)</div>
+                                        <div class="char-binary">→ J</div>
+                                    </div>
+                                    <div class="char-block">
+                                        <div class="char-original">L (+K)</div>
+                                        <div class="char-binary">→ V</div>
+                                    </div>
+                                    <div class="char-block">
+                                        <div class="char-original">O (+E)</div>
+                                        <div class="char-binary">→ S</div>
+                                    </div>
+                                </div>
+                                <p>Result: "HELLO" becomes "RIJVS"</p>
+                            </div>
+
+                            <div class="visualization-step">
+                                <div class="step-title">The Vigenère Table</div>
+                                <p>The traditional method uses the Vigenère square/table, a grid where each row represents a different Caesar cipher:</p>
+                                <div class="animation-container">
+                                    <img src="../../images/VigenèreTable.png" alt="Vigenère Table Visualization" style="max-width: 100%; max-height: 100%;">
+                                </div>
+                                <p>To encrypt, find the row with the key letter and the column with the plaintext letter. The intersection is the ciphertext letter.</p>
+                            </div>
+
+
+                            <div class="visualization-step">
+                                <div class="step-title">Security Considerations</div>
+                                <p>The Vigenère cipher was considered "unbreakable" for centuries, but now it can be broken with:</p>
+                                <ul>
+                                    <li>Kasiski examination - finding repeated text patterns</li>
+                                    <li>Frequency analysis - examining statistical properties</li>
+                                    <li>Index of coincidence methods</li>
+                                </ul>
+                                <p>The security depends heavily on the key length and randomness. Longer keys provide better security.</p>
+                            </div>
+                        </div>
+
+                        <div class="algorithm-content" id="aes-visual">
+                            <h3>How AES Encryption Works</h3>
+                            <p>Advanced Encryption Standard (AES) is a symmetric block cipher that processes data in fixed-size blocks using the same key for both encryption and decryption.</p>
+
+                            <div class="visualization-step">
+                                <div class="step-title">Key Features of AES</div>
+                                <ul>
+                                    <li><strong>Block Size:</strong> 128 bits (16 bytes)</li>
+                                    <li><strong>Key Sizes:</strong> 128, 192, or 256 bits</li>
+                                    <li><strong>Rounds:</strong> 10, 12, or 14 (depending on key size)</li>
+                                </ul>
+                            </div>
+
+                            <div class="visualization-step">
+                                <div class="step-title">The AES Process</div>
+                                <p>AES performs several operations in rounds:</p>
+                                <ol>
+                                    <li><strong>SubBytes:</strong> Substituting bytes using a lookup table</li>
+                                    <li><strong>ShiftRows:</strong> Shifting rows of the state array</li>
+                                    <li><strong>MixColumns:</strong> Mixing data within columns</li>
+                                    <li><strong>AddRoundKey:</strong> XORing with the round key</li>
+                                </ol>
+                                <div class="animation-container">
+                                    <img src="images/aes-process.jpg" alt="AES Encryption Process" style="max-width: 100%; max-height: 100%;">
+                                </div>
+                            </div>
+
+                            <div class="visualization-step">
+                                <div class="step-title">Security Considerations</div>
+                                <p>AES is considered highly secure and is used worldwide for sensitive data protection:</p>
+                                <ul>
+                                    <li>No practical attacks against full AES have been discovered</li>
+                                    <li>Theoretical attacks require computational resources beyond current technology</li>
+                                    <li>AES-256 is approved for top secret information by the US government</li>
+                                </ul>
+                                <p>The security depends on keeping the key secret and implementing the algorithm correctly.</p>
+                            </div>
+                        </div>
+
+                        <div class="algorithm-content" id="rsa-visual">
+                            <h3>How RSA Encryption Works</h3>
+                            <p>RSA is an asymmetric cryptosystem that uses a pair of keys: a public key for encryption and a private key for decryption.</p>
+
+                            <div class="visualization-step">
+                                <div class="step-title">The Key Generation Process</div>
+                                <ol>
+                                    <li>Choose two large prime numbers, p and q</li>
+                                    <li>Compute n = p × q</li>
+                                    <li>Calculate φ(n) = (p-1) × (q-1)</li>
+                                    <li>Choose e (public exponent) such that 1 < e < φ(n) and gcd(e, φ(n)) = 1</li>
+                                    <li>Compute d (private exponent) such that d × e ≡ 1 (mod φ(n))</li>
+                                </ol>
+                                <p><strong>Public key:</strong> (n, e)<br><strong>Private key:</strong> (n, d)</p>
+                            </div>
+
+                            <div class="visualization-step">
+                                <div class="step-title">Encryption and Decryption</div>
+                                <p>For a message m:</p>
+                                <div class="code-block">
+                                    <pre>Encryption: c = m^e mod n
+Decryption: m = c^d mod n</pre>
+                                </div>
+                                <div class="animation-container">
+                                    <img src="images/rsa-process.jpg" alt="RSA Encryption Process" style="max-width: 100%; max-height: 100%;">
+                                </div>
+                            </div>
+
+                            <div class="visualization-step">
+                                <div class="step-title">Security Considerations</div>
+                                <p>RSA security relies on the computational difficulty of factoring large numbers:</p>
+                                <ul>
+                                    <li>The security increases with key size (2048 or 4096 bits recommended)</li>
+                                    <li>Quantum computers pose a theoretical threat to RSA</li>
+                                    <li>Proper implementation is critical to prevent side-channel attacks</li>
+                                </ul>
+                                <p>RSA is often used to encrypt small amounts of data or to exchange symmetric keys.</p>
+                            </div>
+                        </div>
+
+                        <div class="algorithm-content" id="base64-visual">
+                            <h3>How Base64 Encoding Works</h3>
+                            <p>Base64 is an encoding scheme that represents binary data in an ASCII string format by translating it into a radix-64 representation.</p>
+
+                            <div class="visualization-step">
+                                <div class="step-title">The Encoding Process</div>
+                                <p>Base64 encoding works by:</p>
+                                <ol>
+                                    <li>Taking 3 bytes (24 bits) of binary data</li>
+                                    <li>Splitting it into 4 groups of 6 bits each</li>
+                                    <li>Converting each 6-bit value to a character in the Base64 alphabet (A-Z, a-z, 0-9, +, /)</li>
+                                </ol>
+                                <div style="font-family: monospace; font-style: normal; margin: 20px 0; background-color: #f8f9fa; padding: 15px; border-radius: 4px;">
+                                    <p><strong>Original text:</strong> "Man"</p>
+                                    <p><strong>ASCII values:</strong> M (77), a (97), n (110)</p>
+                                    <p><strong>Binary:</strong> 01001101 01100001 01101110</p>
+                                    <p><strong>Grouped into 6 bits:</strong> 010011 010110 000101 101110</p>
+                                    <p><strong>Base64 values:</strong> 19, 22, 5, 46</p>
+                                    <p><strong>Base64 characters:</strong> T, W, F, u</p>
+                                    <p><strong>Result:</strong> "TWFu"</p>
+                                </div>
+                            </div>
+
+                            <div class="visualization-step">
+                                <div class="step-title">Padding</div>
+                                <p>If the input length is not divisible by 3, padding is added with the "=" character:</p>
+                                <div class="code-block">
+                                    <pre>"M"     → 01001101 00000000 00000000 → "TQ=="
+"Ma"    → 01001101 01100001 00000000 → "TWE="</pre>
+                                </div>
+                            </div>
+
+                            <div class="visualization-step">
+                                <div class="step-title">Use Cases and Considerations</div>
+                                <p>Base64 is not encryption, but encoding. It's commonly used for:</p>
+                                <ul>
+                                    <li>Embedding binary data in text formats like JSON or XML</li>
+                                    <li>Encoding email attachments (MIME)</li>
+                                    <li>Embedding image data directly in HTML/CSS</li>
+                                    <li>Transmitting binary data over text-only protocols</li>
+                                </ul>
+                                <p>It increases data size by approximately 33% but ensures safe transmission through text-based systems.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Aziz Alghamdi</h3>
+                    <p>Cybersecurity professional specializing in digital forensics, incident response, and the application
+                        of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in
+                        Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
+                    <div class="social-links">
+                        <a href="https://linkedin.com" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/iz2a" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://twitter.com" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i
+                                class="fab fa-researchgate"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="../../index.html#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
+                        <li><a href="../../index.html#education"><i class="fas fa-chevron-right"></i> Education</a></li>
+                        <li><a href="../../index.html#research"><i class="fas fa-chevron-right"></i> Research</a></li>
+                        <li><a href="../../index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                        <li><a href="../../index.html#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
+                        <li><a href="../../index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Learning</a></li>
+                        <li><a href="../../MyResume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+   <script src="/Interactive_Section/javascript/cyber-vis.js"></script>
+<script src="/Interactive_Section/javascript/encryption-playground.js"></script>
+
+</body>
+</html>

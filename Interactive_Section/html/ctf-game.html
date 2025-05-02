@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberGuard CTF Challenge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/Interactive_Section/css/ctf-game.css">
+</head>
+<body>
+
+ <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../../index.html" style="text-decoration: none; color: white;">
+                        <i class="fas fa-shield-alt"></i>
+                        Aziz Alghamdi عزيز الغامدي
+                    </a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                    <li><a href="../../index.html#education">Education</a></li>
+                    <li><a href="../../index.html#research">Research</a></li>
+                    <li><a href="../../index.html#projects">Projects</a></li>
+                    <li><a href="../../index.html#certifications">Certifications</a></li>
+                    <li><a href="../../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="cyber-grid"></div>
+    <div class="container">
+        <header>
+            <h1>CyberGuard CTF Challenge</h1>
+            <h2>Test your cybersecurity skills with these realistic challenges</h2>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-header">
+                <div class="progress-title">Overall Progress</div>
+                <div class="progress-score">Score: <span id="current-score">0</span>/<span id="max-score">500</span></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="challenge-nav">
+            <button class="challenge-btn active" data-challenge="recon">
+                <span class="challenge-status" id="recon-status"></span>
+                <i class="fas fa-search"></i> Reconnaissance
+            </button>
+            <button class="challenge-btn" data-challenge="crypto">
+                <span class="challenge-status" id="crypto-status"></span>
+                <i class="fas fa-key"></i> Cryptography
+            </button>
+            <button class="challenge-btn" data-challenge="web">
+                <span class="challenge-status" id="web-status"></span>
+                <i class="fas fa-globe"></i> Web Security
+            </button>
+            <button class="challenge-btn" data-challenge="forensics">
+                <span class="challenge-status" id="forensics-status"></span>
+                <i class="fas fa-microscope"></i> Digital Forensics
+            </button>
+            <button class="challenge-btn" data-challenge="reverse">
+                <span class="challenge-status" id="reverse-status"></span>
+                <i class="fas fa-code"></i> Reverse Engineering
+            </button>
+        </div>
+
+        <div class="challenge-container">
+            <!-- Reconnaissance Challenge -->
+            <div class="challenge-section active" id="recon-challenge">
+                <div class="challenge-header">
+                    <div class="challenge-title">Hidden Information</div>
+                    <div class="challenge-difficulty" data-level="easy">
+                        <i class="fas fa-signal"></i> Easy (50 points)
+                    </div>
+                </div>
+                <div class="challenge-description">
+                    <p>You need to find hidden information about a potential security breach. An employee named John Smith has been acting suspiciously, and there might be some information hidden in the company's website code.</p>
+                    <p>Examine the HTML source code below to find hidden information that could be the flag.</p>
+                </div>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="filename">company-website.html</span>
+                        <span class="language">HTML</span>
+                    </div>
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;CyberGuard Security Solutions&lt;/title&gt;
+    &lt;meta name="description" content="Leading cybersecurity solutions for enterprises"&gt;
+    &lt;!-- TODO: Remove before production - John's temporary access key: jsmith-8a28b72d --&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;CyberGuard Security Solutions&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="/services"&gt;Services&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="/about"&gt;About Us&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="/contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+                &lt;!-- &lt;li&gt;&lt;a href="/admin"&gt;Admin Portal&lt;/a&gt;&lt;/li&gt; --&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;section class="hero"&gt;
+            &lt;h2&gt;Protecting Your Digital Assets&lt;/h2&gt;
+            &lt;p&gt;Comprehensive security solutions for the modern enterprise.&lt;/p&gt;
+        &lt;/section&gt;
+
+        &lt;!-- Employee directory removed temporarily
+        Access internal employee records: /internal/employees.php?mode=full&access=sysadmin
+        --&gt;
+
+        &lt;section class="services"&gt;
+            &lt;h2&gt;Our Services&lt;/h2&gt;
+            &lt;div class="service-grid"&gt;
+                &lt;div class="service-card"&gt;
+                    &lt;h3&gt;Penetration Testing&lt;/h3&gt;
+                    &lt;p&gt;Identify vulnerabilities before hackers do.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class="service-card"&gt;
+                    &lt;h3&gt;Security Monitoring&lt;/h3&gt;
+                    &lt;p&gt;24/7 surveillance of your network traffic.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class="service-card"&gt;
+                    &lt;h3&gt;Incident Response&lt;/h3&gt;
+                    &lt;p&gt;Rapid recovery from security breaches.&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&copy; 2025 CyberGuard Security Solutions&lt;/p&gt;
+    &lt;/footer&gt;
+
+    &lt;!-- Flag format: flag{text_here} --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+                <div class="flag-input-container">
+                    <p>Submit the flag in the format <code>flag{text_here}</code>:</p>
+                    <div class="flag-input">
+                        <input type="text" id="recon-flag-input" placeholder="Enter flag here...">
+                        <button id="recon-flag-submit">Submit</button>
+                    </div>
+                    <div class="flag-result" id="recon-flag-result"></div>
+                </div>
+                <div class="hint-container">
+                    <button class="hint-btn" id="recon-hint-btn">Show Hint</button>
+                    <div class="hint-content" id="recon-hint-content">
+                        <p>Look for comments in the HTML code. Developers often leave sensitive information in comments that should be removed before production.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cryptography Challenge -->
+            <div class="challenge-section" id="crypto-challenge">
+                <div class="challenge-header">
+                    <div class="challenge-title">Encoded Message</div>
+                    <div class="challenge-difficulty" data-level="medium">
+                        <i class="fas fa-signal"></i> Medium (100 points)
+                    </div>
+                </div>
+                <div class="challenge-description">
+                    <p>A suspicious message has been intercepted from a potential insider threat. The message appears to be encoded, but we're not sure of the method used.</p>
+                    <p>Your task is to decode this message and find the hidden flag.</p>
+                </div>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="filename">intercepted_message.txt</span>
+                        <span class="language">Text</span>
+                    </div>
+                    <pre><code>VGhlIGNvbXBhbnkncyBzZXJ2ZXIgY3JlZGVudGlhbHMgaGF2ZSBiZWVuIGNvbXByb21pc2VkLiBUaGUgYmFja2Rvb3IgaGFzIGJlZW4gaW5zdGFsbGVkIHN1Y2Nlc3NmdWxseS4gRmxhZ3tiYXNlNjRfZW5jb2RpbmdfaXNfbm90X2VuY3J5cHRpb259</code></pre>
+                </div>
+                <div class="flag-input-container">
+                    <p>Submit the flag in the format <code>flag{text_here}</code>:</p>
+                    <div class="flag-input">
+                        <input type="text" id="crypto-flag-input" placeholder="Enter flag here...">
+                        <button id="crypto-flag-submit">Submit</button>
+                    </div>
+                    <div class="flag-result" id="crypto-flag-result"></div>
+                </div>
+                <div class="hint-container">
+                    <button class="hint-btn" id="crypto-hint-btn">Show Hint</button>
+                    <div class="hint-content" id="crypto-hint-content">
+                        <p>This is a common encoding method that uses 64 different ASCII characters to represent binary data. It's often used for transmitting data over mediums that only support text.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Web Security Challenge -->
+            <div class="challenge-section" id="web-challenge">
+                <div class="challenge-header">
+                    <div class="challenge-title">SQL Injection Vulnerability</div>
+                    <div class="challenge-difficulty" data-level="medium">
+                        <i class="fas fa-signal"></i> Medium (100 points)
+                    </div>
+                </div>
+                <div class="challenge-description">
+                    <p>A web application has a suspected SQL injection vulnerability in its login form. You need to exploit this vulnerability to bypass authentication and find the flag.</p>
+                    <p>Below is the PHP code snippet from the login page. Find the vulnerability and determine the payload to use.</p>
+                </div>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="filename">login.php</span>
+                        <span class="language">PHP</span>
+                    </div>
+                    <pre><code>&lt;?php
+// Database connection
+$conn = mysqli_connect("localhost", "app_user", "app_password", "users_db");
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Get user input
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+// Validate user credentials
+$query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+$result = mysqli_query($conn, $query);
+
+if (mysqli_num_rows($result) > 0) {
+    // User authenticated successfully
+    session_start();
+    $_SESSION['authenticated'] = true;
+    $_SESSION['username'] = $username;
+
+    // Check if user is admin
+    $user = mysqli_fetch_assoc($result);
+    if ($user['role'] == 'admin') {
+        $_SESSION['admin'] = true;
+        // Flag is stored in admin dashboard
+        // flag{sql_injection_no_sanitization}
+    }
+
+    header("Location: dashboard.php");
+} else {
+    // Authentication failed
+    $error = "Invalid username or password";
+}
+
+mysqli_close($conn);
+?&gt;</code></pre>
+                </div>
+                <div class="flag-input-container">
+                    <p>What would be the username input to bypass authentication?</p>
+                    <div class="flag-input">
+                        <input type="text" id="web-input" placeholder="Enter payload here...">
+                        <button id="web-submit">Test Payload</button>
+                    </div>
+                    <div class="flag-result" id="web-result"></div>
+
+                    <div id="web-flag-container" style="display: none; margin-top: 30px;">
+                        <p>Good job! Now submit the flag you found in the code:</p>
+                        <div class="flag-input">
+                            <input type="text" id="web-flag-input" placeholder="Enter flag here...">
+                            <button id="web-flag-submit">Submit</button>
+                        </div>
+                        <div class="flag-result" id="web-flag-result"></div>
+                    </div>
+                </div>
+                <div class="hint-container">
+                    <button class="hint-btn" id="web-hint-btn">Show Hint</button>
+                    <div class="hint-content" id="web-hint-content">
+                        <p>Look at how the SQL query is constructed. User input is directly inserted into the query without sanitization. You need to manipulate the query logic to make it always return true, regardless of the password.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Digital Forensics Challenge -->
+            <div class="challenge-section" id="forensics-challenge">
+                <div class="challenge-header">
+                    <div class="challenge-title">Suspicious File Analysis</div>
+                    <div class="challenge-difficulty" data-level="hard">
+                        <i class="fas fa-signal"></i> Hard (150 points)
+                    </div>
+                </div>
+                <div class="challenge-description">
+                    <p>A suspicious file was found on the company's server. The file appears to be an image, but security personnel believe it may contain hidden data.</p>
+                    <p>Your task is to analyze the file metadata and identify any hidden information.</p>
+                </div>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="filename">file_analysis.txt</span>
+                        <span class="language">Text</span>
+                    </div>
+                    <pre><code>File: vacation_photo.jpg
+Size: 2.4 MB
+Created: 2025-01-15 14:32:47
+Modified: 2025-02-28 03:17:22
+Owner: j.smith
+
+EXIF Data:
+- Camera: Canon EOS 90D
+- Date Taken: 2024-12-25 12:30:15
+- GPS Coordinates: 34.052235, -118.243683
+- Software: Adobe Photoshop 2025
+- Comment: "Don't forget to remove this before sharing! Password for encrypted archive: CyberGuard2025!"
+
+File analysis shows additional data appended after the end of the image data.
+Running strings on the file reveals fragments of base64 encoded text and the string "flag{steganography_metadata_exfiltration}".</code></pre>
+                </div>
+                <div class="flag-input-container">
+                    <p>Submit the flag in the format <code>flag{text_here}</code>:</p>
+                    <div class="flag-input">
+                        <input type="text" id="forensics-flag-input" placeholder="Enter flag here...">
+                        <button id="forensics-flag-submit">Submit</button>
+                    </div>
+                    <div class="flag-result" id="forensics-flag-result"></div>
+                </div>
+                <div class="hint-container">
+                    <button class="hint-btn" id="forensics-hint-btn">Show Hint</button>
+                    <div class="hint-content" id="forensics-hint-content">
+                        <p>Digital forensics often involves examining file metadata. EXIF data in images can contain a lot of information including dates, location, and even custom comments added by users.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reverse Engineering Challenge -->
+            <div class="challenge-section" id="reverse-challenge">
+                <div class="challenge-header">
+                    <div class="challenge-title">Mystery Binary</div>
+                    <div class="challenge-difficulty" data-level="hard">
+                        <i class="fas fa-signal"></i> Hard (100 points)
+                    </div>
+                </div>
+                <div class="challenge-description">
+                    <p>A suspicious binary file was found on a compromised system. Your task is to analyze the code and determine what it does.</p>
+                    <p>Below is a decompiled C code of the binary. Find the flag hidden in the code.</p>
+                </div>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="filename">decompiled.c</span>
+                        <span class="language">C</span>
+                    </div>
+                    <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+
+#define BUFFER_SIZE 1024
+
+void obscure_function(char *input) {
+    char buffer[128];
+    char *flag = "flag{buffer_overflow_vulnerability}";
+
+    // Intentionally vulnerable code
+    strcpy(buffer, input);
+
+    printf("Processing complete.\n");
+}
+
+void encode_message(char *message) {
+    int i = 0;
+    while (message[i] != '\0') {
+        message[i] = message[i] ^ 0x41;
+        i++;
+    }
+}
+
+int main(int argc, char *argv[]) {
+    char input[BUFFER_SIZE];
+
+    printf("Enter command: ");
+    fgets(input, BUFFER_SIZE, stdin);
+
+    // Remove newline
+    input[strcspn(input, "\n")] = '\0';
+
+    if (strcmp(input, "help") == 0) {
+        printf("Available commands: help, version, scan, exec\n");
+    } else if (strcmp(input, "version") == 0) {
+        printf("Backdoor v1.0.2\n");
+    } else if (strncmp(input, "exec ", 5) == 0) {
+        // This is dangerous - executes whatever comes after "exec "
+        system(input + 5);
+    } else if (strcmp(input, "scan") == 0) {
+        printf("Scanning system...\n");
+        sleep(2);
+        printf("No threats found.\n");
+    } else {
+        // This is the vulnerable function
+        obscure_function(input);
+    }
+
+    return 0;
+}</code></pre>
+                </div>
+                <div class="flag-input-container">
+                    <p>Submit the flag in the format <code>flag{text_here}</code>:</p>
+                    <div class="flag-input">
+                        <input type="text" id="reverse-flag-input" placeholder="Enter flag here...">
+                        <button id="reverse-flag-submit">Submit</button>
+                    </div>
+                    <div class="flag-result" id="reverse-flag-result"></div>
+                </div>
+                <div class="hint-container">
+                    <button class="hint-btn" id="reverse-hint-btn">Show Hint</button>
+                    <div class="hint-content" id="reverse-hint-content">
+                        <p>Look for vulnerabilities in the code. There's a classic buffer overflow vulnerability in one of the functions. Also, pay attention to hardcoded values and strings.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resource-section">
+            <h3>Learning Resources</h3>
+            <div class="resources-list">
+                <div class="resource-item">
+                    <h4>Reconnaissance Techniques</h4>
+                    <p>Learn about information gathering and finding hidden data in websites.</p>
+                    <a href="#"><i class="fas fa-book"></i> Learn More</a>
+                </div>
+                <div class="resource-item">
+                    <h4>Base64 Encoding</h4>
+                    <p>Understanding common encoding methods used in cybersecurity.</p>
+                    <a href="#"><i class="fas fa-book"></i> Learn More</a>
+                </div>
+                <div class="resource-item">
+                    <h4>SQL Injection</h4>
+                    <p>Techniques for preventing and exploiting SQL injection vulnerabilities.</p>
+                    <a href="#"><i class="fas fa-book"></i> Learn More</a>
+                </div>
+                <div class="resource-item">
+                    <h4>Digital Forensics</h4>
+                    <p>Tools and techniques for examining digital evidence.</p>
+                    <a href="#"><i class="fas fa-book"></i> Learn More</a>
+                </div>
+                <div class="resource-item">
+                    <h4>Reverse Engineering</h4>
+                    <p>Understanding and analyzing compiled code.</p>
+                    <a href="#"><i class="fas fa-book"></i> Learn More</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-section">
+            <div class="profile-header">
+                <div class="profile-title">Your Achievements</div>
+            </div>
+            <div class="profile-badges">
+                <div class="profile-badge locked">
+                    <i class="fas fa-search badge-icon-large"></i>
+                    <div class="badge-name">Recon Master</div>
+                    <div class="badge-desc">Complete the reconnaissance challenge</div>
+                </div>
+                <div class="profile-badge locked">
+                    <i class="fas fa-key badge-icon-large"></i>
+                    <div class="badge-name">Crypto Expert</div>
+                    <div class="badge-desc">Complete the cryptography challenge</div>
+                </div>
+                <div class="profile-badge locked">
+                    <i class="fas fa-globe badge-icon-large"></i>
+                    <div class="badge-name">Web Hacker</div>
+                    <div class="badge-desc">Complete the web security challenge</div>
+                </div>
+                <div class="profile-badge locked">
+                    <i class="fas fa-microscope badge-icon-large"></i>
+                    <div class="badge-name">Forensic Analyst</div>
+                    <div class="badge-desc">Complete the digital forensics challenge</div>
+                </div>
+                <div class="profile-badge locked">
+                    <i class="fas fa-code badge-icon-large"></i>
+                    <div class="badge-name">Code Breaker</div>
+                    <div class="badge-desc">Complete the reverse engineering challenge</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 CyberGuard CTF Challenge. Created for educational purposes only.</p>
+        </div>
+    </div>
+
+    <div class="badge-notification" id="badge-notification">
+        <div class="badge-icon">
+            <i class="fas fa-trophy"></i>
+        </div>
+        <div class="badge-content">
+            <h3>Achievement Unlocked!</h3>
+            <p id="badge-notification-text">You've completed a challenge.</p>
+        </div>
+    </div>
+
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Aziz Alghamdi</h3>
+                    <p>Cybersecurity professional specializing in digital forensics, incident response, and the application
+                        of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in
+                        Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
+                    <div class="social-links">
+                        <a href="https://linkedin.com" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/iz2a" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i
+                                class="fab fa-researchgate"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="../../index.html#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
+                        <li><a href="../../index.html#education"><i class="fas fa-chevron-right"></i> Education</a></li>
+                        <li><a href="../../index.html#research"><i class="fas fa-chevron-right"></i> Research</a></li>
+                        <li><a href="../../index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                        <li><a href="../../index.html#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
+                        <li><a href="../../index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Learning</a></li>
+                        <li><a href="../../MyResume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+ <script src="/Interactive_Section/javascript/ctf-game.js"></script>
+ <script src="/Interactive_Section/javascript/cyber-vis.js"></script>
+<script src="../../translator.js"></script>
+</body>
+</html>

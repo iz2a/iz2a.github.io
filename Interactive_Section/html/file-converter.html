@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Converter - Aziz Alghamdi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="/Interactive_Section/css/file-converter.css">
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../../index.html" style="text-decoration: none; color: white;">
+                        <i class="fas fa-shield-alt"></i>
+                        Aziz Alghamdi عزيز الغامدي
+                    </a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                    <li><a href="../../index.html#education">Education</a></li>
+                    <li><a href="../../index.html#research">Research</a></li>
+                    <li><a href="../../index.html#projects">Projects</a></li>
+                    <li><a href="../../index.html#certifications">Certifications</a></li>
+                    <li><a href="interactive-section.html">Interactive Learning</a></li>
+                    <li><a href="../../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="binary-bg"></div>
+
+    <!-- File Converter Section -->
+    <section class="section" id="file-converter">
+        <div class="cyber-line cyber-line-left"></div>
+        <div class="cyber-line cyber-line-right"></div>
+        <div class="cyber-dots"></div>
+        <div class="container">
+            <h2 class="section-title cyber-accent">File Converter Tool</h2>
+            <p class="section-subtitle">This secure file converter allows you to convert files between various formats directly in your browser. All processing happens on your device - no data is sent to remote servers, ensuring your sensitive information remains private.</p>
+
+            <div class="converter-container">
+                <div class="converter-header">
+                    <h3 class="converter-title">Convert Your Files</h3>
+                    <p class="converter-description">Select your conversion options below</p>
+                </div>
+
+                <div class="converter-options">
+                    <div class="converter-option">
+                        <label class="option-label">Convert From:</label>
+                        <select class="option-select" id="from-format">
+                            <option value="">Select input format</option>
+                            <optgroup label="Others">
+                                <option value="json">JSON</option>
+                                <option value="xml">XML</option>
+                                <option value="yaml">YAML</option>
+                                <option value="psd">PSD</option>
+                                <option value="ai">AI</option>
+                                <option value="epub">EPUB</option>
+                                <option value="mobi">MOBI</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="converter-option">
+                        <label class="option-label">Convert To:</label>
+                        <select class="option-select" id="to-format">
+                            <option value="">Select output format</option>
+                            <optgroup label="Documents">
+                                <option value="doc">DOC</option>
+                                <option value="docx">DOCX</option>
+                                <option value="pdf">PDF</option>
+                                <option value="txt">TXT</option>
+                                <option value="rtf">RTF</option>
+                                <option value="odt">ODT</option>
+                                <option value="md">Markdown</option>
+                                <option value="html">HTML</option>
+                            </optgroup>
+                            <optgroup label="Images">
+                                <option value="jpg">JPG</option>
+                                <option value="png">PNG</option>
+                                <option value="gif">GIF</option>
+                                <option value="bmp">BMP</option>
+                                <option value="svg">SVG</option>
+                                <option value="webp">WEBP</option>
+                                <option value="ico">ICO</option>
+                                <option value="tiff">TIFF</option>
+                            </optgroup>
+                            <optgroup label="Spreadsheets">
+                                <option value="xlsx">XLSX</option>
+                                <option value="xls">XLS</option>
+                                <option value="csv">CSV</option>
+                                <option value="tsv">TSV</option>
+                                <option value="ods">ODS</option>
+                            </optgroup>
+                            <optgroup label="Audio">
+                                <option value="mp3">MP3</option>
+                                <option value="wav">WAV</option>
+                                <option value="ogg">OGG</option>
+                                <option value="flac">FLAC</option>
+                                <option value="aac">AAC</option>
+                                <option value="m4a">M4A</option>
+                            </optgroup>
+                            <optgroup label="Video">
+                                <option value="mp4">MP4</option>
+                                <option value="avi">AVI</option>
+                                <option value="mov">MOV</option>
+                                <option value="wmv">WMV</option>
+                                <option value="webm">WEBM</option>
+                                <option value="mkv">MKV</option>
+                            </optgroup>
+                            <optgroup label="Archives">
+                                <option value="zip">ZIP</option>
+                                <option value="rar">RAR</option>
+                                <option value="7z">7Z</option>
+                                <option value="tar">TAR</option>
+                                <option value="gz">GZ</option>
+                            </optgroup>
+                            <optgroup label="Others">
+                                <option value="json">JSON</option>
+                                <option value="xml">XML</option>
+                                <option value="yaml">YAML</option>
+                                <option value="epub">EPUB</option>
+                                <option value="mobi">MOBI</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="upload-area" id="upload-area">
+                    <input type="file" id="file-input" class="file-input" multiple>
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h4 class="upload-text">Drag & Drop files here or click to browse</h4>
+                    <p class="upload-hint">Supports multiple files up to 100MB each</p>
+                    <button class="btn upload-btn">Select Files</button>
+                </div>
+
+                <div class="file-list" id="file-list"></div>
+
+                <div class="progress-container" id="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress" id="progress-bar"></div>
+                    </div>
+                    <p class="progress-text" id="progress-text">Converting... 0%</p>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn" id="convert-btn" disabled>Convert Files</button>
+                </div>
+
+                <div class="result-container" id="result-container">
+                    <h4 class="result-header">Conversion Complete!</h4>
+                    <div id="download-links"></div>
+                </div>
+            </div>
+
+            <div class="feature-row">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="feature-title">Secure Conversion</h3>
+                    <p>All file conversions happen locally in your browser. Your files never leave your device, ensuring maximum privacy and security.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Fast Processing</h3>
+                    <p>Our optimized algorithms provide quick conversions without compromising on quality, saving you valuable time.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Wide Format Support</h3>
+                    <p>Convert between a vast range of file formats including documents, images, audio, video, and more.</p>
+                </div>
+            </div>
+
+            <div class="formats-container">
+                <h3 class="formats-title">Supported Formats</h3>
+
+                <div class="formats-tabs">
+                    <div class="format-tab active" data-format="documents">Documents</div>
+                    <div class="format-tab" data-format="images">Images</div>
+                    <div class="format-tab" data-format="spreadsheets">Spreadsheets</div>
+                    <div class="format-tab" data-format="audio">Audio</div>
+                    <div class="format-tab" data-format="video">Video</div>
+                    <div class="format-tab" data-format="archives">Archives</div>
+                    <div class="format-tab" data-format="others">Others</div>
+                </div>
+
+                <div class="formats-content">
+                    <div class="format-content active" data-format="documents">
+                        <div class="format-grid">
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-word"></i></div>
+                                <div class="format-name">DOCX</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-word"></i></div>
+                                <div class="format-name">DOC</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-pdf"></i></div>
+                                <div class="format-name">PDF</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-alt"></i></div>
+                                <div class="format-name">TXT</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-alt"></i></div>
+                                <div class="format-name">RTF</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-alt"></i></div>
+                                <div class="format-name">ODT</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fab fa-markdown"></i></div>
+                                <div class="format-name">MD</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-code"></i></div>
+                                <div class="format-name">HTML</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="format-content" data-format="images">
+                        <div class="format-grid">
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-image"></i></div>
+                                <div class="format-name">JPG</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-image"></i></div>
+                                <div class="format-name">PNG</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-image"></i></div>
+                                <div class="format-name">GIF</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-image"></i></div>
+                                <div class="format-name">BMP</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-bezier-curve"></i></div>
+                                <div class="format-name">SVG</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-image"></i></div>
+                                <div class="format-name">WEBP</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-image"></i></div>
+                                <div class="format-name">ICO</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-image"></i></div>
+                                <div class="format-name">TIFF</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="format-content" data-format="spreadsheets">
+                        <div class="format-grid">
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-excel"></i></div>
+                                <div class="format-name">XLSX</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-excel"></i></div>
+                                <div class="format-name">XLS</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-csv"></i></div>
+                                <div class="format-name">CSV</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-alt"></i></div>
+                                <div class="format-name">TSV</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-excel"></i></div>
+                                <div class="format-name">ODS</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="format-content" data-format="audio">
+                        <div class="format-grid">
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-audio"></i></div>
+                                <div class="format-name">MP3</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-audio"></i></div>
+                                <div class="format-name">WAV</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-audio"></i></div>
+                                <div class="format-name">OGG</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-audio"></i></div>
+                                <div class="format-name">FLAC</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-audio"></i></div>
+                                <div class="format-name">AAC</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-audio"></i></div>
+                                <div class="format-name">M4A</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="format-content" data-format="video">
+                        <div class="format-grid">
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-video"></i></div>
+                                <div class="format-name">MP4</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-video"></i></div>
+                                <div class="format-name">AVI</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-video"></i></div>
+                                <div class="format-name">MOV</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-video"></i></div>
+                                <div class="format-name">WMV</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-video"></i></div>
+                                <div class="format-name">WEBM</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-video"></i></div>
+                                <div class="format-name">MKV</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="format-content" data-format="archives">
+                        <div class="format-grid">
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-archive"></i></div>
+                                <div class="format-name">ZIP</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-archive"></i></div>
+                                <div class="format-name">RAR</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-archive"></i></div>
+                                <div class="format-name">7Z</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-archive"></i></div>
+                                <div class="format-name">TAR</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-archive"></i></div>
+                                <div class="format-name">GZ</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="format-content" data-format="others">
+                        <div class="format-grid">
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-code"></i></div>
+                                <div class="format-name">JSON</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-code"></i></div>
+                                <div class="format-name">XML</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-code"></i></div>
+                                <div class="format-name">YAML</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-file-image"></i></div>
+                                <div class="format-name">PSD</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-bezier-curve"></i></div>
+                                <div class="format-name">AI</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-book"></i></div>
+                                <div class="format-name">EPUB</div>
+                            </div>
+                            <div class="format-item">
+                                <div class="format-icon"><i class="fas fa-book"></i></div>
+                                <div class="format-name">MOBI</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="notification-icon fas fa-check-circle"></i>
+        <span id="notification-message"></span>
+    </div>
+
+    <!-- Scroll to top button -->
+    <div class="scroll-top" id="scroll-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Aziz Alghamdi</h3>
+                    <p>Cybersecurity professional specializing in digital forensics, incident response, and the application
+                        of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in
+                        Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/aziz-alghamdi-525810360" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/azizalghamdi" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i class="fab fa-researchgate"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="../../index.html#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
+                        <li><a href="../../index.html#education"><i class="fas fa-chevron-right"></i> Education</a></li>
+                        <li><a href="../../index.html#research"><i class="fas fa-chevron-right"></i> Research</a></li>
+                        <li><a href="../../index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                        <li><a href="../../index.html#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
+                        <li><a href="interactive-section.html"><i class="fas fa-chevron-right"></i> Interactive Learning</a></li>
+                        <li><a href="../../index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="../../recentresume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+<script src="/Interactive_Section/javascript/file-converter.js"></script>
+<script src="/Interactive_Section/javascript/cyber-vis.js"></script>
+</body>
+</html>

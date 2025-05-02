@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Cybersecurity Learning - Aziz Alghamdi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="/Interactive_Section/css/interactive-section.css">
+
+
+</head>
+
+<body>
+<!-- Header -->
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <a href="../../index.html" style="text-decoration: none; color: white;">
+                    <i class="fas fa-shield-alt"></i>
+                    Aziz Alghamdi عزيز الغامدي
+                </a>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../index.html#about">About</a></li>
+                <li><a href="../../index.html#education">Education</a></li>
+                <li><a href="../../index.html#research">Research</a></li>
+                <li><a href="../../index.html#projects">Projects</a></li>
+                <li><a href="../../index.html#certifications">Certifications</a></li>
+                <li><a href="../../index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Unique Cybersecurity Visualization -->
+<div id="cyber-visualization" class="cyber-visualization"></div>
+<div class="binary-bg"></div>
+
+<section class="interactive-section" id="interactive">
+    <div class="cyber-line cyber-line-left"></div>
+    <div class="cyber-line cyber-line-right"></div>
+    <div class="cyber-dots"></div>
+    <div class="container">
+        <h2 class="section-title cyber-accent">Interactive Learning</h2>
+        <p class="section-subtitle">Put your cybersecurity skills to the test with these interactive challenges, games,
+            and tools. Each activity is designed to demonstrate important security concepts in an engaging way.</p>
+
+        <div class="info-box">
+            <div class="info-title">
+                <i class="fas fa-info-circle"></i>
+                <span>Why interactive learning?</span>
+            </div>
+            <p>Cybersecurity skills are best developed through hands-on practice. These interactive elements allow you
+                to experience real-world security scenarios in a safe environment, helping you build practical knowledge
+                that goes beyond theoretical understanding.</p>
+        </div>
+
+        <div class="category-tabs">
+            <div class="category-tab active" data-category="all">All</div>
+            <div class="category-tab" data-category="games">Challenges & Games</div>
+            <div class="category-tab" data-category="tools">Interactive Tools</div>
+            <div class="category-tab" data-category="simulations">Simulations</div>
+        </div>
+
+        <div class="games-grid">
+            <!-- Cybersecurity Terminal Game -->
+            <div class="game-card" data-categories="games challenges">
+                <div class="game-image" style="background-image: url('../../images/CybersecurityTerminalChallenge.png');">
+                    <div class="game-badge">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Cybersecurity Terminal Challenge</h3>
+                    <p class="game-description">Test your command-line skills in this terminal-based cybersecurity
+                        challenge. Navigate through a simulated system, find vulnerabilities, and escalate privileges to
+                        complete the mission.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Command Line</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Privilege Escalation</span>
+                    </div>
+                    <a href="../../Terminal_Game/index.html" class="game-link">Start Challenge</a>
+                </div>
+            </div>
+
+            <!-- CTF Game
+            <div class="game-card" data-categories="games challenges">
+                <div class="game-image" style="background-image: url('images/CaptureTheFlagChallenge.png');">
+                    <div class="game-badge coming-soon">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Capture The Flag Challenge</h3>
+                    <p class="game-description">Multiple mini-challenges that test various cybersecurity skills. Find hidden flags by solving puzzles involving cryptography, web security, forensics, and more.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">CTF</span>
+                        <span class="skill-tag">Problem Solving</span>
+                        <span class="skill-tag">Cryptography</span>
+                    </div>
+                    <a href="ctf-game.html" class="game-link">Try It Out</a>
+                </div>
+            </div>-->
+
+            <!-- Encryption Playground -->
+            <div class="game-card" data-categories="tools interactive">
+                <div class="game-image" style="background-image: url('../../images/EncryptionPlayground.png');">
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Encryption Playground</h3>
+                    <p class="game-description">Experiment with different encryption algorithms in real-time. Encrypt
+                        your own messages, learn how various ciphers work, and understand the importance of strong
+                        encryption.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Cryptography</span>
+                        <span class="skill-tag">Encryption</span>
+                        <span class="skill-tag">Ciphers</span>
+                    </div>
+                    <a href="encryption-playground.html" class="game-link">Try It Out</a>
+                </div>
+            </div>
+
+            <!-- Network Playground -->
+            <div class="game-card" data-categories="tools simulations">
+                <div class="game-image" style="background-image: url('../../images/NetworkSecurityPlayground.png');">
+                    <div class="game-badge coming-soon">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Network Security Playground</h3>
+                    <p class="game-description">Visualize and simulate different network attacks and defense mechanisms.
+                        Configure firewalls, detect intrusions, and learn how to protect network infrastructure.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Network Security</span>
+                        <span class="skill-tag">Firewalls</span>
+                        <span class="skill-tag">Intrusion Detection</span>
+                    </div>
+                    <a href="network-playground.html" class="game-link">Try It Out</a>
+                </div>
+            </div>
+
+            <!-- Blockchain Explorer -->
+            <div class="game-card" data-categories="tools simulations">
+                <div class="game-image" style="background-image: url('../../images/BlockchainExplorer.png');">
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Blockchain Explorer</h3>
+                    <p class="game-description">Interactive visualization of how blockchain technology works. Create
+                        transactions, mine blocks, and understand the cryptographic principles that make blockchain
+                        secure.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Blockchain</span>
+                        <span class="skill-tag">Cryptography</span>
+                        <span class="skill-tag">Distributed Systems</span>
+                    </div>
+                    <a href="blockchain.html" class="game-link">Explore</a>
+                </div>
+            </div>
+
+            <!-- Social Engineering Quiz -->
+            <div class="game-card" data-categories="games challenges">
+                <div class="game-image" style="background-image: url('../../images/SocialEngineeringQuiz.png');">
+                    <div class="game-badge">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Social Engineering Quiz</h3>
+                    <p class="game-description">Test your ability to identify phishing attempts, scams, and other social
+                        engineering tactics. Learn to spot the warning signs that indicate when someone is trying to
+                        manipulate you.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Social Engineering</span>
+                        <span class="skill-tag">Phishing</span>
+                        <span class="skill-tag">Security Awareness</span>
+                    </div>
+                    <a href="social-engineering-quiz.html" class="game-link">Take the Quiz</a>
+                </div>
+            </div>
+
+
+            <!-- Digital Forensics -->
+            <div class="game-card" data-categories="games challenges">
+                <div class="game-image" style="background-image: url('../../images/DigitalForensicsChallenge.png');">
+                    <div class="game-badge">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Digital Forensics Challenge</h3>
+                    <p class="game-description">Investigate a simulated cyber incident by analyzing digital evidence,
+                        system logs, and other artifacts. Determine what happened, how it happened, and who was
+                        responsible.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Digital Forensics</span>
+                        <span class="skill-tag">Log Analysis</span>
+                        <span class="skill-tag">Incident Response</span>
+                    </div>
+                    <a href="digital-forensics.html" class="game-link">Investigate</a>
+                </div>
+            </div>
+
+            <!-- Password Security Tool -->
+            <div class="game-card" data-categories="tools interactive">
+                <div class="game-image" style="background-image: url('../../images/PasswordSecurityAnalyzer.png');">
+                    <div class="game-badge coming-soon">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Password Security Analyzer</h3>
+                    <p class="game-description">Test password strength, generate secure passwords, and learn about
+                        common password vulnerabilities. Understand why password security matters and best practices for
+                        protection.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Password Security</span>
+                        <span class="skill-tag">Authentication</span>
+                        <span class="skill-tag">Brute Force</span>
+                    </div>
+                    <a href="password_security.html" class="game-link">Try It Out</a>
+                </div>
+            </div>
+            <div class="game-card" data-categories="games challenges">
+                <div class="game-image" style="background-image: url('../../images/WebVulnerabilityChallenge.png');">
+                    <div class="game-badge">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Web Vulnerability Hacking Challenge</h3>
+                    <p class="game-description">Test your cybersecurity skills by finding and exploiting common web
+                        vulnerabilities in a controlled environment. Learn how attackers compromise websites through SQL
+                        injection, XSS, and other attack vectors.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Web Security</span>
+                        <span class="skill-tag">SQL Injection</span>
+                        <span class="skill-tag">Penetration Testing</span>
+                    </div>
+                    <a href="../../hack/web_hack_challenge.html" class="game-link">Start Challenge</a>
+                </div>
+            </div>
+            <!-- File Converter Card HTML -->
+            <div class="game-card" data-categories="tools interactive">
+                <div class="game-image" style="background-image: url('../../images/FileConverterTool.png');">
+                    <div class="game-badge">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">File Converter Tool</h3>
+                    <p class="game-description">A secure browser-based file conversion utility. Convert between various
+                        document, image, audio, video, and archive formats without uploading your files to external
+                        servers.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Utility</span>
+                        <span class="skill-tag">Privacy</span>
+                        <span class="skill-tag">File Formats</span>
+                    </div>
+                    <a href="file-converter.html" class="game-link">Try It Out</a>
+                </div>
+            </div>
+            <!-- Security Operations Center Simulation -->
+            <div class="game-card" data-categories="simulations tools">
+                <div class="game-image" style="background-image: url('../../images/SOCSimulation.png');">
+                    <div class="game-badge">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">SOC Analyst Simulation</h3>
+                    <p class="game-description">Step into the role of a Security Operations Center analyst. Monitor
+                        real-time security alerts, triage incidents, and respond to simulated cyber attacks using SIEM
+                        dashboards and incident response workflows.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">SIEM Systems</span>
+                        <span class="skill-tag">Incident Response</span>
+                        <span class="skill-tag">Security Monitoring</span>
+                    </div>
+                    <a href="soc-simulation.html" class="game-link">Start Simulation</a>
+                </div>
+            </div>
+
+            <!-- Vulnerability Assessment Lab -->
+            <div class="game-card" data-categories="tools challenges">
+                <div class="game-image" style="background-image: url('../../images/VulnerabilityAssessment.png');">
+                    <div class="game-badge">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Vulnerability Assessment Lab</h3>
+                    <p class="game-description">Practice identifying and remediating security vulnerabilities in a
+                        controlled environment. Use industry-standard vulnerability scanning tools, analyze results, and
+                        implement proper fixes according to best practices.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Vulnerability Scanners</span>
+                        <span class="skill-tag">Risk Assessment</span>
+                        <span class="skill-tag">Remediation</span>
+                    </div>
+                    <a href="vulnerability-lab.html" class="game-link">Start Lab</a>
+                </div>
+            </div>
+
+            <!-- Network Security Playground -->
+            <div class="game-card" data-categories="simulations tools">
+                <div class="game-image" style="background-image: url('../../images/NetworkSecurityTools.png');">
+                    <div class="game-badge">Featured</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Network Security Toolkit</h3>
+                    <p class="game-description">Hands-on experience with essential network security tools including
+                        Wireshark for packet analysis, Nmap for network discovery, and configuring firewall rules to
+                        protect against various attack vectors.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Wireshark</span>
+                        <span class="skill-tag">Nmap</span>
+                        <span class="skill-tag">Firewalls</span>
+                        <span class="skill-tag">IDS/IPS</span>
+                    </div>
+                    <a href="network-toolkit.html" class="game-link">Explore Tools</a>
+                </div>
+            </div>
+
+            <!-- Compliance Framework Interactive Guide -->
+            <div class="game-card" data-categories="tools interactive">
+                <div class="game-image" style="background-image: url('../../images/ComplianceFrameworks.png');">
+                    <div class="game-badge">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Security Compliance Navigator</h3>
+                    <p class="game-description">Interactive guide to major security frameworks and compliance standards.
+                        Compare requirements across NIST CSF, ISO 27001, and CIS Benchmarks, and learn how to implement
+                        security controls to meet compliance obligations.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">NIST Cybersecurity Framework</span>
+                        <span class="skill-tag">ISO 27001</span>
+                        <span class="skill-tag">CIS Benchmarks</span>
+                        <span class="skill-tag">Compliance</span>
+                    </div>
+                    <a href="compliance-navigator.html" class="game-link">Explore Frameworks</a>
+                </div>
+            </div>
+
+            <!-- Cloud Security Sandbox -->
+            <div class="game-card" data-categories="simulations tools">
+                <div class="game-image" style="background-image: url('../../images/CloudSecuritySandbox.png');">
+                    <div class="game-badge">Featured</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Cloud Security Sandbox</h3>
+                    <p class="game-description">Practice securing cloud environments against common threats. Configure
+                        security groups, implement least privilege access, set up monitoring, and respond to simulated
+                        cloud security incidents.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Cloud Security</span>
+                        <span class="skill-tag">IAM</span>
+                        <span class="skill-tag">Secure Architecture</span>
+                        <span class="skill-tag">Cloud Monitoring</span>
+                    </div>
+                    <a href="cloud-security.html" class="game-link">Enter Sandbox</a>
+                </div>
+            </div>
+
+            <!-- Security Automation Workshop -->
+            <div class="game-card" data-categories="tools interactive">
+                <div class="game-image" style="background-image: url('../../images/SecurityAutomation.png');">
+                    <div class="game-badge">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Security Automation Workshop</h3>
+                    <p class="game-description">Learn to automate security tasks and orchestrate response workflows.
+                        Build custom security automation scripts, integrate security tools, and create orchestrated
+                        response playbooks for common security incidents.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Security Automation</span>
+                        <span class="skill-tag">Orchestration</span>
+                        <span class="skill-tag">SOAR</span>
+                        <span class="skill-tag">Security Scripts</span>
+                    </div>
+                    <a href="automation-workshop.html" class="game-link">Start Workshop</a>
+                </div>
+            </div>
+
+            <!-- Penetration Testing Lab -->
+            <div class="game-card" data-categories="challenges games">
+                <div class="game-image" style="background-image: url('../../images/PenetrationTestingLab.png');">
+                    <div class="game-badge">Advanced</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Penetration Testing Lab</h3>
+                    <p class="game-description">Practice ethical hacking techniques in a controlled environment. Use
+                        penetration testing tools like Metasploit to identify vulnerabilities, exploit them ethically,
+                        and provide remediation recommendations.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Metasploit</span>
+                        <span class="skill-tag">Penetration Testing</span>
+                        <span class="skill-tag">Ethical Hacking</span>
+                        <span class="skill-tag">Exploitation</span>
+                    </div>
+                    <a href="pentest-lab.html" class="game-link">Start Hacking</a>
+                </div>
+            </div>
+
+            <!-- File Integrity Monitoring Challenge -->
+            <div class="game-card" data-categories="challenges tools">
+                <div class="game-image" style="background-image: url('../../images/FileIntegrityMonitoring.png');">
+                    <div class="game-badge">New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">File Integrity Monitoring Challenge</h3>
+                    <p class="game-description">Learn to implement and manage file integrity monitoring systems like
+                        Tripwire. Detect unauthorized changes to critical files, investigate alerts, and maintain system
+                        integrity against stealthy attacks.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Tripwire</span>
+                        <span class="skill-tag">File Integrity Monitoring</span>
+                        <span class="skill-tag">Change Detection</span>
+                        <span class="skill-tag">System Integrity</span>
+                    </div>
+                    <a href="fim-challenge.html" class="game-link">Start Challenge</a>
+                </div>
+            </div>
+
+            <!-- EDR/XDR Defense Lab -->
+            <div class="game-card" data-categories="simulations tools">
+                <div class="game-image" style="background-image: url('../../images/EDRDefenseLab.png');">
+                    <div class="game-badge">Advanced</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Endpoint Defense Lab</h3>
+                    <p class="game-description">Experience modern endpoint protection using EDR/XDR solutions. Detect
+                        and respond to simulated endpoint attacks, analyze malware behavior, and implement effective
+                        endpoint security policies.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">EDR/XDR Solutions</span>
+                        <span class="skill-tag">Endpoint Protection</span>
+                        <span class="skill-tag">Threat Hunting</span>
+                        <span class="skill-tag">Malware Analysis</span>
+                    </div>
+                    <a href="edr-lab.html" class="game-link">Enter Lab</a>
+                </div>
+            </div>
+
+            <!-- OWASP Top 10 Webinar Series -->
+            <div class="game-card" data-categories="interactive tools">
+                <div class="game-image" style="background-image: url('../../images/OWASPTop10.png');">
+                    <div class="game-badge">Featured</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">OWASP Top 10 Workshop</h3>
+                    <p class="game-description">Interactive lessons on the OWASP Top 10 web application vulnerabilities.
+                        Learn to identify, exploit, and remediate common web security flaws through hands-on examples
+                        and secure coding practices.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">OWASP Top 10</span>
+                        <span class="skill-tag">Web Security</span>
+                        <span class="skill-tag">Secure Coding</span>
+                        <span class="skill-tag">Application Security</span>
+                    </div>
+                    <a href="owasp-workshop.html" class="game-link">Start Learning</a>
+                </div>
+            </div>
+
+            <!-- Security Architecture Challenge -->
+            <div class="game-card" data-categories="challenges interactive">
+                <div class="game-image" style="background-image: url('../../images/SecurityArchitecture.png');">
+                    <div class="game-badge">Advanced</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Secure Architecture Designer</h3>
+                    <p class="game-description">Design secure system architectures for various scenarios. Apply
+                        defense-in-depth principles, implement least privilege access controls, and create architectures
+                        that meet both security and business requirements.</p>
+                    <div class="game-skills">
+                        <span class="skill-tag">Security Architecture</span>
+                        <span class="skill-tag">Defense-in-Depth</span>
+                        <span class="skill-tag">Zero Trust</span>
+                        <span class="skill-tag">Secure Design</span>
+                    </div>
+                    <a href="architecture-designer.html" class="game-link">Start Designing</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>Aziz Alghamdi</h3>
+                <p>Cybersecurity professional specializing in digital forensics, incident response, and the application
+                    of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in
+                    Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
+                <div class="social-links">
+                    <a href="https://linkedin.com" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/iz2a" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i
+                            class="fab fa-researchgate"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul class="quick-links">
+                    <li><a href="../../index.html#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
+                    <li><a href="../../index.html#education"><i class="fas fa-chevron-right"></i> Education</a></li>
+                    <li><a href="../../index.html#research"><i class="fas fa-chevron-right"></i> Research</a></li>
+                    <li><a href="../../index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                    <li><a href="../../index.html#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Learning</a></li>
+                    <li><a href="../../MyResume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+<script src="/Interactive_Section/javascript/interactive-section.js"></script>
+
+
+<script src="../../translator.js"></script>
+</body>
+
+</html>
