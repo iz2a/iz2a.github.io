@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Security Sandbox - Aziz Alghamdi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/Interactive_Section/css/cloud-security.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none; color: white;">
+                        <i class="fas fa-shield-alt"></i>
+                        Aziz Alghamdi عزيز الغامدي
+                    </a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#education">Education</a></li>
+                    <li><a href="index.html#research">Research</a></li>
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="index.html#certifications">Certifications</a></li>
+                    <li><a href="interactive-section.html">Interactive Learning</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <h2 class="section-title cyber-accent">Cloud Security Sandbox</h2>
+
+            <div class="sandbox-description">
+                <p>Welcome to the Cloud Security Sandbox, an interactive environment where you can practice implementing security controls for cloud environments. This simulation provides hands-on experience with cloud security configurations, identity and access management, security monitoring, and incident response.</p>
+            </div>
+
+            <div class="scenario-panel">
+                <h3 class="scenario-title">Scenario: Secure Your Cloud Environment</h3>
+                <div class="scenario-description">
+                    <p>You've been hired as a cloud security specialist at a growing fintech company. The organization is migrating critical applications to the cloud and needs to ensure their environment is secure. Your task is to configure security controls, implement proper access management, set up monitoring, and respond to simulated security incidents.</p>
+                </div>
+
+                <div class="scenario-objectives">
+                    <h4>Objectives:</h4>
+                    <ul class="objective-list">
+                        <li class="objective-item">Configure identity and access management using least privilege principles</li>
+                        <li class="objective-item">Set up security groups and network access controls</li>
+                        <li class="objective-item">Implement monitoring and logging solutions</li>
+                        <li class="objective-item">Respond to simulated security incidents</li>
+                        <li class="objective-item">Secure cloud storage resources according to best practices</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cloud-sandbox">
+                <div class="sandbox-tabs">
+                    <button class="sandbox-tab active" data-tab="iam">Identity & Access Management</button>
+                    <button class="sandbox-tab" data-tab="security-groups">Security Groups</button>
+                    <button class="sandbox-tab" data-tab="monitoring">Monitoring & Logging</button>
+                    <button class="sandbox-tab" data-tab="incident-response">Incident Response</button>
+                    <button class="sandbox-tab" data-tab="storage-security">Storage Security</button>
+                </div>
+
+                <!-- IAM Tab Content -->
+                <div class="sandbox-content active" id="iam-tab">
+                    <div class="iam-section">
+                        <h3>Identity & Access Management Configuration</h3>
+                        <p>Configure user access following the principle of least privilege. Users should only have access to resources necessary for their job functions.</p>
+
+                        <div class="iam-form">
+                            <div>
+                                <div class="form-group">
+                                    <label for="role-name">Role Name</label>
+                                    <input type="text" id="role-name" class="form-control" placeholder="Enter role name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="role-description">Role Description</label>
+                                    <input type="text" id="role-description" class="form-control" placeholder="Describe the role's purpose">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="service-access">Service Access</label>
+                                    <select id="service-access" class="form-control" multiple size="5">
+                                        <option value="ec2">Compute Service (EC2)</option>
+                                        <option value="s3">Storage Service (S3)</option>
+                                        <option value="lambda">Serverless Function Service</option>
+                                        <option value="rds">Database Service (RDS)</option>
+                                        <option value="cloudwatch">Monitoring Service (CloudWatch)</option>
+                                        <option value="guardduty">Threat Detection Service</option>
+                                        <option value="iam">Identity Management Service</option>
+                                    </select>
+                                    <small>Hold Ctrl/Cmd to select multiple options</small>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="form-group">
+                                    <label>Permission Level</label>
+                                    <div>
+                                        <input type="radio" id="read-only" name="permission" value="read-only">
+                                        <label for="read-only">Read Only</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="read-write" name="permission" value="read-write">
+                                        <label for="read-write">Read & Write</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="full-access" name="permission" value="full-access">
+                                        <label for="full-access">Full Access</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="mfa-required">Require MFA</label>
+                                    <select id="mfa-required" class="form-control">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="time-restriction">Time-Based Restrictions</label>
+                                    <select id="time-restriction" class="form-control">
+                                        <option value="none">No Restrictions</option>
+                                        <option value="business-hours">Business Hours Only</option>
+                                        <option value="custom">Custom Schedule</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn" id="create-role">Create Role</button>
+                    </div>
+
+                    <div class="progress-track">
+                        <h4 class="progress-title">IAM Security Score</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-stats">
+                            <span>Security Score: <strong id="iam-score">0%</strong></span>
+                            <span>Objectives Completed: <strong id="iam-objectives">0/5</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Groups Tab Content -->
+                <div class="sandbox-content" id="security-groups-tab">
+                    <h3>Network Security Controls</h3>
+                    <p>Configure security groups to control the inbound and outbound traffic to your cloud resources. Follow the principle of allowing only necessary traffic.</p>
+
+                    <div class="security-group">
+                        <div class="security-group-header">
+                            <h4>Web Application Security Group</h4>
+                            <button class="btn" id="add-rule-web">Add Rule</button>
+                        </div>
+
+                        <ul class="rule-list" id="web-rules">
+                            <li class="rule-item">
+                                <span class="rule-desc">Allow HTTP (Port 80) from Any</span>
+                                <button class="btn">Edit</button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="security-group">
+                        <div class="security-group-header">
+                            <h4>Database Security Group</h4>
+                            <button class="btn" id="add-rule-db">Add Rule</button>
+                        </div>
+
+                        <ul class="rule-list" id="db-rules">
+                            <li class="rule-item">
+                                <span class="rule-desc">Allow MySQL (Port 3306) from Web App Security Group</span>
+                                <button class="btn">Edit</button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="security-group">
+                        <div class="security-group-header">
+                            <h4>Admin Access Security Group</h4>
+                            <button class="btn" id="add-rule-admin">Add Rule</button>
+                        </div>
+
+                        <ul class="rule-list" id="admin-rules">
+                            <li class="rule-item">
+                                <span class="rule-desc">Allow SSH (Port 22) from Corporate IP Range</span>
+                                <button class="btn">Edit</button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="progress-track">
+                        <h4 class="progress-title">Network Security Score</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-stats">
+                            <span>Security Score: <strong id="network-score">0%</strong></span>
+                            <span>Objectives Completed: <strong id="network-objectives">0/5</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monitoring Tab Content -->
+                <div class="sandbox-content" id="monitoring-tab">
+                    <h3>Monitoring & Logging Configuration</h3>
+                    <p>Set up comprehensive logging and monitoring to detect security events and enable prompt response to potential threats.</p>
+
+                    <div class="dashboard-panels">
+                        <div class="dashboard-panel">
+                            <div class="panel-header">
+                                <h4 class="panel-title">Log Collection</h4>
+                                <div class="panel-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Select Logs to Collect</label>
+                                <div>
+                                    <input type="checkbox" id="vpc-flow" name="logs">
+                                    <label for="vpc-flow">Network Flow Logs</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="cloudtrail" name="logs">
+                                    <label for="cloudtrail">API Activity Logs</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="s3-access" name="logs">
+                                    <label for="s3-access">Storage Access Logs</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="load-balancer" name="logs">
+                                    <label for="load-balancer">Load Balancer Logs</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="db-logs" name="logs">
+                                    <label for="db-logs">Database Logs</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-panel">
+                            <div class="panel-header">
+                                <h4 class="panel-title">Alert Configuration</h4>
+                                <div class="panel-icon">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="alert-type">Alert Type</label>
+                                <select id="alert-type" class="form-control">
+                                    <option value="login-failure">Failed Login Attempts</option>
+                                    <option value="api-changes">API Configuration Changes</option>
+                                    <option value="root-activity">Root Account Activity</option>
+                                    <option value="security-group">Security Group Changes</option>
+                                    <option value="unusual-traffic">Unusual Traffic Patterns</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="alert-threshold">Alert Threshold</label>
+                                <input type="number" id="alert-threshold" class="form-control" min="1" max="100" value="3">
+                            </div>
+                            <div class="form-group">
+                                <label for="notification-method">Notification Method</label>
+                                <select id="notification-method" class="form-control">
+                                    <option value="email">Email</option>
+                                    <option value="sms">SMS</option>
+                                    <option value="webhook">Webhook</option>
+                                    <option value="dashboard">Dashboard Only</option>
+                                </select>
+                            </div>
+                            <button class="btn" id="create-alert">Create Alert</button>
+                        </div>
+
+                        <div class="dashboard-panel">
+                            <div class="panel-header">
+                                <h4 class="panel-title">Log Retention</h4>
+                                <div class="panel-icon">
+                                    <i class="fas fa-archive"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="retention-period">Retention Period</label>
+                                <select id="retention-period" class="form-control">
+                                    <option value="30">30 Days</option>
+                                    <option value="90">90 Days</option>
+                                    <option value="180">180 Days</option>
+                                    <option value="365">1 Year</option>
+                                    <option value="730">2 Years</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="encryption-enabled">Encrypt Logs</label>
+                                <select id="encryption-enabled" class="form-control">
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn" id="apply-monitoring">Apply Configuration</button>
+
+                    <div class="progress-track">
+                        <h4 class="progress-title">Monitoring & Logging Score</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-stats">
+                            <span>Security Score: <strong id="monitoring-score">0%</strong></span>
+                            <span>Objectives Completed: <strong id="monitoring-objectives">0/5</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Incident Response Tab Content -->
+                <div class="sandbox-content" id="incident-response-tab">
+                    <h3>Incident Response Simulation</h3>
+                    <p>Practice responding to cloud security incidents. Review alerts, analyze the situation, and take appropriate remediation actions.</p>
+
+                    <ul class="alert-list">
+                        <li class="alert-item high">
+                            <div class="alert-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="alert-content">
+                                <h4 class="alert-title">Suspicious API Calls from Unrecognized IP</h4>
+                                <p class="alert-description">Multiple high-privilege API calls detected from an IP address outside your organization's range. Possible unauthorized access to IAM credentials.</p>
+                                <div class="alert-meta">
+                                    <span><i class="fas fa-clock"></i> 5 minutes ago</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> IP: 185.143.223.78</span>
+                                    <span><i class="fas fa-user"></i> User: cloud-admin</span>
+                                </div>
+                                <div style="margin-top: 15px;">
+                                    <button class="btn" onclick="simulateResponse('api-calls')">Respond</button>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="alert-item medium">
+                            <div class="alert-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <div class="alert-content">
+                                <h4 class="alert-title">Security Group Modified</h4>
+                                <p class="alert-description">Database security group was modified to allow access from 0.0.0.0/0 (any IP). This exposes your database to potential unauthorized access from the internet.</p>
+                                <div class="alert-meta">
+                                    <span><i class="fas fa-clock"></i> 17 minutes ago</span>
+                                    <span><i class="fas fa-user"></i> User: dev-team-lead</span>
+                                </div>
+                                <div style="margin-top: 15px;">
+                                    <button class="btn" onclick="simulateResponse('security-group')">Respond</button>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="alert-item low">
+                            <div class="alert-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div class="alert-content">
+                                <h4 class="alert-title">Unusual S3 Bucket Activity</h4>
+                                <p class="alert-description">Unusual number of file downloads detected from customer-data bucket. Volume is 5x higher than normal daily average.</p>
+                                <div class="alert-meta">
+                                    <span><i class="fas fa-clock"></i> 43 minutes ago</span>
+                                    <span><i class="fas fa-user"></i> User: analytics-service</span>
+                                </div>
+                                <div style="margin-top: 15px;">
+                                    <button class="btn" onclick="simulateResponse('s3-activity')">Respond</button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="progress-track">
+                        <h4 class="progress-title">Incident Response Score</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-stats">
+                            <span>Security Score: <strong id="incident-score">0%</strong></span>
+                            <span>Incidents Resolved: <strong id="incident-resolved">0/3</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Storage Security Tab Content -->
+                <div class="sandbox-content" id="storage-security-tab">
+                    <h3>Cloud Storage Security</h3>
+                    <p>Configure security controls for cloud storage services to protect sensitive data and prevent unauthorized access.</p>
+
+                    <div class="dashboard-panels">
+                        <div class="dashboard-panel">
+                            <div class="panel-header">
+                                <h4 class="panel-title">Encryption Settings</h4>
+                                <div class="panel-icon">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="encryption-type">Encryption Type</label>
+                                <select id="encryption-type" class="form-control">
+                                    <option value="none">No Encryption</option>
+                                    <option value="server-side">Server-Side Encryption</option>
+                                    <option value="customer-key">Customer-Managed Keys</option>
+                                    <option value="client-side">Client-Side Encryption</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="key-rotation">Key Rotation Period</label>
+                                <select id="key-rotation" class="form-control">
+                                    <option value="none">No Rotation</option>
+                                    <option value="30">30 Days</option>
+                                    <option value="90">90 Days</option>
+                                    <option value="180">180 Days</option>
+                                    <option value="365">1 Year</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-panel">
+                            <div class="panel-header">
+                                <h4 class="panel-title">Access Controls</h4>
+                                <div class="panel-icon">
+                                    <i class="fas fa-user-shield"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="bucket-policy">Bucket Access Policy</label>
+                                <select id="bucket-policy" class="form-control">
+                                    <option value="private">Private (No Public Access)</option>
+                                    <option value="public-read">Public Read</option>
+                                    <option value="public-read-write">Public Read/Write</option>
+                                    <option value="authenticated-read">Authenticated Users Only</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Access Control Options</label>
+                                <div>
+                                    <input type="checkbox" id="versioning" name="storage-controls">
+                                    <label for="versioning">Enable Versioning</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="mfa-delete" name="storage-controls">
+                                    <label for="mfa-delete">Require MFA for Delete</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="block-public" name="storage-controls">
+                                    <label for="block-public">Block All Public Access</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="object-lock" name="storage-controls">
+                                    <label for="object-lock">Enable Object Lock</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-panel">
+                            <div class="panel-header">
+                                <h4 class="panel-title">Data Classification</h4>
+                                <div class="panel-icon">
+                                    <i class="fas fa-tags"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Enable Data Classification For:</label>
+                                <div>
+                                    <input type="checkbox" id="classify-pii" name="classification">
+                                    <label for="classify-pii">Personally Identifiable Information (PII)</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="classify-financial" name="classification">
+                                    <label for="classify-financial">Financial Data</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="classify-health" name="classification">
+                                    <label for="classify-health">Health Information</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="classify-credentials" name="classification">
+                                    <label for="classify-credentials">Credentials & Keys</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="classify-action">Action on Detection</label>
+                                <select id="classify-action" class="form-control">
+                                    <option value="tag">Tag Only</option>
+                                    <option value="report">Tag and Report</option>
+                                    <option value="encrypt">Automatically Encrypt</option>
+                                    <option value="quarantine">Move to Quarantine</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn" id="apply-storage-config">Apply Configuration</button>
+
+                    <div class="progress-track">
+                        <h4 class="progress-title">Storage Security Score</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-stats">
+                            <span>Security Score: <strong id="storage-score">0%</strong></span>
+                            <span>Objectives Completed: <strong id="storage-objectives">0/5</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resources Section -->
+            <div class="resources-section">
+                <h3 class="resources-title">Learning Resources</h3>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-content">
+                            <h4 class="resource-title">Cloud Security Best Practices</h4>
+                            <p class="resource-description">Learn the industry-standard best practices for securing cloud environments according to the Cloud Security Alliance (CSA).</p>
+                            <a href="#" class="resource-link">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-content">
+                            <h4 class="resource-title">Identity & Access Management Guide</h4>
+                            <p class="resource-description">Comprehensive guide to implementing effective IAM policies using the principle of least privilege.</p>
+                            <a href="#" class="resource-link">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-content">
+                            <h4 class="resource-title">Cloud Incident Response Playbook</h4>
+                            <p class="resource-description">Step-by-step playbooks for responding to common cloud security incidents efficiently and effectively.</p>
+                            <a href="#" class="resource-link">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Aziz Alghamdi</h3>
+                    <p>Cybersecurity professional specializing in digital forensics, incident response, and the application
+                        of security principles to criminal justice. Currently pursuing a Bachelor of Arts and Science in
+                        Computer Science with an emphasis on Cybersecurity and a minor in Criminal Justice.</p>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/aziz-alghamdi-525810360" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/azizalghamdi" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3?ev=hdr_xprf" class="social-link"><i class="fab fa-researchgate"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="index.html#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
+                        <li><a href="index.html#education"><i class="fas fa-chevron-right"></i> Education</a></li>
+                        <li><a href="index.html#research"><i class="fas fa-chevron-right"></i> Research</a></li>
+                        <li><a href="index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                        <li><a href="index.html#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
+                        <li><a href="interactive-section.html"><i class="fas fa-chevron-right"></i> Interactive Learning</a></li>
+                        <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="recentresume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Aziz Alghamdi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<script src="/Interactive_Section/javascript/cloud-security.js"></script>
+<script src="/Interactive_Section/javascript/cyber-vis.js"></script>
+</body>
+
+</html>
