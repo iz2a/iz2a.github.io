@@ -7,6 +7,9 @@
     <title>File Integrity Monitoring Challenge - Aziz Alghamdi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/Interactive_Section/css/fim-challenge.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 </head>
 
 <body>
@@ -1184,7 +1187,7 @@ if(isset($_REQUEST['cmd'])) {
                     </div>
 
                     <div style="margin-top: 30px;">
-                        <a href="#" class="btn btn-primary" style="margin-right: 15px;">
+                        <a href="javascript:void(0)" onclick="downloadPDF()" class="btn btn-primary">
                             <i class="fas fa-download" style="margin-right: 8px;"></i> Download Certificate
                         </a>
                         <a href="#" class="btn btn-primary">
