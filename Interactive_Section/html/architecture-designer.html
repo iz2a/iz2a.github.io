@@ -1,10 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Architecture Designer - Aziz Alghamdi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/Interactive_Section/css/architecture-designer.css">
 
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none; color: white;">
+                        <i class="fas fa-shield-alt"></i>
+                        Aziz Alghamdi عزيز الغامدي
+                    </a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#education">Education</a></li>
+                    <li><a href="index.html#research">Research</a></li>
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="index.html#certifications">Certifications</a></li>
+                    <li><a href="interactive-section.html">Interactive Learning</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <h1 class="page-title">Secure Architecture Designer</h1>
+            <p class="page-description">Design secure system architectures for various scenarios using defense-in-depth principles and zero trust concepts. Learn how to implement security controls and create robust architectures that meet both security and business requirements.</p>
+
+            <div class="info-box">
+                <div class="info-box-title">
+                    <i class="fas fa-info-circle"></i>
+                    How to Use This Tool
+                </div>
+                <p>This interactive tool allows you to design secure system architectures by dragging and dropping components onto the canvas. Select a scenario from the dropdown menu, then use the components from the left sidebar to build your architecture. Once you've created your design, click "Evaluate Architecture" to receive feedback on your solution's security strengths and weaknesses.</p>
+            </div>
+
+            <div class="designer-interface">
+                <div class="designer-sidebar">
+                    <h3 class="sidebar-title">Components</h3>
+
+                    <div class="sidebar-section">
+                        <h4 class="sidebar-subtitle">Infrastructure</h4>
+                        <ul class="component-list">
+                            <li class="component-item" draggable="true" data-type="web-server">
+                                <i class="fas fa-server"></i>
+                                Web Server
+                            </li>
+                            <li class="component-item" draggable="true" data-type="database">
+                                <i class="fas fa-database"></i>
+                                Database
+                            </li>
+                            <li class="component-item" draggable="true" data-type="load-balancer">
+                                <i class="fas fa-random"></i>
+                                Load Balancer
+                            </li>
+                            <li class="component-item" draggable="true" data-type="cdn">
+                                <i class="fas fa-globe"></i>
+                                CDN
+                            </li>
+                            <li class="component-item" draggable="true" data-type="api-gateway">
+                                <i class="fas fa-exchange-alt"></i>
+                                API Gateway
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4 class="sidebar-subtitle">Security</h4>
+                        <ul class="component-list">
+                            <li class="component-item" draggable="true" data-type="firewall">
+                                <i class="fas fa-shield-alt"></i>
+                                Firewall
+                            </li>
+                            <li class="component-item" draggable="true" data-type="waf">
+                                <i class="fas fa-filter"></i>
+                                Web App Firewall
+                            </li>
+                            <li class="component-item" draggable="true" data-type="ids-ips">
+                                <i class="fas fa-eye"></i>
+                                IDS/IPS
+                            </li>
+                            <li class="component-item" draggable="true" data-type="auth-server">
+                                <i class="fas fa-user-lock"></i>
+                                Auth Server
+                            </li>
+                            <li class="component-item" draggable="true" data-type="vpn">
+                                <i class="fas fa-lock"></i>
+                                VPN Gateway
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4 class="sidebar-subtitle">Tools</h4>
+                        <div class="tools-list">
+                            <button class="tool-btn" id="connect-tool">
+                                <i class="fas fa-project-diagram"></i>
+                                Connect
+                            </button>
+                            <button class="tool-btn" id="delete-tool">
+                                <i class="fas fa-trash-alt"></i>
+                                Delete
+                            </button>
+                            <button class="tool-btn" id="clear-tool">
+                                <i class="fas fa-broom"></i>
+                                Clear All
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4 class="sidebar-subtitle">Security Principles</h4>
+                        <div class="principles-list">
+                            <div class="principle-item">
+                                <div class="principle-title">Defense in Depth</div>
+                                <div class="principle-description">Implement multiple layers of security controls throughout your architecture.</div>
+                            </div>
+                            <div class="principle-item">
+                                <div class="principle-title">Least Privilege</div>
+                                <div class="principle-description">Grant only the minimum permissions needed for each component to function.</div>
+                            </div>
+                            <div class="principle-item">
+                                <div class="principle-title">Zero Trust</div>
+                                <div class="principle-description">Verify every access request as if it originates from an untrusted network.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="designer-main">
+                    <div class="main-header">
+                        <h2 class="main-title">Secure Architecture Designer</h2>
+                        <div class="main-controls">
+                            <button class="control-btn clear-btn" id="clear-canvas">
+                                <i class="fas fa-trash-alt"></i>
+                                Clear Canvas
+                            </button>
+                            <button class="control-btn evaluate-btn" id="evaluate-architecture">
+                                <i class="fas fa-check-circle"></i>
+                                Evaluate Architecture
+                            </button>
+                            <button class="control-btn save-btn" id="save-architecture">
+                                <i class="fas fa-save"></i>
+                                Save Design
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="scenario-selector">
+                        <h3 class="scenario-title">Select Scenario</h3>
+                        <p class="scenario-description">Choose a scenario to design a secure architecture solution.</p>
+                        <select class="scenario-dropdown" id="scenario-select">
+                            <option value="0">Select a scenario</option>
+                            <option value="1">E-commerce Web Application</option>
+                            <option value="2">Healthcare Data Management System</option>
+                            <option value="3">Financial Transaction Processing</option>
+                            <option value="4">Cloud-based SaaS Application</option>
+                        </select>
+                    </div>
+
+                    <div class="canvas-container" id="architecture-canvas">
+                        <div class="canvas-label">Design Canvas</div>
+                        <div class="canvas-placeholder">
+                            <i class="fas fa-drafting-compass"></i>
+                            <div>Drag components here to create your architecture</div>
+                        </div>
+                    </div>
+
+                    <div class="evaluation-panel" id="evaluation-panel">
+                        <h3 class="evaluation-title">
+                            <i class="fas fa-clipboard-check"></i>
+                            Architecture Evaluation
+                        </h3>
+                        <div class="evaluation-score">
+                            <div class="score-label">Overall Security Score</div>
+                            <div class="score-value">75/100</div>
+                        </div>
+
+                        <div class="evaluation-category">
+                            <div class="category-header">
+                                <div class="category-title">Defense in Depth</div>
+                                <div class="category-score category-good">Good</div>
+                            </div>
+                            <div class="category-details">
+                                Your architecture implements multiple layers of security controls. The firewall, WAF, and IDS/IPS provide complementary protection against various threats.
+                            </div>
+                        </div>
+
+                        <div class="evaluation-category">
+                            <div class="category-header">
+                                <div class="category-title">Data Protection</div>
+                                <div class="category-score category-warning">Needs Improvement</div>
+                            </div>
+                            <div class="category-details">
+                                Consider adding encryption for data at rest in the database and implementing proper access controls for sensitive data.
+                            </div>
+                        </div>
+
+                        <div class="evaluation-category">
+                            <div class="category-header">
+                                <div class="category-title">Authentication & Authorization</div>
+                                <div class="category-score category-bad">Insufficient</div>
+                            </div>
+                            <div class="category-details">
+                                Your architecture is missing a dedicated authentication service or identity provider. Consider adding this component to ensure secure user authentication.
+                            </div>
+                        </div>
+
+                        <div class="evaluation-suggestions">
+                            <h4>Suggested Improvements:</h4>
+                            <div class="suggestion-item">
+                                <div class="suggestion-icon"><i class="fas fa-plus-circle"></i></div>
+                                <div>Add a dedicated authentication server to manage user identities and access tokens.</div>
+                            </div>
+                            <div class="suggestion-item">
+                                <div class="suggestion-icon"><i class="fas fa-plus-circle"></i></div>
+                                <div>Implement encryption for data at rest in the database to protect sensitive information.</div>
+                            </div>
+                            <div class="suggestion-item">
+                                <div class="suggestion-icon"><i class="fas fa-plus-circle"></i></div>
+                                <div>Add network segmentation to isolate critical components from public-facing services.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Component Configuration -->
+    <div class="modal-backdrop" id="component-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Configure Component</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-form-group">
+                    <label class="modal-label">Component Name</label>
+                    <input type="text" class="modal-input" id="component-name">
+                </div>
+                <div class="modal-form-group">
+                    <label class="modal-label">Security Level</label>
+                    <select class="modal-select" id="security-level">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="modal-form-group">
+                    <label class="modal-label">Description</label>
+                    <input type="text" class="modal-input" id="component-description" placeholder="Optional">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" id="modal-cancel">Cancel</button>
+                <button class="modal-btn modal-btn-primary" id="modal-save">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Scenario Details -->
+    <div class="modal-backdrop" id="scenario-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="scenario-modal-title">E-commerce Web Application</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="scenario-modal-description">Design a secure architecture for an e-commerce web application that handles customer data, payment processing, and inventory management.</p>
+
+                <h4 style="margin-top: 20px; margin-bottom: 10px;">Requirements:</h4>
+                <ul id="scenario-requirements">
+                    <li>Support for 10,000+ concurrent users</li>
+                    <li>Payment processing with credit card information</li>
+                    <li>Customer account management and personal data storage</li>
+                    <li>Integration with inventory management system</li>
+                    <li>Protection against common web attacks (OWASP Top 10)</li>
+                </ul>
+
+                <h4 style="margin-top: 20px; margin-bottom: 10px;">Security Considerations:</h4>
+                <ul id="scenario-considerations">
+                    <li>PCI DSS compliance for payment processing</li>
+                    <li>Protection of customer personal information</li>
+                    <li>Secure authentication and session management</li>
+                    <li>Defense against DDoS attacks</li>
+                    <li>API security for third-party integrations</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-primary" id="scenario-start">Start Designing</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for interactive functionality -->
+<script src="/Interactive_Section/javascript/architecture-designer.js"></script>
+    <script src="/Interactive_Section/javascript/cyber-vis.js"></script>
 </body>
 </html>
+
+
