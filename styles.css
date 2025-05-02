@@ -1258,3 +1258,54 @@
                 text-align: right;
             }
         }
+           .interactive-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 999;
+    }
+
+    .interactive-link {
+        display: flex;
+        align-items: center;
+        background-color: #495057;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 50px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-family: "Times New Roman", Times, serif;
+        font-style: italic;
+    }
+
+    .interactive-link:hover {
+        background-color: #212529;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+        color: white;
+    }
+
+    .interactive-link i {
+        font-size: 18px;
+        margin-right: 10px;
+    }
+
+    .interactive-text {
+        font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+        .interactive-button {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .interactive-link {
+            padding: 10px 15px;
+        }
+
+        .interactive-text {
+            font-size: 14px;
+        }
+    }
