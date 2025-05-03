@@ -6,472 +6,1228 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OWASP Top 10 Workshop - Aziz Alghamdi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" href="/Interactive_Section/css/owasp-workshop.css">
+    <link rel="stylesheet" href="/Interactive_Section/css/owasp-workshop.css">
 </head>
 
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <a href="/index.html" style="text-decoration: none; color: white;">
-                        <i class="fas fa-shield-alt"></i>
-                        Aziz Alghamdi عزيز الغامدي
-                    </a>
-                </div>
-                <div class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="/index.html">Home</a></li>
-                    <li><a href="/index.html#about">About</a></li>
-                    <li><a href="/index.html#education">Education</a></li>
-                    <li><a href="/index.html#research">Research</a></li>
-                    <li><a href="/index.html#projects">Projects</a></li>
-                    <li><a href="/index.html#certifications">Certifications</a></li>
-                    <li><a href="interactive-section.html">Interactive Learning</a></li>
-                    <li><a href="/index.html#contact">Contact</a></li>
-                </ul>
-            </nav>
+<!-- Header -->
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <a href="/index.html" style="text-decoration: none; color: white;">
+                    <i class="fas fa-shield-alt"></i>
+                    Aziz Alghamdi عزيز الغامدي
+                </a>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/index.html#about">About</a></li>
+                <li><a href="/index.html#education">Education</a></li>
+                <li><a href="/index.html#research">Research</a></li>
+                <li><a href="/index.html#projects">Projects</a></li>
+                <li><a href="/index.html#certifications">Certifications</a></li>
+                <li><a href="interactive-section.html">Interactive Learning</a></li>
+                <li><a href="/index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="container">
+        <h1 class="page-title">OWASP Top 10 Workshop</h1>
+        <p class="page-description">Learn to identify, exploit, and mitigate the most critical web application security
+            risks through interactive examples and hands-on exercises. This workshop covers the OWASP Top 10
+            vulnerabilities with practical demonstrations and secure coding practices.</p>
+
+        <div class="info-box">
+            <div class="info-box-title">
+                <i class="fas fa-info-circle"></i>
+                About OWASP Top 10
+            </div>
+            <p>The Open Web Application Security Project® (OWASP) Top 10 is a standard awareness document representing a
+                broad consensus about the most critical security risks to web applications. Organizations use the OWASP
+                Top 10 as a first step in changing their software development culture to produce more secure code.</p>
+            <p>This interactive workshop will guide you through each vulnerability with examples, demonstrations, and
+                hands-on exercises to help you understand and address these security risks in your own applications.</p>
         </div>
-    </header>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <div class="container">
-            <h1 class="page-title">OWASP Top 10 Workshop</h1>
-            <p class="page-description">Learn to identify, exploit, and mitigate the most critical web application security risks through interactive examples and hands-on exercises. This workshop covers the OWASP Top 10 vulnerabilities with practical demonstrations and secure coding practices.</p>
+        <div class="workshop-content">
+            <div class="workshop-sidebar">
+                <h3 class="sidebar-title">Workshop Modules</h3>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-menu-item">
+                        <a href="#" class="active" data-section="introduction">
+                            <i class="fas fa-home"></i>
+                            Introduction
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-category">OWASP Top 10 Vulnerabilities</li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" data-section="broken-access">
+                            <i class="fas fa-unlock-alt"></i>
+                            A01: Broken Access Control
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" data-section="crypto-failures">
+                            <i class="fas fa-lock"></i>
+                            A02: Cryptographic Failures
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" data-section="injection">
+                            <i class="fas fa-code"></i>
+                            A03: Injection
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" data-section="insecure-design">
+                            <i class="fas fa-drafting-compass"></i>
+                            A04: Insecure Design
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" data-section="security-misconfiguration">
+                            <i class="fas fa-cogs"></i>
+                            A05: Security Misconfiguration
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" data-section="vulnerable-components">
+                            <i class="fas fa-puzzle-piece"></i>
+                            A06: Vulnerable Components
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" data-section="auth-failures">
+                            <i class="fas fa-user-lock"></i>
+                            A07: Auth & ID Failures
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" data-section="data-integrity">
+                            <i class="fas fa-database"></i>
+                            A08: Software & Data Integrity
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" data-section="logging-monitoring">
+                            <i class="fas fa-search"></i>
+                            A09: Logging & Monitoring
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" data-section="ssrf">
+                            <i class="fas fa-server"></i>
+                            A10: Server-Side Request Forgery
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-category">Additional Resources</li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" data-section="secure-coding">
+                            <i class="fas fa-shield-alt"></i>
+                            Secure Coding Practices
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" data-section="testing-tools">
+                            <i class="fas fa-tools"></i>
+                            Security Testing Tools
+                        </a>
+                    </li>
+                </ul>
 
-            <div class="info-box">
-                <div class="info-box-title">
-                    <i class="fas fa-info-circle"></i>
-                    About OWASP Top 10
+                <div class="sidebar-progress">
+                    <div class="progress-title">
+                        Workshop Progress
+                        <span class="progress-value">35%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
                 </div>
-                <p>The Open Web Application Security Project® (OWASP) Top 10 is a standard awareness document representing a broad consensus about the most critical security risks to web applications. Organizations use the OWASP Top 10 as a first step in changing their software development culture to produce more secure code.</p>
-                <p>This interactive workshop will guide you through each vulnerability with examples, demonstrations, and hands-on exercises to help you understand and address these security risks in your own applications.</p>
             </div>
 
-            <div class="workshop-content">
-                <div class="workshop-sidebar">
-                    <h3 class="sidebar-title">Workshop Modules</h3>
-                    <ul class="sidebar-menu">
-                        <li class="sidebar-menu-item">
-                            <a href="#" class="active" data-section="introduction">
-                                <i class="fas fa-home"></i>
-                                Introduction
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-category">OWASP Top 10 Vulnerabilities</li>
-                        <li class="sidebar-menu-item">
-                            <a href="#" data-section="broken-access">
-                                <i class="fas fa-unlock-alt"></i>
-                                A01: Broken Access Control
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a href="#" data-section="crypto-failures">
-                                <i class="fas fa-lock"></i>
-                                A02: Cryptographic Failures
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a href="#" data-section="injection">
-                                <i class="fas fa-code"></i>
-                                A03: Injection
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a href="#" data-section="insecure-design">
-                                <i class="fas fa-drafting-compass"></i>
-                                A04: Insecure Design
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a href="#" data-section="security-misconfiguration">
-                                <i class="fas fa-cogs"></i>
-                                A05: Security Misconfiguration
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a href="#" data-section="vulnerable-components">
-                                <i class="fas fa-puzzle-piece"></i>
-                                A06: Vulnerable Components
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a href="#" data-section="auth-failures">
-                                <i class="fas fa-user-lock"></i>
-                                A07: Auth & ID Failures
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a href="#" data-section="data-integrity">
-                                <i class="fas fa-database"></i>
-                                A08: Software & Data Integrity
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a href="#" data-section="logging-monitoring">
-                                <i class="fas fa-search"></i>
-                                A09: Logging & Monitoring
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a href="#" data-section="ssrf">
-                                <i class="fas fa-server"></i>
-                                A10: Server-Side Request Forgery
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-category">Additional Resources</li>
-                        <li class="sidebar-menu-item">
-                            <a href="#" data-section="secure-coding">
-                                <i class="fas fa-shield-alt"></i>
-                                Secure Coding Practices
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a href="#" data-section="testing-tools">
-                                <i class="fas fa-tools"></i>
-                                Security Testing Tools
-                            </a>
-                        </li>
-                    </ul>
+            <div class="workshop-main">
+                <!-- Introduction Section -->
+                <div class="workshop-section active" id="introduction-section">
+                    <h2 class="section-title">Introduction to Web Application Security</h2>
+                    <div class="completion-badge">Completed</div>
 
-                    <div class="sidebar-progress">
-                        <div class="progress-title">
-                            Workshop Progress
-                            <span class="progress-value">35%</span>
+                    <div class="section-content">
+                        <p>Web application security is a critical aspect of modern software development. As businesses
+                            continue to move services online, the attack surface of web applications increases, making
+                            them prime targets for malicious actors. Understanding and addressing key security
+                            vulnerabilities is essential for developers, security professionals, and IT managers.</p>
+
+                        <h3 class="section-subtitle">Why Web Security Matters</h3>
+                        <p>Security breaches can lead to serious consequences including:</p>
+                        <ul>
+                            <li>Data theft and privacy violations</li>
+                            <li>Financial loss</li>
+                            <li>Damage to business reputation</li>
+                            <li>Legal and regulatory penalties</li>
+                            <li>Loss of customer trust</li>
+                        </ul>
+
+                        <div class="info-box danger-box">
+                            <div class="info-box-title">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Real-World Impact
+                            </div>
+                            <p>In recent years, major data breaches have exposed billions of user records. Companies
+                                have faced fines in the hundreds of millions of dollars for failing to protect user
+                                data. Security is not just a technical issue—it's a business imperative.</p>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress"></div>
+
+                        <h3 class="section-subtitle">About the OWASP Top 10</h3>
+                        <p>The OWASP Top 10 is a regularly updated list of the most critical web application security
+                            risks. It is developed by a team of security experts from around the world and represents a
+                            consensus on the most significant vulnerabilities that organizations should address.</p>
+
+                        <p>The current OWASP Top 10 (2021) includes:</p>
+                        <ol>
+                            <li><strong>Broken Access Control</strong> - Restrictions on authenticated users are not
+                                properly enforced
+                            </li>
+                            <li><strong>Cryptographic Failures</strong> - Failures related to cryptography that often
+                                lead to sensitive data exposure
+                            </li>
+                            <li><strong>Injection</strong> - User-supplied data is not validated, filtered, or sanitized
+                                by the application
+                            </li>
+                            <li><strong>Insecure Design</strong> - Flaws related to design and architectural security
+                                flaws
+                            </li>
+                            <li><strong>Security Misconfiguration</strong> - Improperly configured application security
+                                settings
+                            </li>
+                            <li><strong>Vulnerable and Outdated Components</strong> - Using components with known
+                                vulnerabilities
+                            </li>
+                            <li><strong>Identification and Authentication Failures</strong> - Authentication and session
+                                management implementations that allow attackers to compromise passwords or keys
+                            </li>
+                            <li><strong>Software and Data Integrity Failures</strong> - Code and infrastructure that
+                                does not protect against integrity violations
+                            </li>
+                            <li><strong>Security Logging and Monitoring Failures</strong> - Insufficient logging and
+                                monitoring to detect attacks
+                            </li>
+                            <li><strong>Server-Side Request Forgery (SSRF)</strong> - Web applications fetching remote
+                                resources without validating the user-supplied URL
+                            </li>
+                        </ol>
+
+                        <h3 class="section-subtitle">Workshop Structure</h3>
+                        <p>For each vulnerability in the OWASP Top 10, this workshop will provide:</p>
+                        <ul>
+                            <li>A detailed explanation of the vulnerability</li>
+                            <li>Real-world examples of the vulnerability in action</li>
+                            <li>Interactive demonstrations to see the vulnerability firsthand</li>
+                            <li>Practical mitigation techniques and secure coding practices</li>
+                            <li>Hands-on exercises to test your understanding</li>
+                            <li>Quizzes to reinforce key concepts</li>
+                        </ul>
+
+                        <div class="info-box">
+                            <div class="info-box-title">
+                                <i class="fas fa-lightbulb"></i>
+                                Getting the Most from This Workshop
+                            </div>
+                            <p>For the best learning experience:</p>
+                            <ul>
+                                <li>Complete each module in order</li>
+                                <li>Try to solve the exercises before looking at the solutions</li>
+                                <li>Apply what you learn to review code in your own projects</li>
+                                <li>Use the provided resources for deeper understanding</li>
+                            </ul>
+                        </div>
+
+                        <div class="quiz-container">
+                            <div class="quiz-header">
+                                <span>Quick Check: Introduction</span>
+                                <span class="quiz-progress">Question 1 of 3</span>
+                            </div>
+                            <div class="quiz-body">
+                                <div class="quiz-question">What is the primary purpose of the OWASP Top 10?</div>
+                                <ul class="quiz-options">
+                                    <li class="quiz-option" data-correct="true">To raise awareness about the most
+                                        critical web application security risks
+                                    </li>
+                                    <li class="quiz-option">To provide a comprehensive list of all possible web
+                                        vulnerabilities
+                                    </li>
+                                    <li class="quiz-option">To serve as a legal compliance framework for organizations
+                                    </li>
+                                    <li class="quiz-option">To rank web application frameworks by their security
+                                        features
+                                    </li>
+                                </ul>
+                                <div class="quiz-explanation">
+                                    <strong>Correct!</strong> The OWASP Top 10 is an awareness document that represents
+                                    a broad consensus about the most critical security risks to web applications. It's
+                                    designed to raise awareness and change the software development culture to produce
+                                    more secure code.
+                                </div>
+                                <div class="quiz-buttons">
+                                    <button class="btn btn-primary quiz-check">Check Answer</button>
+                                    <button class="btn btn-primary quiz-next" style="display: none;">Next Question
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-navigation">
+                            <a href="#" class="nav-button nav-prev" style="visibility: hidden;">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous
+                            </a>
+                            <a href="#" class="nav-button nav-next" data-next="broken-access">
+                                Next: Broken Access Control
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <div class="workshop-main">
-                    <!-- Introduction Section -->
-                    <div class="workshop-section active" id="introduction-section">
-                        <h2 class="section-title">Introduction to Web Application Security</h2>
-                        <div class="completion-badge">Completed</div>
+                <!-- Broken Access Control Section -->
+                <div class="workshop-section" id="broken-access-section" style="display: none;">
+                    <h2 class="section-title">A01: Broken Access Control</h2>
+                    <div class="completion-badge">Completed</div>
 
-                        <div class="section-content">
-                            <p>Web application security is a critical aspect of modern software development. As businesses continue to move services online, the attack surface of web applications increases, making them prime targets for malicious actors. Understanding and addressing key security vulnerabilities is essential for developers, security professionals, and IT managers.</p>
+                    <div class="section-content">
+                        <p>Broken Access Control is the most common and impactful vulnerability according to the OWASP
+                            Top 10 (2021). Access control enforces policy such that users cannot act outside of their
+                            intended permissions. Failures in access control lead to unauthorized information
+                            disclosure, modification, or destruction of data, or performing unauthorized business
+                            functions.</p>
 
-                            <h3 class="section-subtitle">Why Web Security Matters</h3>
-                            <p>Security breaches can lead to serious consequences including:</p>
-                            <ul>
-                                <li>Data theft and privacy violations</li>
-                                <li>Financial loss</li>
-                                <li>Damage to business reputation</li>
-                                <li>Legal and regulatory penalties</li>
-                                <li>Loss of customer trust</li>
-                            </ul>
-
-                            <div class="info-box danger-box">
-                                <div class="info-box-title">
-                                    <i class="fas fa-exclamation-triangle"></i>
-                                    Real-World Impact
-                                </div>
-                                <p>In recent years, major data breaches have exposed billions of user records. Companies have faced fines in the hundreds of millions of dollars for failing to protect user data. Security is not just a technical issue—it's a business imperative.</p>
+                        <div class="vulnerability-card">
+                            <div class="vulnerability-header">
+                                <i class="fas fa-unlock-alt"></i>
+                                Broken Access Control
                             </div>
-
-                            <h3 class="section-subtitle">About the OWASP Top 10</h3>
-                            <p>The OWASP Top 10 is a regularly updated list of the most critical web application security risks. It is developed by a team of security experts from around the world and represents a consensus on the most significant vulnerabilities that organizations should address.</p>
-
-                            <p>The current OWASP Top 10 (2021) includes:</p>
-                            <ol>
-                                <li><strong>Broken Access Control</strong> - Restrictions on authenticated users are not properly enforced</li>
-                                <li><strong>Cryptographic Failures</strong> - Failures related to cryptography that often lead to sensitive data exposure</li>
-                                <li><strong>Injection</strong> - User-supplied data is not validated, filtered, or sanitized by the application</li>
-                                <li><strong>Insecure Design</strong> - Flaws related to design and architectural security flaws</li>
-                                <li><strong>Security Misconfiguration</strong> - Improperly configured application security settings</li>
-                                <li><strong>Vulnerable and Outdated Components</strong> - Using components with known vulnerabilities</li>
-                                <li><strong>Identification and Authentication Failures</strong> - Authentication and session management implementations that allow attackers to compromise passwords or keys</li>
-                                <li><strong>Software and Data Integrity Failures</strong> - Code and infrastructure that does not protect against integrity violations</li>
-                                <li><strong>Security Logging and Monitoring Failures</strong> - Insufficient logging and monitoring to detect attacks</li>
-                                <li><strong>Server-Side Request Forgery (SSRF)</strong> - Web applications fetching remote resources without validating the user-supplied URL</li>
-                            </ol>
-
-                            <h3 class="section-subtitle">Workshop Structure</h3>
-                            <p>For each vulnerability in the OWASP Top 10, this workshop will provide:</p>
-                            <ul>
-                                <li>A detailed explanation of the vulnerability</li>
-                                <li>Real-world examples of the vulnerability in action</li>
-                                <li>Interactive demonstrations to see the vulnerability firsthand</li>
-                                <li>Practical mitigation techniques and secure coding practices</li>
-                                <li>Hands-on exercises to test your understanding</li>
-                                <li>Quizzes to reinforce key concepts</li>
-                            </ul>
-
-                            <div class="info-box">
-                                <div class="info-box-title">
-                                    <i class="fas fa-lightbulb"></i>
-                                    Getting the Most from This Workshop
-                                </div>
-                                <p>For the best learning experience:</p>
-                                <ul>
-                                    <li>Complete each module in order</li>
-                                    <li>Try to solve the exercises before looking at the solutions</li>
-                                    <li>Apply what you learn to review code in your own projects</li>
-                                    <li>Use the provided resources for deeper understanding</li>
+                            <div class="vulnerability-body">
+                                <span class="vulnerability-risk risk-high">High Risk</span>
+                                <p class="vulnerability-description">Broken access control occurs when application
+                                    functions or data are not protected with proper authorization checks, allowing
+                                    attackers to access data or perform actions they shouldn't be able to do.</p>
+                                <p class="vulnerability-example">Example: A user can access another user's account or
+                                    admin pages by simply changing a parameter in the URL.</p>
+                                <h4>Common Prevention Methods:</h4>
+                                <ul class="prevention-list">
+                                    <li>Implement proper authorization checks for each request</li>
+                                    <li>Use a centralized access control mechanism</li>
+                                    <li>Deny access by default (whitelist approach)</li>
+                                    <li>Implement proper session management</li>
+                                    <li>Disable directory listing on servers</li>
                                 </ul>
                             </div>
+                        </div>
 
-                            <div class="quiz-container">
-                                <div class="quiz-header">
-                                    <span>Quick Check: Introduction</span>
-                                    <span class="quiz-progress">Question 1 of 3</span>
+                        <h3 class="section-subtitle">Common Broken Access Control Vulnerabilities</h3>
+
+                        <div class="tab-container">
+                            <div class="tabs">
+                                <div class="tab active" data-tab="vertical">Vertical Privilege Escalation</div>
+                                <div class="tab" data-tab="horizontal">Horizontal Privilege Escalation</div>
+                                <div class="tab" data-tab="idor">IDOR</div>
+                            </div>
+
+                            <div class="tab-content active" id="vertical-tab">
+                                <h4>Vertical Privilege Escalation</h4>
+                                <p>Vertical privilege escalation occurs when a user can access functionality they
+                                    shouldn't have access to, such as administrative features or functions intended for
+                                    higher-privileged users.</p>
+
+                                <div class="info-box warning-box">
+                                    <div class="info-box-title">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        Example Vulnerability
+                                    </div>
+                                    <p>Consider a web application where normal users access their dashboard at <code>/user/dashboard</code>
+                                        and administrators access their dashboard at <code>/admin/dashboard</code>. If
+                                        the application only checks the URL path without verifying the user's role, a
+                                        regular user might access the admin dashboard by simply navigating to the admin
+                                        URL.</p>
                                 </div>
-                                <div class="quiz-body">
-                                    <div class="quiz-question">What is the primary purpose of the OWASP Top 10?</div>
-                                    <ul class="quiz-options">
-                                        <li class="quiz-option" data-correct="true">To raise awareness about the most critical web application security risks</li>
-                                        <li class="quiz-option">To provide a comprehensive list of all possible web vulnerabilities</li>
-                                        <li class="quiz-option">To serve as a legal compliance framework for organizations</li>
-                                        <li class="quiz-option">To rank web application frameworks by their security features</li>
-                                    </ul>
-                                    <div class="quiz-explanation">
-                                        <strong>Correct!</strong> The OWASP Top 10 is an awareness document that represents a broad consensus about the most critical security risks to web applications. It's designed to raise awareness and change the software development culture to produce more secure code.
-                                    </div>
-                                    <div class="quiz-buttons">
-                                        <button class="btn btn-primary quiz-check">Check Answer</button>
-                                        <button class="btn btn-primary quiz-next" style="display: none;">Next Question</button>
-                                    </div>
+
+                                <div class="code-block code-vulnerable">
+                                    <span class="code-comment">// Vulnerable code - only checks the URL pattern, not the user's role</span><br>
+                                    app.get('/admin/dashboard', (req, res) => {<br>
+                                    &nbsp;&nbsp;// No authorization check!<br>
+                                    &nbsp;&nbsp;res.render('admin-dashboard');<br>
+                                    });
+                                </div>
+
+                                <div class="code-block code-secure">
+                                    <span class="code-comment">// Secure code - checks if the user has admin role</span><br>
+                                    app.get('/admin/dashboard', (req, res) => {<br>
+                                    &nbsp;&nbsp;if (!req.user || req.user.role !== 'admin') {<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(403).send('Access Denied');<br>
+                                    &nbsp;&nbsp;}<br>
+                                    &nbsp;&nbsp;res.render('admin-dashboard');<br>
+                                    });
                                 </div>
                             </div>
 
-                            <div class="section-navigation">
-                                <a href="#" class="nav-button nav-prev" style="visibility: hidden;">
-                                    <i class="fas fa-arrow-left"></i>
-                                    Previous
-                                </a>
-                                <a href="#" class="nav-button nav-next" data-next="broken-access">
-                                    Next: Broken Access Control
-                                    <i class="fas fa-arrow-right"></i>
-                                </a>
+                            <div class="tab-content" id="horizontal-tab" style="display: none;">
+                                <h4>Horizontal Privilege Escalation</h4>
+                                <p>Horizontal privilege escalation occurs when a user can access resources belonging to
+                                    another user of the same privilege level.</p>
+
+                                <div class="info-box warning-box">
+                                    <div class="info-box-title">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        Example Vulnerability
+                                    </div>
+                                    <p>If a user can access their profile at <code>/profile?user_id=123</code>, they
+                                        might be able to access another user's profile by changing the user_id parameter
+                                        to <code>/profile?user_id=456</code> if proper access controls are not in place.
+                                    </p>
+                                </div>
+
+                                <div class="code-block code-vulnerable">
+                                    <span class="code-comment">// Vulnerable code - doesn't verify the authenticated user's ID</span><br>
+                                    app.get('/profile', (req, res) => {<br>
+                                    &nbsp;&nbsp;const userId = req.query.user_id;<br>
+                                    &nbsp;&nbsp;// Directly using the user_id from the request without verification<br>
+                                    &nbsp;&nbsp;db.getUserProfile(userId).then(profile => {<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;res.render('profile', { profile });<br>
+                                    &nbsp;&nbsp;});<br>
+                                    });
+                                </div>
+
+                                <div class="code-block code-secure">
+                                    <span class="code-comment">// Secure code - verifies the user has access to the requested profile</span><br>
+                                    app.get('/profile', (req, res) => {<br>
+                                    &nbsp;&nbsp;const userId = req.query.user_id;<br>
+                                    &nbsp;&nbsp;// Check if user is requesting their own profile or has permission<br>
+                                    &nbsp;&nbsp;if (req.user.id !== userId && !req.user.canAccessProfile(userId)) {<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(403).send('Access Denied');<br>
+                                    &nbsp;&nbsp;}<br>
+                                    &nbsp;&nbsp;db.getUserProfile(userId).then(profile => {<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;res.render('profile', { profile });<br>
+                                    &nbsp;&nbsp;});<br>
+                                    });
+                                </div>
+                            </div>
+
+                            <div class="tab-content" id="idor-tab" style="display: none;">
+                                <h4>Insecure Direct Object References (IDOR)</h4>
+                                <p>IDOR is a type of access control vulnerability where an application uses
+                                    user-supplied input to directly access objects. It's a common way that both vertical
+                                    and horizontal privilege escalation occur.</p>
+
+                                <div class="info-box warning-box">
+                                    <div class="info-box-title">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        Example Vulnerability
+                                    </div>
+                                    <p>A user might be able to download a file at
+                                        <code>/download?file=report123.pdf</code>. If the application doesn't verify
+                                        that the user has permission to access the specified file, they might be able to
+                                        download any file on the server by changing the file parameter.</p>
+                                </div>
+
+                                <div class="code-block code-vulnerable">
+                                    <span class="code-comment">// Vulnerable code - directly uses file parameter without access control</span><br>
+                                    app.get('/download', (req, res) => {<br>
+                                    &nbsp;&nbsp;const filePath = `/app/files/${req.query.file}`;<br>
+                                    &nbsp;&nbsp;// No verification that the user can access this file<br>
+                                    &nbsp;&nbsp;res.download(filePath);<br>
+                                    });
+                                </div>
+
+                                <div class="code-block code-secure">
+                                    <span class="code-comment">// Secure code - verifies file ownership and uses a mapping instead of direct references</span><br>
+                                    app.get('/download/:fileId', (req, res) => {<br>
+                                    &nbsp;&nbsp;const fileId = req.params.fileId;<br>
+                                    &nbsp;&nbsp;// Get file details from database<br>
+                                    &nbsp;&nbsp;db.getFile(fileId).then(file => {<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;// Check if user has access to this file<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;if (!file || file.ownerId !== req.user.id) {<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return res.status(403).send('Access
+                                    Denied');<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;// Use the stored path, not a user-provided one<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;res.download(file.path);<br>
+                                    &nbsp;&nbsp;});<br>
+                                    });
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Broken Access Control Section -->
-                    <div class="workshop-section" id="broken-access-section" style="display: none;">
-                        <h2 class="section-title">A01: Broken Access Control</h2>
-                        <div class="completion-badge">Completed</div>
+                        <h3 class="section-subtitle">Practical Exercise</h3>
+                        <p>Let's practice identifying broken access control vulnerabilities. Below is a simplified web
+                            application interface. Try to identify the access control issues.</p>
 
-                        <div class="section-content">
-                            <p>Broken Access Control is the most common and impactful vulnerability according to the OWASP Top 10 (2021). Access control enforces policy such that users cannot act outside of their intended permissions. Failures in access control lead to unauthorized information disclosure, modification, or destruction of data, or performing unauthorized business functions.</p>
-
-                            <div class="vulnerability-card">
-                                <div class="vulnerability-header">
-                                    <i class="fas fa-unlock-alt"></i>
-                                    Broken Access Control
-                                </div>
-                                <div class="vulnerability-body">
-                                    <span class="vulnerability-risk risk-high">High Risk</span>
-                                    <p class="vulnerability-description">Broken access control occurs when application functions or data are not protected with proper authorization checks, allowing attackers to access data or perform actions they shouldn't be able to do.</p>
-                                    <p class="vulnerability-example">Example: A user can access another user's account or admin pages by simply changing a parameter in the URL.</p>
-                                    <h4>Common Prevention Methods:</h4>
-                                    <ul class="prevention-list">
-                                        <li>Implement proper authorization checks for each request</li>
-                                        <li>Use a centralized access control mechanism</li>
-                                        <li>Deny access by default (whitelist approach)</li>
-                                        <li>Implement proper session management</li>
-                                        <li>Disable directory listing on servers</li>
-                                    </ul>
-                                </div>
+                        <div class="demo-container">
+                            <div class="demo-header">
+                                Example Web Application
                             </div>
-
-                            <h3 class="section-subtitle">Common Broken Access Control Vulnerabilities</h3>
-
-                            <div class="tab-container">
-                                <div class="tabs">
-                                    <div class="tab active" data-tab="vertical">Vertical Privilege Escalation</div>
-                                    <div class="tab" data-tab="horizontal">Horizontal Privilege Escalation</div>
-                                    <div class="tab" data-tab="idor">IDOR</div>
+                            <div class="demo-body">
+                                <div class="demo-form">
+                                    <div class="form-group">
+                                        <label class="form-label">Current URL:</label>
+                                        <input type="text" class="form-control"
+                                               value="https://example.com/users/profile/123" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Try a different URL:</label>
+                                        <select class="form-control" id="url-change">
+                                            <option value="profile">https://example.com/users/profile/123</option>
+                                            <option value="other-profile">https://example.com/users/profile/456</option>
+                                            <option value="admin">https://example.com/admin/dashboard</option>
+                                            <option value="settings">https://example.com/users/settings?user_id=123
+                                            </option>
+                                            <option value="other-settings">
+                                                https://example.com/users/settings?user_id=456
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-primary" id="access-button">Access URL</button>
                                 </div>
-
-                                <div class="tab-content active" id="vertical-tab">
-                                    <h4>Vertical Privilege Escalation</h4>
-                                    <p>Vertical privilege escalation occurs when a user can access functionality they shouldn't have access to, such as administrative features or functions intended for higher-privileged users.</p>
-
-                                    <div class="info-box warning-box">
-                                        <div class="info-box-title">
-                                            <i class="fas fa-exclamation-circle"></i>
-                                            Example Vulnerability
-                                        </div>
-                                        <p>Consider a web application where normal users access their dashboard at <code>/user/dashboard</code> and administrators access their dashboard at <code>/admin/dashboard</code>. If the application only checks the URL path without verifying the user's role, a regular user might access the admin dashboard by simply navigating to the admin URL.</p>
-                                    </div>
-
-                                    <div class="code-block code-vulnerable">
-                                        <span class="code-comment">// Vulnerable code - only checks the URL pattern, not the user's role</span><br>
-                                        app.get('/admin/dashboard', (req, res) => {<br>
-                                        &nbsp;&nbsp;// No authorization check!<br>
-                                        &nbsp;&nbsp;res.render('admin-dashboard');<br>
-                                        });
-                                    </div>
-
-                                    <div class="code-block code-secure">
-                                        <span class="code-comment">// Secure code - checks if the user has admin role</span><br>
-                                        app.get('/admin/dashboard', (req, res) => {<br>
-                                        &nbsp;&nbsp;if (!req.user || req.user.role !== 'admin') {<br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;return res.status(403).send('Access Denied');<br>
-                                        &nbsp;&nbsp;}<br>
-                                        &nbsp;&nbsp;res.render('admin-dashboard');<br>
-                                        });
-                                    </div>
+                                <div class="demo-result" id="access-result">
+                                    <!-- Will be populated by JavaScript -->
                                 </div>
-
-                                <div class="tab-content" id="horizontal-tab" style="display: none;">
-                                    <h4>Horizontal Privilege Escalation</h4>
-                                    <p>Horizontal privilege escalation occurs when a user can access resources belonging to another user of the same privilege level.</p>
-
-                                    <div class="info-box warning-box">
-                                        <div class="info-box-title">
-                                            <i class="fas fa-exclamation-circle"></i>
-                                            Example Vulnerability
-                                        </div>
-                                        <p>If a user can access their profile at <code>/profile?user_id=123</code>, they might be able to access another user's profile by changing the user_id parameter to <code>/profile?user_id=456</code> if proper access controls are not in place.</p>
-                                    </div>
-
-                                    <div class="code-block code-vulnerable">
-                                        <span class="code-comment">// Vulnerable code - doesn't verify the authenticated user's ID</span><br>
-                                        app.get('/profile', (req, res) => {<br>
-                                        &nbsp;&nbsp;const userId = req.query.user_id;<br>
-                                        &nbsp;&nbsp;// Directly using the user_id from the request without verification<br>
-                                        &nbsp;&nbsp;db.getUserProfile(userId).then(profile => {<br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;res.render('profile', { profile });<br>
-                                        &nbsp;&nbsp;});<br>
-                                        });
-                                    </div>
-
-                                    <div class="code-block code-secure">
-                                        <span class="code-comment">// Secure code - verifies the user has access to the requested profile</span><br>
-                                        app.get('/profile', (req, res) => {<br>
-                                        &nbsp;&nbsp;const userId = req.query.user_id;<br>
-                                        &nbsp;&nbsp;// Check if user is requesting their own profile or has permission<br>
-                                        &nbsp;&nbsp;if (req.user.id !== userId && !req.user.canAccessProfile(userId)) {<br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;return res.status(403).send('Access Denied');<br>
-                                        &nbsp;&nbsp;}<br>
-                                        &nbsp;&nbsp;db.getUserProfile(userId).then(profile => {<br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;res.render('profile', { profile });<br>
-                                        &nbsp;&nbsp;});<br>
-                                        });
-                                    </div>
-                                </div>
-
-                                <div class="tab-content" id="idor-tab" style="display: none;">
-                                    <h4>Insecure Direct Object References (IDOR)</h4>
-                                    <p>IDOR is a type of access control vulnerability where an application uses user-supplied input to directly access objects. It's a common way that both vertical and horizontal privilege escalation occur.</p>
-
-                                    <div class="info-box warning-box">
-                                        <div class="info-box-title">
-                                            <i class="fas fa-exclamation-circle"></i>
-                                            Example Vulnerability
-                                        </div>
-                                        <p>A user might be able to download a file at <code>/download?file=report123.pdf</code>. If the application doesn't verify that the user has permission to access the specified file, they might be able to download any file on the server by changing the file parameter.</p>
-                                    </div>
-
-                                    <div class="code-block code-vulnerable">
-                                        <span class="code-comment">// Vulnerable code - directly uses file parameter without access control</span><br>
-                                        app.get('/download', (req, res) => {<br>
-                                        &nbsp;&nbsp;const filePath = `/app/files/${req.query.file}`;<br>
-                                        &nbsp;&nbsp;// No verification that the user can access this file<br>
-                                        &nbsp;&nbsp;res.download(filePath);<br>
-                                        });
-                                    </div>
-
-                                    <div class="code-block code-secure">
-                                        <span class="code-comment">// Secure code - verifies file ownership and uses a mapping instead of direct references</span><br>
-                                        app.get('/download/:fileId', (req, res) => {<br>
-                                        &nbsp;&nbsp;const fileId = req.params.fileId;<br>
-                                        &nbsp;&nbsp;// Get file details from database<br>
-                                        &nbsp;&nbsp;db.getFile(fileId).then(file => {<br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;// Check if user has access to this file<br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;if (!file || file.ownerId !== req.user.id) {<br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return res.status(403).send('Access Denied');<br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;// Use the stored path, not a user-provided one<br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;res.download(file.path);<br>
-                                        &nbsp;&nbsp;});<br>
-                                        });
-                                    </div>
-                                </div>
-                            </div>
-
-                            <h3 class="section-subtitle">Practical Exercise</h3>
-                            <p>Let's practice identifying broken access control vulnerabilities. Below is a simplified web application interface. Try to identify the access control issues.</p>
-
-                            <div class="demo-container">
-                                <div class="demo-header">
-                                    Example Web Application
-                                </div>
-                                <div class="demo-body">
-                                    <div class="demo-form">
-                                        <div class="form-group">
-                                            <label class="form-label">Current URL:</label>
-                                            <input type="text" class="form-control" value="https://example.com/users/profile/123" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">Try a different URL:</label>
-                                            <select class="form-control" id="url-change">
-                                                <option value="profile">https://example.com/users/profile/123</option>
-                                                <option value="other-profile">https://example.com/users/profile/456</option>
-                                                <option value="admin">https://example.com/admin/dashboard</option>
-                                                <option value="settings">https://example.com/users/settings?user_id=123</option>
-                                                <option value="other-settings">https://example.com/users/settings?user_id=456</option>
-                                            </select>
-                                        </div>
-                                        <button class="btn btn-primary" id="access-button">Access URL</button>
-                                    </div>
-                                    <div class="demo-result" id="access-result">
-                                        <!-- Will be populated by JavaScript -->
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="quiz-container">
-                                <div class="quiz-header">
-                                    <span>Knowledge Check: Broken Access Control</span>
-                                    <span class="quiz-progress">Question 1 of 3</span>
-                                </div>
-                                <div class="quiz-body">
-                                    <div class="quiz-question">Which of the following is NOT a typical mitigation for broken access control vulnerabilities?</div>
-                                    <ul class="quiz-options">
-                                        <li class="quiz-option">Implementing role-based access control (RBAC)</li>
-                                        <li class="quiz-option">Verifying user permissions for each request</li>
-                                        <li class="quiz-option" data-correct="true">Using client-side validation to restrict access to sensitive functions</li>
-                                        <li class="quiz-option">Denying access by default and using a whitelist approach</li>
-                                    </ul>
-                                    <div class="quiz-explanation">
-                                        <strong>Correct!</strong> Client-side validation is not a reliable mitigation for access control, as it can be easily bypassed by attackers. All access control checks should be implemented on the server-side where they cannot be tampered with by end users.
-                                    </div>
-                                    <div class="quiz-buttons">
-                                        <button class="btn btn-primary quiz-check">Check Answer</button>
-                                        <button class="btn btn-primary quiz-next" style="display: none;">Next Question</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="section-navigation">
-                                <a href="#" class="nav-button nav-prev" data-prev="introduction">
-                                    <i class="fas fa-arrow-left"></i>
-                                    Previous: Introduction
-                                </a>
-                                <a href="#" class="nav-button nav-next" data-next="crypto-failures">
-                                    Next: Cryptographic Failures
-                                    <i class="fas fa-arrow-right"></i>
-                                </a>
                             </div>
                         </div>
+
+                        <div class="quiz-container">
+                            <div class="quiz-header">
+                                <span>Knowledge Check: Broken Access Control</span>
+                                <span class="quiz-progress">Question 1 of 3</span>
+                            </div>
+                            <div class="quiz-body">
+                                <div class="quiz-question">Which of the following is NOT a typical mitigation for broken
+                                    access control vulnerabilities?
+                                </div>
+                                <ul class="quiz-options">
+                                    <li class="quiz-option">Implementing role-based access control (RBAC)</li>
+                                    <li class="quiz-option">Verifying user permissions for each request</li>
+                                    <li class="quiz-option" data-correct="true">Using client-side validation to restrict
+                                        access to sensitive functions
+                                    </li>
+                                    <li class="quiz-option">Denying access by default and using a whitelist approach
+                                    </li>
+                                </ul>
+                                <div class="quiz-explanation">
+                                    <strong>Correct!</strong> Client-side validation is not a reliable mitigation for
+                                    access control, as it can be easily bypassed by attackers. All access control checks
+                                    should be implemented on the server-side where they cannot be tampered with by end
+                                    users.
+                                </div>
+                                <div class="quiz-buttons">
+                                    <button class="btn btn-primary quiz-check">Check Answer</button>
+                                    <button class="btn btn-primary quiz-next" style="display: none;">Next Question
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-navigation">
+                            <a href="#" class="nav-button nav-prev" data-prev="introduction">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous: Introduction
+                            </a>
+                            <a href="#" class="nav-button nav-next" data-next="crypto-failures">
+                                Next: Cryptographic Failures
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
-
-                    <!-- More sections would be added here for each OWASP Top 10 vulnerability -->
-
                 </div>
+
+                <!-- More sections would be added here for each OWASP Top 10 vulnerability -->
+                <!-- Cryptographic Failures Section -->
+                <div class="workshop-section" id="crypto-failures-section" style="display: none;">
+                    <h2 class="section-title">A02: Cryptographic Failures</h2>
+                    <div class="completion-badge">Completed</div>
+
+                    <div class="section-content">
+                        <p>Cryptographic failures refer to weaknesses in the implementation, usage, or management of
+                            cryptographic systems. These failures can lead to sensitive data exposure, allowing
+                            attackers to access protected information such as credentials, personal data, health
+                            records, or business secrets.</p>
+
+                        <div class="vulnerability-card">
+                            <div class="vulnerability-header">
+                                <i class="fas fa-lock"></i>
+                                Cryptographic Failures
+                            </div>
+                            <div class="vulnerability-body">
+                                <span class="vulnerability-risk risk-high">High Risk</span>
+                                <p class="vulnerability-description">Cryptographic failures occur when data that should
+                                    be encrypted is transmitted or stored in clear text, when weak cryptographic
+                                    algorithms are used, or when cryptographic keys are mismanaged.</p>
+                                <p class="vulnerability-example">Example: A web application transmits sensitive data
+                                    like credit card numbers over HTTP instead of HTTPS, allowing attackers to intercept
+                                    this information.</p>
+                                <h4>Common Prevention Methods:</h4>
+                                <ul class="prevention-list">
+                                    <li>Use strong, up-to-date cryptographic algorithms</li>
+                                    <li>Implement proper key management</li>
+                                    <li>Encrypt data both in transit and at rest</li>
+                                    <li>Disable older, vulnerable protocols</li>
+                                    <li>Verify independently the effectiveness of configuration and settings</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 class="section-subtitle">Common Cryptographic Failure Vulnerabilities</h3>
+
+                        <div class="tab-container">
+                            <div class="tabs">
+                                <div class="tab active" data-tab="weak-crypto">Weak Cryptography</div>
+                                <div class="tab" data-tab="data-exposure">Data Exposure</div>
+                                <div class="tab" data-tab="key-management">Key Management</div>
+                            </div>
+
+                            <div class="tab-content active" id="weak-crypto-tab">
+                                <h4>Weak Cryptography</h4>
+                                <p>Using outdated or cryptographically weak algorithms can compromise the security of
+                                    encrypted data, making it vulnerable to various attacks.</p>
+
+                                <div class="info-box warning-box">
+                                    <div class="info-box-title">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        Example Vulnerability
+                                    </div>
+                                    <p>A web application using MD5 or SHA-1 for password hashing. These algorithms are
+                                        considered cryptographically broken and should not be used for secure
+                                        applications.</p>
+                                </div>
+
+                                <div class="code-block code-vulnerable">
+                                    <span class="code-comment">// Vulnerable code - using weak MD5 hashing</span><br>
+                                    function hashPassword(password) {<br>
+                                    &nbsp;&nbsp;const crypto = require('crypto');<br>
+                                    &nbsp;&nbsp;return crypto.createHash('md5').update(password).digest('hex');<br>
+                                    }
+                                </div>
+
+                                <div class="code-block code-secure">
+                                    <span class="code-comment">// Secure code - using proper password hashing with bcrypt</span><br>
+                                    async function hashPassword(password) {<br>
+                                    &nbsp;&nbsp;const bcrypt = require('bcrypt');<br>
+                                    &nbsp;&nbsp;const saltRounds = 10;<br>
+                                    &nbsp;&nbsp;return await bcrypt.hash(password, saltRounds);<br>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="tab-content" id="data-exposure-tab" style="display: none;">
+                                <h4>Sensitive Data Exposure</h4>
+                                <p>This occurs when sensitive data is not properly protected, allowing unauthorized
+                                    access to confidential information.</p>
+                            </div>
+
+                            <div class="tab-content" id="key-management-tab" style="display: none;">
+                                <h4>Poor Key Management</h4>
+                                <p>Improper handling of encryption keys can lead to compromised security, even when
+                                    strong algorithms are used.</p>
+                            </div>
+                        </div>
+
+                        <div class="quiz-container">
+                            <div class="quiz-header">
+                                <span>Knowledge Check: Cryptographic Failures</span>
+                                <span class="quiz-progress">Question 1 of 3</span>
+                            </div>
+                            <div class="quiz-body">
+                                <div class="quiz-question">Which of the following is considered a secure approach for
+                                    storing passwords?
+                                </div>
+                                <ul class="quiz-options">
+                                    <li class="quiz-option">Using a simple MD5 hash</li>
+                                    <li class="quiz-option">Storing them encrypted with AES using a single application
+                                        key
+                                    </li>
+                                    <li class="quiz-option" data-correct="true">Using a strong adaptive hashing function
+                                        like bcrypt with a unique salt per password
+                                    </li>
+                                    <li class="quiz-option">Base64 encoding the password before storing</li>
+                                </ul>
+                                <div class="quiz-explanation">
+                                    <strong>Correct!</strong> Strong adaptive hashing functions like bcrypt, Argon2, or
+                                    PBKDF2 with sufficient work factors and unique salts are the recommended approach
+                                    for password storage.
+                                </div>
+                                <div class="quiz-buttons">
+                                    <button class="btn btn-primary quiz-check">Check Answer</button>
+                                    <button class="btn btn-primary quiz-next" style="display: none;">Next Question
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-navigation">
+                            <a href="#" class="nav-button nav-prev" data-prev="broken-access">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous: Broken Access Control
+                            </a>
+                            <a href="#" class="nav-button nav-next" data-next="injection">
+                                Next: Injection
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Injection Section -->
+                <div class="workshop-section" id="injection-section" style="display: none;">
+                    <h2 class="section-title">A03: Injection</h2>
+                    <div class="completion-badge">Completed</div>
+
+                    <div class="section-content">
+                        <p>Injection flaws occur when untrusted data is sent to an interpreter as part of a command or
+                            query. The attacker's hostile data can trick the interpreter into executing unintended
+                            commands or accessing data without proper authorization.</p>
+
+                        <div class="vulnerability-card">
+                            <div class="vulnerability-header">
+                                <i class="fas fa-code"></i>
+                                Injection
+                            </div>
+                            <div class="vulnerability-body">
+                                <span class="vulnerability-risk risk-high">High Risk</span>
+                                <p class="vulnerability-description">Injection attacks target applications by inserting
+                                    malicious code through user inputs that are incorrectly filtered, validated, or
+                                    sanitized.</p>
+                                <p class="vulnerability-example">Example: An attacker submits SQL code in a web form
+                                    that changes the intended database query when executed.</p>
+                                <h4>Common Prevention Methods:</h4>
+                                <ul class="prevention-list">
+                                    <li>Use parameterized queries for database operations</li>
+                                    <li>Validate and sanitize all user inputs</li>
+                                    <li>Apply the principle of least privilege for database accounts</li>
+                                    <li>Use ORM frameworks that automatically handle sanitization</li>
+                                    <li>Implement context-specific output encoding</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 class="section-subtitle">Common Injection Vulnerabilities</h3>
+
+                        <div class="tab-container">
+                            <div class="tabs">
+                                <div class="tab active" data-tab="sql-injection">SQL Injection</div>
+                                <div class="tab" data-tab="nosql-injection">NoSQL Injection</div>
+                                <div class="tab" data-tab="command-injection">Command Injection</div>
+                            </div>
+
+                            <div class="tab-content active" id="sql-injection-tab">
+                                <h4>SQL Injection</h4>
+                                <p>SQL injection is a type of injection attack that targets SQL databases by inserting
+                                    malicious SQL code into query strings.</p>
+
+                                <div class="code-block code-vulnerable">
+                                    <span class="code-comment">// Vulnerable code - direct string concatenation</span><br>
+                                    const query = "SELECT * FROM users WHERE username = '" + username + "' AND password
+                                    = '" + password + "'";
+                                </div>
+
+                                <div class="code-block code-secure">
+                                    <span class="code-comment">// Secure code - parameterized query</span><br>
+                                    const query = "SELECT * FROM users WHERE username = ? AND password = ?";<br>
+                                    db.execute(query, [username, password]);
+                                </div>
+                            </div>
+
+                            <div class="tab-content" id="nosql-injection-tab" style="display: none;">
+                                <h4>NoSQL Injection</h4>
+                                <p>Similar to SQL injection, but targeting NoSQL databases like MongoDB by manipulating
+                                    query operators.</p>
+                            </div>
+
+                            <div class="tab-content" id="command-injection-tab" style="display: none;">
+                                <h4>Command Injection</h4>
+                                <p>Command injection attacks target applications that pass user input to system shell
+                                    commands.</p>
+                            </div>
+                        </div>
+
+                        <div class="section-navigation">
+                            <a href="#" class="nav-button nav-prev" data-prev="crypto-failures">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous: Cryptographic Failures
+                            </a>
+                            <a href="#" class="nav-button nav-next" data-next="insecure-design">
+                                Next: Insecure Design
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Insecure Design Section -->
+                <div class="workshop-section" id="insecure-design-section" style="display: none;">
+                    <h2 class="section-title">A04: Insecure Design</h2>
+                    <div class="completion-badge">Completed</div>
+
+                    <div class="section-content">
+                        <p>Insecure Design refers to flaws that occur when an application is designed without sufficient
+                            security measures in mind. This is different from implementation flaws and focuses on
+                            design-level failures that cannot be fixed by perfect implementation.</p>
+
+                        <div class="vulnerability-card">
+                            <div class="vulnerability-header">
+                                <i class="fas fa-drafting-compass"></i>
+                                Insecure Design
+                            </div>
+                            <div class="vulnerability-body">
+                                <span class="vulnerability-risk risk-high">High Risk</span>
+                                <p class="vulnerability-description">Insecure design encompasses a wide range of issues
+                                    that occur when security isn't integrated into the system architecture and design
+                                    process.</p>
+                                <h4>Common Prevention Methods:</h4>
+                                <ul class="prevention-list">
+                                    <li>Establish and use a secure development lifecycle</li>
+                                    <li>Employ threat modeling during design phases</li>
+                                    <li>Use secure design patterns and reference architectures</li>
+                                    <li>Integrate security requirements into user stories</li>
+                                    <li>Perform security reviews of system designs before implementation</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="section-navigation">
+                            <a href="#" class="nav-button nav-prev" data-prev="injection">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous: Injection
+                            </a>
+                            <a href="#" class="nav-button nav-next" data-next="security-misconfiguration">
+                                Next: Security Misconfiguration
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Misconfiguration Section -->
+                <div class="workshop-section" id="security-misconfiguration-section" style="display: none;">
+                    <h2 class="section-title">A05: Security Misconfiguration</h2>
+                    <div class="completion-badge">Completed</div>
+
+                    <div class="section-content">
+                        <p>Security misconfiguration is the most commonly seen issue and refers to missing appropriate
+                            security hardening across the application stack, improper configurations, or open cloud
+                            storage.</p>
+
+                        <div class="vulnerability-card">
+                            <div class="vulnerability-header">
+                                <i class="fas fa-cogs"></i>
+                                Security Misconfiguration
+                            </div>
+                            <div class="vulnerability-body">
+                                <span class="vulnerability-risk risk-medium">Medium Risk</span>
+                                <p class="vulnerability-description">Security misconfiguration can happen at any level
+                                    of the application stack, including network services, platform, web server,
+                                    application server, database, frameworks, custom code, and more.</p>
+                                <h4>Common Prevention Methods:</h4>
+                                <ul class="prevention-list">
+                                    <li>Implement a repeatable hardening process</li>
+                                    <li>Remove unused features, components, and frameworks</li>
+                                    <li>Review cloud storage permissions</li>
+                                    <li>Disable default accounts and passwords</li>
+                                    <li>Implement proper error handling</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="section-navigation">
+                            <a href="#" class="nav-button nav-prev" data-prev="insecure-design">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous: Insecure Design
+                            </a>
+                            <a href="#" class="nav-button nav-next" data-next="vulnerable-components">
+                                Next: Vulnerable Components
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vulnerable Components Section -->
+                <div class="workshop-section" id="vulnerable-components-section" style="display: none;">
+                    <h2 class="section-title">A06: Vulnerable and Outdated Components</h2>
+                    <div class="completion-badge">Completed</div>
+
+                    <div class="section-content">
+                        <p>Components such as libraries, frameworks, and other software modules, run with the same
+                            privileges as the application. If a vulnerable component is exploited, such an attack can
+                            facilitate serious data loss or server takeover.</p>
+
+                        <div class="vulnerability-card">
+                            <div class="vulnerability-header">
+                                <i class="fas fa-puzzle-piece"></i>
+                                Vulnerable Components
+                            </div>
+                            <div class="vulnerability-body">
+                                <span class="vulnerability-risk risk-medium">Medium Risk</span>
+                                <p class="vulnerability-description">Applications using components with known
+                                    vulnerabilities can undermine application defenses and enable various attacks.</p>
+                                <h4>Common Prevention Methods:</h4>
+                                <ul class="prevention-list">
+                                    <li>Remove unused dependencies</li>
+                                    <li>Continuously inventory versions of both client-side and server-side components
+                                    </li>
+                                    <li>Only obtain components from official sources</li>
+                                    <li>Monitor for libraries and components that are unmaintained</li>
+                                    <li>Establish a patch management process</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="section-navigation">
+                            <a href="#" class="nav-button nav-prev" data-prev="security-misconfiguration">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous: Security Misconfiguration
+                            </a>
+                            <a href="#" class="nav-button nav-next" data-next="auth-failures">
+                                Next: Authentication Failures
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Authentication Failures Section -->
+                <div class="workshop-section" id="auth-failures-section" style="display: none;">
+                    <h2 class="section-title">A07: Identification and Authentication Failures</h2>
+                    <div class="completion-badge">Completed</div>
+
+                    <div class="section-content">
+                        <p>Authentication failures occur when functions related to user identity, authentication, or
+                            session management are implemented incorrectly, allowing attackers to compromise passwords,
+                            keys, session tokens, or exploit implementation flaws to assume other users' identities.</p>
+
+                        <div class="vulnerability-card">
+                            <div class="vulnerability-header">
+                                <i class="fas fa-user-lock"></i>
+                                Authentication Failures
+                            </div>
+                            <div class="vulnerability-body">
+                                <span class="vulnerability-risk risk-high">High Risk</span>
+                                <p class="vulnerability-description">Authentication weaknesses can allow attackers to
+                                    access systems as another user or even an administrator.</p>
+                                <h4>Common Prevention Methods:</h4>
+                                <ul class="prevention-list">
+                                    <li>Implement multi-factor authentication</li>
+                                    <li>Do not deploy with default credentials</li>
+                                    <li>Implement weak-password checks</li>
+                                    <li>Limit or increasingly delay failed login attempts</li>
+                                    <li>Use a server-side, secure, built-in session manager</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="section-navigation">
+                            <a href="#" class="nav-button nav-prev" data-prev="vulnerable-components">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous: Vulnerable Components
+                            </a>
+                            <a href="#" class="nav-button nav-next" data-next="data-integrity">
+                                Next: Software & Data Integrity
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Integrity Section -->
+                <div class="workshop-section" id="data-integrity-section" style="display: none;">
+                    <h2 class="section-title">A08: Software and Data Integrity Failures</h2>
+                    <div class="completion-badge">Completed</div>
+
+                    <div class="section-content">
+                        <p>Software and data integrity failures relate to code and infrastructure that does not protect
+                            against integrity violations. This occurs when an application relies on plugins, libraries,
+                            or modules from untrusted sources, repositories, or content delivery networks (CDNs).</p>
+
+                        <div class="vulnerability-card">
+                            <div class="vulnerability-header">
+                                <i class="fas fa-database"></i>
+                                Software and Data Integrity
+                            </div>
+                            <div class="vulnerability-body">
+                                <span class="vulnerability-risk risk-medium">Medium Risk</span>
+                                <p class="vulnerability-description">An application that does not verify the integrity
+                                    of critical data, software updates, or CI/CD pipelines is vulnerable to unauthorized
+                                    changes that can lead to serious security issues.</p>
+                                <h4>Common Prevention Methods:</h4>
+                                <ul class="prevention-list">
+                                    <li>Use digital signatures to verify software or data authenticity</li>
+                                    <li>Ensure dependencies are from trusted repositories</li>
+                                    <li>Ensure CI/CD pipeline has proper segregation and configuration</li>
+                                    <li>Review code and configuration changes</li>
+                                    <li>Use only vetted libraries and frameworks from trusted sources</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="section-navigation">
+                            <a href="#" class="nav-button nav-prev" data-prev="auth-failures">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous: Authentication Failures
+                            </a>
+                            <a href="#" class="nav-button nav-next" data-next="logging-monitoring">
+                                Next: Logging & Monitoring
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logging and Monitoring Section -->
+                <div class="workshop-section" id="logging-monitoring-section" style="display: none;">
+                    <h2 class="section-title">A09: Security Logging and Monitoring Failures</h2>
+                    <div class="completion-badge">Completed</div>
+
+                    <div class="section-content">
+                        <p>This category is to help detect, escalate, and respond to active breaches. Without logging
+                            and monitoring, breaches cannot be detected. Insufficient logging, detection, monitoring,
+                            and active response occurs any time:</p>
+                        <ul>
+                            <li>Auditable events are not logged</li>
+                            <li>Logs are not monitored for suspicious activity</li>
+                            <li>Alerts are missing or ineffective</li>
+                        </ul>
+
+                        <div class="vulnerability-card">
+                            <div class="vulnerability-header">
+                                <i class="fas fa-search"></i>
+                                Logging and Monitoring
+                            </div>
+                            <div class="vulnerability-body">
+                                <span class="vulnerability-risk risk-medium">Medium Risk</span>
+                                <p class="vulnerability-description">Insufficient logging and monitoring, coupled with
+                                    missing or ineffective integration with incident response, allows attackers to
+                                    further attack systems, maintain persistence, and tamper with or extract data
+                                    without being detected.</p>
+                                <h4>Common Prevention Methods:</h4>
+                                <ul class="prevention-list">
+                                    <li>Implement logging for all login, access control, and server-side input
+                                        validation failures
+                                    </li>
+                                    <li>Ensure logs are in a format that can be easily consumed by log management
+                                        solutions
+                                    </li>
+                                    <li>Establish effective monitoring and alerting</li>
+                                    <li>Create or adopt an incident response and recovery plan</li>
+                                    <li>Use centralized log management and analysis tools</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="section-navigation">
+                            <a href="#" class="nav-button nav-prev" data-prev="data-integrity">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous: Software & Data Integrity
+                            </a>
+                            <a href="#" class="nav-button nav-next" data-next="ssrf">
+                                Next: Server-Side Request Forgery
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SSRF Section -->
+                <div class="workshop-section" id="ssrf-section" style="display: none;">
+                    <h2 class="section-title">A10: Server-Side Request Forgery (SSRF)</h2>
+                    <div class="completion-badge">Completed</div>
+
+                    <div class="section-content">
+                        <p>SSRF flaws occur whenever a web application is fetching a remote resource without validating
+                            the user-supplied URL. It allows an attacker to coerce the application to send a crafted
+                            request to an unexpected destination, even when protected by a firewall, VPN, or another
+                            type of network access control list (ACL).</p>
+
+                        <div class="vulnerability-card">
+                            <div class="vulnerability-header">
+                                <i class="fas fa-server"></i>
+                                Server-Side Request Forgery
+                            </div>
+                            <div class="vulnerability-body">
+                                <span class="vulnerability-risk risk-medium">Medium Risk</span>
+                                <p class="vulnerability-description">SSRF enables attackers to force the server to
+                                    connect to internal services within the organization or to external systems,
+                                    potentially leading to data disclosure or remote code execution.</p>
+                                <h4>Common Prevention Methods:</h4>
+                                <ul class="prevention-list">
+                                    <li>Implement a positive allow list of allowed domains, ports, protocols, and URLs
+                                    </li>
+                                    <li>Disable HTTP redirections</li>
+                                    <li>Do not send raw responses to clients</li>
+                                    <li>Use network segmentation for sensitive services</li>
+                                    <li>Sanitize and validate all client-supplied input data</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="code-block code-vulnerable">
+                            <span class="code-comment">// Vulnerable code - direct use of user input</span><br>
+                            app.get('/fetch', (req, res) => {<br>
+                            &nbsp;&nbsp;const url = req.query.url;<br>
+                            &nbsp;&nbsp;fetch(url).then(response => response.json())<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;.then(data => res.json(data));<br>
+                            });
+                        </div>
+
+                        <div class="code-block code-secure">
+                            <span class="code-comment">// Secure code - URL validation and allow list</span><br>
+                            app.get('/fetch', (req, res) => {<br>
+                            &nbsp;&nbsp;const url = req.query.url;<br>
+                            &nbsp;&nbsp;const allowedDomains = ['api.example.com', 'api.trusted-source.org'];<br>
+                            &nbsp;&nbsp;try {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;const parsedUrl = new URL(url);<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;if (!allowedDomains.includes(parsedUrl.hostname)) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return res.status(403).send('Domain not allowed');<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;fetch(url).then(response => response.json())<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.then(data => res.json(data));<br>
+                            &nbsp;&nbsp;} catch (e) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;res.status(400).send('Invalid URL');<br>
+                            &nbsp;&nbsp;}<br>
+                            });
+                        </div>
+
+                        <div class="section-navigation">
+                            <a href="#" class="nav-button nav-prev" data-prev="logging-monitoring">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous: Logging & Monitoring
+                            </a>
+                            <a href="#" class="nav-button nav-next" data-next="secure-coding">
+                                Next: Secure Coding Practices
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secure Coding Practices Section -->
+                <div class="workshop-section" id="secure-coding-section" style="display: none;">
+                    <h2 class="section-title">Secure Coding Practices</h2>
+                    <div class="completion-badge">Completed</div>
+
+                    <div class="section-content">
+                        <p>Secure coding practices are a set of guidelines and principles that developers should follow
+                            to create more secure applications. These practices help prevent vulnerabilities and reduce
+                            the attack surface of your applications.</p>
+
+                        <h3 class="section-subtitle">Key Secure Coding Principles</h3>
+                        <ul>
+                            <li><strong>Defense in Depth</strong> - Implement multiple layers of security controls</li>
+                            <li><strong>Least Privilege</strong> - Grant only the permissions needed to perform a task
+                            </li>
+                            <li><strong>Secure by Default</strong> - Default configurations should be secure</li>
+                            <li><strong>Fail Securely</strong> - When something fails, it should fail in a secure state
+                            </li>
+                            <li><strong>Input Validation</strong> - Validate all input against a whitelist of allowed
+                                values
+                            </li>
+                            <li><strong>Output Encoding</strong> - Encode output to prevent injection attacks</li>
+                        </ul>
+
+                        <div class="info-box">
+                            <div class="info-box-title">
+                                <i class="fas fa-lightbulb"></i>
+                                Best Practices
+                            </div>
+                            <p>Following secure coding practices should be integrated into your entire development
+                                lifecycle, from design to implementation and maintenance. Regular security training for
+                                development teams is essential to keep skills up to date with evolving threats.</p>
+                        </div>
+
+                        <div class="section-navigation">
+                            <a href="#" class="nav-button nav-prev" data-prev="ssrf">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous: Server-Side Request Forgery
+                            </a>
+                            <a href="#" class="nav-button nav-next" data-next="testing-tools">
+                                Next: Security Testing Tools
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Testing Tools Section -->
+                <div class="workshop-section" id="testing-tools-section" style="display: none;">
+                    <h2 class="section-title">Security Testing Tools</h2>
+                    <div class="completion-badge">Completed</div>
+
+                    <div class="section-content">
+                        <p>Security testing tools help identify vulnerabilities in your applications before attackers
+                            can exploit them. These tools should be integrated into your development and deployment
+                            pipelines for continuous security assurance.</p>
+
+                        <h3 class="section-subtitle">Categories of Security Testing Tools</h3>
+                        <ul>
+                            <li><strong>Static Application Security Testing (SAST)</strong> - Analyzes source code for
+                                security vulnerabilities
+                            </li>
+                            <li><strong>Dynamic Application Security Testing (DAST)</strong> - Tests running
+                                applications for vulnerabilities
+                            </li>
+                            <li><strong>Software Composition Analysis (SCA)</strong> - Identifies vulnerabilities in
+                                third-party components
+                            </li>
+                            <li><strong>Interactive Application Security Testing (IAST)</strong> - Combines SAST and
+                                DAST approaches
+                            </li>
+                            <li><strong>Penetration Testing Tools</strong> - Used for simulating attacks on systems</li>
+                        </ul>
+
+                        <h3 class="section-subtitle">Popular Security Testing Tools</h3>
+                        <ul>
+                            <li><strong>OWASP ZAP</strong> - Open-source web application security scanner</li>
+                            <li><strong>Burp Suite</strong> - Integrated platform for web application security testing
+                            </li>
+                            <li><strong>SonarQube</strong> - Static code analysis platform</li>
+                            <li><strong>Dependency-Check</strong> - Identifies project dependencies and known
+                                vulnerabilities
+                            </li>
+                            <li><strong>Metasploit</strong> - Penetration testing framework</li>
+                        </ul>
+
+                        <div class="info-box">
+                            <div class="info-box-title">
+                                <i class="fas fa-lightbulb"></i>
+                                Tool Integration
+                            </div>
+                            <p>For maximum effectiveness, security testing tools should be integrated into your CI/CD
+                                pipeline to catch vulnerabilities early in the development process. However, tools alone
+                                are not sufficient - they should be combined with manual code reviews and security
+                                expertise.</p>
+                        </div>
+
+                        <div class="section-navigation">
+                            <a href="#" class="nav-button nav-prev" data-prev="secure-coding">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous: Secure Coding Practices
+                            </a>
+                            <a href="#" class="nav-button nav-next" style="visibility: hidden;">
+                                Next
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
+</div>
 
 <script src="/Interactive_Section/javascript/owasp-workshop.js"></script>
 <script src="/Interactive_Section/javascript/cyber-vis.js"></script>
