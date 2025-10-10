@@ -37,6 +37,12 @@
     </div>
 </header>
 
+<!-- Notification System -->
+<div class="notification" id="notification">
+    <strong id="notificationTitle"></strong>
+    <p id="notificationMessage"></p>
+</div>
+
 <!-- SOC Simulation Section -->
 <section class="simulation-section">
     <div class="container">
@@ -103,12 +109,8 @@
                             <label for="status-new">New</label>
                         </div>
                         <div class="filter-option">
-                            <input type="checkbox" id="status-in-progress" checked>
-                            <label for="status-in-progress">In Progress</label>
-                        </div>
-                        <div class="filter-option">
-                            <input type="checkbox" id="status-closed" checked>
-                            <label for="status-closed">Closed</label>
+                            <input type="checkbox" id="status-resolved">
+                            <label for="status-resolved">Resolved</label>
                         </div>
                     </div>
                 </div>
@@ -116,15 +118,15 @@
                 <div class="filter-stats">
                     <div class="stat-item">
                         <span>Total Alerts:</span>
-                        <span class="stat-value">47</span>
+                        <span class="stat-value" id="stat-total">0</span>
                     </div>
                     <div class="stat-item">
                         <span>New Alerts:</span>
-                        <span class="stat-value">18</span>
+                        <span class="stat-value" id="stat-new">0</span>
                     </div>
                     <div class="stat-item">
                         <span>Critical Alerts:</span>
-                        <span class="stat-value">3</span>
+                        <span class="stat-value" id="stat-critical">0</span>
                     </div>
                     <div class="stat-item">
                         <span>MTTR (Average):</span>
@@ -155,131 +157,17 @@
 
                 <!-- Alerts Tab Content -->
                 <div class="tab-content active" id="alerts-tab">
-                    <ul class="alert-list">
-                        <li class="alert-item critical" onclick="showAlertDetail()">
-                            <div class="alert-header">
-                                <span class="alert-title">Potential Ransomware Activity Detected</span>
-                                <span class="alert-severity critical">Critical</span>
-                            </div>
-                            <div class="alert-details">
-                                <span class="alert-source"><i
-                                        class="fas fa-laptop"></i> EDR - Endpoint 192.168.1.45</span>
-                                <span class="alert-time"><i class="far fa-clock"></i> 15 minutes ago</span>
-                            </div>
-                            <div class="alert-actions">
-                                <button class="action-btn"><i class="fas fa-exclamation-circle"></i> Escalate</button>
-                                <button class="action-btn"><i class="fas fa-check-circle"></i> Resolve</button>
-                            </div>
-                        </li>
-                        <li class="alert-item high">
-                            <div class="alert-header">
-                                <span class="alert-title">Multiple Failed Login Attempts</span>
-                                <span class="alert-severity high">High</span>
-                            </div>
-                            <div class="alert-details">
-                                <span class="alert-source"><i
-                                        class="fas fa-key"></i> Authentication - VPN Gateway</span>
-                                <span class="alert-time"><i class="far fa-clock"></i> 32 minutes ago</span>
-                            </div>
-                            <div class="alert-actions">
-                                <button class="action-btn"><i class="fas fa-exclamation-circle"></i> Escalate</button>
-                                <button class="action-btn"><i class="fas fa-check-circle"></i> Resolve</button>
-                            </div>
-                        </li>
-                        <li class="alert-item high">
-                            <div class="alert-header">
-                                <span class="alert-title">Suspicious PowerShell Command Execution</span>
-                                <span class="alert-severity high">High</span>
-                            </div>
-                            <div class="alert-details">
-                                <span class="alert-source"><i
-                                        class="fas fa-laptop"></i> EDR - Endpoint 192.168.1.23</span>
-                                <span class="alert-time"><i class="far fa-clock"></i> 47 minutes ago</span>
-                            </div>
-                            <div class="alert-actions">
-                                <button class="action-btn"><i class="fas fa-exclamation-circle"></i> Escalate</button>
-                                <button class="action-btn"><i class="fas fa-check-circle"></i> Resolve</button>
-                            </div>
-                        </li>
-                        <li class="alert-item critical">
-                            <div class="alert-header">
-                                <span class="alert-title">Data Exfiltration Attempt Detected</span>
-                                <span class="alert-severity critical">Critical</span>
-                            </div>
-                            <div class="alert-details">
-                                <span class="alert-source"><i
-                                        class="fas fa-network-wired"></i> IDS - Network Sensor 3</span>
-                                <span class="alert-time"><i class="far fa-clock"></i> 1 hour ago</span>
-                            </div>
-                            <div class="alert-actions">
-                                <button class="action-btn"><i class="fas fa-exclamation-circle"></i> Escalate</button>
-                                <button class="action-btn"><i class="fas fa-check-circle"></i> Resolve</button>
-                            </div>
-                        </li>
-                        <li class="alert-item medium">
-                            <div class="alert-header">
-                                <span class="alert-title">Unusual Authentication Time</span>
-                                <span class="alert-severity medium">Medium</span>
-                            </div>
-                            <div class="alert-details">
-                                <span class="alert-source"><i class="fas fa-key"></i> Authentication - Office 365</span>
-                                <span class="alert-time"><i class="far fa-clock"></i> 1.5 hours ago</span>
-                            </div>
-                            <div class="alert-actions">
-                                <button class="action-btn"><i class="fas fa-exclamation-circle"></i> Escalate</button>
-                                <button class="action-btn"><i class="fas fa-check-circle"></i> Resolve</button>
-                            </div>
-                        </li>
-                        <li class="alert-item medium">
-                            <div class="alert-header">
-                                <span class="alert-title">Unencrypted Data Transfer Detected</span>
-                                <span class="alert-severity medium">Medium</span>
-                            </div>
-                            <div class="alert-details">
-                                <span class="alert-source"><i class="fas fa-network-wired"></i> DLP - Web Proxy</span>
-                                <span class="alert-time"><i class="far fa-clock"></i> 2 hours ago</span>
-                            </div>
-                            <div class="alert-actions">
-                                <button class="action-btn"><i class="fas fa-exclamation-circle"></i> Escalate</button>
-                                <button class="action-btn"><i class="fas fa-check-circle"></i> Resolve</button>
-                            </div>
-                        </li>
-                        <li class="alert-item low">
-                            <div class="alert-header">
-                                <span class="alert-title">Outdated Software Version</span>
-                                <span class="alert-severity low">Low</span>
-                            </div>
-                            <div class="alert-details">
-                                <span class="alert-source"><i class="fas fa-bug"></i> Vulnerability Scanner</span>
-                                <span class="alert-time"><i class="far fa-clock"></i> 3 hours ago</span>
-                            </div>
-                            <div class="alert-actions">
-                                <button class="action-btn"><i class="fas fa-exclamation-circle"></i> Escalate</button>
-                                <button class="action-btn"><i class="fas fa-check-circle"></i> Resolve</button>
-                            </div>
-                        </li>
-                        <li class="alert-item low">
-                            <div class="alert-header">
-                                <span class="alert-title">SSL Certificate Expiring Soon</span>
-                                <span class="alert-severity low">Low</span>
-                            </div>
-                            <div class="alert-details">
-                                <span class="alert-source"><i class="fas fa-certificate"></i> Certificate Monitor</span>
-                                <span class="alert-time"><i class="far fa-clock"></i> 4 hours ago</span>
-                            </div>
-                            <div class="alert-actions">
-                                <button class="action-btn"><i class="fas fa-exclamation-circle"></i> Escalate</button>
-                                <button class="action-btn"><i class="fas fa-check-circle"></i> Resolve</button>
-                            </div>
-                        </li>
+                    <!-- Alert list will be dynamically generated by JavaScript -->
+                    <ul class="alert-list" id="alert-list">
+                        <!-- Alerts populated by soc-simulation.js -->
                     </ul>
                 </div>
 
-                <!-- Alert Detail View (initially hidden) -->
-                <div class="tab-content" id="alert-detail-view" style="display: none;">
+                <!-- Alert Detail View -->
+                <div class="tab-content" id="alert-detail-tab">
                     <div class="alert-detail-view">
                         <div class="detail-header">
-                            <h3 class="detail-title">Potential Ransomware Activity Detected</h3>
+                            <h3 class="detail-title">Alert Details</h3>
                             <div class="detail-meta">
                                 <div class="detail-meta-item">
                                     <i class="fas fa-exclamation-triangle"></i>
@@ -287,19 +175,19 @@
                                 </div>
                                 <div class="detail-meta-item">
                                     <i class="fas fa-laptop"></i>
-                                    <span>Source: EDR - Endpoint 192.168.1.45</span>
+                                    <span>Source: EDR - Endpoint</span>
                                 </div>
                                 <div class="detail-meta-item">
                                     <i class="far fa-clock"></i>
-                                    <span>Detected: May 1, 2025 10:45 AM</span>
+                                    <span>Detected: N/A</span>
                                 </div>
                                 <div class="detail-meta-item">
                                     <i class="fas fa-user"></i>
-                                    <span>User: jsmith@company.com</span>
+                                    <span>User: N/A</span>
                                 </div>
                                 <div class="detail-meta-item">
                                     <i class="fas fa-tag"></i>
-                                    <span>Alert ID: EDR-RW-20250501-001</span>
+                                    <span>Alert ID: N/A</span>
                                 </div>
                             </div>
                         </div>
@@ -307,10 +195,7 @@
                         <div class="detail-section">
                             <h4 class="detail-section-title">Alert Description</h4>
                             <div class="detail-description">
-                                <p>The EDR system detected multiple suspicious activities consistent with ransomware
-                                    behavior on endpoint 192.168.1.45. This includes mass file encryption attempts,
-                                    deletion of shadow copies, and communication with known malicious command and
-                                    control servers.</p>
+                                <p>Loading alert details...</p>
                             </div>
                         </div>
 
@@ -365,23 +250,23 @@
                             <table class="detail-table">
                                 <tbody>
                                 <tr>
-                                    <td>Hostname</td>
+                                    <td><strong>Hostname</strong></td>
                                     <td>DESKTOP-FINANCE03</td>
                                 </tr>
                                 <tr>
-                                    <td>IP Address</td>
+                                    <td><strong>IP Address</strong></td>
                                     <td>192.168.1.45</td>
                                 </tr>
                                 <tr>
-                                    <td>User</td>
+                                    <td><strong>User</strong></td>
                                     <td>jsmith@company.com (John Smith - Finance Department)</td>
                                 </tr>
                                 <tr>
-                                    <td>Operating System</td>
+                                    <td><strong>Operating System</strong></td>
                                     <td>Windows 10 Pro 21H2 (OS Build 19044.2251)</td>
                                 </tr>
                                 <tr>
-                                    <td>Last Patch</td>
+                                    <td><strong>Last Patch</strong></td>
                                     <td>April 28, 2025</td>
                                 </tr>
                                 </tbody>
@@ -390,112 +275,89 @@
 
                         <div class="detail-section">
                             <h4 class="detail-section-title">PowerShell Command Details</h4>
-                            <h5 class="detail-section-subtitle">Encoded Command</h5>
-                            <div class="code-block">
-                                powershell.exe -NoP -NonI -W Hidden -Exec Bypass -Enc
-                                JABzAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAEkATwAuAE0AZQBtAG8AcgB5AFMAdAByAGUAYQBtACgALABbAEMAbwBuAHYAZ
-                                QByAHQAXQA6ADoARgByAG8AbQBCAGEAcwBlADYANABTAHQAcgBpAG4AZwAoACIASAA0AHMASQBBAEEAQQBBAEEAQQBBAEEAQQAxAFYAVwBhACIAKQApADsASQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQB
-                                jAHQAIABJAE8ALgBTAHQAcgBlAGEAbQBSAGUAYQBkAGUAcgAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABJAE8ALgBDAG8AbQBwAHIAZQBzAHMAaQBvAG4ALgBHAHoAaQBwAFMAdAByAGUAYQBtACgAJABzACwAWwBJAE8ALgBDAG8AbQBwAHIAZQBzAHMAaQBvAG4ALgBDAG8AbQBwAHIAZQBzAHMAaQBvAG4ATQBvAGQAZQBdADoAOgBEAGUAYwBvAG0AcAByAGUAcwBzACkAKQApAC4AUgBlAGEAZABUAG8ARQBuAGQAKAApADsA
-                            </div>
-                            <h5 class="detail-section-subtitle">Decoded (Partial Analysis)</h5>
-                            <div class="code-block">
-                                $s=New-Object IO.MemoryStream(,[Convert]::FromBase64String("H4sIAAAAAAAAA1VWa"));
-                                IEX (New-Object IO.StreamReader(New-Object
-                                IO.Compression.GzipStream($s,[IO.Compression.CompressionMode]::Decompress))).ReadToEnd();
-                            </div>
+                            <p style="margin-bottom: 10px;"><strong>Encoded Command:</strong></p>
+                            <div class="code-block">powershell.exe -NoP -NonI -W Hidden -Exec Bypass -Enc
+JABzAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAEkATwAuAE0AZQBtAG8AcgB5AFMAdAByAGUAYQBtACgALABbAEMAbwBuAHYAZ
+QByAHQAXQA6ADoARgByAG8AbQBCAGEAcwBlADYANABTAHQAcgBpAG4AZwAoACIASAA0AHMASQBBAEEAQQBBAEEAQQBBAEEAQQAxAFYAVwBhACIAKQApADsASQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQB</div>
+                            <p style="margin: 15px 0 10px;"><strong>Decoded (Partial Analysis):</strong></p>
+                            <div class="code-block">$s=New-Object IO.MemoryStream(,[Convert]::FromBase64String("H4sIAAAAAAAAA1VWa"));
+IEX (New-Object IO.StreamReader(New-Object IO.Compression.GzipStream($s,[IO.Compression.CompressionMode]::Decompress))).ReadToEnd();</div>
                         </div>
 
                         <div class="detail-section">
                             <h4 class="detail-section-title">Recommended Actions</h4>
                             <ol style="padding-left: 20px; line-height: 1.8; margin-bottom: 20px;">
-                                <li><strong>Isolate the affected endpoint immediately</strong> to prevent lateral
-                                    movement and further encryption.
-                                </li>
-                                <li><strong>Disable the user account</strong> and force password reset for all accounts
-                                    that may have been logged into the affected system.
-                                </li>
-                                <li><strong>Block all communication</strong> to the identified command and control IP
-                                    address (185.122.58.12) at the firewall.
-                                </li>
-                                <li><strong>Scan all systems</strong> for similar indicators of compromise, especially
-                                    within the same department.
-                                </li>
-                                <li><strong>Preserve forensic evidence</strong> for detailed analysis and potential
-                                    legal requirements.
-                                </li>
-                                <li><strong>Initiate incident response plan</strong> and notify appropriate stakeholders
-                                    according to the procedure.
-                                </li>
+                                <li><strong>Isolate the affected endpoint immediately</strong> to prevent lateral movement and further encryption.</li>
+                                <li><strong>Disable the user account</strong> and force password reset for all accounts that may have been logged into the affected system.</li>
+                                <li><strong>Block all communication</strong> to the identified command and control IP address (185.122.58.12) at the firewall.</li>
+                                <li><strong>Scan all systems</strong> for similar indicators of compromise, especially within the same department.</li>
+                                <li><strong>Preserve forensic evidence</strong> for detailed analysis and potential legal requirements.</li>
+                                <li><strong>Initiate incident response plan</strong> and notify appropriate stakeholders according to the procedure.</li>
                             </ol>
                         </div>
 
                         <div class="response-actions">
-                            <button class="action-btn-large primary"><i class="fas fa-power-off"></i> Isolate Endpoint
-                            </button>
-                            <button class="action-btn-large"><i class="fas fa-user-lock"></i> Disable User Account
-                            </button>
-                            <button class="action-btn-large"><i class="fas fa-ban"></i> Block C2 Address</button>
-                            <button class="action-btn-large"><i class="fas fa-search"></i> Run Enterprise Scan</button>
-                            <button class="action-btn-large danger"><i class="fas fa-exclamation-triangle"></i> Escalate
-                                to IR Team
-                            </button>
+                            <button class="action-btn-large" id="back-to-alerts"><i class="fas fa-arrow-left"></i> Back to Alerts</button>
+                            <button class="action-btn-large primary" data-action="isolate"><i class="fas fa-power-off"></i> Isolate Endpoint</button>
+                            <button class="action-btn-large" data-action="disable"><i class="fas fa-user-lock"></i> Disable User Account</button>
+                            <button class="action-btn-large" data-action="block"><i class="fas fa-ban"></i> Block C2 Address</button>
+                            <button class="action-btn-large" data-action="scan"><i class="fas fa-search"></i> Run Enterprise Scan</button>
+                            <button class="action-btn-large danger" data-action="escalate"><i class="fas fa-exclamation-triangle"></i> Escalate to IR Team</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Dashboard Tab Content -->
                 <div class="tab-content" id="dashboard-tab">
-                    <div style="padding: 20px;">
-                        <div class="metrics-grid">
-                            <div class="metric-card">
-                                <div class="metric-icon">
-                                    <i class="fas fa-bell"></i>
-                                </div>
-                                <div class="metric-value">47</div>
-                                <div class="metric-title">Total Alerts Today</div>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-icon">
+                                <i class="fas fa-bell"></i>
                             </div>
-                            <div class="metric-card">
-                                <div class="metric-icon">
-                                    <i class="fas fa-exclamation-circle"></i>
-                                </div>
-                                <div class="metric-value">3</div>
-                                <div class="metric-title">Critical Alerts</div>
+                            <div class="metric-value" id="dashboard-total">0</div>
+                            <div class="metric-title">Total Alerts Today</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon">
+                                <i class="fas fa-exclamation-circle"></i>
                             </div>
-                            <div class="metric-card">
-                                <div class="metric-icon">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-                                <div class="metric-value">2.3h</div>
-                                <div class="metric-title">Mean Time to Resolve</div>
+                            <div class="metric-value" id="dashboard-critical">0</div>
+                            <div class="metric-title">Critical Alerts</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="metric-value">2.3h</div>
+                            <div class="metric-title">Mean Time to Resolve</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Alerts by Severity</div>
+                            <div class="time-selector">
+                                <div class="time-option" data-time="day">Day</div>
+                                <div class="time-option active" data-time="week">Week</div>
+                                <div class="time-option" data-time="month">Month</div>
                             </div>
                         </div>
+                        <div class="chart">
+                            [Severity Distribution Chart Visualization]
+                        </div>
+                    </div>
 
-                        <div class="chart-container">
-                            <div class="chart-header">
-                                <div class="chart-title">Alerts by Severity</div>
-                                <div class="time-selector">
-                                    <div class="time-option">Day</div>
-                                    <div class="time-option active">Week</div>
-                                    <div class="time-option">Month</div>
-                                </div>
-                            </div>
-                            <div class="chart" id="alerts-by-severity-chart">
-                                [Severity Distribution Chart Visualization]
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Alerts by Source</div>
+                            <div class="time-selector">
+                                <div class="time-option" data-time="day">Day</div>
+                                <div class="time-option active" data-time="week">Week</div>
+                                <div class="time-option" data-time="month">Month</div>
                             </div>
                         </div>
-
-                        <div class="chart-container">
-                            <div class="chart-header">
-                                <div class="chart-title">Alerts by Source</div>
-                                <div class="time-selector">
-                                    <div class="time-option">Day</div>
-                                    <div class="time-option active">Week</div>
-                                    <div class="time-option">Month</div>
-                                </div>
-                            </div>
-                            <div class="chart" id="alerts-by-source-chart">
-                                [Alert Source Distribution Chart Visualization]
-                            </div>
+                        <div class="chart">
+                            [Alert Source Distribution Chart Visualization]
                         </div>
                     </div>
                 </div>
@@ -506,12 +368,12 @@
                         <div class="list-header">
                             <div class="list-title">Security Playbooks</div>
                             <div class="search-bar">
-                                <input type="text" class="search-input" placeholder="Search playbooks...">
+                                <input type="text" class="search-input" id="playbooks-search" placeholder="Search playbooks...">
                                 <button class="search-btn"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
 
-                        <table class="list-table">
+                        <table class="list-table" id="playbooks-table">
                             <thead>
                             <tr>
                                 <th>Playbook Name</th>
@@ -521,63 +383,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Ransomware Response</td>
-                                <td>Malware</td>
-                                <td>April 25, 2025</td>
-                                <td><span class="status-badge active">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td>Phishing Investigation</td>
-                                <td>Email Security</td>
-                                <td>April 22, 2025</td>
-                                <td><span class="status-badge active">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td>Data Exfiltration Response</td>
-                                <td>Data Loss Prevention</td>
-                                <td>April 15, 2025</td>
-                                <td><span class="status-badge active">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td>Brute Force Attack Response</td>
-                                <td>Authentication</td>
-                                <td>April 10, 2025</td>
-                                <td><span class="status-badge active">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td>Insider Threat Investigation</td>
-                                <td>User Activity</td>
-                                <td>April 05, 2025</td>
-                                <td><span class="status-badge active">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td>Cloud Account Compromise</td>
-                                <td>Cloud Security</td>
-                                <td>March 28, 2025</td>
-                                <td><span class="status-badge active">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td>DDoS Mitigation</td>
-                                <td>Network Security</td>
-                                <td>March 20, 2025</td>
-                                <td><span class="status-badge active">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td>Malicious URL Investigation</td>
-                                <td>Web Security</td>
-                                <td>March 15, 2025</td>
-                                <td><span class="status-badge active">Active</span></td>
-                            </tr>
+                            <!-- Table rows populated by JavaScript -->
                             </tbody>
                         </table>
 
                         <div class="pagination">
-                            <div class="page-btn"><i class="fas fa-chevron-left"></i></div>
-                            <div class="page-btn active">1</div>
-                            <div class="page-btn">2</div>
-                            <div class="page-btn">3</div>
-                            <div class="page-btn"><i class="fas fa-chevron-right"></i></div>
+                            <!-- Pagination buttons populated by JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -588,12 +399,12 @@
                         <div class="list-header">
                             <div class="list-title">Active Incidents</div>
                             <div class="search-bar">
-                                <input type="text" class="search-input" placeholder="Search cases...">
+                                <input type="text" class="search-input" id="cases-search" placeholder="Search cases...">
                                 <button class="search-btn"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
 
-                        <table class="list-table">
+                        <table class="list-table" id="cases-table">
                             <thead>
                             <tr>
                                 <th>Case ID</th>
@@ -604,57 +415,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>INC-2025-042</td>
-                                <td>Finance Department Ransomware Investigation</td>
-                                <td>Critical</td>
-                                <td>Incident Response Team</td>
-                                <td><span class="status-badge in-progress">In Progress</span></td>
-                            </tr>
-                            <tr>
-                                <td>INC-2025-041</td>
-                                <td>Executive Account Compromise Attempt</td>
-                                <td>High</td>
-                                <td>Michael Chen</td>
-                                <td><span class="status-badge in-progress">In Progress</span></td>
-                            </tr>
-                            <tr>
-                                <td>INC-2025-040</td>
-                                <td>Unusual Database Activity Investigation</td>
-                                <td>Medium</td>
-                                <td>Sarah Johnson</td>
-                                <td><span class="status-badge pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>INC-2025-039</td>
-                                <td>Suspected Data Exfiltration via Email</td>
-                                <td>High</td>
-                                <td>David Wilson</td>
-                                <td><span class="status-badge in-progress">In Progress</span></td>
-                            </tr>
-                            <tr>
-                                <td>INC-2025-038</td>
-                                <td>Cloud Storage Misconfiguration</td>
-                                <td>Medium</td>
-                                <td>Cloud Security Team</td>
-                                <td><span class="status-badge closed">Closed</span></td>
-                            </tr>
-                            <tr>
-                                <td>INC-2025-037</td>
-                                <td>Web Application Vulnerability</td>
-                                <td>Medium</td>
-                                <td>Application Security Team</td>
-                                <td><span class="status-badge closed">Closed</span></td>
-                            </tr>
+                            <!-- Table rows populated by JavaScript -->
                             </tbody>
                         </table>
 
                         <div class="pagination">
-                            <div class="page-btn"><i class="fas fa-chevron-left"></i></div>
-                            <div class="page-btn active">1</div>
-                            <div class="page-btn">2</div>
-                            <div class="page-btn">3</div>
-                            <div class="page-btn"><i class="fas fa-chevron-right"></i></div>
+                            <!-- Pagination buttons populated by JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -665,12 +431,12 @@
                         <div class="list-header">
                             <div class="list-title">Security Reports</div>
                             <div class="search-bar">
-                                <input type="text" class="search-input" placeholder="Search reports...">
+                                <input type="text" class="search-input" id="reports-search" placeholder="Search reports...">
                                 <button class="search-btn"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
 
-                        <table class="list-table">
+                        <table class="list-table" id="reports-table">
                             <thead>
                             <tr>
                                 <th>Report Name</th>
@@ -680,63 +446,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Daily Security Operations Report</td>
-                                <td>Daily Summary</td>
-                                <td>May 01, 2025</td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-download"></i> Download</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Weekly Threat Intelligence Summary</td>
-                                <td>Threat Intelligence</td>
-                                <td>April 28, 2025</td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-download"></i> Download</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Monthly Incident Response Metrics</td>
-                                <td>Performance</td>
-                                <td>April 30, 2025</td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-download"></i> Download</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ransomware Incident Post-Mortem</td>
-                                <td>Incident Analysis</td>
-                                <td>April 22, 2025</td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-download"></i> Download</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Quarterly Vulnerability Assessment</td>
-                                <td>Compliance</td>
-                                <td>March 31, 2025</td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-download"></i> Download</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Executive Security Dashboard</td>
-                                <td>Executive Summary</td>
-                                <td>April 30, 2025</td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-download"></i> Download</button>
-                                </td>
-                            </tr>
+                            <!-- Table rows populated by JavaScript -->
                             </tbody>
                         </table>
 
                         <div class="pagination">
-                            <div class="page-btn"><i class="fas fa-chevron-left"></i></div>
-                            <div class="page-btn active">1</div>
-                            <div class="page-btn">2</div>
-                            <div class="page-btn">3</div>
-                            <div class="page-btn"><i class="fas fa-chevron-right"></i></div>
+                            <!-- Pagination buttons populated by JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -744,12 +459,10 @@
         </div>
     </div>
 </section>
+
+<!-- Load data first, then functionality -->
+<script src="../javascript/soc-data.js"></script>
 <script src="../javascript/soc-simulation.js"></script>
-<script src="/Interactive_Section/javascript/cyber-vis.js"></script>
-<!-- JavaScript for interactive functionality -->
-<script>
 
-</script>
 </body>
-
 </html>
