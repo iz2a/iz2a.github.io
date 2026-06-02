@@ -2116,3 +2116,91 @@
         font-size: 16px;
     }
 }
+/* ── Interactive Banner: Black + White/Gray only ── */
+
+.interactive-banner {
+    background-color: #000000;
+}
+
+.interactive-banner .section-title {
+    color: #ffffff;
+}
+
+.section-subtitle {
+    color: #cccccc;
+    opacity: 1;
+}
+
+.interactive-banner .cyber-box {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-left-color: #6c757d;
+}
+
+.interactive-banner .cyber-box p {
+    color: #e0e0e0;
+    opacity: 1;
+}
+
+.stat-number {
+    color: #ffffff;
+}
+
+.stat-label {
+    color: #aaaaaa;
+    opacity: 1;
+}
+
+.feature-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left-color: #6c757d;
+}
+
+.feature-text h3 {
+    color: #ffffff;
+}
+
+.feature-text p {
+    color: #bbbbbb;
+    opacity: 1;
+}
+
+.feature-icon {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.feature-icon i {
+    color: #ffffff;
+}
+
+.cta-info {
+    color: #999999;
+    opacity: 1;
+}
+
+.typing-text {
+    color: #ffffff;
+}
+
+.tech-details {
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.tech-item {
+    color: #cccccc;
+}
+
+.tech-item i {
+    color: #aaaaaa;
+}
+
+.interactive-banner-text > p,
+.interactive-banner p {
+    color: #e0e0e0;
+}
+
+.interactive-banner li,
+.interactive-banner span {
+    color: #dddddd;
+}
+
