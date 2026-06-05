@@ -128,96 +128,417 @@
     </a>
 </div>
 
-<!-- Interactive Learning Banner Section -->
-<section id="interactive-learning" class="interactive-banner">
-    <div class="cyber-line cyber-line-left"></div>
-    <div class="cyber-line cyber-line-right"></div>
-    <div class="binary-bg"></div>
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title cyber-accent" data-en="Interactive Cybersecurity Learning" data-ar="التعليم التفاعلي للأمن السيبراني">Interactive Cybersecurity Learning</h2>
-            <p class="section-subtitle" data-en="Hands-on training for the next generation of security professionals" data-ar="تدريب عملي للجيل القادم من متخصصي الأمن السيبراني">Hands-on training for the next generation of security professionals</p>
+<!-- ═══════════════════════════════════════════════════════
+     INTERACTIVE LEARNING SECTION — replace the entire
+     <section id="interactive-learning" ...> block in index.html
+     with this block
+════════════════════════════════════════════════════════ -->
+
+<style>
+/* ── Interactive Learning Section ── */
+#interactive-learning {
+    background: #04060C;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(56,189,248,0.08);
+    border-bottom: 1px solid rgba(56,189,248,0.08);
+}
+#interactive-learning::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+        radial-gradient(ellipse 800px 400px at 80% 50%, rgba(37,99,235,0.07) 0%, transparent 65%),
+        radial-gradient(ellipse 500px 300px at 20% 50%, rgba(56,189,248,0.04) 0%, transparent 65%);
+    pointer-events: none;
+}
+.il-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+}
+.il-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.il-eyebrow-line {
+    width: 28px; height: 1px;
+    background: #38BDF8;
+}
+.il-eyebrow-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.20em;
+    color: #38BDF8;
+    text-transform: uppercase;
+}
+.il-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+.il-left h2 {
+    font-size: clamp(34px, 4vw, 50px);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: #F0F4FF;
+    margin-bottom: 20px;
+}
+.il-left h2 strong {
+    font-weight: 600;
+    color: #38BDF8;
+}
+.il-left p {
+    font-size: 17px;
+    color: #7A8BA8;
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 40px;
+    max-width: 480px;
+}
+/* 3 featured mini-cards */
+.il-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+.il-feat {
+    background: rgba(12,18,37,0.7);
+    border: 1px solid rgba(56,189,248,0.10);
+    border-radius: 10px;
+    padding: 18px 16px;
+    transition: border-color 0.2s;
+}
+.il-feat:hover { border-color: rgba(56,189,248,0.28); }
+.il-feat-icon {
+    font-size: 20px;
+    color: #38BDF8;
+    margin-bottom: 10px;
+}
+.il-feat-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #F0F4FF;
+    margin-bottom: 5px;
+    line-height: 1.3;
+}
+.il-feat-sub {
+    font-size: 12px;
+    color: #4A5A72;
+    line-height: 1.5;
+}
+.il-cta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.il-btn-primary {
+    background: #2563EB;
+    color: white;
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.01em;
+}
+.il-btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); color: white; }
+.il-btn-ghost {
+    color: #7A8BA8;
+    font-size: 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+}
+.il-btn-ghost:hover { color: #38BDF8; }
+
+/* RIGHT: showcase panel */
+.il-right {
+    position: relative;
+}
+/* MIRSAD hero panel */
+.il-mirsad {
+    background: #080D18;
+    border: 1px solid rgba(37,99,235,0.28);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+}
+.il-mirsad::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #38BDF8, transparent);
+}
+.il-mirsad-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid rgba(56,189,248,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.il-mirsad-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.il-mirsad-title .live-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #10B981;
+    animation: blink-green 2s infinite;
+}
+@keyframes blink-green {
+    0%,100% { opacity:1; }
+    50% { opacity: 0.4; }
+}
+.il-mirsad-title span {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: #F0F4FF;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+.il-mirsad-title .arabic {
+    font-size: 14px;
+    color: #38BDF8;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+}
+.il-mirsad-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: #93C5FD;
+    background: rgba(37,99,235,0.15);
+    border: 1px solid rgba(37,99,235,0.30);
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+.il-mirsad-body { padding: 24px; }
+/* mini radar */
+.mirsad-radar {
+    width: 100%;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.mirsad-radar svg { width: 140px; height: 140px; }
+@keyframes spin-sweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.sweep-arm { transform-origin: 70px 70px; animation: spin-sweep 3s linear infinite; }
+/* framework tags */
+.il-fw-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+.il-fw-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: #38BDF8;
+    border: 1px solid rgba(56,189,248,0.22);
+    background: rgba(56,189,248,0.05);
+    padding: 3px 9px;
+    border-radius: 3px;
+}
+.il-mirsad-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(37,99,235,0.10);
+    border: 1px solid rgba(37,99,235,0.25);
+    border-radius: 6px;
+    padding: 12px 16px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.il-mirsad-link:hover { background: rgba(37,99,235,0.20); }
+.il-mirsad-link span { font-size: 14px; color: #93C5FD; font-weight: 500; }
+.il-mirsad-link i { color: #38BDF8; }
+
+/* 3 small tool previews below MIRSAD */
+.il-sub-tools {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+}
+.il-sub-tool {
+    background: #080D18;
+    border: 1px solid rgba(56,189,248,0.08);
+    border-radius: 8px;
+    padding: 14px 12px;
+    text-decoration: none;
+    transition: border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.il-sub-tool:hover { border-color: rgba(56,189,248,0.25); }
+.il-sub-tool i { font-size: 16px; color: #4A5A72; }
+.il-sub-tool span { font-size: 12px; color: #7A8BA8; font-weight: 500; line-height: 1.3; }
+
+/* stat bar */
+.il-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(56,189,248,0.08);
+}
+.il-stat .n {
+    font-family: 'Space Mono', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    color: #F0F4FF;
+}
+.il-stat .l { font-size: 13px; color: #4A5A72; margin-top: 2px; }
+
+@media (max-width: 1024px) {
+    .il-layout { grid-template-columns: 1fr; gap: 48px; }
+    .il-features { grid-template-columns: 1fr 1fr 1fr; }
+}
+@media (max-width: 768px) {
+    #interactive-learning { padding: 72px 0; }
+    .il-inner { padding: 0 20px; }
+    .il-features { grid-template-columns: 1fr; }
+    .il-sub-tools { grid-template-columns: 1fr 1fr 1fr; }
+    .il-stats { flex-wrap: wrap; gap: 20px; }
+}
+</style>
+
+<section id="interactive-learning">
+    <div class="il-inner">
+        <div class="il-eyebrow">
+            <div class="il-eyebrow-line"></div>
+            <div class="il-eyebrow-text">Interactive Learning Platform</div>
         </div>
 
-        <div class="interactive-banner-content">
-            <div class="interactive-banner-text">
-                <div class="cyber-box">
-                    <p data-en="Immerse yourself in our cutting-edge cybersecurity training environment featuring practical challenges, realistic scenarios, and guided exercises designed by security experts. Whether you're a beginner looking to build fundamental skills or an experienced professional wanting to sharpen your expertise, our interactive platform provides the perfect learning environment." data-ar="انغمس في بيئة التدريب المتطورة للأمن السيبراني التي تتضمن تحديات عملية وسيناريوهات واقعية وتمارين موجهة صممها خبراء الأمن.">Immerse yourself in our cutting-edge cybersecurity training environment featuring practical challenges, realistic scenarios, and guided exercises designed by security experts. Whether you're a beginner looking to build fundamental skills or an experienced professional wanting to sharpen your expertise, our interactive platform provides the perfect learning environment.</p>
+        <div class="il-layout">
+            <!-- LEFT -->
+            <div class="il-left">
+                <h2>Cybersecurity<br><strong>Tools & Simulations</strong></h2>
+                <p>Live GRC automation, SOC simulations, penetration testing labs, and hands-on security challenges — built on real frameworks used in production environments.</p>
 
-                    <div class="interactive-stats">
-                        <div class="stat-item">
-                            <span class="stat-number">5+</span>
-                            <span class="stat-label" data-en="Practice Labs" data-ar="مختبرات تدريبية">Practice Labs</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">20</span>
-                            <span class="stat-label" data-en="Skill Paths" data-ar="مسارات المهارات">Skill Paths</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">24/7</span>
-                            <span class="stat-label" data-en="Access" data-ar="وصول دائم">Access</span>
-                        </div>
+                <div class="il-features">
+                    <div class="il-feat">
+                        <div class="il-feat-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div class="il-feat-name">GRC Automation</div>
+                        <div class="il-feat-sub">SAMA, NCA, ISO 27001, NIST CSF</div>
+                    </div>
+                    <div class="il-feat">
+                        <div class="il-feat-icon"><i class="fas fa-bell"></i></div>
+                        <div class="il-feat-name">SOC Simulation</div>
+                        <div class="il-feat-sub">SIEM, triage, IR playbooks</div>
+                    </div>
+                    <div class="il-feat">
+                        <div class="il-feat-icon"><i class="fas fa-bug"></i></div>
+                        <div class="il-feat-name">Pentest Labs</div>
+                        <div class="il-feat-sub">Metasploit, Nmap, OWASP</div>
                     </div>
                 </div>
 
-                <div class="feature-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon"><i class="fas fa-laptop-code"></i></div>
-                        <div class="feature-text">
-                            <h3 data-en="Hands-On Labs" data-ar="مختبرات عملية">Hands-On Labs</h3>
-                            <p data-en="Practice in real-world environments with guided instructions" data-ar="التدريب في بيئات واقعية مع تعليمات موجهة">Practice in real-world environments with guided instructions</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                        <div class="feature-text">
-                            <h3 data-en="Defense Simulations" data-ar="محاكاة الدفاع">Defense Simulations</h3>
-                            <p data-en="Test your skills against realistic attack scenarios" data-ar="اختبر مهاراتك ضد سيناريوهات هجوم واقعية">Test your skills against realistic attack scenarios</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon"><i class="fas fa-brain"></i></div>
-                        <div class="feature-text">
-                            <h3 data-en="Concept Challenges" data-ar="تحديات المفاهيم">Concept Challenges</h3>
-                            <p data-en="Reinforce learning through interactive knowledge checks" data-ar="عزز التعلم من خلال فحوصات المعرفة التفاعلية">Reinforce learning through interactive knowledge checks</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-                        <div class="feature-text">
-                            <h3 data-en="Progress Tracking" data-ar="تتبع التقدم">Progress Tracking</h3>
-                            <p data-en="Monitor your skill development and improvement" data-ar="راقب تطوير مهاراتك وتحسينها">Monitor your skill development and improvement</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cta-container">
-                    <a href="Interactive_Section/html/interactive-section.html" class="btn-interactive">
-                        <span class="btn-text" data-en="Launch Interactive Platform" data-ar="إطلاق المنصة التفاعلية">Launch Interactive Platform</span>
-                        <i class="fas fa-arrow-right"></i>
+                <div class="il-cta">
+                    <a href="Interactive_Section/html/interactive-section.html" class="il-btn-primary">
+                        <i class="fas fa-rocket" style="font-size:13px;"></i>
+                        Explore All Tools
                     </a>
-                    <div class="cta-info" data-en="No download required. Works on all devices." data-ar="لا يتطلب تحميل. يعمل على جميع الأجهزة.">No download required. Works on all devices.</div>
+                    <a href="https://mirsad-theta.vercel.app" target="_blank" class="il-btn-ghost">
+                        Launch MIRSAD <i class="fas fa-arrow-right" style="font-size:12px;"></i>
+                    </a>
+                </div>
+
+                <div class="il-stats">
+                    <div class="il-stat"><div class="n">20+</div><div class="l">Interactive tools</div></div>
+                    <div class="il-stat"><div class="n">6</div><div class="l">GRC frameworks</div></div>
+                    <div class="il-stat"><div class="n">Live</div><div class="l">Production platform</div></div>
+                    <div class="il-stat"><div class="n">24/7</div><div class="l">Free access</div></div>
                 </div>
             </div>
 
-            <div class="interactive-banner-image">
-                <div class="image-container">
-                    <img src="images/interactive-learning.png" alt="Interactive Cybersecurity Learning Platform" class="main-image">
-                    <div class="overlay-text">
-                        <span class="typing-text" data-en="Learn by doing." data-ar="التعلم بالممارسة.">Learn by doing.</span>
+            <!-- RIGHT: MIRSAD showcase -->
+            <div class="il-right">
+                <div class="il-mirsad">
+                    <div class="il-mirsad-header">
+                        <div class="il-mirsad-title">
+                            <div class="live-dot"></div>
+                            <span>MIRSAD</span>
+                            <span class="arabic">مِرصاد</span>
+                        </div>
+                        <span class="il-mirsad-badge">LIVE PLATFORM</span>
                     </div>
-                    <div class="tech-details">
-                        <div class="tech-item"><i class="fas fa-terminal"></i> <span data-en="Command Line" data-ar="سطر الأوامر">Command Line</span></div>
-                        <div class="tech-item"><i class="fas fa-code"></i> <span data-en="Live Coding" data-ar="برمجة مباشرة">Live Coding</span></div>
-                        <div class="tech-item"><i class="fas fa-server"></i> <span data-en="Network Labs" data-ar="مختبرات الشبكات">Network Labs</span></div>
+                    <div class="il-mirsad-body">
+                        <div class="mirsad-radar">
+                            <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="70" cy="70" r="58" fill="none" stroke="rgba(56,189,248,0.07)" stroke-width="1"/>
+                                <circle cx="70" cy="70" r="42" fill="none" stroke="rgba(56,189,248,0.09)" stroke-width="1"/>
+                                <circle cx="70" cy="70" r="26" fill="none" stroke="rgba(56,189,248,0.13)" stroke-width="1"/>
+                                <circle cx="70" cy="70" r="12" fill="none" stroke="rgba(56,189,248,0.20)" stroke-width="1"/>
+                                <line x1="70" y1="8" x2="70" y2="132" stroke="rgba(56,189,248,0.08)" stroke-width="0.8"/>
+                                <line x1="8" y1="70" x2="132" y2="70" stroke="rgba(56,189,248,0.08)" stroke-width="0.8"/>
+                                <g class="sweep-arm">
+                                    <path d="M70,70 L128,70 A58,58 0 0,1 109,109 Z" fill="rgba(56,189,248,0.07)"/>
+                                    <line x1="70" y1="70" x2="128" y2="70" stroke="#38BDF8" stroke-width="1.2" opacity="0.55"/>
+                                </g>
+                                <circle cx="100" cy="46" r="2.5" fill="#38BDF8" opacity="0.9"/>
+                                <circle cx="100" cy="46" r="7" fill="none" stroke="#38BDF8" stroke-width="0.8" opacity="0.35"/>
+                                <circle cx="48" cy="90" r="1.8" fill="#38BDF8" opacity="0.5"/>
+                                <circle cx="88" cy="88" r="1.5" fill="#38BDF8" opacity="0.4"/>
+                                <circle cx="70" cy="70" r="3" fill="#38BDF8"/>
+                                <circle cx="70" cy="70" r="7" fill="none" stroke="#38BDF8" stroke-width="0.8" opacity="0.4"/>
+                            </svg>
+                        </div>
+                        <div class="il-fw-tags">
+                            <span class="il-fw-tag">SAMA CSF</span>
+                            <span class="il-fw-tag">SAMA MVC</span>
+                            <span class="il-fw-tag">NCA ECC</span>
+                            <span class="il-fw-tag">NCA DCC</span>
+                            <span class="il-fw-tag">ISO 27001</span>
+                            <span class="il-fw-tag">NIST CSF</span>
+                            <span class="il-fw-tag">AR / EN</span>
+                        </div>
+                        <a href="https://mirsad-theta.vercel.app" target="_blank" class="il-mirsad-link">
+                            <span>Open MIRSAD Platform →</span>
+                            <i class="fas fa-external-link-alt" style="font-size:13px;"></i>
+                        </a>
                     </div>
                 </div>
-                <div class="pulse-animation"></div>
-                <div class="floating-elements">
-                    <div class="float-element e1"><i class="fas fa-lock"></i></div>
-                    <div class="float-element e2"><i class="fas fa-bug"></i></div>
-                    <div class="float-element e3"><i class="fas fa-key"></i></div>
-                    <div class="float-element e4"><i class="fas fa-fingerprint"></i></div>
+
+                <div class="il-sub-tools">
+                    <a href="Interactive_Section/html/soc-simulation.html" class="il-sub-tool">
+                        <i class="fas fa-bell"></i>
+                        <span>SOC Analyst Simulation</span>
+                    </a>
+                    <a href="Interactive_Section/html/compliance-navigator.html" class="il-sub-tool">
+                        <i class="fas fa-tasks"></i>
+                        <span>Compliance Navigator</span>
+                    </a>
+                    <a href="Interactive_Section/html/pentest-lab.html" class="il-sub-tool">
+                        <i class="fas fa-crosshairs"></i>
+                        <span>Pentest Lab</span>
+                    </a>
                 </div>
             </div>
         </div>
