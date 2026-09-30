@@ -1,0 +1,72 @@
+/* ==========================================================================
+   lab-theme.css — loaded AFTER each lab's own stylesheet.
+   The labs were all forked from one white/serif template with shared token
+   names. This file repoints those tokens at the site design system, fixes the
+   body typography, and hides the old per-page header/footer (the shared
+   chrome from site.js replaces them). Individual widgets keep their own
+   layout; only colors, fonts and surfaces are unified.
+   ========================================================================== */
+:root {
+    --primary-color: #E6ECF4;      /* was near-black; now used as "strong text" */
+    --secondary-color: #B6C2D3;
+    --accent-color: #E0A94A;
+    --text-color: #E6ECF4;
+    --light-bg: #0A121E;
+    --dark-bg: #101B2B;
+    --border-radius: 8px;
+    --box-shadow: 0 10px 30px -12px rgba(0,0,0,.6);
+    /* common alternate names some labs use */
+    --primary: #E0A94A;
+    --success: #3DBE8B;
+    --danger: #EF5B5B;
+    --warning: #F2C94C;
+    --info: #5AA9F2;
+    --dark: #0A121E;
+    --light: #101B2B;
+    --gray: #8193AB;
+}
+
+html, body {
+    background: var(--bg, #0A121E) !important;
+    color: var(--text, #E6ECF4) !important;
+    font-family: var(--font-sans, "Plex Sans", system-ui, sans-serif) !important;
+    font-style: normal !important;
+}
+html[lang="ar"] body { font-family: var(--font-ar, "Plex Arabic", sans-serif) !important; }
+
+/* the old cyber-vis canvas is not loaded any more; neutralize its box */
+.cyber-visualization, #cyber-visualization { display: none !important; }
+
+/* hide the labs' own page header + footer; shared chrome replaces them */
+body > header:not(.sx-header),
+body > footer:not(.sx-footer),
+.simulation-section > .container > .section-title + .header-clock { display: none !important; }
+
+/* section titles / headings inherit the palette */
+.section-title, h1, h2, h3, h4 { color: var(--text) !important; }
+.section-title { font-weight: 600 !important; font-style: normal !important; }
+.section-subtitle, .section-desc, p { color: var(--text-2, #B6C2D3); }
+
+/* generic surfaces the template uses everywhere */
+.card, .panel, .box, .tab-content, .list-table, table,
+.detail-view, .metric-card, .chart-card, .stat-card,
+.dashboard-main, .dashboard-sidebar, .tab-inner, .modal-content {
+    background-color: var(--surface, #101B2B) !important;
+    color: var(--text, #E6ECF4);
+    border-color: var(--line, #1F2E44) !important;
+}
+input, select, textarea {
+    background: var(--surface-2, #0D1726) !important;
+    color: var(--text, #E6ECF4) !important;
+    border-color: var(--line-strong, #2E4262) !important;
+    font-family: var(--font-sans, sans-serif) !important;
+    font-style: normal !important;
+}
+a { color: var(--accent-2, #F0C274); }
+a:hover { color: var(--accent, #E0A94A); }
+
+/* accent buttons the template renders as blue */
+.btn, .btn-primary, .action-btn, button.primary {
+    font-style: normal !important;
+    font-family: var(--font-sans, sans-serif) !important;
+}

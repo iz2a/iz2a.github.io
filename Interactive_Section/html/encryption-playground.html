@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Encryption Playground - Aziz Alghamdi</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/Interactive_Section/css/encryption-playground.css">
+    <link rel="stylesheet" href="../../assets/vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/site.css">
+    <link rel="stylesheet" href="../css/encryption-playground.css">
+    <link rel="stylesheet" href="../../assets/css/lab-theme.css">
+    <script src="../../assets/js/site.js" defer></script>
 </head>
-<body>
+<body data-lab="encryption-playground">
     <!-- Header -->
     <header>
         <div class="container">
@@ -381,7 +384,7 @@ Key:       K E Y K E</pre>
                                     <li><strong>AddRoundKey:</strong> XORing with the round key</li>
                                 </ol>
                                 <div class="animation-container">
-                                    <img src="images/aes-process.jpg" alt="AES Encryption Process" style="max-width: 100%; max-height: 100%;">
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='610' height='130'%3E%3Cdefs%3E%3Cmarker id='a' markerWidth='8' markerHeight='8' refX='6' refY='3' orient='auto'%3E%3Cpath d='M0 0 L6 3 L0 6 z' fill='%23E0A94A'/%3E%3C/marker%3E%3C/defs%3E%3Ctext x='10' y='24' font-size='15' font-weight='700' fill='%23E0A94A'%3EAES (symmetric)%3C/text%3E%3Crect x='10' y='40' width='120' height='50' rx='8' fill='%23101B2B' stroke='%23E0A94A'/%3E%3Ctext x='70' y='70' font-size='13' fill='%23E6ECF4' text-anchor='middle'%3EPlaintext%3C/text%3E%3Cpath d='M130 65 L160 65' stroke='%23E0A94A' stroke-width='2' marker-end='url(%23a)'/%3E%3Crect x='160' y='40' width='120' height='50' rx='8' fill='%23101B2B' stroke='%23E0A94A'/%3E%3Ctext x='220' y='70' font-size='13' fill='%23E6ECF4' text-anchor='middle'%3E+ Key%3C/text%3E%3Cpath d='M280 65 L310 65' stroke='%23E0A94A' stroke-width='2' marker-end='url(%23a)'/%3E%3Crect x='310' y='40' width='120' height='50' rx='8' fill='%23101B2B' stroke='%23E0A94A'/%3E%3Ctext x='370' y='70' font-size='13' fill='%23E6ECF4' text-anchor='middle'%3ERounds%3C/text%3E%3Cpath d='M430 65 L460 65' stroke='%23E0A94A' stroke-width='2' marker-end='url(%23a)'/%3E%3Crect x='460' y='40' width='120' height='50' rx='8' fill='%23101B2B' stroke='%23E0A94A'/%3E%3Ctext x='520' y='70' font-size='13' fill='%23E6ECF4' text-anchor='middle'%3ECiphertext%3C/text%3E%3C/svg%3E" alt="AES Encryption Process" style="max-width: 100%; max-height: 100%;">
                                 </div>
                             </div>
 
@@ -421,7 +424,7 @@ Key:       K E Y K E</pre>
 Decryption: m = c^d mod n</pre>
                                 </div>
                                 <div class="animation-container">
-                                    <img src="images/rsa-process.jpg" alt="RSA Encryption Process" style="max-width: 100%; max-height: 100%;">
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='610' height='130'%3E%3Cdefs%3E%3Cmarker id='a' markerWidth='8' markerHeight='8' refX='6' refY='3' orient='auto'%3E%3Cpath d='M0 0 L6 3 L0 6 z' fill='%235AA9F2'/%3E%3C/marker%3E%3C/defs%3E%3Ctext x='10' y='24' font-size='15' font-weight='700' fill='%235AA9F2'%3ERSA (asymmetric)%3C/text%3E%3Crect x='10' y='40' width='120' height='50' rx='8' fill='%23101B2B' stroke='%235AA9F2'/%3E%3Ctext x='70' y='70' font-size='13' fill='%23E6ECF4' text-anchor='middle'%3EPlaintext%3C/text%3E%3Cpath d='M130 65 L160 65' stroke='%235AA9F2' stroke-width='2' marker-end='url(%23a)'/%3E%3Crect x='160' y='40' width='120' height='50' rx='8' fill='%23101B2B' stroke='%235AA9F2'/%3E%3Ctext x='220' y='70' font-size='13' fill='%23E6ECF4' text-anchor='middle'%3EPublic key%3C/text%3E%3Cpath d='M280 65 L310 65' stroke='%235AA9F2' stroke-width='2' marker-end='url(%23a)'/%3E%3Crect x='310' y='40' width='120' height='50' rx='8' fill='%23101B2B' stroke='%235AA9F2'/%3E%3Ctext x='370' y='70' font-size='13' fill='%23E6ECF4' text-anchor='middle'%3EModular exp%3C/text%3E%3Cpath d='M430 65 L460 65' stroke='%235AA9F2' stroke-width='2' marker-end='url(%23a)'/%3E%3Crect x='460' y='40' width='120' height='50' rx='8' fill='%23101B2B' stroke='%235AA9F2'/%3E%3Ctext x='520' y='70' font-size='13' fill='%23E6ECF4' text-anchor='middle'%3ECiphertext%3C/text%3E%3C/svg%3E" alt="RSA Encryption Process" style="max-width: 100%; max-height: 100%;">
                                 </div>
                             </div>
 
@@ -515,7 +518,7 @@ Decryption: m = c^d mod n</pre>
                         <li><a href="../../index.html#certifications"><i class="fas fa-chevron-right"></i> Certifications</a></li>
                         <li><a href="../../index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
                         <li><a href="interactive-section.html"><i class="fas fa-chevron-right"></i> Interactive Learning</a></li>
-                        <li><a href="../../resumes/MyResume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
+                        <li><a href="../../My_Resume.pdf"><i class="fas fa-chevron-right"></i> Download CV</a></li>
                     </ul>
                 </div>
             </div>
@@ -525,9 +528,7 @@ Decryption: m = c^d mod n</pre>
             </div>
         </div>
     </footer>
-
-   <script src="/Interactive_Section/javascript/cyber-vis.js"></script>
-<script src="/Interactive_Section/javascript/encryption-playground.js"></script>
+<script src="../javascript/encryption-playground.js"></script>
 
 </body>
 </html>

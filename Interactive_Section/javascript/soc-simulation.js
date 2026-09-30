@@ -1,655 +1,431 @@
-// soc-simulation.js - Main functionality for SOC Analyst Simulation
-// Requires: soc-data.js to be loaded first
+/* ==========================================================================
+   Raqib SIEM — application logic
+   A small but real SIEM: an SPL-style search over an in-browser log store,
+   an Offenses queue, a guided investigation with a MITRE-mapped timeline,
+   and response actions that resolve the active intrusion and score the shift.
+   ========================================================================== */
+(function () {
+    'use strict';
+    const D = window.SOC;
+    if (!D) { console.error('SOC data not loaded'); return; }
 
-// State management
-const AppState = {
-    currentPage: {
-        playbooks: 1,
-        cases: 1,
-        reports: 1
-    },
-    actionsTaken: {},
-    currentAlert: null,
-    filters: {
-        severity: ['critical', 'high', 'medium', 'low'],
-        source: ['firewall', 'ids', 'endpoint', 'cloud', 'auth'],
-        status: ['new']
-    }
-};
+    const $ = (s, r) => (r || document).querySelector(s);
+    const $$ = (s, r) => Array.prototype.slice.call((r || document).querySelectorAll(s));
+    const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const fmtTime = (d) => d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+    const fmtClock = (d) => d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+    const toast = (m, t) => (window.SX && window.SX.toast ? window.SX.toast(m, t) : null);
 
-// Initialize application
-document.addEventListener('DOMContentLoaded', function() {
-    initializeApp();
-});
+    const state = {
+        offenses: JSON.parse(JSON.stringify(D.OFFENSES)),
+        actionsByOffense: {},
+        activeOffense: null,
+        score: 0
+    };
+    /* revive Date fields lost to JSON copy */
+    state.offenses.forEach((o, i) => { o.firstSeen = D.OFFENSES[i].firstSeen; o.lastSeen = D.OFFENSES[i].lastSeen; });
+    D.OFFENSES.forEach((o) => { state.actionsByOffense[o.id] = []; });
 
-function initializeApp() {
-    renderAlerts();
-    setupEventListeners();
-    updateStatistics();
-    showNotification('Welcome to SOC Simulation', 'Monitor alerts and respond to security threats.', 'info');
-}
-
-// ============= ALERT RENDERING =============
-function renderAlerts() {
-    const alertList = document.getElementById('alert-list');
-    if (!alertList) return;
-
-    alertList.innerHTML = '';
-    const filteredAlerts = SOCData.getAlertsByFilter(AppState.filters);
-
-    filteredAlerts.forEach(alert => {
-        const alertElement = createAlertElement(alert);
-        alertList.appendChild(alertElement);
-    });
-
-    updateStatistics();
-}
-
-function createAlertElement(alert) {
-    const li = document.createElement('li');
-    li.className = `alert-item ${alert.severity}`;
-    li.setAttribute('data-alert-id', alert.id);
-    li.setAttribute('data-severity', alert.severity);
-    li.setAttribute('data-source', alert.source);
-    li.setAttribute('data-status', alert.status);
-
-    if (alert.status === 'resolved') {
-        li.classList.add('resolved');
-    }
-
-    li.innerHTML = `
-        <div class="alert-header">
-            <span class="alert-title">${alert.title}</span>
-            <span class="alert-severity ${alert.severity}">${capitalizeFirst(alert.severity)}</span>
-        </div>
-        <div class="alert-details">
-            <span class="alert-source"><i class="fas fa-laptop"></i> ${alert.sourceDetail}</span>
-            <span class="alert-time"><i class="far fa-clock"></i> ${SOCData.formatTimeAgo(alert.timestamp)}</span>
-        </div>
-        <div class="alert-actions">
-            <button class="action-btn escalate-btn"><i class="fas fa-exclamation-circle"></i> Escalate</button>
-            <button class="action-btn resolve-btn"><i class="fas fa-check-circle"></i> Resolve</button>
-        </div>
-    `;
-
-    // Event listeners
-    li.addEventListener('click', function(e) {
-        if (!e.target.closest('.action-btn')) {
-            showAlertDetail(alert.id);
+    /* =====================================================================
+       SEARCH LANGUAGE (pipe-delimited, Splunk-ish)
+    ===================================================================== */
+    function tokenizeStage(stage) {
+        const out = []; let cur = ''; let q = false;
+        for (const ch of stage.trim()) {
+            if (ch === '"') { q = !q; continue; }
+            if (ch === ' ' && !q) { if (cur) { out.push(cur); cur = ''; } continue; }
+            cur += ch;
         }
-    });
-
-    const resolveBtn = li.querySelector('.resolve-btn');
-    resolveBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        resolveAlert(alert.id);
-    });
-
-    const escalateBtn = li.querySelector('.escalate-btn');
-    escalateBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        escalateAlert(alert.id);
-    });
-
-    return li;
-}
-
-// ============= ALERT DETAIL VIEW =============
-function showAlertDetail(alertId) {
-    const alert = SOCData.getAlertById(alertId);
-    if (!alert) return;
-
-    AppState.currentAlert = alert;
-
-    // Populate detail view
-    document.querySelector('.detail-title').textContent = alert.title;
-    
-    // Update meta information
-    const metaItems = document.querySelectorAll('.detail-meta-item span');
-    if (metaItems.length >= 5) {
-        metaItems[0].textContent = `Severity: ${capitalizeFirst(alert.severity)}`;
-        metaItems[1].textContent = `Source: ${alert.sourceDetail}`;
-        metaItems[2].textContent = `Detected: ${alert.timestamp.toLocaleString()}`;
-        metaItems[3].textContent = `User: ${alert.user || 'N/A'}`;
-        metaItems[4].textContent = `Alert ID: ${alert.id}`;
+        if (cur) out.push(cur);
+        return out;
     }
 
-    // Update description
-    document.querySelector('.detail-description p').textContent = alert.description || 'No detailed description available.';
-
-    // Switch to detail view
-    document.getElementById('alerts-tab').classList.remove('active');
-    document.getElementById('alert-detail-tab').classList.add('active');
-
-    // Reset action buttons
-    resetActionButtons();
-}
-
-function resetActionButtons() {
-    AppState.actionsTaken = {};
-    document.querySelectorAll('.response-actions .action-btn-large[data-action]').forEach(btn => {
-        btn.disabled = false;
-        const action = btn.getAttribute('data-action');
-        const originalText = getActionText(action);
-        btn.innerHTML = `<i class="${getActionIcon(action)}"></i> ${originalText}`;
-        btn.classList.remove('success');
-    });
-}
-
-function getActionText(action) {
-    const texts = {
-        isolate: 'Isolate Endpoint',
-        disable: 'Disable User Account',
-        block: 'Block C2 Address',
-        scan: 'Run Enterprise Scan',
-        escalate: 'Escalate to IR Team'
-    };
-    return texts[action] || action;
-}
-
-function getActionIcon(action) {
-    const icons = {
-        isolate: 'fas fa-power-off',
-        disable: 'fas fa-user-lock',
-        block: 'fas fa-ban',
-        scan: 'fas fa-search',
-        escalate: 'fas fa-exclamation-triangle'
-    };
-    return icons[action] || 'fas fa-check';
-}
-
-// ============= ALERT ACTIONS =============
-function resolveAlert(alertId) {
-    const alert = SOCData.getAlertById(alertId);
-    if (!alert) return;
-
-    SOCData.updateAlertStatus(alertId, 'resolved');
-    showNotification('Alert Resolved', `"${alert.title}" has been marked as resolved.`, 'success');
-    
-    setTimeout(() => {
-        renderAlerts();
-    }, 500);
-}
-
-function escalateAlert(alertId) {
-    const alert = SOCData.getAlertById(alertId);
-    if (!alert) return;
-
-    showNotification('Alert Escalated', `"${alert.title}" has been escalated to senior analysts.`, 'info');
-}
-
-// ============= RESPONSE ACTIONS =============
-function executeResponseAction(action) {
-    if (AppState.actionsTaken[action]) {
-        showNotification('Already Executed', `This action has already been performed.`, 'info');
-        return;
+    function matchTerm(rec, tok) {
+        const m = tok.match(/^([a-zA-Z_]+)\s*(!=|>=|<=|=|>|<)\s*(.*)$/);
+        if (!m) { return JSON.stringify(rec).toLowerCase().indexOf(tok.toLowerCase()) !== -1; }
+        const field = m[1], op = m[2], rawVal = m[3];
+        let val = rec[field];
+        if (val == null && rec.extra) val = rec.extra[field];
+        const target = rawVal.toLowerCase();
+        const sval = String(val == null ? '' : val).toLowerCase();
+        switch (op) {
+            case '=':
+                if (target.indexOf('*') !== -1) {
+                    const re = new RegExp('^' + target.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*') + '$');
+                    return re.test(sval);
+                }
+                return sval === target;
+            case '!=': return sval !== target;
+            case '>': return parseFloat(val) > parseFloat(rawVal);
+            case '<': return parseFloat(val) < parseFloat(rawVal);
+            case '>=': return parseFloat(val) >= parseFloat(rawVal);
+            case '<=': return parseFloat(val) <= parseFloat(rawVal);
+        }
+        return false;
     }
 
-    const btn = document.querySelector(`[data-action="${action}"]`);
-    if (!btn) return;
+    function runSearch(query) {
+        const stages = query.split('|').map((s) => s.trim()).filter(Boolean);
+        let rows = D.LOGS.slice();
+        let agg = null;
+        const isCmd = (s) => /^(stats|timechart|sort|head|tail)\b/.test(s);
+        let start = 0;
+        if (stages.length && !isCmd(stages[0])) {
+            const toks = tokenizeStage(stages[0]);
+            rows = rows.filter((r) => toks.every((t) => t === '*' || matchTerm(r, t)));
+            start = 1;
+        }
+        for (let i = start; i < stages.length; i++) {
+            const st = stages[i]; const cmd = st.split(/\s+/)[0];
+            if (cmd === 'stats') {
+                const by = (st.match(/by\s+([a-zA-Z_]+)/) || [])[1] || 'source';
+                const counts = {};
+                rows.forEach((r) => { const k = r[by] != null ? r[by] : (r.extra && r.extra[by]) || '(none)'; counts[k] = (counts[k] || 0) + 1; });
+                agg = { type: 'stats', by, rows: Object.keys(counts).map((k) => ({ key: k, count: counts[k] })).sort((a, b) => b.count - a.count) };
+            } else if (cmd === 'timechart') {
+                const buckets = {};
+                rows.forEach((r) => { const b = Math.floor((r.time - D.shiftStart) / (15 * 60000)); buckets[b] = (buckets[b] || 0) + 1; });
+                agg = { type: 'timechart', rows: Object.keys(buckets).map((b) => ({ bucket: +b, count: buckets[b] })).sort((a, b) => a.bucket - b.bucket) };
+            } else if (cmd === 'sort') {
+                const f = st.replace(/^sort\s+/, '').trim(); const desc = f.startsWith('-'); const key = f.replace(/^-/, '');
+                rows.sort((a, b) => { const x = a[key], y = b[key]; return (x > y ? 1 : x < y ? -1 : 0) * (desc ? -1 : 1); });
+            } else if (cmd === 'head') { rows = rows.slice(0, parseInt(st.split(/\s+/)[1] || '10', 10)); }
+            else if (cmd === 'tail') { rows = rows.slice(-parseInt(st.split(/\s+/)[1] || '10', 10)); }
+        }
+        return { rows, agg };
+    }
 
-    btn.disabled = true;
-    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing...`;
+    function renderSearch(query) {
+        const out = $('#siem-results');
+        let res;
+        try { res = runSearch(query); }
+        catch (e) { out.innerHTML = '<div class="siem-msg">Could not parse that search. Try <code>source=edr severity=critical</code>.</div>'; return; }
+        $('#siem-count').textContent = res.rows.length.toLocaleString();
 
-    setTimeout(() => {
-        AppState.actionsTaken[action] = true;
-        btn.innerHTML = `<i class="fas fa-check"></i> ${getActionText(action)} - Completed`;
-        btn.classList.add('success');
+        if (res.agg && res.agg.type === 'stats') {
+            const max = Math.max.apply(null, res.agg.rows.map((r) => r.count)) || 1;
+            out.innerHTML = '<table class="siem-stats"><thead><tr><th>' + esc(res.agg.by) + '</th><th>count</th><th></th></tr></thead><tbody>' +
+                res.agg.rows.map((r) => '<tr><td>' + esc(r.key) + '</td><td>' + r.count + '</td><td><span class="statbar" style="width:' + (r.count / max * 100) + '%"></span></td></tr>').join('') +
+                '</tbody></table>';
+            return;
+        }
+        if (res.agg && res.agg.type === 'timechart') {
+            const max = Math.max.apply(null, res.agg.rows.map((r) => r.count)) || 1;
+            out.innerHTML = '<div class="siem-timechart">' + res.agg.rows.map((r) => {
+                const t = new Date(D.shiftStart.getTime() + r.bucket * 15 * 60000);
+                return '<div class="tc-col" title="' + fmtClock(t) + ' — ' + r.count + '"><div class="tc-bar" style="height:' + Math.max(4, r.count / max * 120) + 'px"></div><div class="tc-lbl">' + fmtClock(t) + '</div></div>';
+            }).join('') + '</div>';
+            return;
+        }
+        if (!res.rows.length) { out.innerHTML = '<div class="siem-msg">No events match. Widen the search or remove a filter.</div>'; return; }
+        const rows = res.rows.slice(0, 200).map((r) => {
+            const sev = r.severity || 'info';
+            return '<button class="ev" data-ev="' + r._id + '">' +
+                '<span class="ev-time">' + fmtTime(r.time) + '</span>' +
+                '<span class="ev-sev sev-' + sev + '">' + sev + '</span>' +
+                '<span class="ev-src">' + esc(r.source) + '</span>' +
+                '<span class="ev-host">' + esc(r.host) + '</span>' +
+                '<span class="ev-msg">' + esc(r.msg) + '</span>' +
+                (r.technique ? '<span class="ev-tech">' + esc(r.technique) + '</span>' : '') +
+                '</button>';
+        }).join('');
+        out.innerHTML = '<div class="siem-rows">' + rows + (res.rows.length > 200 ? '<div class="siem-msg">Showing first 200 of ' + res.rows.length + ' events.</div>' : '') + '</div>';
+        $$('.ev', out).forEach((b) => b.addEventListener('click', () => openEvent(b.dataset.ev)));
+    }
 
-        const messages = {
-            isolate: 'Endpoint has been successfully isolated from the network.',
-            disable: 'User account has been disabled. Password reset required.',
-            block: 'IP address has been blocked at the firewall level.',
-            scan: 'Enterprise-wide scan initiated. Results will be available in 15-20 minutes.',
-            escalate: 'Incident has been escalated to the Incident Response Team with all relevant data.'
+    function openEvent(id) {
+        const r = D.LOGS.find((e) => e._id === id);
+        if (!r) return;
+        const rows = [];
+        const add = (k, v) => { if (v != null && v !== '') rows.push('<tr><td>' + esc(k) + '</td><td>' + esc(v) + '</td></tr>'); };
+        add('_time', r.time.toLocaleString());
+        add('severity', r.severity); add('source', r.source); add('action', r.action);
+        add('host', r.host); add('ip', r.ip); add('user', r.user); add('signature', r.signature);
+        if (r.technique) add('technique', r.technique + ' — ' + (D.TECHNIQUES[r.technique] || ''));
+        if (r.extra) Object.keys(r.extra).forEach((k) => add(k, r.extra[k]));
+        add('message', r.msg);
+        const off = state.offenses.find((o) => o.eventIds.indexOf(id) !== -1);
+        const modal = buildModal('Event ' + esc(r._id),
+            '<table class="ev-detail">' + rows.join('') + '</table>' +
+            (off ? '<div class="ev-linked">Part of offense <a href="#" data-goto="' + off.id + '">' + esc(off.id) + ' — ' + esc(off.title) + '</a></div>' : ''));
+        const link = $('[data-goto]', modal);
+        if (link) link.addEventListener('click', (e) => { e.preventDefault(); closeModal(); openOffense(off.id); });
+    }
+
+    function renderOffenses() {
+        const open = state.offenses.filter((o) => o.status === 'open');
+        const closed = state.offenses.filter((o) => o.status !== 'open');
+        $('#of-open-count').textContent = open.length;
+        const card = (o) => {
+            const acts = state.actionsByOffense[o.id] || [];
+            return '<button class="of-card sev-border-' + o.severity + (o.status !== 'open' ? ' is-closed' : '') + '" data-of="' + o.id + '">' +
+                '<div class="of-top"><span class="of-mag sev-bg-' + o.severity + '">' + o.magnitude.toFixed(1) + '</span>' +
+                '<div class="of-h"><div class="of-id">' + esc(o.id) + ' · ' + esc(o.category) + '</div><div class="of-title">' + esc(o.title) + '</div></div>' +
+                '<span class="of-status st-' + o.status + '">' + esc(o.status) + '</span></div>' +
+                '<div class="of-meta">' +
+                '<span><i class="fas fa-desktop"></i> ' + esc(o.sourceHost) + '</span>' +
+                '<span><i class="fas fa-layer-group"></i> ' + o.eventIds.length + ' events</span>' +
+                '<span><i class="far fa-clock"></i> ' + fmtClock(o.firstSeen) + '–' + fmtClock(o.lastSeen) + '</span>' +
+                (acts.length ? '<span class="of-actions-taken"><i class="fas fa-bolt"></i> ' + acts.length + ' actions</span>' : '') +
+                '</div></button>';
         };
-
-        showNotification('Action Completed', messages[action], 'success');
-    }, 1500);
-}
-
-// ============= PAGINATION =============
-function renderPaginatedContent(type, page) {
-    const data = SOCData[type];
-    const tableId = `${type}-table`;
-    const table = document.getElementById(tableId);
-    
-    if (!table || !data || !data[page - 1]) return;
-
-    const tbody = table.querySelector('tbody');
-    tbody.innerHTML = '';
-
-    const pageData = data[page - 1];
-    
-    pageData.forEach(item => {
-        const row = document.createElement('tr');
-        
-        if (type === 'playbooks') {
-            row.innerHTML = `
-                <td>${item.name}</td>
-                <td>${item.category}</td>
-                <td>${item.updated}</td>
-                <td><span class="status-badge ${item.status}">${capitalizeFirst(item.status)}</span></td>
-            `;
-            row.addEventListener('click', () => viewPlaybook(item));
-        } else if (type === 'cases') {
-            row.innerHTML = `
-                <td>${item.id}</td>
-                <td>${item.title}</td>
-                <td>${item.severity}</td>
-                <td>${item.assigned}</td>
-                <td><span class="status-badge ${item.status}">${formatStatus(item.status)}</span></td>
-            `;
-            row.addEventListener('click', () => viewCase(item));
-        } else if (type === 'reports') {
-            row.innerHTML = `
-                <td>${item.name}</td>
-                <td>${item.type}</td>
-                <td>${item.date}</td>
-                <td><button class="action-btn download-btn"><i class="fas fa-download"></i> Download</button></td>
-            `;
-            const downloadBtn = row.querySelector('.download-btn');
-            downloadBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                downloadReport(item);
-            });
-        }
-        
-        tbody.appendChild(row);
-    });
-
-    AppState.currentPage[type] = page;
-    updatePaginationButtons(type, page, data.length);
-}
-
-function updatePaginationButtons(type, currentPage, totalPages) {
-    const tabContent = document.getElementById(`${type}-tab`);
-    if (!tabContent) return;
-
-    const pagination = tabContent.querySelector('.pagination');
-    if (!pagination) return;
-
-    pagination.innerHTML = '';
-
-    // Previous button
-    const prevBtn = document.createElement('div');
-    prevBtn.className = 'page-btn';
-    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
-    prevBtn.addEventListener('click', () => {
-        if (currentPage > 1) {
-            renderPaginatedContent(type, currentPage - 1);
-        }
-    });
-    if (currentPage === 1) prevBtn.style.opacity = '0.3';
-    pagination.appendChild(prevBtn);
-
-    // Page number buttons
-    for (let i = 1; i <= totalPages; i++) {
-        const pageBtn = document.createElement('div');
-        pageBtn.className = 'page-btn';
-        if (i === currentPage) pageBtn.classList.add('active');
-        pageBtn.textContent = i;
-        pageBtn.addEventListener('click', () => {
-            renderPaginatedContent(type, i);
-        });
-        pagination.appendChild(pageBtn);
+        $('#of-list').innerHTML = open.map(card).join('') || '<div class="siem-msg">No open offenses. Nice and quiet.</div>';
+        $('#of-closed').innerHTML = closed.length ? ('<div class="of-closed-h">Closed this shift</div>' + closed.map(card).join('')) : '';
+        $$('#of-list .of-card, #of-closed .of-card').forEach((b) => b.addEventListener('click', () => openOffense(b.dataset.of)));
     }
 
-    // Next button
-    const nextBtn = document.createElement('div');
-    nextBtn.className = 'page-btn';
-    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
-    nextBtn.addEventListener('click', () => {
-        if (currentPage < totalPages) {
-            renderPaginatedContent(type, currentPage + 1);
-        }
-    });
-    if (currentPage === totalPages) nextBtn.style.opacity = '0.3';
-    pagination.appendChild(nextBtn);
-}
-
-// ============= DOWNLOAD FUNCTIONALITY =============
-function downloadReport(report) {
-    // Create report content
-    const reportContent = generateReportContent(report);
-    
-    // Create blob and download
-    const blob = new Blob([reportContent], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${report.name.replace(/\s+/g, '_')}_${report.date.replace(/\s+/g, '_')}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-    showNotification('Download Started', `Downloading "${report.name}"...`, 'success');
-}
-
-function generateReportContent(report) {
-    let content = `=========================================\n`;
-    content += `${report.content.title || report.name}\n`;
-    content += `=========================================\n\n`;
-    content += `Report Type: ${report.type}\n`;
-    content += `Generated: ${report.date}\n`;
-    content += `\n-----------------------------------\n\n`;
-
-    if (report.content.summary) {
-        content += `SUMMARY:\n${report.content.summary}\n\n`;
+    function openOffense(id) {
+        const o = state.offenses.find((x) => x.id === id);
+        if (!o) return;
+        state.activeOffense = id;
+        switchView('investigate');
+        renderInvestigation(o);
     }
 
-    if (report.content.metrics) {
-        content += `METRICS:\n`;
-        Object.entries(report.content.metrics).forEach(([key, value]) => {
-            content += `  - ${formatMetricName(key)}: ${value}\n`;
-        });
-        content += `\n`;
+    function renderInvestigation(o) {
+        const wrap = $('#inv-body');
+        const events = o.eventIds.map((id) => D.LOGS.find((e) => e._id === id)).filter(Boolean).sort((a, b) => a.time - b.time);
+        const acts = state.actionsByOffense[o.id] || [];
+        const techniques = o.techniques.map((t) => '<span class="tech-chip" title="' + esc(D.TECHNIQUES[t] || '') + '">' + esc(t) + '</span>').join('');
+
+        const timeline = events.map((e) => {
+            const sev = e.severity || 'info';
+            return '<li class="tl-ev">' +
+                '<span class="tl-dot sev-bg-' + sev + '"></span>' +
+                '<div class="tl-card">' +
+                '<div class="tl-when">' + fmtTime(e.time) + ' · <span class="tl-src">' + esc(e.source) + '</span> · ' + esc(e.host) + '</div>' +
+                '<div class="tl-sig">' + esc(e.signature) + '</div>' +
+                '<div class="tl-msg">' + esc(e.msg) + '</div>' +
+                (e.technique ? '<div class="tl-tech">' + esc(e.technique) + ' · ' + esc(D.TECHNIQUES[e.technique] || '') + '</div>' : '') +
+                '</div></li>';
+        }).join('');
+
+        const actionButtons = Object.keys(D.ACTIONS).map((key) => {
+            const a = D.ACTIONS[key];
+            const done = acts.indexOf(key) !== -1;
+            return '<button class="act-btn' + (done ? ' is-done' : '') + '" data-act="' + key + '"' + (done ? ' disabled' : '') + '>' +
+                '<i class="fas ' + a.icon + '"></i> ' + esc(a.label) + (done ? ' <i class="fas fa-check act-check"></i>' : '') + '</button>';
+        }).join('');
+
+        wrap.innerHTML =
+            '<div class="inv-head">' +
+                '<button class="inv-back" id="inv-back"><i class="fas fa-arrow-left"></i> Offenses</button>' +
+                '<div class="inv-title-wrap"><span class="of-mag sev-bg-' + o.severity + '">' + o.magnitude.toFixed(1) + '</span>' +
+                '<div><h2 class="inv-title">' + esc(o.title) + '</h2><div class="inv-sub">' + esc(o.id) + ' · ' + esc(o.category) + ' · source ' + esc(o.sourceHost) + ' (' + esc(o.sourceUser) + ')</div></div></div>' +
+                '<span class="of-status st-' + o.status + '">' + esc(o.status) + '</span>' +
+            '</div>' +
+            '<div class="inv-grid">' +
+                '<div class="inv-main">' +
+                    '<div class="inv-summary">' + esc(o.summary) + '</div>' +
+                    (techniques ? '<div class="inv-tech-row"><span class="inv-label">ATT&CK</span>' + techniques + '</div>' : '') +
+                    '<div class="inv-tl-h"><i class="fas fa-bars-staggered"></i> Attack timeline (' + events.length + ' events)</div>' +
+                    '<ol class="inv-timeline">' + timeline + '</ol>' +
+                '</div>' +
+                '<aside class="inv-side">' +
+                    '<div class="inv-panel">' +
+                        '<div class="inv-panel-h">Response actions</div>' +
+                        '<p class="inv-hint">Contain first to stop the bleeding, then eradicate and escalate. Order is scored.</p>' +
+                        '<div class="act-grid">' + actionButtons + '</div>' +
+                    '</div>' +
+                    (o.playbook ? '<div class="inv-panel"><div class="inv-panel-h">Playbook: ' + esc(D.PLAYBOOKS[o.playbook].name) + '</div><ol class="inv-playbook">' + D.PLAYBOOKS[o.playbook].steps.map((s) => '<li>' + esc(s) + '</li>').join('') + '</ol></div>' : '') +
+                    '<div class="inv-panel"><div class="inv-panel-h">Action log</div><ul class="inv-log" id="inv-log">' + renderActionLog(o) + '</ul></div>' +
+                '</aside>' +
+            '</div>';
+
+        $('#inv-back').addEventListener('click', () => { switchView('offenses'); });
+        $$('.act-btn', wrap).forEach((b) => { if (!b.disabled) b.addEventListener('click', () => takeAction(o.id, b.dataset.act)); });
     }
 
-    if (report.content.threats) {
-        content += `IDENTIFIED THREATS:\n`;
-        report.content.threats.forEach((threat, idx) => {
-            content += `  ${idx + 1}. ${threat}\n`;
-        });
-        content += `\n`;
+    function renderActionLog(o) {
+        const acts = state.actionsByOffense[o.id] || [];
+        if (!acts.length) return '<li class="inv-log-empty">No actions taken yet.</li>';
+        return acts.map((k, i) => '<li><span class="ilog-n">' + (i + 1) + '</span>' + esc(D.ACTIONS[k].label) + '</li>').join('');
     }
 
-    if (report.content.details) {
-        content += `DETAILS:\n${report.content.details}\n`;
-    }
-
-    content += `\n-----------------------------------\n`;
-    content += `Report generated by SOC Simulation System\n`;
-    content += `© 2025 Aziz Alghamdi - Security Operations Center\n`;
-
-    return content;
-}
-
-function formatMetricName(key) {
-    return key.replace(/([A-Z])/g, ' $1')
-              .replace(/^./, str => str.toUpperCase())
-              .trim();
-}
-
-// ============= VIEW PLAYBOOK/CASE =============
-function viewPlaybook(playbook) {
-    const modal = createModal('Playbook: ' + playbook.name, playbook.content);
-    document.body.appendChild(modal);
-    showNotification('Playbook Opened', `Viewing "${playbook.name}"`, 'info');
-}
-
-function viewCase(caseItem) {
-    const caseContent = `
-Case ID: ${caseItem.id}
-Title: ${caseItem.title}
-Severity: ${caseItem.severity}
-Assigned To: ${caseItem.assigned}
-Status: ${formatStatus(caseItem.status)}
-
-This is a placeholder for full case details. In a real system, 
-this would show complete investigation notes, evidence, timeline, 
-and all related information.
-    `;
-    const modal = createModal('Case: ' + caseItem.id, caseContent);
-    document.body.appendChild(modal);
-    showNotification('Case Opened', `Viewing case "${caseItem.id}"`, 'info');
-}
-
-function createModal(title, content) {
-    const modal = document.createElement('div');
-    modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.7);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 3000;
-    `;
-
-    const modalContent = document.createElement('div');
-    modalContent.style.cssText = `
-        background: white;
-        padding: 30px;
-        border-radius: 8px;
-        max-width: 800px;
-        max-height: 80vh;
-        overflow-y: auto;
-        position: relative;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-    `;
-
-    modalContent.innerHTML = `
-        <button style="
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #666;
-        " class="modal-close">&times;</button>
-        <h2 style="margin-bottom: 20px; color: #212529; font-size: 24px;">${title}</h2>
-        <pre style="
-            white-space: pre-wrap;
-            font-family: 'Times New Roman', serif;
-            font-size: 14px;
-            line-height: 1.6;
-            color: #333;
-        ">${content}</pre>
-    `;
-
-    modal.appendChild(modalContent);
-
-    const closeBtn = modalContent.querySelector('.modal-close');
-    closeBtn.addEventListener('click', () => modal.remove());
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.remove();
-    });
-
-    return modal;
-}
-
-// ============= SEARCH FUNCTIONALITY =============
-function setupSearch(inputId, tableId) {
-    const input = document.getElementById(inputId);
-    const table = document.getElementById(tableId);
-    
-    if (!input || !table) return;
-
-    function performSearch() {
-        const searchTerm = input.value.toLowerCase();
-        const rows = table.querySelectorAll('tbody tr');
-        let visibleCount = 0;
-
-        rows.forEach(row => {
-            const text = row.textContent.toLowerCase();
-            if (text.includes(searchTerm)) {
-                row.style.display = '';
-                visibleCount++;
-            } else {
-                row.style.display = 'none';
-            }
-        });
-
-        if (input.value) {
-            showNotification('Search Results', `Found ${visibleCount} matching items.`, 'info');
+    function takeAction(offId, key) {
+        const o = state.offenses.find((x) => x.id === offId);
+        const acts = state.actionsByOffense[offId];
+        if (acts.indexOf(key) !== -1) return;
+        acts.push(key);
+        const a = D.ACTIONS[key];
+        toast(a.ok, (a.kind === 'contain' || a.kind === 'escalate' || a.kind === 'close') ? 'ok' : undefined);
+        if (key === 'close') { finishOffense(o); return; }
+        renderInvestigation(o);
+        renderOffenses();
+        updateHeaderStats();
+        const rec = o.recommended.filter((r) => r !== 'close');
+        const doneRec = rec.filter((r) => acts.indexOf(r) !== -1);
+        if (doneRec.length === rec.length && o.status === 'open') {
+            toast('All recommended actions complete. You can close ' + o.id + '.', 'ok');
         }
     }
 
-    input.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
-            performSearch();
-        }
-    });
-
-    const searchBtn = input.nextElementSibling;
-    if (searchBtn && searchBtn.classList.contains('search-btn')) {
-        searchBtn.addEventListener('click', performSearch);
-    }
-}
-
-// ============= FILTER FUNCTIONALITY =============
-function applyFilters() {
-    // Update filter state
-    AppState.filters.severity = getCheckedValues('severity');
-    AppState.filters.source = getCheckedValues('source');
-    AppState.filters.status = getCheckedValues('status');
-
-    // Re-render alerts
-    renderAlerts();
-}
-
-function getCheckedValues(filterType) {
-    const values = [];
-    document.querySelectorAll(`input[id^="${filterType}-"]:checked`).forEach(checkbox => {
-        const value = checkbox.id.replace(`${filterType}-`, '');
-        values.push(value);
-    });
-    return values;
-}
-
-// ============= STATISTICS =============
-function updateStatistics() {
-    const stats = SOCData.getStatistics();
-    
-    document.getElementById('stat-total').textContent = stats.total;
-    document.getElementById('stat-new').textContent = stats.new;
-    document.getElementById('stat-critical').textContent = stats.critical;
-    
-    // Update dashboard if exists
-    const dashboardTotal = document.getElementById('dashboard-total');
-    const dashboardCritical = document.getElementById('dashboard-critical');
-    if (dashboardTotal) dashboardTotal.textContent = stats.total;
-    if (dashboardCritical) dashboardCritical.textContent = stats.critical;
-}
-
-// ============= NOTIFICATION SYSTEM =============
-function showNotification(title, message, type = 'success') {
-    const notification = document.getElementById('notification');
-    if (!notification) return;
-
-    const titleEl = document.getElementById('notificationTitle');
-    const messageEl = document.getElementById('notificationMessage');
-    
-    notification.className = `notification ${type} show`;
-    titleEl.textContent = title;
-    messageEl.textContent = message;
-    
-    setTimeout(() => {
-        notification.classList.remove('show');
-    }, 4000);
-}
-
-// ============= EVENT LISTENERS =============
-function setupEventListeners() {
-    // Tab switching
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-            const tabId = this.getAttribute('data-tab');
-            
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            this.classList.add('active');
-            document.getElementById(`${tabId}-tab`).classList.add('active');
-
-            // Load paginated content when switching to these tabs
-            if (['playbooks', 'cases', 'reports'].includes(tabId)) {
-                renderPaginatedContent(tabId, AppState.currentPage[tabId]);
-            }
-        });
-    });
-
-    // Mobile menu
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    if (menuBtn) {
-        menuBtn.addEventListener('click', () => {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
+    function finishOffense(o) {
+        o.status = 'closed';
+        const acts = state.actionsByOffense[o.id];
+        const rec = o.recommended.filter((r) => r !== 'close');
+        const hit = rec.filter((r) => acts.indexOf(r) !== -1).length;
+        const extra = acts.filter((k) => k !== 'close' && rec.indexOf(k) === -1).length;
+        let pts = hit * 20 - extra * 4;
+        const firstContain = acts.findIndex((k) => D.ACTIONS[k].kind === 'contain');
+        const firstErad = acts.findIndex((k) => D.ACTIONS[k].kind === 'eradicate');
+        if (firstContain !== -1 && (firstErad === -1 || firstContain < firstErad)) pts += 15;
+        pts = Math.max(0, pts);
+        state.score += pts;
+        const verdict = hit === rec.length
+            ? 'Handled well. Every recommended action was taken' + (firstContain !== -1 && (firstErad === -1 || firstContain < firstErad) ? ', and you contained before eradicating.' : '.')
+            : 'Closed with ' + hit + ' of ' + rec.length + ' recommended actions. Review the playbook for what was missed.';
+        switchView('offenses');
+        renderOffenses();
+        updateHeaderStats();
+        buildModal('Offense ' + esc(o.id) + ' closed',
+            '<div class="verdict"><div class="verdict-score">+' + pts + ' pts</div>' +
+            '<p>' + esc(verdict) + '</p>' +
+            '<div class="verdict-detail"><strong>Recommended:</strong> ' + o.recommended.map((r) => (acts.indexOf(r) !== -1 || r === 'close' ? '<span class="v-ok">' + esc(D.ACTIONS[r].label) + '</span>' : '<span class="v-miss">' + esc(D.ACTIONS[r].label) + '</span>')).join(', ') + '</div>' +
+            '</div>' +
+            (state.offenses.every((x) => x.status !== 'open') ? '<p class="verdict-done">All offenses handled. Shift score: <strong>' + state.score + '</strong>. Generate your shift report from the Reports tab.</p>' : ''));
     }
 
-    // Filter checkboxes
-    document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', applyFilters);
-    });
-
-    // Back to alerts button
-    const backBtn = document.getElementById('back-to-alerts');
-    if (backBtn) {
-        backBtn.addEventListener('click', () => {
-            document.getElementById('alert-detail-tab').classList.remove('active');
-            document.getElementById('alerts-tab').classList.add('active');
-        });
+    function renderDashboard() {
+        const logs = D.LOGS;
+        const bySev = { critical: 0, high: 0, medium: 0, low: 0, info: 0 };
+        const bySrc = {};
+        logs.forEach((l) => { bySev[l.severity] = (bySev[l.severity] || 0) + 1; bySrc[l.source] = (bySrc[l.source] || 0) + 1; });
+        $('#db-total').textContent = logs.length.toLocaleString();
+        $('#db-offenses').textContent = state.offenses.filter((o) => o.status === 'open').length;
+        $('#db-crit').textContent = bySev.critical;
+        const sevMax = Math.max.apply(null, Object.keys(bySev).map((k) => bySev[k])) || 1;
+        $('#db-sev').innerHTML = ['critical', 'high', 'medium', 'low', 'info'].map((s) =>
+            '<div class="db-bar-row"><span class="db-bar-lbl sev-' + s + '">' + s + '</span>' +
+            '<span class="db-bar-track"><span class="db-bar sev-bg-' + s + '" style="width:' + (bySev[s] / sevMax * 100) + '%"></span></span>' +
+            '<span class="db-bar-val">' + bySev[s] + '</span></div>').join('');
+        const buckets = {};
+        logs.forEach((l) => { const b = Math.floor((l.time - D.shiftStart) / (15 * 60000)); buckets[b] = (buckets[b] || 0) + 1; });
+        const bkeys = Object.keys(buckets).map(Number).sort((a, b) => a - b);
+        const bmax = Math.max.apply(null, bkeys.map((k) => buckets[k])) || 1;
+        $('#db-timechart').innerHTML = bkeys.map((k) => {
+            const t = new Date(D.shiftStart.getTime() + k * 15 * 60000);
+            return '<div class="tc-col" title="' + fmtClock(t) + ' — ' + buckets[k] + ' events"><div class="tc-bar" style="height:' + Math.max(4, buckets[k] / bmax * 120) + 'px"></div><div class="tc-lbl">' + fmtClock(t) + '</div></div>';
+        }).join('');
+        const srcMax = Math.max.apply(null, Object.keys(bySrc).map((k) => bySrc[k])) || 1;
+        $('#db-src').innerHTML = Object.keys(bySrc).sort((a, b) => bySrc[b] - bySrc[a]).map((s) =>
+            '<div class="db-src-item"><div class="db-src-val">' + bySrc[s] + '</div><div class="db-src-lbl">' + esc(s) + '</div>' +
+            '<div class="db-src-track"><span style="width:' + (bySrc[s] / srcMax * 100) + '%"></span></div></div>').join('');
     }
 
-    // Response action buttons
-    document.querySelectorAll('.response-actions .action-btn-large[data-action]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const action = this.getAttribute('data-action');
-            executeResponseAction(action);
+    function renderPlaybooks() {
+        $('#pb-body').innerHTML = '<table class="siem-table"><thead><tr><th>Playbook</th><th>Category</th><th>Updated</th><th>Status</th></tr></thead><tbody>' +
+            D.REFERENCE_PLAYBOOKS.map((p) => '<tr><td>' + esc(p.name) + '</td><td>' + esc(p.category) + '</td><td>' + esc(p.updated) + '</td><td><span class="pill pill-' + p.status + '">' + esc(p.status) + '</span></td></tr>').join('') +
+            '</tbody></table>';
+    }
+
+    function renderReports() {
+        const done = state.offenses.filter((o) => o.status !== 'open');
+        const open = state.offenses.filter((o) => o.status === 'open');
+        $('#rep-body').innerHTML =
+            '<div class="rep-actions"><button class="sx-btn sx-btn--primary sx-btn--sm" id="rep-gen"><i class="fas fa-file-lines"></i> Generate shift report</button></div>' +
+            '<div class="rep-summary">' +
+                '<div class="rep-stat"><div class="rep-n">' + D.LOGS.length.toLocaleString() + '</div><div class="rep-l">events ingested</div></div>' +
+                '<div class="rep-stat"><div class="rep-n">' + state.offenses.length + '</div><div class="rep-l">offenses raised</div></div>' +
+                '<div class="rep-stat"><div class="rep-n">' + done.length + '</div><div class="rep-l">closed</div></div>' +
+                '<div class="rep-stat"><div class="rep-n">' + state.score + '</div><div class="rep-l">shift score</div></div>' +
+            '</div>' +
+            (open.length ? '<p class="siem-msg">' + open.length + ' offense(s) still open. Close them from the Offenses tab for a complete report.</p>' : '<p class="siem-msg">All offenses handled.</p>');
+        $('#rep-gen').addEventListener('click', generateReport);
+    }
+
+    function generateReport() {
+        const lines = [];
+        lines.push('GULFPAY SOC — SHIFT REPORT');
+        lines.push('Analyst: ' + D.ORG.analyst + '   Generated: ' + new Date().toLocaleString());
+        lines.push('Shift start: ' + D.shiftStart.toLocaleString());
+        lines.push(''.padEnd(60, '='));
+        lines.push('Events ingested: ' + D.LOGS.length);
+        lines.push('Offenses raised: ' + state.offenses.length);
+        lines.push('Shift score:     ' + state.score);
+        lines.push('');
+        state.offenses.forEach((o) => {
+            lines.push('[' + o.id + '] ' + o.title);
+            lines.push('  Severity: ' + o.severity + '  Magnitude: ' + o.magnitude + '  Status: ' + o.status);
+            lines.push('  Window:   ' + fmtClock(o.firstSeen) + '-' + fmtClock(o.lastSeen) + '  Events: ' + o.eventIds.length);
+            lines.push('  ATT&CK:   ' + (o.techniques.join(', ') || 'n/a'));
+            const acts = state.actionsByOffense[o.id];
+            lines.push('  Actions:  ' + (acts.length ? acts.map((k) => D.ACTIONS[k].label).join('; ') : 'none'));
+            lines.push('  Summary:  ' + o.summary);
+            lines.push('');
         });
-    });
+        const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'gulfpay-soc-shift-report.txt';
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+        toast('Shift report downloaded.', 'ok');
+    }
 
-    // Time selectors
-    document.querySelectorAll('.time-option').forEach(option => {
-        option.addEventListener('click', function() {
-            const container = this.closest('.chart-container');
-            container.querySelectorAll('.time-option').forEach(o => o.classList.remove('active'));
-            this.classList.add('active');
-            
-            const timeFrame = this.getAttribute('data-time');
-            showNotification('Chart Updated', `Chart updated to show ${timeFrame} data.`, 'info');
-        });
-    });
+    function updateHeaderStats() {
+        const open = state.offenses.filter((o) => o.status === 'open');
+        $('#hdr-offenses').textContent = open.length;
+        $('#hdr-critical').textContent = open.filter((o) => o.severity === 'critical').length;
+        $('#hdr-score').textContent = state.score;
+        const badge = $('#nav-of-badge');
+        if (badge) { badge.textContent = open.length; badge.style.display = open.length ? '' : 'none'; }
+    }
+    function tickClock() {
+        const el = $('#siem-clock');
+        if (el) el.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+    }
 
-    // Search functionality
-    setupSearch('playbooks-search', 'playbooks-table');
-    setupSearch('cases-search', 'cases-table');
-    setupSearch('reports-search', 'reports-table');
+    function switchView(name) {
+        $$('.siem-view').forEach((v) => v.classList.toggle('is-active', v.dataset.view === name));
+        $$('.siem-tab').forEach((t) => t.classList.toggle('is-active', t.dataset.tab === name));
+        if (name === 'dashboard') renderDashboard();
+        if (name === 'offenses') renderOffenses();
+        if (name === 'reports') renderReports();
+        if (name === 'search') $('#siem-q').focus();
+    }
 
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-        // ESC to go back
-        if (e.key === 'Escape') {
-            if (document.getElementById('alert-detail-tab').classList.contains('active')) {
-                document.getElementById('back-to-alerts').click();
-            }
-        }
-        
-        // Number keys 1-5 for tab switching
-        if (e.key >= '1' && e.key <= '5') {
-            const tabs = document.querySelectorAll('.tab');
-            if (tabs[parseInt(e.key) - 1]) {
-                tabs[parseInt(e.key) - 1].click();
-            }
-        }
-    });
+    function buildModal(title, html) {
+        closeModal();
+        const back = document.createElement('div');
+        back.className = 'siem-modal-back'; back.id = 'siem-modal';
+        back.innerHTML = '<div class="siem-modal" role="dialog" aria-modal="true" aria-label="' + esc(title) + '">' +
+            '<div class="siem-modal-h"><h3>' + esc(title) + '</h3><button class="siem-modal-x" aria-label="Close">&times;</button></div>' +
+            '<div class="siem-modal-b">' + html + '</div></div>';
+        document.body.appendChild(back);
+        back.addEventListener('click', (e) => { if (e.target === back) closeModal(); });
+        $('.siem-modal-x', back).addEventListener('click', closeModal);
+        document.addEventListener('keydown', escClose);
+        return back;
+    }
+    function closeModal() { const m = $('#siem-modal'); if (m) m.remove(); document.removeEventListener('keydown', escClose); }
+    function escClose(e) { if (e.key === 'Escape') closeModal(); }
 
-    // Initialize paginated content
-    renderPaginatedContent('playbooks', 1);
-    renderPaginatedContent('cases', 1);
-    renderPaginatedContent('reports', 1);
-}
+    const SAVED = [
+        { label: 'All critical events', q: 'severity=critical' },
+        { label: 'EDR process activity', q: 'source=edr action=process' },
+        { label: 'Traffic to C2', q: '185.225.19.44' },
+        { label: 'Failed VPN logins', q: 'source=auth action=failure' },
+        { label: 'Events on FIN-WS03', q: 'host=FIN-WS03 | sort time' },
+        { label: 'Count by source', q: '* | stats count by source' },
+        { label: 'Count by severity', q: 'severity!=info | stats count by severity' },
+        { label: 'Volume over time', q: '* | timechart' }
+    ];
 
-// ============= UTILITY FUNCTIONS =============
-function capitalizeFirst(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-}
+    function boot() {
+        $('#siem-saved').innerHTML = SAVED.map((s) => '<button class="saved-q" data-q="' + esc(s.q) + '">' + esc(s.label) + '</button>').join('');
+        $$('#siem-saved .saved-q').forEach((b) => b.addEventListener('click', () => { $('#siem-q').value = b.dataset.q; renderSearch(b.dataset.q); }));
+        $('#siem-run').addEventListener('click', () => renderSearch($('#siem-q').value));
+        $('#siem-q').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); renderSearch($('#siem-q').value); } });
+        $$('.siem-tab').forEach((t) => t.addEventListener('click', () => switchView(t.dataset.tab)));
+        renderPlaybooks();
+        renderSearch('severity=critical');
+        renderOffenses();
+        updateHeaderStats();
+        tickClock(); setInterval(tickClock, 1000);
+        toast('New shift started. Three offenses are open — start with the critical one.', 'warn');
+    }
 
-function formatStatus(status) {
-    return status.split('-').map(capitalizeFirst).join(' ');
-}
-
-// ============= AUTO-REFRESH =============
-
-
-setInterval(() => {
-    updateStatistics();
-    showNotification('Data Refreshed', 'Alert data has been updated.', 'info');
-}, 30000);
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+    else boot();
+})();
