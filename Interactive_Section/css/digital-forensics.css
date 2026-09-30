@@ -72,7 +72,7 @@
 .df-untag { position: absolute; top: 6px; right: 8px; background: none; border: 0; color: #c9ccd1; font-size: 17px; cursor: pointer; line-height: 1; }
 .df-untag:hover { color: #d64545; }
 
-.df-empty { color: #adb5bd; font-size: 14px; text-align: center; padding: 26px 10px; }
+.df-empty { color: #6c757d; font-size: 14px; text-align: center; padding: 26px 10px; }
 
 .df-accuse { display: grid; grid-template-columns: 1fr 1fr auto; gap: 14px; align-items: end; background: #fff; border: 1px solid #e3e7ec; border-radius: 12px; padding: 18px; }
 .cs-field > label { display: block; font-weight: 600; font-size: 13.5px; color: #495057; margin-bottom: 6px; }

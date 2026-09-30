@@ -561,3 +561,113 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+/* ==========================================================================
+   File Integrity Monitoring module (absorbed from the FIM Challenge).
+   Adds a "File Integrity" page to the EDR console: baseline SHA-256 hashes for
+   critical files, a scan that detects modified / new / deleted files, and an
+   investigate action. Modeled on Tripwire / OSSEC / Wazuh FIM.
+   ========================================================================== */
+(function () {
+    'use strict';
+    function ready(fn){ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',fn); else fn(); }
+
+    var FILES = [
+        { path:'C:\\Windows\\System32\\drivers\\etc\\hosts', base:'a1f0...9c22', now:'7be3...41da', status:'modified',
+          note:'Two entries were appended redirecting login.gulfpay.local and update.microsoft.com to 185.225.19.44. Classic credential-phishing / update-hijack redirect.', sev:'critical' },
+        { path:'C:\\inetpub\\wwwroot\\index.html', base:'3c9d...77ab', now:'c40e...1f90', status:'modified',
+          note:'A hidden iframe and an obfuscated <script> block were injected into the homepage. Consistent with a web defacement or drive-by backdoor.', sev:'high' },
+        { path:'C:\\Windows\\Temp\\svchost.exe', base:'(not in baseline)', now:'ee91...b7c3', status:'new',
+          note:'A new executable named to impersonate the legitimate svchost.exe, but located in Temp and unsigned. Very likely malware.', sev:'critical' },
+        { path:'C:\\Program Files\\GulfPay\\app.config', base:'5d21...09ff', now:'5d21...09ff', status:'unchanged',
+          note:'Matches baseline. No action needed.', sev:'ok' },
+        { path:'C:\\Windows\\System32\\cmd.exe', base:'9a77...2b10', now:'9a77...2b10', status:'unchanged',
+          note:'Matches baseline. No action needed.', sev:'ok' },
+        { path:'C:\\Windows\\System32\\config\\SAM', base:'b0c4...5e6a', now:'DELETED', status:'deleted',
+          note:'The SAM registry hive backup was removed. Could indicate anti-forensics after credential theft.', sev:'high' }
+    ];
+    var SEVC={critical:'#d64545',high:'#e8833a',medium:'#e0a94a',ok:'#2e9e6b'};
+    var STATUSC={modified:'#e0a94a',new:'#d64545',deleted:'#6c757d',unchanged:'#2e9e6b'};
+    var acknowledged={};
+
+    ready(function(){
+        var menu=document.querySelector('.sidebar-menu');
+        if(!menu || document.getElementById('integrity-page')) return;
+        var links=Array.prototype.slice.call(menu.querySelectorAll('a[data-page]'));
+        var epLink=links.filter(function(a){return a.getAttribute('data-page')==='endpoints';})[0];
+        var li=document.createElement('li'); li.className='sidebar-menu-item';
+        li.innerHTML='<a href="#" data-page="integrity"><i class="fas fa-fingerprint"></i> File Integrity</a>';
+        if(epLink && epLink.parentNode){ epLink.parentNode.parentNode.insertBefore(li, epLink.parentNode.nextSibling); }
+        else { menu.appendChild(li); }
+
+        var dash=document.getElementById('dashboard-page');
+        var page=document.createElement('div'); page.className='page-content'; page.id='integrity-page'; page.style.display='none';
+        if(dash && dash.parentNode) dash.parentNode.appendChild(page); else document.querySelector('main,.main-content,body').appendChild(page);
+
+        menu.addEventListener('click', function(e){
+            var a=e.target.closest ? e.target.closest('a[data-page]') : null;
+            if(!a) return;
+            if(a.getAttribute('data-page')==='integrity'){
+                e.preventDefault();
+                menu.querySelectorAll('a[data-page]').forEach(function(x){x.classList.remove('active');});
+                a.classList.add('active');
+                document.querySelectorAll('.page-content').forEach(function(p){p.style.display='none';});
+                page.style.display='block';
+                render();
+            } else {
+                // another page selected: hide FIM page and drop its active state
+                page.style.display='none';
+                var fim=menu.querySelector('a[data-page="integrity"]'); if(fim) fim.classList.remove('active');
+            }
+        });
+
+        function counts(){ var c={modified:0,new:0,deleted:0,unchanged:0}; FILES.forEach(function(f){c[f.status]++;}); return c; }
+
+        function render(){
+            var c=counts();
+            var changed=FILES.filter(function(f){return f.status!=='unchanged';}).length;
+            var rows=FILES.map(function(f,i){
+                var isAck=acknowledged[i];
+                return '<tr style="border-top:1px solid #eceff2;vertical-align:top;'+(f.status!=='unchanged'?'background:#fffdf7;':'')+'">'+
+                    '<td style="padding:11px 12px;font-family:monospace;font-size:13px;color:#212529;">'+f.path+'</td>'+
+                    '<td style="padding:11px 12px;font-family:monospace;font-size:12px;color:#6c757d;">'+f.base+'<br>'+ (f.now==='DELETED'?'<span style="color:#d64545;">DELETED</span>':f.now)+'</td>'+
+                    '<td style="padding:11px 12px;text-align:center;"><span style="background:'+STATUSC[f.status]+';color:#fff;border-radius:6px;padding:3px 9px;font-size:12px;font-weight:600;text-transform:capitalize;">'+f.status+'</span></td>'+
+                    '<td style="padding:11px 12px;color:#6c757d;font-size:13px;">'+f.note+'</td>'+
+                    '<td style="padding:11px 12px;text-align:center;">'+ (f.status==='unchanged'?'<span style="color:#adb5bd;">&mdash;</span>' : (isAck?'<span style="color:#2e9e6b;font-size:13px;"><i class="fas fa-check"></i> Logged</span>':'<button class="fim-ack" data-i="'+i+'" style="background:#212529;color:#fff;border:0;border-radius:6px;padding:6px 11px;font-size:12px;cursor:pointer;">Investigate</button>')) +'</td>'+
+                '</tr>';
+            }).join('');
+            page.innerHTML=''+
+                '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">'+
+                    '<div><h2 class="page-title" style="margin:0;">File Integrity Monitoring</h2>'+
+                    '<p class="page-description" style="margin:4px 0 0;color:#6c757d;">Baseline SHA-256 hashes are compared against the current file system on monitored endpoints. Any drift is flagged for review.</p></div>'+
+                    '<button id="fim-scan" style="background:#212529;color:#fff;border:0;border-radius:8px;padding:11px 18px;font-weight:600;cursor:pointer;"><i class="fas fa-magnifying-glass"></i> Run integrity scan</button>'+
+                '</div>'+
+                '<div id="fim-summary" style="margin:16px 0;color:#6c757d;">Click <strong>Run integrity scan</strong> to compare '+FILES.length+' monitored files against their baseline.</div>'+
+                '<div id="fim-table" style="display:none;">'+
+                    '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">'+
+                        '<span style="background:'+STATUSC.modified+';color:#fff;border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;">'+c.modified+' modified</span>'+
+                        '<span style="background:'+STATUSC.new+';color:#fff;border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;">'+c.new+' new</span>'+
+                        '<span style="background:'+STATUSC.deleted+';color:#fff;border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;">'+c.deleted+' deleted</span>'+
+                        '<span style="background:'+STATUSC.unchanged+';color:#fff;border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;">'+c.unchanged+' unchanged</span>'+
+                    '</div>'+
+                    '<table style="width:100%;border-collapse:collapse;background:#fff;border:1px solid #e3e7ec;border-radius:8px;overflow:hidden;">'+
+                        '<thead><tr style="background:#f1f3f6;">'+
+                            '<th style="text-align:left;padding:10px 12px;font-size:12px;text-transform:uppercase;color:#6c757d;">File</th>'+
+                            '<th style="text-align:left;padding:10px 12px;font-size:12px;text-transform:uppercase;color:#6c757d;">Baseline / current</th>'+
+                            '<th style="text-align:center;padding:10px 12px;font-size:12px;text-transform:uppercase;color:#6c757d;">Status</th>'+
+                            '<th style="text-align:left;padding:10px 12px;font-size:12px;text-transform:uppercase;color:#6c757d;">Analysis</th>'+
+                            '<th style="text-align:center;padding:10px 12px;font-size:12px;text-transform:uppercase;color:#6c757d;">Action</th>'+
+                        '</tr></thead><tbody>'+rows+'</tbody></table>';
+            var scanBtn=page.querySelector('#fim-scan');
+            scanBtn.addEventListener('click', function(){
+                scanBtn.disabled=true; scanBtn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Scanning...';
+                setTimeout(function(){
+                    page.querySelector('#fim-table').style.display='block';
+                    page.querySelector('#fim-summary').innerHTML='Scan complete. <strong style="color:#d64545;">'+changed+' of '+FILES.length+' monitored files changed</strong> since the last baseline. Investigate the critical and high items first.';
+                    scanBtn.innerHTML='<i class="fas fa-check"></i> Scan complete';
+                    page.querySelectorAll('.fim-ack').forEach(function(bn){ bn.addEventListener('click', function(){ acknowledged[bn.dataset.i]=true; render(); page.querySelector('#fim-table').style.display='block'; }); });
+                }, 800);
+            });
+            page.querySelectorAll('.fim-ack').forEach(function(bn){ bn.addEventListener('click', function(){ acknowledged[bn.dataset.i]=true; render(); }); });
+        }
+    });
+})();

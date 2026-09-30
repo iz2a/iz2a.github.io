@@ -63,7 +63,7 @@
 .cs-report-head { background: #212529; color: #fff; padding: 14px 18px; font-weight: 600; display: flex; align-items: center; gap: 9px; }
 .cs-report-head i { color: #e0a94a; }
 #csp-report { padding: 16px; max-height: 78vh; overflow-y: auto; }
-.csp-empty { color: #adb5bd; font-size: 14px; text-align: center; padding: 30px 10px; }
+.csp-empty { color: #6c757d; font-size: 14px; text-align: center; padding: 30px 10px; }
 
 .csp-scorecard { display: flex; align-items: center; gap: 14px; padding-bottom: 16px; border-bottom: 1px solid #eceff2; margin-bottom: 14px; flex-wrap: wrap; }
 .csp-grade { width: 54px; height: 54px; border-radius: 12px; color: #fff; font: 700 28px var(--font-head, Georgia, serif); display: grid; place-items: center; }

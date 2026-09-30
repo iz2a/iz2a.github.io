@@ -2255,3 +2255,10 @@ nav { flex-wrap: wrap; gap: 10px 18px; }
     header .container { padding-right: 155px; }
     .language-switcher { top: 14px; }
 }
+
+/* readability: footer text must be light on the dark footer */
+footer, footer p, footer li, footer a, footer .footer-about p, footer .quick-links a span, footer .copyright span, footer .copyright p {
+    color: rgba(255,255,255,0.85) !important;
+}
+footer h3 { color: #ffffff !important; }
+footer a:hover, footer .quick-links a:hover span { color: var(--accent-color) !important; }

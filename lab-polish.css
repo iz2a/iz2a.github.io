@@ -89,3 +89,58 @@ em, i { font-style: italic !important; }
     box-shadow: 0 8px 24px rgba(0,0,0,.25); opacity: 0; transition: all .3s; z-index: 4000; max-width: 90vw;
 }
 .cert-flash.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* readability fixes */
+footer, footer p, footer li, footer a, footer .footer-about p, footer .copyright span { color: rgba(255,255,255,0.85) !important; }
+footer h3 { color: #fff !important; }
+.scenario-option { color: #212529 !important; }
+.scenario-option.active { color: #fff !important; }
+/* breadcrumb stays readable even on labs with their own dark body */
+.lab-crumbs { background: #eef1f4 !important; }
+.lab-crumbs a, .lab-crumbs span { color: #495057 !important; }
+.lab-crumbs .sep { color: #adb5bd !important; }
+
+/* edr: active scenario needs a dark chip so its white text reads */
+.scenario-option.active { background: #212529 !important; color: #fff !important; }
+.scenario-option { background: #f1f3f6 !important; color: #212529 !important; }
+
+/* Capture The Flag is an intentionally dark challenge: keep it dark with light text */
+body[data-lab="ctf-game"] { background: #0f1115 !important; color: #e6e8eb !important; }
+body[data-lab="ctf-game"] p,
+body[data-lab="ctf-game"] li,
+body[data-lab="ctf-game"] span:not(.labx-tag),
+body[data-lab="ctf-game"] h1,
+body[data-lab="ctf-game"] h2,
+body[data-lab="ctf-game"] h3,
+body[data-lab="ctf-game"] label,
+body[data-lab="ctf-game"] .game-title { color: #e6e8eb !important; }
+body[data-lab="ctf-game"] code,
+body[data-lab="ctf-game"] pre,
+body[data-lab="ctf-game"] .code-block,
+body[data-lab="ctf-game"] .hidden-content { color: #7CFFB2 !important; }
+
+/* severity badge contrast + CTF breadcrumb/text readability */
+.alert-severity.severity-high, .severity-high { background-color: #c25e0a !important; }
+body[data-lab="ctf-game"] .lab-crumbs { background: #eef1f4 !important; }
+body[data-lab="ctf-game"] .lab-crumbs a, body[data-lab="ctf-game"] .lab-crumbs span { color: #495057 !important; }
+body[data-lab="ctf-game"] .container,
+body[data-lab="ctf-game"] .container div,
+body[data-lab="ctf-game"] .container p,
+body[data-lab="ctf-game"] .game-container,
+body[data-lab="ctf-game"] .game-container div { color: #e6e8eb; }
+
+/* CTF is dark: give its breadcrumb a matching dark strip with light text */
+body[data-lab="ctf-game"] .lab-crumbs { background: #171a1f !important; border-bottom-color: #2a2f36 !important; }
+body[data-lab="ctf-game"] .lab-crumbs a, body[data-lab="ctf-game"] .lab-crumbs span { color: #c9ced4 !important; }
+body[data-lab="ctf-game"] .lab-crumbs .sep { color: #5a626b !important; }
+
+/* status badges: readable pills instead of pale colored text on white */
+.status-badge { padding: 3px 10px !important; border-radius: 999px !important; font-weight: 600 !important; }
+.status-badge.implemented { background: #e3f3e9 !important; color: #1f7a4d !important; }
+.status-badge.partial, .status-badge.partially-implemented { background: #fff3d6 !important; color: #8a6a00 !important; }
+.status-badge.not-implemented, .status-badge.missing { background: #fdeaea !important; color: #b02a2a !important; }
+.status-badge.planned { background: #e7eef7 !important; color: #245b8f !important; }
+/* security-level indicator: white text on its solid colour */
+.security-level.security-low, .security-level.security-medium, .security-level.security-high { color: #fff !important; }
+/* architecture canvas placeholder text */
+.canvas-label, .canvas-placeholder, #canvas-placeholder, .canvas-empty { color: #6c757d !important; }

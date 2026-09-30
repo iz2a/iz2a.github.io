@@ -3,1039 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Cybersecurity Learning — Aziz Alghamdi</title>
+    <title>Interactive Labs & Simulations | Aziz Alghamdi</title>
+    <meta name="description" content="Hands-on cybersecurity labs and simulations: SOC, EDR, penetration testing, cloud security, digital forensics, OWASP, cryptography and more.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg:        #0d0d0d;
-            --bg-card:   #141414;
-            --bg-card2:  #1a1a1a;
-            --border:    rgba(255,255,255,0.07);
-            --border-hi: rgba(255,255,255,0.16);
-            --white:     #f8f9fa;
-            --light:     #adb5bd;
-            --muted:     #6c757d;
-            --dim:       #495057;
-            --darker:    #343a40;
-            --mono:      'Space Mono', monospace;
-            --sans:      'DM Sans', sans-serif;
-        }
-        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
-        body {
-            background: var(--bg);
-            color: var(--white);
-            font-family: var(--sans);
-            font-size: 16px;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        /* ── HEADER ── */
-        header {
-            background: rgba(13,13,13,0.94);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 64px;
-        }
-        .logo {
-            font-family: var(--mono);
-            font-size: 14px;
-            color: var(--white);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            letter-spacing: 0.04em;
-        }
-        .logo i { color: var(--light); }
-        .nav-links { display: flex; list-style: none; gap: 28px; }
-        .nav-links a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.03em;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover { color: var(--white); }
-        .mobile-menu-btn { display: none; cursor: pointer; color: var(--white); font-size: 20px; }
-
-        /* ── HERO ── */
-        .page-hero {
-            padding: 88px 0 68px;
-            border-bottom: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-        .page-hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.10) 50%, transparent 100%);
-        }
-        .hero-kicker {
-            font-family: var(--mono);
-            font-size: 11px;
-            letter-spacing: 0.22em;
-            color: var(--muted);
-            text-transform: uppercase;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .hero-kicker::before {
-            content: '';
-            display: inline-block;
-            width: 22px; height: 1px;
-            background: var(--dim);
-        }
-        .page-hero h1 {
-            font-size: clamp(38px, 5.5vw, 60px);
-            font-weight: 300;
-            line-height: 1.12;
-            letter-spacing: -0.025em;
-            color: var(--white);
-            margin-bottom: 22px;
-        }
-        .page-hero h1 em {
-            font-style: normal;
-            font-weight: 700;
-            color: var(--white);
-        }
-        .page-hero p {
-            font-size: 18px;
-            color: var(--muted);
-            max-width: 580px;
-            line-height: 1.75;
-            font-weight: 300;
-        }
-        .hero-stats {
-            display: flex;
-            gap: 52px;
-            margin-top: 52px;
-            padding-top: 40px;
-            border-top: 1px solid var(--border);
-        }
-        .hero-stat .num {
-            font-family: var(--mono);
-            font-size: 26px;
-            color: var(--white);
-            font-weight: 700;
-        }
-        .hero-stat .lbl {
-            font-size: 12px;
-            color: var(--dim);
-            margin-top: 4px;
-            letter-spacing: 0.04em;
-        }
-
-        /* ── FILTER BAR ── */
-        .filter-bar {
-            padding: 32px 0 4px;
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .filter-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--muted);
-            padding: 7px 16px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.18s;
-            font-family: var(--mono);
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-        .filter-btn:hover { border-color: var(--border-hi); color: var(--light); }
-        .filter-btn.active {
-            background: var(--white);
-            border-color: var(--white);
-            color: var(--bg);
-        }
-
-        /* ── SECTION HEADING ── */
-        .section-heading {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 28px;
-            margin-top: 64px;
-        }
-        .section-heading .tag {
-            font-family: var(--mono);
-            font-size: 10px;
-            letter-spacing: 0.20em;
-            color: var(--muted);
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-        .section-heading h2 {
-            font-size: 20px;
-            font-weight: 500;
-            color: var(--white);
-            letter-spacing: -0.01em;
-            white-space: nowrap;
-        }
-        .section-heading .line {
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        /* ══════════════════════
-           MIRSAD HERO CARD
-        ══════════════════════ */
-        .featured-hero {
-            background: var(--bg-card);
-            border: 1px solid var(--border-hi);
-            border-radius: 12px;
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: 1fr 380px;
-            min-height: 380px;
-            position: relative;
-        }
-        .featured-hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.20), transparent);
-        }
-        .fh-content {
-            padding: 52px 52px 48px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .fh-live {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid var(--border-hi);
-            color: var(--light);
-            font-family: var(--mono);
-            font-size: 10px;
-            letter-spacing: 0.14em;
-            padding: 5px 12px;
-            border-radius: 3px;
-            width: fit-content;
-            margin-bottom: 26px;
-            text-transform: uppercase;
-        }
-        .live-dot {
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: var(--light);
-            animation: pulse-dot 2.4s ease-in-out infinite;
-        }
-        @keyframes pulse-dot {
-            0%,100% { opacity:1; transform:scale(1); }
-            50% { opacity:0.35; transform:scale(0.75); }
-        }
-        .fh-title {
-            font-family: var(--mono);
-            font-size: 44px;
-            font-weight: 700;
-            line-height: 1;
-            letter-spacing: -0.02em;
-            color: var(--white);
-            margin-bottom: 4px;
-        }
-        .fh-arabic {
-            font-family: var(--mono);
-            font-size: 18px;
-            color: var(--muted);
-            font-weight: 400;
-            letter-spacing: 0.10em;
-            margin-bottom: 22px;
-        }
-        .fh-desc {
-            font-size: 15px;
-            color: var(--muted);
-            line-height: 1.78;
-            max-width: 440px;
-            font-weight: 300;
-            margin-bottom: 28px;
-        }
-        .fh-frameworks {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 36px;
-        }
-        .fw-tag {
-            font-family: var(--mono);
-            font-size: 10px;
-            letter-spacing: 0.08em;
-            color: var(--dim);
-            border: 1px solid var(--border);
-            background: transparent;
-            padding: 3px 9px;
-            border-radius: 3px;
-        }
-        .fh-actions { display: flex; gap: 12px; align-items: center; }
-        .btn-primary {
-            background: var(--white);
-            color: var(--bg);
-            border: none;
-            padding: 12px 26px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: opacity 0.18s, transform 0.15s;
-            font-family: var(--mono);
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-        }
-        .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); color: var(--bg); }
-        .btn-ghost {
-            background: transparent;
-            color: var(--muted);
-            border: 1px solid var(--border-hi);
-            padding: 12px 22px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.18s;
-            font-family: var(--mono);
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-        }
-        .btn-ghost:hover { border-color: rgba(255,255,255,0.30); color: var(--light); }
-
-        /* MIRSAD visual panel */
-        .fh-visual {
-            background: #0a0a0a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-left: 1px solid var(--border);
-            position: relative;
-        }
-        .radar-wrap {
-            position: relative;
-            width: 200px; height: 200px;
-        }
-        .radar-wrap svg { width: 100%; height: 100%; }
-        .radar-label {
-            position: absolute;
-            bottom: -28px; left: 50%;
-            transform: translateX(-50%);
-            font-family: var(--mono);
-            font-size: 10px;
-            letter-spacing: 0.20em;
-            color: var(--dim);
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-        @keyframes radar-sweep {
-            from { transform: rotate(0deg); }
-            to   { transform: rotate(360deg); }
-        }
-        .sweep-line { transform-origin: 100px 100px; animation: radar-sweep 4s linear infinite; }
-
-        /* ══════════════════════
-           FEATURED 3-CARD ROW
-        ══════════════════════ */
-        .featured-row {
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-        .feat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: inherit;
-            transition: border-color 0.22s, transform 0.18s;
-        }
-        .feat-card:hover { border-color: var(--border-hi); transform: translateY(-2px); color: inherit; }
-        .feat-card-thumb {
-            height: 148px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #111;
-            border-bottom: 1px solid var(--border);
-            overflow: hidden;
-        }
-        .feat-card-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
-        .feat-card-cat {
-            font-family: var(--mono);
-            font-size: 10px;
-            letter-spacing: 0.16em;
-            color: var(--dim);
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-        .feat-card-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--white);
-            margin-bottom: 10px;
-            line-height: 1.3;
-        }
-        .feat-card-desc {
-            font-size: 13px;
-            color: var(--muted);
-            line-height: 1.65;
-            flex: 1;
-            margin-bottom: 18px;
-            font-weight: 300;
-        }
-        .feat-card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .feat-pill {
-            font-family: var(--mono);
-            font-size: 10px;
-            letter-spacing: 0.06em;
-            padding: 3px 9px;
-            border-radius: 3px;
-            border: 1px solid var(--border-hi);
-            color: var(--light);
-            background: transparent;
-        }
-        .feat-arrow { color: var(--dim); font-size: 16px; transition: transform 0.18s, color 0.18s; }
-        .feat-card:hover .feat-arrow { transform: translateX(4px); color: var(--light); }
-
-        /* ══════════════════════
-           ALL TOOLS GRID
-        ══════════════════════ */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(295px,1fr));
-            gap: 14px;
-        }
-        .tool-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 22px;
-            display: flex;
-            flex-direction: column;
-            gap: 11px;
-            transition: border-color 0.2s, background 0.2s;
-            text-decoration: none;
-            color: inherit;
-        }
-        .tool-card:hover {
-            border-color: var(--border-hi);
-            background: var(--bg-card2);
-            color: inherit;
-        }
-        .tool-card-top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-        }
-        .tool-icon {
-            width: 38px; height: 38px;
-            border-radius: 6px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            color: var(--light);
-            flex-shrink: 0;
-        }
-        .tool-badge-sm {
-            font-family: var(--mono);
-            font-size: 9px;
-            letter-spacing: 0.10em;
-            text-transform: uppercase;
-            padding: 3px 7px;
-            border-radius: 3px;
-            border: 1px solid var(--border);
-            color: var(--dim);
-        }
-        .tool-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--white);
-            line-height: 1.3;
-        }
-        .tool-desc {
-            font-size: 12px;
-            color: var(--muted);
-            line-height: 1.63;
-            font-weight: 300;
-        }
-        .tool-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-        .tool-tag {
-            font-size: 10px;
-            color: var(--dim);
-            background: rgba(255,255,255,0.04);
-            border: 1px solid var(--border);
-            padding: 2px 7px;
-            border-radius: 3px;
-            font-family: var(--mono);
-            letter-spacing: 0.04em;
-        }
-
-        /* ── FOOTER ── */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 48px 0 32px;
-            margin-top: 80px;
-        }
-        .footer-inner {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 32px;
-        }
-        .footer-about h3 { font-size: 15px; font-weight: 600; margin-bottom: 10px; }
-        .footer-about p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
-        .footer-links h3 { font-size: 15px; font-weight: 600; margin-bottom: 10px; }
-        .quick-links { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .quick-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.18s; }
-        .quick-links a:hover { color: var(--white); }
-        .social-links { display: flex; gap: 10px; margin-top: 14px; }
-        .social-link {
-            width: 34px; height: 34px;
-            border: 1px solid var(--border);
-            border-radius: 5px;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--muted); text-decoration: none;
-            font-size: 13px;
-            transition: all 0.18s;
-        }
-        .social-link:hover { border-color: var(--border-hi); color: var(--light); }
-        .copyright { font-size: 12px; color: var(--dim); border-top: 1px solid var(--border); padding-top: 22px; letter-spacing: 0.02em; }
-
-        /* ── RESPONSIVE ── */
-        @media (max-width: 1024px) {
-            .featured-hero { grid-template-columns: 1fr; }
-            .fh-visual { display: none; }
-            .featured-row { grid-template-columns: 1fr 1fr; }
-        }
-        @media (max-width: 768px) {
-            .container { padding: 0 20px; }
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
-            .nav-links.active {
-                display: flex; flex-direction: column;
-                position: fixed; top: 64px; left: 0; right: 0;
-                background: var(--bg);
-                border-bottom: 1px solid var(--border);
-                padding: 20px; gap: 16px;
-            }
-            .featured-row { grid-template-columns: 1fr; }
-            .hero-stats { flex-wrap: wrap; gap: 22px; }
-            .fh-content { padding: 28px 22px; }
-            .fh-title { font-size: 30px; }
-            .footer-inner { grid-template-columns: 1fr; }
-        }
-    </style>
     <link rel="stylesheet" href="/lab-polish.css">
+    <style>
+        .labx-hero { padding: 46px 0 10px; }
+        .labx-hero h1 { font-size: 34px; }
+        .labx-lead { max-width: 820px; color: #495057; font-size: 17px; line-height: 1.7; margin-top: 8px; }
+        .labx-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 10px; }
+        .labx-fbtn { background: #fff; border: 1px solid #d7dce2; color: #495057; border-radius: 999px; padding: 7px 15px; font: 500 14px var(--font-body,sans-serif); cursor: pointer; }
+        .labx-fbtn:hover { border-color: #495057; color: #212529; }
+        .labx-fbtn.active { background: #212529; color: #fff; border-color: #212529; }
+        .labx-group { margin: 30px 0 6px; }
+        .labx-group h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .05em; color: #6c757d; border-bottom: 1px solid #e3e7ec; padding-bottom: 8px; }
+        .labx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin: 16px 0 8px; }
+        .labx-card { display: flex; flex-direction: column; background: #fff; border: 1px solid #e3e7ec; border-radius: 12px; padding: 20px; text-decoration: none; transition: transform .15s, box-shadow .15s, border-color .15s; }
+        .labx-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(20,30,45,.08); border-color: #cfd6de; }
+        .labx-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .labx-ico { width: 44px; height: 44px; border-radius: 10px; background: #212529; color: #fff; display: grid; place-items: center; font-size: 19px; flex-shrink: 0; }
+        .labx-ico.sim { background: #1d3a5f; }
+        .labx-ico.off { background: #6b2020; }
+        .labx-ico.grc { background: #1f5138; }
+        .labx-ico.fun { background: #4a3a6b; }
+        .labx-name { font-family: var(--font-head, Georgia, serif); font-size: 18px; font-weight: 600; color: #212529; line-height: 1.25; }
+        .labx-tagline { font-size: 12px; color: #8a94a0; text-transform: uppercase; letter-spacing: .03em; margin-top: 2px; }
+        .labx-desc { color: #56606b; font-size: 14px; line-height: 1.6; flex: 1; }
+        .labx-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+        .labx-tag { background: #f1f3f6; color: #56606b; border-radius: 6px; padding: 3px 9px; font-size: 12px; }
+        .labx-go { margin-top: 14px; color: #1d3a5f; font-weight: 600; font-size: 14px; }
+        .labx-go i { transition: transform .15s; }
+        .labx-card:hover .labx-go i { transform: translateX(4px); }
+    </style>
 </head>
-<body>
+<body data-lab="labs-index">
 
-<header>
-    <div class="container">
-        <nav>
-            <a href="/index.html" class="logo">
-                <i class="fas fa-shield-alt"></i>
-                Aziz Alghamdi
-            </a>
-            <div class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </div>
-            <ul class="nav-links">
-                <li><a href="/index.html">Home</a></li>
-                <li><a href="/index.html#about">About</a></li>
-                <li><a href="/index.html#experience">Experience</a></li>
-                <li><a href="/index.html#research">Research</a></li>
-                <li><a href="/index.html#projects">Projects</a></li>
-                <li><a href="/index.html#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
-<section class="page-hero">
-    <div class="container">
-        <div class="hero-kicker">Interactive Learning Platform</div>
-        <h1>Cybersecurity<br><em>Tools & Simulations</em></h1>
-        <p>Live GRC automation, SOC simulations, penetration testing labs, and security challenges — hands-on experience with real-world frameworks and scenarios.</p>
-        <div class="hero-stats">
-            <div class="hero-stat"><div class="num">20+</div><div class="lbl">Interactive tools</div></div>
-            <div class="hero-stat"><div class="num">5</div><div class="lbl">Live platforms</div></div>
-            <div class="hero-stat"><div class="num">6</div><div class="lbl">GRC frameworks</div></div>
-            <div class="hero-stat"><div class="num">24/7</div><div class="lbl">Free access</div></div>
-        </div>
-    </div>
-</section>
-
-<div class="container">
-
-    <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterCards('all',this)">All</button>
-        <button class="filter-btn" onclick="filterCards('grc',this)">GRC & Compliance</button>
-        <button class="filter-btn" onclick="filterCards('soc',this)">SOC & Blue Team</button>
-        <button class="filter-btn" onclick="filterCards('pentest',this)">Pentesting</button>
-        <button class="filter-btn" onclick="filterCards('challenges',this)">Challenges</button>
-        <button class="filter-btn" onclick="filterCards('tools',this)">Tools</button>
-    </div>
-
-    <!-- ═══ FEATURED ═══ -->
-    <div class="section-heading">
-        <span class="tag">Featured</span>
-        <h2>MIRSAD — Live GRC Platform</h2>
-        <div class="line"></div>
-    </div>
-
-    <div class="featured-hero" data-cat="grc">
-        <div class="fh-content">
-            <div>
-                <div class="fh-live">
-                    <div class="live-dot"></div>
-                    Live Production Platform
-                </div>
-                <div class="fh-title">MIRSAD</div>
-                <div class="fh-arabic">مِرصاد — The Watchtower</div>
-                <p class="fh-desc">AI-powered GRC automation platform for SAMA CSF, NCA ECC/DCC, ISO 27001, and NIST CSF compliance. Automates policy drafting, control mapping, gap analysis, and evidence management with bilingual Arabic/English support.</p>
-                <div class="fh-frameworks">
-                    <span class="fw-tag">SAMA CSF</span>
-                    <span class="fw-tag">SAMA MVC</span>
-                    <span class="fw-tag">NCA ECC</span>
-                    <span class="fw-tag">NCA DCC</span>
-                    <span class="fw-tag">ISO 27001</span>
-                    <span class="fw-tag">NIST CSF</span>
-                    <span class="fw-tag">Arabic / English</span>
-                </div>
-            </div>
-            <div class="fh-actions">
-                <a href="https://mirsad-theta.vercel.app" target="_blank" class="btn-primary">
-                    <i class="fas fa-rocket" style="font-size:11px;"></i>
-                    Launch Platform
-                </a>
-                <a href="https://mirsad-theta.vercel.app/register" target="_blank" class="btn-ghost">
-                    Create Account
-                </a>
+<main id="main">
+    <section class="labx-hero">
+        <div class="container">
+            <h1 class="section-title cyber-accent">Interactive Labs &amp; Simulations</h1>
+            <p class="labx-lead">Hands-on environments that mirror the tools and decisions of real security work: run a SOC shift, harden a cloud account, work a forensics case, or drive a full penetration test. Everything runs in your browser. Use the filters to jump to an area.</p>
+            <div class="labx-filter" id="labx-filter">
+                <button class="labx-fbtn active" data-cat="all">All</button>
+                <button class="labx-fbtn" data-cat="blue">Blue Team</button>
+                <button class="labx-fbtn" data-cat="offensive">Offensive</button>
+                <button class="labx-fbtn" data-cat="network">Network</button>
+                <button class="labx-fbtn" data-cat="cloud">Cloud &amp; Architecture</button>
+                <button class="labx-fbtn" data-cat="grc">GRC</button>
+                <button class="labx-fbtn" data-cat="fundamentals">Fundamentals</button>
+                <button class="labx-fbtn" data-cat="challenge">Challenges</button>
             </div>
         </div>
-        <div class="fh-visual">
-            <div class="radar-wrap">
-                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-                    <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-                    <circle cx="100" cy="100" r="38" fill="none" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
-                    <circle cx="100" cy="100" r="18" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
-                    <line x1="100" y1="14" x2="100" y2="186" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>
-                    <line x1="14" y1="100" x2="186" y2="100" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>
-                    <line x1="42" y1="42" x2="158" y2="158" stroke="rgba(255,255,255,0.04)" stroke-width="0.8"/>
-                    <line x1="158" y1="42" x2="42" y2="158" stroke="rgba(255,255,255,0.04)" stroke-width="0.8"/>
-                    <g class="sweep-line">
-                        <path d="M100,100 L182,100 A82,82 0 0,1 158,158 Z" fill="rgba(255,255,255,0.04)"/>
-                        <line x1="100" y1="100" x2="182" y2="100" stroke="rgba(255,255,255,0.40)" stroke-width="1.2"/>
-                    </g>
-                    <circle cx="144" cy="70" r="3" fill="white" opacity="0.75"/>
-                    <circle cx="144" cy="70" r="8" fill="none" stroke="white" stroke-width="0.8" opacity="0.25"/>
-                    <circle cx="72" cy="132" r="2" fill="white" opacity="0.45"/>
-                    <circle cx="128" cy="128" r="1.8" fill="white" opacity="0.35"/>
-                    <circle cx="66" cy="84" r="1.4" fill="white" opacity="0.28"/>
-                    <circle cx="100" cy="100" r="3.5" fill="white"/>
-                    <circle cx="100" cy="100" r="9" fill="none" stroke="white" stroke-width="0.8" opacity="0.35"/>
-                </svg>
-                <div class="radar-label">GRC Radar</div>
-            </div>
-        </div>
-    </div>
+    </section>
 
-    <!-- ═══ SIMULATIONS ═══ -->
-    <div class="section-heading">
-        <span class="tag">Simulations</span>
-        <h2>Professional Security Labs</h2>
-        <div class="line"></div>
-    </div>
-
-    <div class="featured-row">
-
-        <a href="soc-simulation.html" class="feat-card" data-cat="soc">
-            <div class="feat-card-thumb">
-                <svg width="110" height="90" viewBox="0 0 110 90">
-                    <rect x="8" y="8" width="94" height="74" rx="3" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" stroke-width="0.8"/>
-                    <line x1="8" y1="22" x2="102" y2="22" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
-                    <rect x="15" y="12" width="26" height="7" rx="2" fill="rgba(255,255,255,0.10)"/>
-                    <rect x="15" y="30" width="78" height="5" rx="1.5" fill="rgba(255,255,255,0.20)"/>
-                    <rect x="15" y="42" width="58" height="5" rx="1.5" fill="rgba(255,255,255,0.12)"/>
-                    <rect x="15" y="54" width="68" height="5" rx="1.5" fill="rgba(255,255,255,0.10)"/>
-                    <rect x="15" y="66" width="42" height="5" rx="1.5" fill="rgba(255,255,255,0.07)"/>
-                    <circle cx="93" cy="32" r="2.5" fill="white" opacity="0.7"/>
-                    <circle cx="93" cy="44" r="2.5" fill="white" opacity="0.45"/>
-                    <circle cx="93" cy="56" r="2.5" fill="white" opacity="0.35"/>
-                    <circle cx="93" cy="68" r="2.5" fill="white" opacity="0.25"/>
-                </svg>
-            </div>
-            <div class="feat-card-body">
-                <div class="feat-card-cat">Simulation — SOC</div>
-                <div class="feat-card-title">SOC Analyst Simulation</div>
-                <p class="feat-card-desc">Step into a Security Operations Center. Triage alerts, investigate incidents, and respond to live threats using SIEM dashboards and IR playbooks.</p>
-                <div class="feat-card-footer">
-                    <span class="feat-pill">Critical Alerts</span>
-                    <i class="fas fa-arrow-right feat-arrow"></i>
-                </div>
-            </div>
-        </a>
-
-        <a href="vulnerability-lab.html" class="feat-card" data-cat="pentest">
-            <div class="feat-card-thumb">
-                <svg width="110" height="90" viewBox="0 0 110 90">
-                    <rect x="8" y="8" width="94" height="74" rx="3" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" stroke-width="0.8"/>
-                    <line x1="8" y1="22" x2="102" y2="22" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
-                    <circle cx="18" cy="15" r="2.5" fill="white" opacity="0.5"/>
-                    <circle cx="26" cy="15" r="2.5" fill="white" opacity="0.35"/>
-                    <circle cx="34" cy="15" r="2.5" fill="white" opacity="0.25"/>
-                    <text x="14" y="34" font-family="monospace" font-size="7" fill="rgba(255,255,255,0.55)">$ nmap -sV 192.168.1.0/24</text>
-                    <text x="14" y="46" font-family="monospace" font-size="7" fill="rgba(255,255,255,0.35)">Found: 49 vulnerabilities</text>
-                    <text x="14" y="58" font-family="monospace" font-size="7" fill="rgba(255,255,255,0.65)">[CRITICAL] MS17-010</text>
-                    <text x="14" y="70" font-family="monospace" font-size="7" fill="rgba(255,255,255,0.45)">[HIGH] SQL Injection</text>
-                </svg>
-            </div>
-            <div class="feat-card-body">
-                <div class="feat-card-cat">Lab — Penetration Testing</div>
-                <div class="feat-card-title">Vulnerability Assessment Lab</div>
-                <p class="feat-card-desc">Configure and run full vulnerability scans, analyze results, and build professional remediation reports — Nessus/Nmap workflow simulation.</p>
-                <div class="feat-card-footer">
-                    <span class="feat-pill">Scan & Remediate</span>
-                    <i class="fas fa-arrow-right feat-arrow"></i>
-                </div>
-            </div>
-        </a>
-
-        <a href="compliance-navigator.html" class="feat-card" data-cat="grc">
-            <div class="feat-card-thumb">
-                <svg width="110" height="90" viewBox="0 0 110 90">
-                    <rect x="8" y="8" width="42" height="32" rx="2" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
-                    <rect x="60" y="8" width="42" height="32" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
-                    <rect x="8" y="50" width="42" height="32" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
-                    <rect x="60" y="50" width="42" height="32" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
-                    <text x="14" y="22" font-family="monospace" font-size="6" fill="rgba(255,255,255,0.70)">SAMA CSF</text>
-                    <text x="14" y="31" font-family="monospace" font-size="5.5" fill="rgba(255,255,255,0.30)">23 controls</text>
-                    <text x="66" y="22" font-family="monospace" font-size="6" fill="rgba(255,255,255,0.55)">NCA ECC</text>
-                    <text x="66" y="31" font-family="monospace" font-size="5.5" fill="rgba(255,255,255,0.25)">114 controls</text>
-                    <text x="14" y="64" font-family="monospace" font-size="6" fill="rgba(255,255,255,0.55)">ISO 27001</text>
-                    <text x="14" y="73" font-family="monospace" font-size="5.5" fill="rgba(255,255,255,0.25)">93 controls</text>
-                    <text x="66" y="64" font-family="monospace" font-size="6" fill="rgba(255,255,255,0.55)">NIST CSF</text>
-                    <text x="66" y="73" font-family="monospace" font-size="5.5" fill="rgba(255,255,255,0.25)">108 controls</text>
-                    <line x1="50" y1="24" x2="60" y2="24" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
-                    <line x1="50" y1="66" x2="60" y2="66" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
-                    <line x1="29" y1="40" x2="29" y2="50" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
-                    <line x1="81" y1="40" x2="81" y2="50" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
-                </svg>
-            </div>
-            <div class="feat-card-body">
-                <div class="feat-card-cat">Tool — GRC</div>
-                <div class="feat-card-title">Security Compliance Navigator</div>
-                <p class="feat-card-desc">Explore NIST CSF, ISO 27001, CIS Controls, and PCI DSS. Map controls cross-framework, assess implementation status, and generate gap reports.</p>
-                <div class="feat-card-footer">
-                    <span class="feat-pill">4 Frameworks</span>
-                    <i class="fas fa-arrow-right feat-arrow"></i>
-                </div>
-            </div>
-        </a>
-
-    </div>
-
-    <!-- ═══ ALL TOOLS ═══ -->
-    <div class="section-heading">
-        <span class="tag">All Tools</span>
-        <h2>Full Learning Library</h2>
-        <div class="line"></div>
-    </div>
-
-    <div class="tools-grid" id="tools-grid">
-
-        <a href="pentest-lab.html" class="tool-card" data-cat="pentest">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-crosshairs"></i></div>
-                <span class="tool-badge-sm">Advanced</span>
-            </div>
-            <div class="tool-name">Penetration Testing Lab</div>
-            <p class="tool-desc">Full pentest workflow — recon, scanning, Metasploit exploitation, post-exploitation, and professional reporting. Multi-stage lab environment.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">Metasploit</span><span class="tool-tag">Nmap</span><span class="tool-tag">SQLMap</span><span class="tool-tag">Hydra</span>
-            </div>
-        </a>
-
-        <a href="edr-lab.html" class="tool-card" data-cat="soc">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-laptop-medical"></i></div>
-                <span class="tool-badge-sm">Advanced</span>
-            </div>
-            <div class="tool-name">Endpoint Defense Lab</div>
-            <p class="tool-desc">Simulate EDR/XDR responses to live malware. Analyze process trees, file activity, network connections, and execute containment actions.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">EDR</span><span class="tool-tag">XDR</span><span class="tool-tag">Malware</span><span class="tool-tag">IR</span>
-            </div>
-        </a>
-
-        <a href="cloud-security.html" class="tool-card" data-cat="soc">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-cloud"></i></div>
-                <span class="tool-badge-sm">Featured</span>
-            </div>
-            <div class="tool-name">Cloud Security Sandbox</div>
-            <p class="tool-desc">Configure IAM, security groups, monitoring, and storage policies. Respond to simulated cloud incidents in a fintech scenario environment.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">IAM</span><span class="tool-tag">AWS</span><span class="tool-tag">IDS</span><span class="tool-tag">S3</span>
-            </div>
-        </a>
-
-        <a href="owasp-workshop.html" class="tool-card" data-cat="pentest">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-bug"></i></div>
-                <span class="tool-badge-sm">Featured</span>
-            </div>
-            <div class="tool-name">OWASP Top 10 Workshop</div>
-            <p class="tool-desc">Hands-on study of all 10 OWASP vulnerabilities with live demos, vulnerable/secure code comparisons, and secure coding quizzes.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">SQL Injection</span><span class="tool-tag">XSS</span><span class="tool-tag">SSRF</span><span class="tool-tag">Auth Failures</span>
-            </div>
-        </a>
-
-        <a href="architecture-designer.html" class="tool-card" data-cat="tools">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-drafting-compass"></i></div>
-                <span class="tool-badge-sm">Advanced</span>
-            </div>
-            <div class="tool-name">Secure Architecture Designer</div>
-            <p class="tool-desc">Drag-and-drop secure architecture tool. Design defense-in-depth layouts for e-commerce, healthcare, and cloud scenarios and get evaluated.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">Zero Trust</span><span class="tool-tag">Defense-in-Depth</span><span class="tool-tag">WAF</span>
-            </div>
-        </a>
-
-        <a href="network-toolkit.html" class="tool-card" data-cat="soc">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-network-wired"></i></div>
-                <span class="tool-badge-sm">Featured</span>
-            </div>
-            <div class="tool-name">Network Security Toolkit</div>
-            <p class="tool-desc">Simulated Wireshark packet analyzer, Nmap scanner, firewall configurator, and IDS/IPS with sample captures and real alert data.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">Wireshark</span><span class="tool-tag">Nmap</span><span class="tool-tag">Firewall</span><span class="tool-tag">IDS</span>
-            </div>
-        </a>
-
-        <a href="digital-forensics.html" class="tool-card" data-cat="challenges">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-microscope"></i></div>
-                <span class="tool-badge-sm">New</span>
-            </div>
-            <div class="tool-name">Digital Forensics Challenge</div>
-            <p class="tool-desc">Investigate a real data breach. Analyze CCTV footage, system logs, command history, phishing emails, and metadata to identify the attacker.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">Log Analysis</span><span class="tool-tag">EXIF</span><span class="tool-tag">Network Forensics</span>
-            </div>
-        </a>
-
-        <a href="ctf-game.html" class="tool-card" data-cat="challenges">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-flag"></i></div>
-                <span class="tool-badge-sm">New</span>
-            </div>
-            <div class="tool-name">Capture The Flag</div>
-            <p class="tool-desc">Five multi-discipline challenges: recon, Base64 crypto, SQL injection, digital forensics, and reverse engineering. 500 points total.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">Recon</span><span class="tool-tag">Crypto</span><span class="tool-tag">Web</span><span class="tool-tag">Forensics</span>
-            </div>
-        </a>
-
-        <a href="../../Terminal_Game/index.html" class="tool-card" data-cat="challenges">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-terminal"></i></div>
-                <span class="tool-badge-sm">New</span>
-            </div>
-            <div class="tool-name">Cybersecurity Terminal</div>
-            <p class="tool-desc">12-level privilege escalation challenge in a simulated Linux terminal. Recon → credential discovery → admin → root. Earn 12 badges.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">Linux</span><span class="tool-tag">Priv Escalation</span><span class="tool-tag">Enumeration</span>
-            </div>
-        </a>
-
-        <a href="social-engineering-quiz.html" class="tool-card" data-cat="challenges">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-user-secret"></i></div>
-                <span class="tool-badge-sm">New</span>
-            </div>
-            <div class="tool-name">Social Engineering Quiz</div>
-            <p class="tool-desc">10 real-world phishing, vishing, smishing, and BEC scenarios. Score yourself and learn to spot manipulation before it's too late.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">Phishing</span><span class="tool-tag">BEC</span><span class="tool-tag">Awareness</span>
-            </div>
-        </a>
-
-        <a href="network-playground.html" class="tool-card" data-cat="tools">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-project-diagram"></i></div>
-                <span class="tool-badge-sm">New</span>
-            </div>
-            <div class="tool-name">Network Security Playground</div>
-            <p class="tool-desc">Real-time network simulation. Launch DDoS, malware, and brute-force attacks then deploy firewalls, IDS/IPS, and patches to defend.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">DDoS</span><span class="tool-tag">Malware Spread</span><span class="tool-tag">Defense</span>
-            </div>
-        </a>
-
-        <a href="encryption-playground.html" class="tool-card" data-cat="tools">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-lock"></i></div>
-                <span class="tool-badge-sm">New</span>
-            </div>
-            <div class="tool-name">Encryption Playground</div>
-            <p class="tool-desc">Experiment with Caesar cipher, Vigenère, AES-256, RSA, and Base64 encoding in real time with visual step-by-step explanations.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">AES</span><span class="tool-tag">RSA</span><span class="tool-tag">Caesar</span><span class="tool-tag">Base64</span>
-            </div>
-        </a>
-
-        <a href="blockchain.html" class="tool-card" data-cat="tools">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-cubes"></i></div>
-                <span class="tool-badge-sm">New</span>
-            </div>
-            <div class="tool-name">Blockchain Explorer</div>
-            <p class="tool-desc">Create transactions, mine blocks, and watch SHA-256 hashing in action. Adjust mining difficulty and see cryptographic proof-of-work.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">SHA-256</span><span class="tool-tag">Mining</span><span class="tool-tag">Transactions</span>
-            </div>
-        </a>
-
-        <a href="password_security.html" class="tool-card" data-cat="tools">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-key"></i></div>
-                <span class="tool-badge-sm">New</span>
-            </div>
-            <div class="tool-name">Password Security Analyzer</div>
-            <p class="tool-desc">Test password entropy, generate cryptographically strong passwords, and learn about brute-force resistance and common vulnerabilities.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">Entropy</span><span class="tool-tag">Brute Force</span><span class="tool-tag">Generator</span>
-            </div>
-        </a>
-
-        <a href="automation-workshop.html" class="tool-card" data-cat="soc">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-robot"></i></div>
-                <span class="tool-badge-sm">New</span>
-            </div>
-            <div class="tool-name">Security Automation Workshop</div>
-            <p class="tool-desc">Build SOAR playbooks, write Python automation scripts for log analysis and threat intel, and learn orchestration fundamentals.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">SOAR</span><span class="tool-tag">Python</span><span class="tool-tag">Playbooks</span>
-            </div>
-        </a>
-
-        <a href="../../hack/web_hack_challenge.html" class="tool-card" data-cat="pentest">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-spider"></i></div>
-                <span class="tool-badge-sm">New</span>
-            </div>
-            <div class="tool-name">Web Vulnerability Challenge</div>
-            <p class="tool-desc">Find and exploit SQL injection, XSS, and other web vulnerabilities in a controlled environment. Progressive difficulty challenges.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">SQL Injection</span><span class="tool-tag">XSS</span><span class="tool-tag">Web Hacking</span>
-            </div>
-        </a>
-
-        <a href="fim-challenge.html" class="tool-card" data-cat="soc">
-            <div class="tool-card-top">
-                <div class="tool-icon"><i class="fas fa-file-shield"></i></div>
-                <span class="tool-badge-sm">New</span>
-            </div>
-            <div class="tool-name">File Integrity Monitoring</div>
-            <p class="tool-desc">Implement and manage Tripwire-style FIM. Detect unauthorized file changes, investigate alerts, and maintain system integrity.</p>
-            <div class="tool-tags">
-                <span class="tool-tag">Tripwire</span><span class="tool-tag">Change Detection</span><span class="tool-tag">Integrity</span>
-            </div>
-        </a>
-
-    </div>
-
-    <div style="height:80px;"></div>
-</div>
-
-<footer>
-    <div class="container">
-        <div class="footer-inner">
-            <div class="footer-about">
-                <h3>Aziz Alghamdi</h3>
-                <p>IT Risk Advisory Consultant at BDO, specializing in SAMA CSF/MVC/CTI, NCA ECC/DCC, and ITGC assessments for financial, government, and defense-sector clients in Saudi Arabia.</p>
-                <div class="social-links">
-                    <a href="https://linkedin.com/in/abdulaziz-alghamdi-525810360" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://github.com/AzizAlghamdi" class="social-link"><i class="fab fa-github"></i></a>
-                    <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3" class="social-link"><i class="fab fa-researchgate"></i></a>
-                </div>
-            </div>
-            <div class="footer-links">
-                <h3>Quick Links</h3>
-                <ul class="quick-links">
-                    <li><a href="/index.html">Home</a></li>
-                    <li><a href="/index.html#about">About</a></li>
-                    <li><a href="/index.html#experience">Experience</a></li>
-                    <li><a href="/index.html#research">Research</a></li>
-                    <li><a href="/index.html#projects">Projects</a></li>
-                    <li><a href="/index.html#certifications">Certifications</a></li>
-                    <li><a href="/index.html#contact">Contact</a></li>
-                    <li><a href="/My_Resume.pdf">Download CV</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copyright">&copy; 2026 Aziz Alghamdi. All Rights Reserved.</div>
-    </div>
-</footer>
-
-<script>
-function filterCards(cat, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('[data-cat]').forEach(card => {
-        card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
-    });
-}
-document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-    document.querySelector('.nav-links').classList.toggle('active');
-});
-</script>
+    <div class="container" id="labx-container"></div>
+</main>
 
 <script src="/translator.js"></script>
 <script src="/lab-frame.js"></script>
+<script>
+(function () {
+    var LABS = [
+        { f:'soc-simulation.html', name:'SOC Analyst Simulation', tag:'Simulation', cat:'blue', kind:'sim', icon:'fa-shield-halved',
+          desc:'Run a shift in a Security Operations Center. Triage a live ransomware intrusion across a SIEM, investigate the timeline, and contain it before it spreads.', tags:['SIEM','Incident Response','MITRE ATT&CK'] },
+        { f:'edr-lab.html', name:'Endpoint Defense Lab', tag:'Simulation', cat:'blue', kind:'sim', icon:'fa-laptop-medical',
+          desc:'Work an EDR console: analyze suspicious processes, respond to endpoint threats, and run file integrity monitoring against baseline hashes.', tags:['EDR','Process Tree','File Integrity'] },
+        { f:'digital-forensics.html', name:'Digital Forensics Simulation', tag:'Simulation', cat:'blue', kind:'sim', icon:'fa-fingerprint',
+          desc:'Work a full DFIR case. Acquire a disk image, memory dump, network logs and a seized Android phone, then build the evidence and name the culprit.', tags:['DFIR','Mobile Forensics','Chain of Custody'] },
+        { f:'pentest-lab.html', name:'Penetration Testing Lab', tag:'Lab', cat:'offensive', kind:'off', icon:'fa-user-secret',
+          desc:'Drive a full penetration test through recon, CVSS-scored vulnerability scanning, exploitation, post-exploitation and reporting.', tags:['Metasploit','CVSS','Exploitation'] },
+        { f:'owasp-workshop.html', name:'OWASP Top 10 Workshop', tag:'Workshop', cat:'offensive', kind:'off', icon:'fa-bug',
+          desc:'Identify, exploit and fix the most critical web application flaws: injection, broken access control, XSS and more.', tags:['Web Security','Injection','XSS'] },
+        { f:'../../hack/web_hack_challenge.html', name:'Web Hacking Challenge', tag:'Challenge', cat:'offensive', kind:'off', icon:'fa-code',
+          desc:'A hands-on web exploitation challenge. Find and abuse the hidden weaknesses in a deliberately vulnerable application.', tags:['Web Exploitation'] },
+        { f:'network-toolkit.html', name:'Network Security Toolkit', tag:'Lab', cat:'network', kind:'off', icon:'fa-network-wired',
+          desc:'Analyze traffic with a Wireshark-style capture, scan with Nmap, tune firewall rules and read IDS alerts.', tags:['Wireshark','Nmap','IDS'] },
+        { f:'network-playground.html', name:'Network Security Playground', tag:'Simulation', cat:'network', kind:'sim', icon:'fa-diagram-project',
+          desc:'Simulate attacks and defenses on a live network topology and watch how controls change the outcome.', tags:['Attack & Defense','Topology'] },
+        { f:'cloud-security.html', name:'Cloud Security Sandbox', tag:'Simulation', cat:'cloud', kind:'sim', icon:'fa-cloud',
+          desc:'Harden a cloud account across IAM, security groups, storage, logging and incident response, graded like a CSPM posture report.', tags:['IAM','CIS Benchmark','CSPM'] },
+        { f:'architecture-designer.html', name:'Secure Architecture Designer', tag:'Lab', cat:'cloud', kind:'sim', icon:'fa-sitemap',
+          desc:'Design defense-in-depth and zero-trust architectures by placing controls against real scenarios.', tags:['Zero Trust','Defense in Depth'] },
+        { f:'compliance-navigator.html', name:'Compliance Navigator', tag:'Lab', cat:'grc', kind:'grc', icon:'fa-clipboard-check',
+          desc:'Compare NIST CSF, ISO 27001 and CIS Benchmarks and map controls across frameworks the way a GRC engagement does.', tags:['NIST CSF','ISO 27001','CIS'] },
+        { f:'automation-workshop.html', name:'Security Automation Workshop', tag:'Workshop', cat:'grc', kind:'grc', icon:'fa-gears',
+          desc:'Build orchestrated response playbooks and automate repetitive security tasks (SOAR).', tags:['SOAR','Playbooks'] },
+        { f:'encryption-playground.html', name:'Encryption Playground', tag:'Lab', cat:'fundamentals', kind:'fun', icon:'fa-lock',
+          desc:'Experiment with Caesar, Vigenère, AES-256 and RSA in real time with step-by-step explanations.', tags:['AES','RSA','Ciphers'] },
+        { f:'password_security.html', name:'Password Security Analyzer', tag:'Lab', cat:'fundamentals', kind:'fun', icon:'fa-key',
+          desc:'Test password strength, generate strong passwords and learn how cracking and common weaknesses actually work.', tags:['Hashing','Strength','Entropy'] },
+        { f:'social-engineering-quiz.html', name:'Social Engineering Quiz', tag:'Quiz', cat:'fundamentals', kind:'fun', icon:'fa-user-tag',
+          desc:'Spot phishing, pretexting and other social engineering attacks, and learn the warning signs.', tags:['Phishing','Awareness'] },
+        { f:'ctf-game.html', name:'Capture The Flag', tag:'Challenge', cat:'challenge', kind:'fun', icon:'fa-flag',
+          desc:'A gamified investigation: follow the clues, find the hidden information and capture the flag.', tags:['CTF','Investigation'] },
+        { f:'../../Terminal_Game/index.html', name:'Terminal Challenge', tag:'Challenge', cat:'challenge', kind:'fun', icon:'fa-terminal',
+          desc:'Solve security tasks from a simulated command line and sharpen your terminal skills.', tags:['CLI','Puzzles'] }
+    ];
+    var GROUPS = [
+        ['blue','Blue Team & Detection'],
+        ['offensive','Offensive Security'],
+        ['network','Network Security'],
+        ['cloud','Cloud & Architecture'],
+        ['grc','Governance, Risk & Compliance'],
+        ['fundamentals','Fundamentals'],
+        ['challenge','Challenges']
+    ];
+    function card(l){
+        return '<a href="'+l.f+'" class="labx-card" data-cat="'+l.cat+'">'+
+            '<div class="labx-top"><div class="labx-ico '+l.kind+'"><i class="fas '+l.icon+'"></i></div>'+
+            '<div><div class="labx-name">'+l.name+'</div><div class="labx-tagline">'+l.tag+'</div></div></div>'+
+            '<div class="labx-desc">'+l.desc+'</div>'+
+            '<div class="labx-tags">'+l.tags.map(function(t){return '<span class="labx-tag">'+t+'</span>';}).join('')+'</div>'+
+            '<div class="labx-go">Open <i class="fas fa-arrow-right"></i></div></a>';
+    }
+    function render(cat){
+        var c=document.getElementById('labx-container');
+        var html='';
+        GROUPS.forEach(function(g){
+            var items=LABS.filter(function(l){return l.cat===g[0] && (cat==='all'||l.cat===cat);});
+            if(!items.length) return;
+            html+='<div class="labx-group"><h2>'+g[1]+'</h2></div><div class="labx-grid">'+items.map(card).join('')+'</div>';
+        });
+        c.innerHTML=html;
+    }
+    document.addEventListener('DOMContentLoaded', function(){
+        render('all');
+        document.getElementById('labx-filter').addEventListener('click', function(e){
+            var b=e.target.closest('.labx-fbtn'); if(!b) return;
+            document.querySelectorAll('.labx-fbtn').forEach(function(x){x.classList.remove('active');});
+            b.classList.add('active'); render(b.dataset.cat);
+        });
+    });
+})();
+</script>
 </body>
 </html>
