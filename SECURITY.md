@@ -1,22 +1,21 @@
 # Security Policy
 
-This repository is a static personal website and a collection of client-side
-learning labs. It has no backend, no user accounts and no server-side code.
+## Supported Versions
 
-## Reporting a concern
+Use this section to tell people about which versions of your project are
+currently being supported with security updates.
 
-If you find a security issue in this site (for example, an exposed secret in
-the source, a broken link that could be abused, or a cross-site scripting
-problem in one of the interactive labs), please report it privately rather than
-opening a public issue.
+| Version | Supported          |
+| ------- | ------------------ |
+| 5.1.x   | :white_check_mark: |
+| 5.0.x   | :x:                |
+| 4.0.x   | :white_check_mark: |
+| < 4.0   | :x:                |
 
-Contact: azizcsecj@gmail.com
+## Reporting a Vulnerability
 
-Please include the affected page and enough detail to reproduce the problem. I
-aim to acknowledge reports within a few days.
+Use this section to tell people how to report a vulnerability.
 
-## Note on the labs
-
-The interactive labs simulate attacks and defenses for educational purposes.
-Sample payloads, indicators and "malicious" hostnames shown inside them are
-fictional and are rendered as text, not executed.
+Tell them where to go, how often they can expect to get an update on a
+reported vulnerability, what to expect if the vulnerability is accepted or
+declined, etc.

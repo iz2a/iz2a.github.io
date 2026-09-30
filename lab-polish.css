@@ -1,0 +1,91 @@
+/* ==========================================================================
+   lab-polish.css  (2026)
+   Loaded on every interactive lab AFTER the lab's own stylesheet and the
+   shared styles.css. Keeps the original light look but removes the all-italic
+   Times New Roman, calms decoration, and lets the shared header/footer match
+   the home page. The labs were already light, so this is a light touch.
+   ========================================================================== */
+:root {
+    --font-head: Georgia, "Times New Roman", serif;
+    --font-body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", sans-serif;
+}
+
+body {
+    font-family: var(--font-body) !important;
+    font-style: normal !important;
+    background-color: #f8f9fa;
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+}
+html[lang="ar"] body,
+html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] .section-title {
+    font-family: "Segoe UI", Tahoma, "Geeza Pro", sans-serif !important;
+}
+
+h1, h2, h3, h4, h5,
+.section-title, .tool-title, .results-title, .logo, .card-title, .panel-title {
+    font-family: var(--font-head) !important;
+    font-style: normal !important;
+    letter-spacing: -0.01em;
+}
+p, li, a, span, div, td, th, input, textarea, select, button, label,
+code, pre, .terminal, .packet-data, .mono {
+    font-style: normal !important;
+}
+/* code and terminals stay monospace */
+code, pre, .terminal, .terminal *, .packet-detail, .code, .mono, .console, .console * {
+    font-family: "SF Mono", "Consolas", "Roboto Mono", monospace !important;
+}
+em, i { font-style: italic !important; }
+
+/* the old full-page background canvas threw errors and added noise: remove on labs */
+.cyber-visualization, #cyber-visualization { display: none !important; }
+
+/* the injected shared header/footer use the same classes as the home page,
+   so they inherit styles.css automatically. Just make sure page content clears
+   the fixed language toggle on desktop. */
+@media (min-width: 993px) {
+    body > header .container { padding-right: 155px; }
+}
+
+/* breadcrumb strip shown under the header on lab pages */
+.lab-crumbs {
+    background: #eef1f4;
+    border-bottom: 1px solid #dee2e6;
+    font-size: 14px;
+}
+.lab-crumbs .container { padding: 10px 15px; }
+.lab-crumbs a { color: var(--secondary-color); }
+.lab-crumbs .sep { color: #adb5bd; margin: 0 8px; }
+
+/* prev/next lab footer nav */
+.lab-nav {
+    display: flex; justify-content: space-between; gap: 12px;
+    max-width: 1200px; margin: 0 auto; padding: 26px 15px;
+}
+.lab-nav a {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 16px; border: 1px solid #dee2e6; border-radius: 8px;
+    background: #fff; color: var(--secondary-color); font-weight: 500;
+}
+.lab-nav a:hover { border-color: var(--secondary-color); color: var(--primary-color); }
+.lab-nav .spacer { flex: 1; }
+
+/* completion-certificate name capture + feedback */
+.cert-namebox {
+    max-width: 560px; margin: 30px auto 0; text-align: center;
+    background: #fff; border: 1px solid #dee2e6; border-radius: 10px; padding: 18px 20px;
+}
+.cert-namebox label { display: block; font-weight: 600; color: var(--primary-color); margin-bottom: 8px; }
+.cert-namebox input {
+    width: 100%; padding: 12px 14px; font-size: 16px; text-align: center;
+    border: 1px solid #ced4da; border-radius: 8px; background: #fff; color: #212529;
+}
+.cert-namebox input:focus { outline: none; border-color: var(--secondary-color); box-shadow: 0 0 0 3px rgba(73,80,87,.12); }
+.cert-namebox input.cert-need { border-color: #d64545; box-shadow: 0 0 0 3px rgba(214,69,69,.15); }
+.cert-flash {
+    position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(12px);
+    background: #212529; color: #fff; padding: 12px 18px; border-radius: 8px; font-size: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.25); opacity: 0; transition: all .3s; z-index: 4000; max-width: 90vw;
+}
+.cert-flash.show { opacity: 1; transform: translateX(-50%) translateY(0); }

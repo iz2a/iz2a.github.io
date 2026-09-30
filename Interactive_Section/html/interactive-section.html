@@ -2,247 +2,1040 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cybersecurity labs | Aziz Alghamdi</title>
-    <meta name="description" content="21 free, browser-based cybersecurity labs: a SIEM console, EDR, penetration testing, OWASP, compliance mapping, CTF and forensics challenges.">
-    <meta name="theme-color" content="#0A121E">
-    <link rel="canonical" href="https://aziz.life/Interactive_Section/html/interactive-section.html">
-    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../../assets/vendor/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="../../assets/css/site.css">
-    <link rel="stylesheet" href="../../assets/css/labs.css">
-    <script src="../../assets/js/site.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Cybersecurity Learning — Aziz Alghamdi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:        #0d0d0d;
+            --bg-card:   #141414;
+            --bg-card2:  #1a1a1a;
+            --border:    rgba(255,255,255,0.07);
+            --border-hi: rgba(255,255,255,0.16);
+            --white:     #f8f9fa;
+            --light:     #adb5bd;
+            --muted:     #6c757d;
+            --dim:       #495057;
+            --darker:    #343a40;
+            --mono:      'Space Mono', monospace;
+            --sans:      'DM Sans', sans-serif;
+        }
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--white);
+            font-family: var(--sans);
+            font-size: 16px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ── HEADER ── */
+        header {
+            background: rgba(13,13,13,0.94);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+        .logo {
+            font-family: var(--mono);
+            font-size: 14px;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.04em;
+        }
+        .logo i { color: var(--light); }
+        .nav-links { display: flex; list-style: none; gap: 28px; }
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--white); }
+        .mobile-menu-btn { display: none; cursor: pointer; color: var(--white); font-size: 20px; }
+
+        /* ── HERO ── */
+        .page-hero {
+            padding: 88px 0 68px;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.10) 50%, transparent 100%);
+        }
+        .hero-kicker {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hero-kicker::before {
+            content: '';
+            display: inline-block;
+            width: 22px; height: 1px;
+            background: var(--dim);
+        }
+        .page-hero h1 {
+            font-size: clamp(38px, 5.5vw, 60px);
+            font-weight: 300;
+            line-height: 1.12;
+            letter-spacing: -0.025em;
+            color: var(--white);
+            margin-bottom: 22px;
+        }
+        .page-hero h1 em {
+            font-style: normal;
+            font-weight: 700;
+            color: var(--white);
+        }
+        .page-hero p {
+            font-size: 18px;
+            color: var(--muted);
+            max-width: 580px;
+            line-height: 1.75;
+            font-weight: 300;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 52px;
+            margin-top: 52px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+        .hero-stat .num {
+            font-family: var(--mono);
+            font-size: 26px;
+            color: var(--white);
+            font-weight: 700;
+        }
+        .hero-stat .lbl {
+            font-size: 12px;
+            color: var(--dim);
+            margin-top: 4px;
+            letter-spacing: 0.04em;
+        }
+
+        /* ── FILTER BAR ── */
+        .filter-bar {
+            padding: 32px 0 4px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 7px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.18s;
+            font-family: var(--mono);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .filter-btn:hover { border-color: var(--border-hi); color: var(--light); }
+        .filter-btn.active {
+            background: var(--white);
+            border-color: var(--white);
+            color: var(--bg);
+        }
+
+        /* ── SECTION HEADING ── */
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+            margin-top: 64px;
+        }
+        .section-heading .tag {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.20em;
+            color: var(--muted);
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .section-heading h2 {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--white);
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+        }
+        .section-heading .line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ══════════════════════
+           MIRSAD HERO CARD
+        ══════════════════════ */
+        .featured-hero {
+            background: var(--bg-card);
+            border: 1px solid var(--border-hi);
+            border-radius: 12px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            min-height: 380px;
+            position: relative;
+        }
+        .featured-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.20), transparent);
+        }
+        .fh-content {
+            padding: 52px 52px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .fh-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border-hi);
+            color: var(--light);
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            padding: 5px 12px;
+            border-radius: 3px;
+            width: fit-content;
+            margin-bottom: 26px;
+            text-transform: uppercase;
+        }
+        .live-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--light);
+            animation: pulse-dot 2.4s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%,100% { opacity:1; transform:scale(1); }
+            50% { opacity:0.35; transform:scale(0.75); }
+        }
+        .fh-title {
+            font-family: var(--mono);
+            font-size: 44px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+        .fh-arabic {
+            font-family: var(--mono);
+            font-size: 18px;
+            color: var(--muted);
+            font-weight: 400;
+            letter-spacing: 0.10em;
+            margin-bottom: 22px;
+        }
+        .fh-desc {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.78;
+            max-width: 440px;
+            font-weight: 300;
+            margin-bottom: 28px;
+        }
+        .fh-frameworks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 36px;
+        }
+        .fw-tag {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            color: var(--dim);
+            border: 1px solid var(--border);
+            background: transparent;
+            padding: 3px 9px;
+            border-radius: 3px;
+        }
+        .fh-actions { display: flex; gap: 12px; align-items: center; }
+        .btn-primary {
+            background: var(--white);
+            color: var(--bg);
+            border: none;
+            padding: 12px 26px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.18s, transform 0.15s;
+            font-family: var(--mono);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); color: var(--bg); }
+        .btn-ghost {
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border-hi);
+            padding: 12px 22px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.18s;
+            font-family: var(--mono);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .btn-ghost:hover { border-color: rgba(255,255,255,0.30); color: var(--light); }
+
+        /* MIRSAD visual panel */
+        .fh-visual {
+            background: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-left: 1px solid var(--border);
+            position: relative;
+        }
+        .radar-wrap {
+            position: relative;
+            width: 200px; height: 200px;
+        }
+        .radar-wrap svg { width: 100%; height: 100%; }
+        .radar-label {
+            position: absolute;
+            bottom: -28px; left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.20em;
+            color: var(--dim);
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        @keyframes radar-sweep {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+        .sweep-line { transform-origin: 100px 100px; animation: radar-sweep 4s linear infinite; }
+
+        /* ══════════════════════
+           FEATURED 3-CARD ROW
+        ══════════════════════ */
+        .featured-row {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .feat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 0.22s, transform 0.18s;
+        }
+        .feat-card:hover { border-color: var(--border-hi); transform: translateY(-2px); color: inherit; }
+        .feat-card-thumb {
+            height: 148px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .feat-card-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+        .feat-card-cat {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            color: var(--dim);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .feat-card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        .feat-card-desc {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.65;
+            flex: 1;
+            margin-bottom: 18px;
+            font-weight: 300;
+        }
+        .feat-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .feat-pill {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.06em;
+            padding: 3px 9px;
+            border-radius: 3px;
+            border: 1px solid var(--border-hi);
+            color: var(--light);
+            background: transparent;
+        }
+        .feat-arrow { color: var(--dim); font-size: 16px; transition: transform 0.18s, color 0.18s; }
+        .feat-card:hover .feat-arrow { transform: translateX(4px); color: var(--light); }
+
+        /* ══════════════════════
+           ALL TOOLS GRID
+        ══════════════════════ */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(295px,1fr));
+            gap: 14px;
+        }
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+            transition: border-color 0.2s, background 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .tool-card:hover {
+            border-color: var(--border-hi);
+            background: var(--bg-card2);
+            color: inherit;
+        }
+        .tool-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+        .tool-icon {
+            width: 38px; height: 38px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            color: var(--light);
+            flex-shrink: 0;
+        }
+        .tool-badge-sm {
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            padding: 3px 7px;
+            border-radius: 3px;
+            border: 1px solid var(--border);
+            color: var(--dim);
+        }
+        .tool-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1.3;
+        }
+        .tool-desc {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.63;
+            font-weight: 300;
+        }
+        .tool-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+        .tool-tag {
+            font-size: 10px;
+            color: var(--dim);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            padding: 2px 7px;
+            border-radius: 3px;
+            font-family: var(--mono);
+            letter-spacing: 0.04em;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 48px 0 32px;
+            margin-top: 80px;
+        }
+        .footer-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+        .footer-about h3 { font-size: 15px; font-weight: 600; margin-bottom: 10px; }
+        .footer-about p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+        .footer-links h3 { font-size: 15px; font-weight: 600; margin-bottom: 10px; }
+        .quick-links { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .quick-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.18s; }
+        .quick-links a:hover { color: var(--white); }
+        .social-links { display: flex; gap: 10px; margin-top: 14px; }
+        .social-link {
+            width: 34px; height: 34px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--muted); text-decoration: none;
+            font-size: 13px;
+            transition: all 0.18s;
+        }
+        .social-link:hover { border-color: var(--border-hi); color: var(--light); }
+        .copyright { font-size: 12px; color: var(--dim); border-top: 1px solid var(--border); padding-top: 22px; letter-spacing: 0.02em; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .featured-hero { grid-template-columns: 1fr; }
+            .fh-visual { display: none; }
+            .featured-row { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .nav-links.active {
+                display: flex; flex-direction: column;
+                position: fixed; top: 64px; left: 0; right: 0;
+                background: var(--bg);
+                border-bottom: 1px solid var(--border);
+                padding: 20px; gap: 16px;
+            }
+            .featured-row { grid-template-columns: 1fr; }
+            .hero-stats { flex-wrap: wrap; gap: 22px; }
+            .fh-content { padding: 28px 22px; }
+            .fh-title { font-size: 30px; }
+            .footer-inner { grid-template-columns: 1fr; }
+        }
+    </style>
+    <link rel="stylesheet" href="/lab-polish.css">
 </head>
-<body data-i18n-page>
-<main id="main">
-    <div class="lx-hero">
-        <div class="sx-wrap">
-            <h1 data-ar="مختبرات الأمن السيبراني">Cybersecurity labs</h1>
-            <p data-ar="21 مختبرًا تفاعليًا مجانيًا تعمل في المتصفح دون تسجيل. ابدأ بمحاكاة مركز العمليات الأمنية إن كان لديك وقت لمختبر واحد فقط.">21 free, hands-on labs that run in your browser with no sign-up. If you only have time for one, start with the SOC simulation.</p>
-        </div>
-    </div>
-    <div class="sx-wrap">
-        <div class="lx-feature">
-            <a class="lx-soc" href="soc-simulation.html">
-                <div class="lx-soc__screen" aria-hidden="true">
-                    <div class="lx-soc__bar"><i class="fas fa-satellite-dish"></i> <b>Raqib SIEM</b> incident review, last 24 hours</div>
-                    <div class="lx-soc__row"><span class="t">08:41:07</span><span class="sev sev-c">Critical</span><span>Shadow copy deletion on FIN-WS03</span></div>
-                    <div class="lx-soc__row"><span class="t">08:39:52</span><span class="sev sev-h">High</span><span>Periodic beacon to 185.225.19.44:443</span></div>
-                    <div class="lx-soc__row"><span class="t">08:22:15</span><span class="sev sev-h">High</span><span>Encoded PowerShell spawned by WINWORD.EXE</span></div>
-                    <div class="lx-soc__row"><span class="t">07:58:31</span><span class="sev sev-m">Medium</span><span>VPN password spray from 45.155.205.x</span></div>
-                    <div class="lx-soc__row"><span class="t">07:40:02</span><span class="sev sev-l">Low</span><span>Port scan from 10.10.5.20 (scanner)</span></div>
-                </div>
-                <div class="lx-soc__body">
-                    <h2>SOC Analyst Simulation</h2>
-                    <p>Run a shift in a SIEM modeled on Splunk Enterprise Security and QRadar. Search the logs, triage notable events, pivot through the attack and contain it before the ransomware stage.</p>
-                    <span class="go">Start the shift <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
-                </div>
+<body>
+
+<header>
+    <div class="container">
+        <nav>
+            <a href="/index.html" class="logo">
+                <i class="fas fa-shield-alt"></i>
+                Aziz Alghamdi
             </a>
-            <div class="lx-mirsad">
-                <h2>MIRSAD <span lang="ar">مِرصاد</span></h2>
-                <p data-ar="منصة مباشرة لأتمتة الحوكمة والمخاطر والامتثال: صياغة السياسات ومواءمة الضوابط وتحليل الفجوات وإدارة الأدلة، بالعربية والإنجليزية.">A live GRC automation platform: policy drafting, control mapping, gap analysis and evidence management, in Arabic and English.</p>
-                <ul><li class="sx-tag">SAMA CSF</li><li class="sx-tag">SAMA MVC</li><li class="sx-tag">NCA ECC</li><li class="sx-tag">NCA DCC</li><li class="sx-tag">ISO 27001</li><li class="sx-tag">NIST CSF</li></ul>
-                <div class="row">
-                    <a class="sx-btn sx-btn--primary sx-btn--sm" href="https://mirsad-theta.vercel.app" target="_blank" rel="noopener"><span data-ar="افتح المنصة">Open platform</span></a>
-                    <a class="sx-btn sx-btn--ghost sx-btn--sm" href="https://mirsad-theta.vercel.app/register" target="_blank" rel="noopener"><span data-ar="إنشاء حساب">Create account</span></a>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/index.html#about">About</a></li>
+                <li><a href="/index.html#experience">Experience</a></li>
+                <li><a href="/index.html#research">Research</a></li>
+                <li><a href="/index.html#projects">Projects</a></li>
+                <li><a href="/index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="page-hero">
+    <div class="container">
+        <div class="hero-kicker">Interactive Learning Platform</div>
+        <h1>Cybersecurity<br><em>Tools & Simulations</em></h1>
+        <p>Live GRC automation, SOC simulations, penetration testing labs, and security challenges — hands-on experience with real-world frameworks and scenarios.</p>
+        <div class="hero-stats">
+            <div class="hero-stat"><div class="num">20+</div><div class="lbl">Interactive tools</div></div>
+            <div class="hero-stat"><div class="num">5</div><div class="lbl">Live platforms</div></div>
+            <div class="hero-stat"><div class="num">6</div><div class="lbl">GRC frameworks</div></div>
+            <div class="hero-stat"><div class="num">24/7</div><div class="lbl">Free access</div></div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+
+    <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterCards('all',this)">All</button>
+        <button class="filter-btn" onclick="filterCards('grc',this)">GRC & Compliance</button>
+        <button class="filter-btn" onclick="filterCards('soc',this)">SOC & Blue Team</button>
+        <button class="filter-btn" onclick="filterCards('pentest',this)">Pentesting</button>
+        <button class="filter-btn" onclick="filterCards('challenges',this)">Challenges</button>
+        <button class="filter-btn" onclick="filterCards('tools',this)">Tools</button>
+    </div>
+
+    <!-- ═══ FEATURED ═══ -->
+    <div class="section-heading">
+        <span class="tag">Featured</span>
+        <h2>MIRSAD — Live GRC Platform</h2>
+        <div class="line"></div>
+    </div>
+
+    <div class="featured-hero" data-cat="grc">
+        <div class="fh-content">
+            <div>
+                <div class="fh-live">
+                    <div class="live-dot"></div>
+                    Live Production Platform
+                </div>
+                <div class="fh-title">MIRSAD</div>
+                <div class="fh-arabic">مِرصاد — The Watchtower</div>
+                <p class="fh-desc">AI-powered GRC automation platform for SAMA CSF, NCA ECC/DCC, ISO 27001, and NIST CSF compliance. Automates policy drafting, control mapping, gap analysis, and evidence management with bilingual Arabic/English support.</p>
+                <div class="fh-frameworks">
+                    <span class="fw-tag">SAMA CSF</span>
+                    <span class="fw-tag">SAMA MVC</span>
+                    <span class="fw-tag">NCA ECC</span>
+                    <span class="fw-tag">NCA DCC</span>
+                    <span class="fw-tag">ISO 27001</span>
+                    <span class="fw-tag">NIST CSF</span>
+                    <span class="fw-tag">Arabic / English</span>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="lx-tools">
-        <div class="sx-wrap">
-            <div class="lx-filters" role="group" aria-label="Filter labs">
-                <button class="lx-filter" type="button" data-filter="all" aria-pressed="true">All</button><button class="lx-filter" type="button" data-filter="blue" aria-pressed="false">Blue team and SOC</button><button class="lx-filter" type="button" data-filter="grc" aria-pressed="false">GRC and architecture</button><button class="lx-filter" type="button" data-filter="offense" aria-pressed="false">Offensive security</button><button class="lx-filter" type="button" data-filter="challenges" aria-pressed="false">Challenges</button><button class="lx-filter" type="button" data-filter="fundamentals" aria-pressed="false">Fundamentals and tools</button>
+            <div class="fh-actions">
+                <a href="https://mirsad-theta.vercel.app" target="_blank" class="btn-primary">
+                    <i class="fas fa-rocket" style="font-size:11px;"></i>
+                    Launch Platform
+                </a>
+                <a href="https://mirsad-theta.vercel.app/register" target="_blank" class="btn-ghost">
+                    Create Account
+                </a>
             </div>
-            <label class="lx-search"><span class="sx-visually-hidden">Search labs</span><i class="fas fa-magnifying-glass" aria-hidden="true"></i><input id="lx-q" type="search" placeholder="Search labs" autocomplete="off"></label>
+        </div>
+        <div class="fh-visual">
+            <div class="radar-wrap">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                    <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                    <circle cx="100" cy="100" r="38" fill="none" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+                    <circle cx="100" cy="100" r="18" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+                    <line x1="100" y1="14" x2="100" y2="186" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>
+                    <line x1="14" y1="100" x2="186" y2="100" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>
+                    <line x1="42" y1="42" x2="158" y2="158" stroke="rgba(255,255,255,0.04)" stroke-width="0.8"/>
+                    <line x1="158" y1="42" x2="42" y2="158" stroke="rgba(255,255,255,0.04)" stroke-width="0.8"/>
+                    <g class="sweep-line">
+                        <path d="M100,100 L182,100 A82,82 0 0,1 158,158 Z" fill="rgba(255,255,255,0.04)"/>
+                        <line x1="100" y1="100" x2="182" y2="100" stroke="rgba(255,255,255,0.40)" stroke-width="1.2"/>
+                    </g>
+                    <circle cx="144" cy="70" r="3" fill="white" opacity="0.75"/>
+                    <circle cx="144" cy="70" r="8" fill="none" stroke="white" stroke-width="0.8" opacity="0.25"/>
+                    <circle cx="72" cy="132" r="2" fill="white" opacity="0.45"/>
+                    <circle cx="128" cy="128" r="1.8" fill="white" opacity="0.35"/>
+                    <circle cx="66" cy="84" r="1.4" fill="white" opacity="0.28"/>
+                    <circle cx="100" cy="100" r="3.5" fill="white"/>
+                    <circle cx="100" cy="100" r="9" fill="none" stroke="white" stroke-width="0.8" opacity="0.35"/>
+                </svg>
+                <div class="radar-label">GRC Radar</div>
+            </div>
         </div>
     </div>
-    <div class="sx-wrap" id="lx-catalog">
-    <section class="lx-group" data-group="blue" aria-labelledby="g-blue">
-        <h2 id="g-blue">Blue team and SOC</h2>
-        <p>Detect, investigate and contain.</p>
-        <ul class="lx-list">
-            <li data-cat="blue" data-search="soc analyst simulation a full siem console: search language, incident review, investigations and containment during a live intrusion. siem spl-style search incident response"><a class="lx-item" href="soc-simulation.html">
-                <span class="ic"><i class="fas fa-satellite-dish" aria-hidden="true"></i></span>
-                <span><h3>SOC Analyst Simulation</h3><p>A full SIEM console: search language, incident review, investigations and containment during a live intrusion. <span class="lvl lvl-3">Advanced</span></p></span>
-                <span class="tags"><span class="sx-tag">SIEM</span><span class="sx-tag">SPL-style search</span><span class="sx-tag">Incident response</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="blue" data-search="endpoint defense lab work edr detections: process trees, file and network activity, and host containment actions. edr process trees containment"><a class="lx-item" href="edr-lab.html">
-                <span class="ic"><i class="fas fa-laptop-medical" aria-hidden="true"></i></span>
-                <span><h3>Endpoint Defense Lab</h3><p>Work EDR detections: process trees, file and network activity, and host containment actions. <span class="lvl lvl-3">Advanced</span></p></span>
-                <span class="tags"><span class="sx-tag">EDR</span><span class="sx-tag">Process trees</span><span class="sx-tag">Containment</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="blue" data-search="network security toolkit packet analyzer, port scanner, firewall rule builder and ids console with sample captures. wireshark nmap firewall ids"><a class="lx-item" href="network-toolkit.html">
-                <span class="ic"><i class="fas fa-network-wired" aria-hidden="true"></i></span>
-                <span><h3>Network Security Toolkit</h3><p>Packet analyzer, port scanner, firewall rule builder and IDS console with sample captures. <span class="lvl lvl-2">Intermediate</span></p></span>
-                <span class="tags"><span class="sx-tag">Wireshark</span><span class="sx-tag">Nmap</span><span class="sx-tag">Firewall</span><span class="sx-tag">IDS</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="blue" data-search="file integrity monitoring baseline critical files, catch unauthorized changes and investigate the alerts. fim baselines change detection"><a class="lx-item" href="fim-challenge.html">
-                <span class="ic"><i class="fas fa-file-shield" aria-hidden="true"></i></span>
-                <span><h3>File Integrity Monitoring</h3><p>Baseline critical files, catch unauthorized changes and investigate the alerts. <span class="lvl lvl-2">Intermediate</span></p></span>
-                <span class="tags"><span class="sx-tag">FIM</span><span class="sx-tag">Baselines</span><span class="sx-tag">Change detection</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="blue" data-search="security automation workshop build soar playbooks and python snippets for log parsing and threat-intel enrichment. soar python playbooks"><a class="lx-item" href="automation-workshop.html">
-                <span class="ic"><i class="fas fa-robot" aria-hidden="true"></i></span>
-                <span><h3>Security Automation Workshop</h3><p>Build SOAR playbooks and Python snippets for log parsing and threat-intel enrichment. <span class="lvl lvl-2">Intermediate</span></p></span>
-                <span class="tags"><span class="sx-tag">SOAR</span><span class="sx-tag">Python</span><span class="sx-tag">Playbooks</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="blue" data-search="cloud security sandbox harden iam, security groups, storage and logging for a fintech tenant, then respond to cloud incidents. iam aws s3 cloudtrail"><a class="lx-item" href="cloud-security.html">
-                <span class="ic"><i class="fas fa-cloud" aria-hidden="true"></i></span>
-                <span><h3>Cloud Security Sandbox</h3><p>Harden IAM, security groups, storage and logging for a fintech tenant, then respond to cloud incidents. <span class="lvl lvl-2">Intermediate</span></p></span>
-                <span class="tags"><span class="sx-tag">IAM</span><span class="sx-tag">AWS</span><span class="sx-tag">S3</span><span class="sx-tag">CloudTrail</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-        </ul>
-    </section>
-    <section class="lx-group" data-group="grc" aria-labelledby="g-grc">
-        <h2 id="g-grc">GRC and architecture</h2>
-        <p>Frameworks, controls and secure design.</p>
-        <ul class="lx-list">
-            <li data-cat="grc" data-search="compliance navigator assess controls across nist csf, iso 27001, cis and pci dss, map them across frameworks and export a gap report. nist csf iso 27001 gap analysis"><a class="lx-item" href="compliance-navigator.html">
-                <span class="ic"><i class="fas fa-list-check" aria-hidden="true"></i></span>
-                <span><h3>Compliance Navigator</h3><p>Assess controls across NIST CSF, ISO 27001, CIS and PCI DSS, map them across frameworks and export a gap report. <span class="lvl lvl-2">Intermediate</span></p></span>
-                <span class="tags"><span class="sx-tag">NIST CSF</span><span class="sx-tag">ISO 27001</span><span class="sx-tag">Gap analysis</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="grc" data-search="secure architecture designer place security components on a canvas for e-commerce, healthcare and cloud scenarios and get scored on defense in depth. zero trust defense in depth waf"><a class="lx-item" href="architecture-designer.html">
-                <span class="ic"><i class="fas fa-compass-drafting" aria-hidden="true"></i></span>
-                <span><h3>Secure Architecture Designer</h3><p>Place security components on a canvas for e-commerce, healthcare and cloud scenarios and get scored on defense in depth. <span class="lvl lvl-3">Advanced</span></p></span>
-                <span class="tags"><span class="sx-tag">Zero trust</span><span class="sx-tag">Defense in depth</span><span class="sx-tag">WAF</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-        </ul>
-    </section>
-    <section class="lx-group" data-group="offense" aria-labelledby="g-offense">
-        <h2 id="g-offense">Offensive security</h2>
-        <p>Find the weakness before someone else does.</p>
-        <ul class="lx-list">
-            <li data-cat="offense" data-search="penetration testing lab recon, scanning, exploitation, post-exploitation and reporting in a staged target environment. metasploit nmap sqlmap hydra"><a class="lx-item" href="pentest-lab.html">
-                <span class="ic"><i class="fas fa-crosshairs" aria-hidden="true"></i></span>
-                <span><h3>Penetration Testing Lab</h3><p>Recon, scanning, exploitation, post-exploitation and reporting in a staged target environment. <span class="lvl lvl-3">Advanced</span></p></span>
-                <span class="tags"><span class="sx-tag">Metasploit</span><span class="sx-tag">Nmap</span><span class="sx-tag">SQLMap</span><span class="sx-tag">Hydra</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="offense" data-search="vulnerability assessment lab configure scans, triage findings by cvss and produce a remediation report. nessus-style scans cvss remediation"><a class="lx-item" href="vulnerability-lab.html">
-                <span class="ic"><i class="fas fa-bug" aria-hidden="true"></i></span>
-                <span><h3>Vulnerability Assessment Lab</h3><p>Configure scans, triage findings by CVSS and produce a remediation report. <span class="lvl lvl-2">Intermediate</span></p></span>
-                <span class="tags"><span class="sx-tag">Nessus-style scans</span><span class="sx-tag">CVSS</span><span class="sx-tag">Remediation</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="offense" data-search="owasp top 10 workshop every owasp top 10 (2021) category with vulnerable and fixed code side by side, plus a quiz. sql injection xss ssrf"><a class="lx-item" href="owasp-workshop.html">
-                <span class="ic"><i class="fas fa-shield-virus" aria-hidden="true"></i></span>
-                <span><h3>OWASP Top 10 Workshop</h3><p>Every OWASP Top 10 (2021) category with vulnerable and fixed code side by side, plus a quiz. <span class="lvl lvl-2">Intermediate</span></p></span>
-                <span class="tags"><span class="sx-tag">SQL injection</span><span class="sx-tag">XSS</span><span class="sx-tag">SSRF</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="offense" data-search="web vulnerability challenge exploit a deliberately weak web app through a hacker console, one level at a time. sqli xss web"><a class="lx-item" href="../../hack/web_hack_challenge.html">
-                <span class="ic"><i class="fas fa-spider" aria-hidden="true"></i></span>
-                <span><h3>Web Vulnerability Challenge</h3><p>Exploit a deliberately weak web app through a hacker console, one level at a time. <span class="lvl lvl-2">Intermediate</span></p></span>
-                <span class="tags"><span class="sx-tag">SQLi</span><span class="sx-tag">XSS</span><span class="sx-tag">Web</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-        </ul>
-    </section>
-    <section class="lx-group" data-group="challenges" aria-labelledby="g-challenges">
-        <h2 id="g-challenges">Challenges</h2>
-        <p>Score points and learn by breaking things.</p>
-        <ul class="lx-list">
-            <li data-cat="challenges" data-search="capture the flag five challenges across recon, crypto, web, forensics and reverse engineering, 500 points in total. recon crypto web re"><a class="lx-item" href="ctf-game.html">
-                <span class="ic"><i class="fas fa-flag" aria-hidden="true"></i></span>
-                <span><h3>Capture the Flag</h3><p>Five challenges across recon, crypto, web, forensics and reverse engineering, 500 points in total. <span class="lvl lvl-2">Intermediate</span></p></span>
-                <span class="tags"><span class="sx-tag">Recon</span><span class="sx-tag">Crypto</span><span class="sx-tag">Web</span><span class="sx-tag">RE</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="challenges" data-search="terminal privilege escalation twelve levels in a simulated linux shell, from guest enumeration to root. linux enumeration privesc"><a class="lx-item" href="../../Terminal_Game/index.html">
-                <span class="ic"><i class="fas fa-terminal" aria-hidden="true"></i></span>
-                <span><h3>Terminal Privilege Escalation</h3><p>Twelve levels in a simulated Linux shell, from guest enumeration to root. <span class="lvl lvl-2">Intermediate</span></p></span>
-                <span class="tags"><span class="sx-tag">Linux</span><span class="sx-tag">Enumeration</span><span class="sx-tag">Privesc</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="challenges" data-search="digital forensics case work a data breach from cctv notes, logs, shell history, a phishing email and file metadata. log analysis metadata phishing"><a class="lx-item" href="digital-forensics.html">
-                <span class="ic"><i class="fas fa-magnifying-glass" aria-hidden="true"></i></span>
-                <span><h3>Digital Forensics Case</h3><p>Work a data breach from CCTV notes, logs, shell history, a phishing email and file metadata. <span class="lvl lvl-2">Intermediate</span></p></span>
-                <span class="tags"><span class="sx-tag">Log analysis</span><span class="sx-tag">Metadata</span><span class="sx-tag">Phishing</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="challenges" data-search="social engineering quiz ten phishing, vishing, smishing and bec scenarios. spot the manipulation and see why. phishing bec awareness"><a class="lx-item" href="social-engineering-quiz.html">
-                <span class="ic"><i class="fas fa-user-secret" aria-hidden="true"></i></span>
-                <span><h3>Social Engineering Quiz</h3><p>Ten phishing, vishing, smishing and BEC scenarios. Spot the manipulation and see why. <span class="lvl lvl-1">Beginner</span></p></span>
-                <span class="tags"><span class="sx-tag">Phishing</span><span class="sx-tag">BEC</span><span class="sx-tag">Awareness</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-        </ul>
-    </section>
-    <section class="lx-group" data-group="fundamentals" aria-labelledby="g-fundamentals">
-        <h2 id="g-fundamentals">Fundamentals and tools</h2>
-        <p>Core concepts you can poke at.</p>
-        <ul class="lx-list">
-            <li data-cat="fundamentals" data-search="network attack playground launch ddos, malware spread and brute force on a live topology, then deploy defenses. ddos malware spread defense"><a class="lx-item" href="network-playground.html">
-                <span class="ic"><i class="fas fa-diagram-project" aria-hidden="true"></i></span>
-                <span><h3>Network Attack Playground</h3><p>Launch DDoS, malware spread and brute force on a live topology, then deploy defenses. <span class="lvl lvl-1">Beginner</span></p></span>
-                <span class="tags"><span class="sx-tag">DDoS</span><span class="sx-tag">Malware spread</span><span class="sx-tag">Defense</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="fundamentals" data-search="encryption playground caesar, vigenère, real aes-gcm and rsa via web crypto, and base64, with step-by-step explanations. aes rsa classical ciphers"><a class="lx-item" href="encryption-playground.html">
-                <span class="ic"><i class="fas fa-lock" aria-hidden="true"></i></span>
-                <span><h3>Encryption Playground</h3><p>Caesar, Vigenère, real AES-GCM and RSA via Web Crypto, and Base64, with step-by-step explanations. <span class="lvl lvl-1">Beginner</span></p></span>
-                <span class="tags"><span class="sx-tag">AES</span><span class="sx-tag">RSA</span><span class="sx-tag">Classical ciphers</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="fundamentals" data-search="password security analyzer measure entropy and crack time, and generate strong passwords with the browser&#x27;s secure random source. entropy generator"><a class="lx-item" href="password_security.html">
-                <span class="ic"><i class="fas fa-key" aria-hidden="true"></i></span>
-                <span><h3>Password Security Analyzer</h3><p>Measure entropy and crack time, and generate strong passwords with the browser&#x27;s secure random source. <span class="lvl lvl-1">Beginner</span></p></span>
-                <span class="tags"><span class="sx-tag">Entropy</span><span class="sx-tag">Generator</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="fundamentals" data-search="blockchain explorer create transactions, mine blocks with real sha-256 proof of work and try to tamper with the chain. sha-256 proof of work"><a class="lx-item" href="blockchain.html">
-                <span class="ic"><i class="fas fa-cubes" aria-hidden="true"></i></span>
-                <span><h3>Blockchain Explorer</h3><p>Create transactions, mine blocks with real SHA-256 proof of work and try to tamper with the chain. <span class="lvl lvl-1">Beginner</span></p></span>
-                <span class="tags"><span class="sx-tag">SHA-256</span><span class="sx-tag">Proof of work</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-            <li data-cat="fundamentals" data-search="file converter convert text, csv, json, markdown and images locally in your browser. nothing is uploaded. client-side privacy"><a class="lx-item" href="file-converter.html">
-                <span class="ic"><i class="fas fa-file-export" aria-hidden="true"></i></span>
-                <span><h3>File Converter</h3><p>Convert text, CSV, JSON, Markdown and images locally in your browser. Nothing is uploaded. <span class="lvl lvl-1">Beginner</span></p></span>
-                <span class="tags"><span class="sx-tag">Client-side</span><span class="sx-tag">Privacy</span></span>
-                <i class="fas fa-chevron-right go" aria-hidden="true"></i>
-            </a></li>
-        </ul>
-    </section>
-        <p class="lx-empty" id="lx-empty">No lab matches that search. Try a tool name such as Nmap, or a topic such as phishing.</p>
-        <div style="height:56px"></div>
+
+    <!-- ═══ SIMULATIONS ═══ -->
+    <div class="section-heading">
+        <span class="tag">Simulations</span>
+        <h2>Professional Security Labs</h2>
+        <div class="line"></div>
     </div>
-</main>
+
+    <div class="featured-row">
+
+        <a href="soc-simulation.html" class="feat-card" data-cat="soc">
+            <div class="feat-card-thumb">
+                <svg width="110" height="90" viewBox="0 0 110 90">
+                    <rect x="8" y="8" width="94" height="74" rx="3" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" stroke-width="0.8"/>
+                    <line x1="8" y1="22" x2="102" y2="22" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+                    <rect x="15" y="12" width="26" height="7" rx="2" fill="rgba(255,255,255,0.10)"/>
+                    <rect x="15" y="30" width="78" height="5" rx="1.5" fill="rgba(255,255,255,0.20)"/>
+                    <rect x="15" y="42" width="58" height="5" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+                    <rect x="15" y="54" width="68" height="5" rx="1.5" fill="rgba(255,255,255,0.10)"/>
+                    <rect x="15" y="66" width="42" height="5" rx="1.5" fill="rgba(255,255,255,0.07)"/>
+                    <circle cx="93" cy="32" r="2.5" fill="white" opacity="0.7"/>
+                    <circle cx="93" cy="44" r="2.5" fill="white" opacity="0.45"/>
+                    <circle cx="93" cy="56" r="2.5" fill="white" opacity="0.35"/>
+                    <circle cx="93" cy="68" r="2.5" fill="white" opacity="0.25"/>
+                </svg>
+            </div>
+            <div class="feat-card-body">
+                <div class="feat-card-cat">Simulation — SOC</div>
+                <div class="feat-card-title">SOC Analyst Simulation</div>
+                <p class="feat-card-desc">Step into a Security Operations Center. Triage alerts, investigate incidents, and respond to live threats using SIEM dashboards and IR playbooks.</p>
+                <div class="feat-card-footer">
+                    <span class="feat-pill">Critical Alerts</span>
+                    <i class="fas fa-arrow-right feat-arrow"></i>
+                </div>
+            </div>
+        </a>
+
+        <a href="vulnerability-lab.html" class="feat-card" data-cat="pentest">
+            <div class="feat-card-thumb">
+                <svg width="110" height="90" viewBox="0 0 110 90">
+                    <rect x="8" y="8" width="94" height="74" rx="3" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)" stroke-width="0.8"/>
+                    <line x1="8" y1="22" x2="102" y2="22" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+                    <circle cx="18" cy="15" r="2.5" fill="white" opacity="0.5"/>
+                    <circle cx="26" cy="15" r="2.5" fill="white" opacity="0.35"/>
+                    <circle cx="34" cy="15" r="2.5" fill="white" opacity="0.25"/>
+                    <text x="14" y="34" font-family="monospace" font-size="7" fill="rgba(255,255,255,0.55)">$ nmap -sV 192.168.1.0/24</text>
+                    <text x="14" y="46" font-family="monospace" font-size="7" fill="rgba(255,255,255,0.35)">Found: 49 vulnerabilities</text>
+                    <text x="14" y="58" font-family="monospace" font-size="7" fill="rgba(255,255,255,0.65)">[CRITICAL] MS17-010</text>
+                    <text x="14" y="70" font-family="monospace" font-size="7" fill="rgba(255,255,255,0.45)">[HIGH] SQL Injection</text>
+                </svg>
+            </div>
+            <div class="feat-card-body">
+                <div class="feat-card-cat">Lab — Penetration Testing</div>
+                <div class="feat-card-title">Vulnerability Assessment Lab</div>
+                <p class="feat-card-desc">Configure and run full vulnerability scans, analyze results, and build professional remediation reports — Nessus/Nmap workflow simulation.</p>
+                <div class="feat-card-footer">
+                    <span class="feat-pill">Scan & Remediate</span>
+                    <i class="fas fa-arrow-right feat-arrow"></i>
+                </div>
+            </div>
+        </a>
+
+        <a href="compliance-navigator.html" class="feat-card" data-cat="grc">
+            <div class="feat-card-thumb">
+                <svg width="110" height="90" viewBox="0 0 110 90">
+                    <rect x="8" y="8" width="42" height="32" rx="2" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+                    <rect x="60" y="8" width="42" height="32" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
+                    <rect x="8" y="50" width="42" height="32" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
+                    <rect x="60" y="50" width="42" height="32" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
+                    <text x="14" y="22" font-family="monospace" font-size="6" fill="rgba(255,255,255,0.70)">SAMA CSF</text>
+                    <text x="14" y="31" font-family="monospace" font-size="5.5" fill="rgba(255,255,255,0.30)">23 controls</text>
+                    <text x="66" y="22" font-family="monospace" font-size="6" fill="rgba(255,255,255,0.55)">NCA ECC</text>
+                    <text x="66" y="31" font-family="monospace" font-size="5.5" fill="rgba(255,255,255,0.25)">114 controls</text>
+                    <text x="14" y="64" font-family="monospace" font-size="6" fill="rgba(255,255,255,0.55)">ISO 27001</text>
+                    <text x="14" y="73" font-family="monospace" font-size="5.5" fill="rgba(255,255,255,0.25)">93 controls</text>
+                    <text x="66" y="64" font-family="monospace" font-size="6" fill="rgba(255,255,255,0.55)">NIST CSF</text>
+                    <text x="66" y="73" font-family="monospace" font-size="5.5" fill="rgba(255,255,255,0.25)">108 controls</text>
+                    <line x1="50" y1="24" x2="60" y2="24" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+                    <line x1="50" y1="66" x2="60" y2="66" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+                    <line x1="29" y1="40" x2="29" y2="50" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+                    <line x1="81" y1="40" x2="81" y2="50" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+                </svg>
+            </div>
+            <div class="feat-card-body">
+                <div class="feat-card-cat">Tool — GRC</div>
+                <div class="feat-card-title">Security Compliance Navigator</div>
+                <p class="feat-card-desc">Explore NIST CSF, ISO 27001, CIS Controls, and PCI DSS. Map controls cross-framework, assess implementation status, and generate gap reports.</p>
+                <div class="feat-card-footer">
+                    <span class="feat-pill">4 Frameworks</span>
+                    <i class="fas fa-arrow-right feat-arrow"></i>
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+    <!-- ═══ ALL TOOLS ═══ -->
+    <div class="section-heading">
+        <span class="tag">All Tools</span>
+        <h2>Full Learning Library</h2>
+        <div class="line"></div>
+    </div>
+
+    <div class="tools-grid" id="tools-grid">
+
+        <a href="pentest-lab.html" class="tool-card" data-cat="pentest">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-crosshairs"></i></div>
+                <span class="tool-badge-sm">Advanced</span>
+            </div>
+            <div class="tool-name">Penetration Testing Lab</div>
+            <p class="tool-desc">Full pentest workflow — recon, scanning, Metasploit exploitation, post-exploitation, and professional reporting. Multi-stage lab environment.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">Metasploit</span><span class="tool-tag">Nmap</span><span class="tool-tag">SQLMap</span><span class="tool-tag">Hydra</span>
+            </div>
+        </a>
+
+        <a href="edr-lab.html" class="tool-card" data-cat="soc">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-laptop-medical"></i></div>
+                <span class="tool-badge-sm">Advanced</span>
+            </div>
+            <div class="tool-name">Endpoint Defense Lab</div>
+            <p class="tool-desc">Simulate EDR/XDR responses to live malware. Analyze process trees, file activity, network connections, and execute containment actions.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">EDR</span><span class="tool-tag">XDR</span><span class="tool-tag">Malware</span><span class="tool-tag">IR</span>
+            </div>
+        </a>
+
+        <a href="cloud-security.html" class="tool-card" data-cat="soc">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-cloud"></i></div>
+                <span class="tool-badge-sm">Featured</span>
+            </div>
+            <div class="tool-name">Cloud Security Sandbox</div>
+            <p class="tool-desc">Configure IAM, security groups, monitoring, and storage policies. Respond to simulated cloud incidents in a fintech scenario environment.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">IAM</span><span class="tool-tag">AWS</span><span class="tool-tag">IDS</span><span class="tool-tag">S3</span>
+            </div>
+        </a>
+
+        <a href="owasp-workshop.html" class="tool-card" data-cat="pentest">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-bug"></i></div>
+                <span class="tool-badge-sm">Featured</span>
+            </div>
+            <div class="tool-name">OWASP Top 10 Workshop</div>
+            <p class="tool-desc">Hands-on study of all 10 OWASP vulnerabilities with live demos, vulnerable/secure code comparisons, and secure coding quizzes.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">SQL Injection</span><span class="tool-tag">XSS</span><span class="tool-tag">SSRF</span><span class="tool-tag">Auth Failures</span>
+            </div>
+        </a>
+
+        <a href="architecture-designer.html" class="tool-card" data-cat="tools">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-drafting-compass"></i></div>
+                <span class="tool-badge-sm">Advanced</span>
+            </div>
+            <div class="tool-name">Secure Architecture Designer</div>
+            <p class="tool-desc">Drag-and-drop secure architecture tool. Design defense-in-depth layouts for e-commerce, healthcare, and cloud scenarios and get evaluated.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">Zero Trust</span><span class="tool-tag">Defense-in-Depth</span><span class="tool-tag">WAF</span>
+            </div>
+        </a>
+
+        <a href="network-toolkit.html" class="tool-card" data-cat="soc">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-network-wired"></i></div>
+                <span class="tool-badge-sm">Featured</span>
+            </div>
+            <div class="tool-name">Network Security Toolkit</div>
+            <p class="tool-desc">Simulated Wireshark packet analyzer, Nmap scanner, firewall configurator, and IDS/IPS with sample captures and real alert data.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">Wireshark</span><span class="tool-tag">Nmap</span><span class="tool-tag">Firewall</span><span class="tool-tag">IDS</span>
+            </div>
+        </a>
+
+        <a href="digital-forensics.html" class="tool-card" data-cat="challenges">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-microscope"></i></div>
+                <span class="tool-badge-sm">New</span>
+            </div>
+            <div class="tool-name">Digital Forensics Challenge</div>
+            <p class="tool-desc">Investigate a real data breach. Analyze CCTV footage, system logs, command history, phishing emails, and metadata to identify the attacker.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">Log Analysis</span><span class="tool-tag">EXIF</span><span class="tool-tag">Network Forensics</span>
+            </div>
+        </a>
+
+        <a href="ctf-game.html" class="tool-card" data-cat="challenges">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-flag"></i></div>
+                <span class="tool-badge-sm">New</span>
+            </div>
+            <div class="tool-name">Capture The Flag</div>
+            <p class="tool-desc">Five multi-discipline challenges: recon, Base64 crypto, SQL injection, digital forensics, and reverse engineering. 500 points total.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">Recon</span><span class="tool-tag">Crypto</span><span class="tool-tag">Web</span><span class="tool-tag">Forensics</span>
+            </div>
+        </a>
+
+        <a href="../../Terminal_Game/index.html" class="tool-card" data-cat="challenges">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-terminal"></i></div>
+                <span class="tool-badge-sm">New</span>
+            </div>
+            <div class="tool-name">Cybersecurity Terminal</div>
+            <p class="tool-desc">12-level privilege escalation challenge in a simulated Linux terminal. Recon → credential discovery → admin → root. Earn 12 badges.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">Linux</span><span class="tool-tag">Priv Escalation</span><span class="tool-tag">Enumeration</span>
+            </div>
+        </a>
+
+        <a href="social-engineering-quiz.html" class="tool-card" data-cat="challenges">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-user-secret"></i></div>
+                <span class="tool-badge-sm">New</span>
+            </div>
+            <div class="tool-name">Social Engineering Quiz</div>
+            <p class="tool-desc">10 real-world phishing, vishing, smishing, and BEC scenarios. Score yourself and learn to spot manipulation before it's too late.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">Phishing</span><span class="tool-tag">BEC</span><span class="tool-tag">Awareness</span>
+            </div>
+        </a>
+
+        <a href="network-playground.html" class="tool-card" data-cat="tools">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-project-diagram"></i></div>
+                <span class="tool-badge-sm">New</span>
+            </div>
+            <div class="tool-name">Network Security Playground</div>
+            <p class="tool-desc">Real-time network simulation. Launch DDoS, malware, and brute-force attacks then deploy firewalls, IDS/IPS, and patches to defend.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">DDoS</span><span class="tool-tag">Malware Spread</span><span class="tool-tag">Defense</span>
+            </div>
+        </a>
+
+        <a href="encryption-playground.html" class="tool-card" data-cat="tools">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-lock"></i></div>
+                <span class="tool-badge-sm">New</span>
+            </div>
+            <div class="tool-name">Encryption Playground</div>
+            <p class="tool-desc">Experiment with Caesar cipher, Vigenère, AES-256, RSA, and Base64 encoding in real time with visual step-by-step explanations.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">AES</span><span class="tool-tag">RSA</span><span class="tool-tag">Caesar</span><span class="tool-tag">Base64</span>
+            </div>
+        </a>
+
+        <a href="blockchain.html" class="tool-card" data-cat="tools">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-cubes"></i></div>
+                <span class="tool-badge-sm">New</span>
+            </div>
+            <div class="tool-name">Blockchain Explorer</div>
+            <p class="tool-desc">Create transactions, mine blocks, and watch SHA-256 hashing in action. Adjust mining difficulty and see cryptographic proof-of-work.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">SHA-256</span><span class="tool-tag">Mining</span><span class="tool-tag">Transactions</span>
+            </div>
+        </a>
+
+        <a href="password_security.html" class="tool-card" data-cat="tools">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-key"></i></div>
+                <span class="tool-badge-sm">New</span>
+            </div>
+            <div class="tool-name">Password Security Analyzer</div>
+            <p class="tool-desc">Test password entropy, generate cryptographically strong passwords, and learn about brute-force resistance and common vulnerabilities.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">Entropy</span><span class="tool-tag">Brute Force</span><span class="tool-tag">Generator</span>
+            </div>
+        </a>
+
+        <a href="automation-workshop.html" class="tool-card" data-cat="soc">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-robot"></i></div>
+                <span class="tool-badge-sm">New</span>
+            </div>
+            <div class="tool-name">Security Automation Workshop</div>
+            <p class="tool-desc">Build SOAR playbooks, write Python automation scripts for log analysis and threat intel, and learn orchestration fundamentals.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">SOAR</span><span class="tool-tag">Python</span><span class="tool-tag">Playbooks</span>
+            </div>
+        </a>
+
+        <a href="../../hack/web_hack_challenge.html" class="tool-card" data-cat="pentest">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-spider"></i></div>
+                <span class="tool-badge-sm">New</span>
+            </div>
+            <div class="tool-name">Web Vulnerability Challenge</div>
+            <p class="tool-desc">Find and exploit SQL injection, XSS, and other web vulnerabilities in a controlled environment. Progressive difficulty challenges.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">SQL Injection</span><span class="tool-tag">XSS</span><span class="tool-tag">Web Hacking</span>
+            </div>
+        </a>
+
+        <a href="fim-challenge.html" class="tool-card" data-cat="soc">
+            <div class="tool-card-top">
+                <div class="tool-icon"><i class="fas fa-file-shield"></i></div>
+                <span class="tool-badge-sm">New</span>
+            </div>
+            <div class="tool-name">File Integrity Monitoring</div>
+            <p class="tool-desc">Implement and manage Tripwire-style FIM. Detect unauthorized file changes, investigate alerts, and maintain system integrity.</p>
+            <div class="tool-tags">
+                <span class="tool-tag">Tripwire</span><span class="tool-tag">Change Detection</span><span class="tool-tag">Integrity</span>
+            </div>
+        </a>
+
+    </div>
+
+    <div style="height:80px;"></div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-about">
+                <h3>Aziz Alghamdi</h3>
+                <p>IT Risk Advisory Consultant at BDO, specializing in SAMA CSF/MVC/CTI, NCA ECC/DCC, and ITGC assessments for financial, government, and defense-sector clients in Saudi Arabia.</p>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/abdulaziz-alghamdi-525810360" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/AzizAlghamdi" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="https://www.researchgate.net/profile/Aziz-Alghamdi-3" class="social-link"><i class="fab fa-researchgate"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul class="quick-links">
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/index.html#about">About</a></li>
+                    <li><a href="/index.html#experience">Experience</a></li>
+                    <li><a href="/index.html#research">Research</a></li>
+                    <li><a href="/index.html#projects">Projects</a></li>
+                    <li><a href="/index.html#certifications">Certifications</a></li>
+                    <li><a href="/index.html#contact">Contact</a></li>
+                    <li><a href="/My_Resume.pdf">Download CV</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2026 Aziz Alghamdi. All Rights Reserved.</div>
+    </div>
+</footer>
+
 <script>
-(function () {
-    const btns = document.querySelectorAll('.lx-filter');
-    const q = document.getElementById('lx-q');
-    let cat = 'all';
-    function apply() {
-        const term = q.value.trim().toLowerCase();
-        let shown = 0;
-        document.querySelectorAll('.lx-group').forEach((g) => {
-            let n = 0;
-            g.querySelectorAll('li[data-cat]').forEach((li) => {
-                const ok = (cat === 'all' || li.dataset.cat === cat) && (!term || li.dataset.search.includes(term));
-                li.hidden = !ok; if (ok) n++;
-            });
-            g.hidden = n === 0; shown += n;
-        });
-        document.getElementById('lx-empty').style.display = shown ? 'none' : 'block';
-    }
-    btns.forEach((b) => b.addEventListener('click', () => {
-        cat = b.dataset.filter;
-        btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-        apply();
-    }));
-    q.addEventListener('input', apply);
-})();
+function filterCards(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('[data-cat]').forEach(card => {
+        card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+    });
+}
+document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
 </script>
+
+<script src="/translator.js"></script>
+<script src="/lab-frame.js"></script>
 </body>
 </html>

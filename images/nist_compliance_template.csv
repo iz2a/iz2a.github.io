@@ -1,6 +1,0 @@
-Control ID,Control Name,Description,Status,Assessment Date,Evidence,Notes
-ID.AM-1,Asset Inventory,Physical devices and systems within the organization are inventoried,Not Implemented,,
-ID.AM-2,Software Inventory,Software platforms and applications within the organization are inventoried,Not Implemented,,
-ID.AM-3,Communication Maps,Organizational communication and data flows are mapped,Not Implemented,,
-ID.AM-4,External Systems,External information systems are catalogued,Not Implemented,,
-ID.AM-5,Resource Prioritization,Resources are prioritized based on their classification criticality and business value,Not Implemented,,
