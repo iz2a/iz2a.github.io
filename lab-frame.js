@@ -32,13 +32,11 @@
         ['encryption-playground', 'Encryption Playground'],
         ['password_security', 'Password Security Analyzer'],
         ['social-engineering-quiz', 'Social Engineering Quiz'],
-        ['blockchain', 'Blockchain Explorer'],
         ['ctf-game', 'Capture The Flag'],
         ['cloud-security', 'Cloud Security Sandbox'],
         ['compliance-navigator', 'Compliance Navigator'],
         ['architecture-designer', 'Secure Architecture Designer'],
-        ['automation-workshop', 'Security Automation Workshop'],
-        ['file-converter', 'File Converter Tool']
+        ['automation-workshop', 'Security Automation Workshop']
     ];
 
     function slug() {
