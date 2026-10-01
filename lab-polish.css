@@ -6,8 +6,8 @@
    the home page. The labs were already light, so this is a light touch.
    ========================================================================== */
 :root {
-    --font-head: Georgia, "Times New Roman", serif;
-    --font-body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", sans-serif;
+    --font-head: "Times New Roman", Times, serif;
+    --font-body: "Times New Roman", Times, serif;
 }
 
 body {
@@ -39,7 +39,7 @@ code, pre, .terminal, .terminal *, .packet-detail, .code, .mono, .console, .cons
 em, i { font-style: italic !important; }
 
 /* the old full-page background canvas threw errors and added noise: remove on labs */
-.cyber-visualization, #cyber-visualization { display: none !important; }
+.cyber-visualization, #cyber-visualization { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.22; display: block !important; }
 
 /* the injected shared header/footer use the same classes as the home page,
    so they inherit styles.css automatically. Just make sure page content clears
