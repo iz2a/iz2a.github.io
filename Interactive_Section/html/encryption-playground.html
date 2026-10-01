@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encryption Playground - Aziz Alghamdi</title>
+    <title>Cryptography Lab - Aziz Alghamdi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/Interactive_Section/css/encryption-playground.css">
@@ -47,7 +47,7 @@
         <div class="cyber-line cyber-line-right"></div>
         <div class="cyber-dots"></div>
         <div class="container">
-            <h1 class="page-title cyber-accent">Encryption Playground</h1>
+            <h1 class="page-title cyber-accent">Cryptography Lab</h1>
 
             <p class="algorithm-info">
                 This interactive tool allows you to experiment with different encryption algorithms and understand
@@ -60,6 +60,7 @@
                 <div class="algorithm-tab" data-algorithm="aes">AES Encryption</div>
                 <div class="algorithm-tab" data-algorithm="rsa">RSA Encryption</div>
                 <div class="algorithm-tab" data-algorithm="base64">Base64 Encoding</div>
+                <div class="algorithm-tab" data-algorithm="password">Password Analyzer</div>
             </div>
 
             <div class="grid">
@@ -239,6 +240,58 @@
                             </div>
 
                             <div class="security-level security-low">Security Level: Low - Encoding, not encryption</div>
+                        <div class="algorithm-content" id="password-content">
+        <div class="card">
+            <h2 class="card-title">
+                <i class="fas fa-shield-alt"></i>
+                Password Strength Tester
+            </h2>
+            <div class="form-group">
+                <label for="password-input" class="form-label">Enter a password to test its strength:</label>
+                <div class="password-container">
+                    <input type="password" id="password-input" class="form-control" placeholder="Enter password">
+                    <button type="button" class="toggle-password" id="toggle-password">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="password-criteria">
+                <div class="criteria-item criteria-unmet" id="criteria-length">
+                    <i class="fas fa-times-circle"></i> At least 8 characters long
+                </div>
+                <div class="criteria-item criteria-unmet" id="criteria-uppercase">
+                    <i class="fas fa-times-circle"></i> Contains uppercase letters
+                </div>
+                <div class="criteria-item criteria-unmet" id="criteria-lowercase">
+                    <i class="fas fa-times-circle"></i> Contains lowercase letters
+                </div>
+                <div class="criteria-item criteria-unmet" id="criteria-numbers">
+                    <i class="fas fa-times-circle"></i> Contains numbers
+                </div>
+                <div class="criteria-item criteria-unmet" id="criteria-special">
+                    <i class="fas fa-times-circle"></i> Contains special characters
+                </div>
+            </div>
+
+            <button id="test-password" class="btn btn-block" style="margin-top: 20px;">
+                Test Password Strength
+            </button>
+
+            <div id="strength-result" class="result-container">
+                <div class="strength-meter">
+                    <div class="strength-meter-fill" id="strength-meter-fill"></div>
+                </div>
+                <div class="strength-text" id="strength-text">Password Strength: N/A</div>
+
+                <div class="feedback-list" id="feedback-list">
+                    <!-- Feedback items will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -483,6 +536,59 @@ Decryption: m = c^d mod n</pre>
                                 <p>It increases data size by approximately 33% but ensures safe transmission through text-based systems.</p>
                             </div>
                         </div>
+                        <div class="algorithm-content" id="password-visual">
+        <div class="card">
+            <h2 class="card-title">
+                <i class="fas fa-key"></i>
+                Secure Password Generator
+            </h2>
+
+            <div class="form-group">
+                <label for="password-length" class="form-label">Password Length:</label>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <input type="range" id="password-length" class="form-control" min="8" max="32" value="16">
+                    <span id="length-value">16</span>
+                </div>
+            </div>
+
+            <div class="options-grid">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="include-uppercase" checked>
+                    <label for="include-uppercase">Uppercase Letters</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="include-lowercase" checked>
+                    <label for="include-lowercase">Lowercase Letters</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="include-numbers" checked>
+                    <label for="include-numbers">Numbers</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="include-symbols" checked>
+                    <label for="include-symbols">Special Characters</label>
+                </div>
+            </div>
+
+            <button id="generate-password" class="btn btn-block" style="margin-top: 20px;">
+                Generate Secure Password
+            </button>
+
+            <div id="generator-result" class="result-container">
+                <div class="generated-password" id="generated-password">
+                    Your secure password will appear here
+                    <button class="copy-btn" id="copy-password">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+                <div class="strength-meter">
+                    <div class="strength-meter-fill" id="generated-strength-meter"></div>
+                </div>
+                <div class="strength-text" id="generated-strength-text">Password Strength: N/A</div>
+            </div>
+        </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -527,7 +633,9 @@ Decryption: m = c^d mod n</pre>
             </div>
         </div>
     </footer>
+<link rel="stylesheet" href="/Interactive_Section/css/password_security.css">
 <script src="/Interactive_Section/javascript/encryption-playground.js"></script>
+<script src="/Interactive_Section/javascript/password_security.js"></script>
 
 <script src="/translator.js"></script>
 <script src="/lab-frame.js"></script>

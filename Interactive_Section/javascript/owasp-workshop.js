@@ -1,389 +1,118 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Sidebar navigation
-    const sidebarLinks = document.querySelectorAll('.sidebar-menu-item a');
-    const sections = document.querySelectorAll('.workshop-section');
+/* ==========================================================================
+   OWASP Top 10 Workshop (2026, interactive rebuild)
+   Hands-on web exploitation. Each challenge is a small simulated vulnerable
+   app; you type the actual payload and watch it succeed or fail, then read why
+   it worked and how to fix it. Absorbs the former Web Hacking Challenge.
+   ========================================================================== */
+(function () {
+    'use strict';
+    function ready(fn){ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',fn); else fn(); }
+    var $=function(s,r){return (r||document).querySelector(s);};
+    var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+    var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
 
-    sidebarLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetSection = this.getAttribute('data-section');
-
-            // Update active link
-            sidebarLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-
-            // Show appropriate section
-            sections.forEach(section => {
-                section.style.display = 'none';
-                section.classList.remove('active');
-            });
-            const activeSection = document.getElementById(`${targetSection}-section`);
-            if (activeSection) {
-                activeSection.style.display = 'block';
-                activeSection.classList.add('active');
-
-                // Update progress
-                updateProgress();
-            }
-        });
-    });
-
-    // Tab switching
-    const tabs = document.querySelectorAll('.tab');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            const tabContainer = this.closest('.tab-container');
-            const tabContents = tabContainer.querySelectorAll('.tab-content');
-            const targetTab = this.getAttribute('data-tab');
-
-            // Update active tab
-            tabContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-
-            // Show appropriate tab content
-            tabContents.forEach(content => {
-                content.style.display = 'none';
-                content.classList.remove('active');
-            });
-            const activeContent = document.getElementById(`${targetTab}-tab`);
-            if (activeContent) {
-                activeContent.style.display = 'block';
-                activeContent.classList.add('active');
-            }
-        });
-    });
-
-    // Quiz functionality
-    initializeQuizzes();
-
-    // Section navigation
-    initializeNavigation();
-
-    // Demo functionality for Broken Access Control
-    initializeAccessDemo();
-
-    // Mobile menu toggle
-    initializeMobileMenu();
-
-    // Mark sections as completed when viewed
-    trackCompletedSections();
-
-    // Initial progress update
-    updateProgress();
-});
-
-// Initialize all quizzes on the page
-function initializeQuizzes() {
-    document.querySelectorAll('.quiz-container').forEach((quizContainer, quizIndex) => {
-        const options = quizContainer.querySelectorAll('.quiz-option');
-        const checkButton = quizContainer.querySelector('.quiz-check');
-        const nextButton = quizContainer.querySelector('.quiz-next');
-        const explanation = quizContainer.querySelector('.quiz-explanation');
-
-        // Option selection
-        options.forEach(option => {
-            option.addEventListener('click', function() {
-                const allOptions = this.closest('.quiz-options').querySelectorAll('.quiz-option');
-                allOptions.forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
-            });
-        });
-
-        // Check answer
-        if (checkButton) {
-            checkButton.addEventListener('click', function() {
-                const selectedOption = quizContainer.querySelector('.quiz-option.selected');
-
-                if (!selectedOption) {
-                    alert('Please select an answer');
-                    return;
-                }
-
-                options.forEach(option => {
-                    option.style.pointerEvents = 'none';
-                    if (option.hasAttribute('data-correct')) {
-                        option.classList.add('correct');
-                    } else if (option === selectedOption) {
-                        option.classList.add('incorrect');
-                    }
-                });
-
-                if (explanation) {
-                    explanation.style.display = 'block';
-                }
-
-                checkButton.style.display = 'none';
-
-                if (nextButton) {
-                    nextButton.style.display = 'block';
-                }
-
-                // Mark current section as completed when quiz is answered
-                const currentSection = quizContainer.closest('.workshop-section');
-                if (currentSection) {
-                    markSectionCompleted(currentSection.id.replace('-section', ''));
-                }
-            });
+    var CHALLENGES = [
+        {
+            id:'sqli', cat:'A03', title:'SQL Injection: authentication bypass',
+            scenario:'The GulfPay staff portal builds its login query by string concatenation:',
+            code:"SELECT * FROM users WHERE user='$u' AND pass='$p'",
+            prompt:'Log in as the admin without knowing the password. Type a username payload that makes the WHERE clause always true.',
+            field:'Username', placeholder:"admin' OR '1'='1",
+            test:function(v){ v=v.toLowerCase().replace(/\s+/g,''); return /('|%27)(or|\|\|)('?1'?='?1|'?'='?'|true)/.test(v) || v.indexOf("'or'1'='1")!==-1 || v.indexOf("'or1=1--")!==-1 || /'or.*=.*--/.test(v); },
+            success:'Logged in as admin. The injected <code>OR \'1\'=\'1\'</code> made the WHERE clause always true, so the first row (admin) was returned.',
+            flag:'flag{sqli_auth_bypass}', fix:'Use parameterized queries / prepared statements so input is never parsed as SQL. Never concatenate user input into queries.'
+        },
+        {
+            id:'idor', cat:'A01', title:'Broken Access Control: IDOR',
+            scenario:'After logging in you land on your own invoice at:',
+            code:'GET /api/invoice?id=1007   (your account)',
+            prompt:'The server never checks that the invoice belongs to you. Request another customer\u2019s invoice by changing the id. Enter an id that is not 1007.',
+            field:'id', placeholder:'1008',
+            test:function(v){ v=v.trim(); return /^\d{3,5}$/.test(v) && v!=='1007'; },
+            success:'You pulled invoice #{V}, which belongs to a different customer, including their IBAN and balance. The API authenticated you but never authorized the object.',
+            flag:'flag{idor_horizontal_access}', fix:'Enforce object-level authorization on every request: check that the logged-in user owns the resource. Use unguessable IDs as defense in depth, not as the control.'
+        },
+        {
+            id:'xss', cat:'A03', title:'Cross-Site Scripting (reflected)',
+            scenario:'The search page echoes your query straight back into the HTML:',
+            code:'<p>No results for: <?= $_GET["q"] ?></p>',
+            prompt:'Inject JavaScript that would run in a victim\u2019s browser. Enter a payload that executes script.',
+            field:'Search query', placeholder:'<script>alert(document.cookie)</script>',
+            test:function(v){ return /<script\b[^>]*>[\s\S]*<\/script>/i.test(v) || /<img[^>]+onerror\s*=/i.test(v) || /<svg[^>]+onload\s*=/i.test(v) || /on\w+\s*=\s*["']?[^"']*(alert|document|fetch)/i.test(v); },
+            success:'Your script was reflected unescaped and executed. In a real attack this runs in the victim\u2019s session, stealing cookies or acting as them.',
+            flag:'flag{reflected_xss_fired}', fix:'Contextually output-encode all user data (HTML-encode by default), set a strict Content-Security-Policy, and use frameworks that auto-escape.'
+        },
+        {
+            id:'cmdi', cat:'A03', title:'OS Command Injection',
+            scenario:'A network tools page runs your input in a shell:',
+            code:'system("ping -c1 " . $_GET["host"])',
+            prompt:'The host field is passed to a shell unsanitised. Chain a second command onto a normal host to read a file.',
+            field:'host', placeholder:'8.8.8.8; cat /etc/passwd',
+            test:function(v){ return /[;&|`]|\$\(|\|\||&&/.test(v) && /(cat|ls|id|whoami|uname|curl|wget|nc)\b/i.test(v); },
+            success:'The shell ran your ping AND your injected command:<br><code>root:x:0:0:root:/root:/bin/bash ...</code><br>Full command execution on the server.',
+            flag:'flag{command_injection_rce}', fix:'Never pass user input to a shell. Use language-native libraries (no shell), allow-list input, and if a shell is unavoidable, pass arguments as an array with no shell interpolation.'
+        },
+        {
+            id:'auth', cat:'A07', title:'Identification & Authentication Failures',
+            scenario:'An admin panel has no rate limiting and ships with a well-known default credential pair.',
+            code:'POST /admin/login   user=admin  pass=????',
+            prompt:'Guess the default administrator password that ships with many appliances.',
+            field:'Password', placeholder:'try a common default',
+            test:function(v){ v=v.trim().toLowerCase(); return ['admin','password','admin123','changeme','123456','default','root'].indexOf(v)!==-1; },
+            success:'Access granted. The account used a default/weak password and there was no lockout or MFA to stop guessing.',
+            flag:'flag{default_creds_admin}', fix:'Force a password change on first use, ban known-weak passwords, add rate limiting and lockout, and require MFA on administrative accounts.'
         }
+    ];
 
-        // Next question button
-        if (nextButton) {
-            nextButton.addEventListener('click', function() {
-                // Get current quiz number from progress indicator
-                const progressText = quizContainer.querySelector('.quiz-progress');
-                if (progressText) {
-                    const match = progressText.textContent.match(/Question (\d+) of (\d+)/);
-                    if (match) {
-                        const currentQuestion = parseInt(match[1]);
-                        const totalQuestions = parseInt(match[2]);
+    var solved={}, score=0;
 
-                        if (currentQuestion < totalQuestions) {
-                            // Update to next question (this would require additional HTML structure)
-                            progressText.textContent = `Question ${currentQuestion + 1} of ${totalQuestions}`;
+    ready(function(){
+        if(!$('#owasp-app')) return;
+        render();
+    });
 
-                            // Reset quiz state
-                            options.forEach(option => {
-                                option.classList.remove('selected', 'correct', 'incorrect');
-                                option.style.pointerEvents = 'auto';
-                            });
+    function render(){
+        var done=Object.keys(solved).length;
+        $('#owasp-progress').innerHTML='<div class="ow-prog-h">Progress</div><div class="ow-prog-bar"><span style="width:'+(done/CHALLENGES.length*100)+'%"></span></div><div class="ow-prog-t">'+done+' of '+CHALLENGES.length+' solved &middot; '+score+' pts</div>';
+        $('#owasp-list').innerHTML=CHALLENGES.map(function(c,i){
+            var s=solved[c.id];
+            return '<div class="ow-card'+(s?' solved':'')+'" id="ow-'+c.id+'">'+
+                '<div class="ow-card-h" data-t="'+c.id+'"><span class="ow-cat">'+c.cat+'</span><span class="ow-title">'+esc(c.title)+'</span><span class="ow-state">'+(s?'<i class="fas fa-flag-checkered"></i> solved':'<i class="fas fa-chevron-down"></i>')+'</span></div>'+
+                '<div class="ow-body" id="ow-body-'+c.id+'">'+
+                    '<p class="ow-scenario">'+esc(c.scenario)+'</p>'+
+                    '<pre class="ow-code">'+esc(c.code)+'</pre>'+
+                    '<p class="ow-task"><i class="fas fa-crosshairs"></i> '+esc(c.prompt)+'</p>'+
+                    '<div class="ow-tryline"><span class="ow-flabel">'+esc(c.field)+'</span><input class="ow-input" id="ow-in-'+c.id+'" type="text" placeholder="'+esc(c.placeholder)+'" spellcheck="false"><button class="ow-go" data-go="'+c.id+'">Attack</button></div>'+
+                    '<div class="ow-result" id="ow-res-'+c.id+'"></div>'+
+                '</div></div>';
+        }).join('');
+        $$('#owasp-list .ow-card-h').forEach(function(h){ h.addEventListener('click', function(){ var b=$('#ow-body-'+h.dataset.t); b.classList.toggle('open'); }); });
+        $$('#owasp-list .ow-go').forEach(function(b){ b.addEventListener('click', function(e){ e.stopPropagation(); attempt(b.dataset.go); }); });
+        $$('#owasp-list .ow-input').forEach(function(inp){ inp.addEventListener('keydown', function(e){ if(e.key==='Enter') attempt(inp.id.replace('ow-in-','')); }); });
+        // open first unsolved
+        var firstUnsolved=CHALLENGES.find(function(c){return !solved[c.id];});
+        if(firstUnsolved){ var fb=$('#ow-body-'+firstUnsolved.id); if(fb) fb.classList.add('open'); }
+    }
 
-                            explanation.style.display = 'none';
-                            nextButton.style.display = 'none';
-                            checkButton.style.display = 'block';
-
-                            // Update question content (assuming structure)
-                            // This would depend on how questions are structured in your HTML
-                        } else {
-                            // Last question completed, mark section as done
-                            const currentSection = quizContainer.closest('.workshop-section');
-                            if (currentSection) {
-                                markSectionCompleted(currentSection.id.replace('-section', ''));
-                            }
-                        }
-                    }
-                }
-            });
+    function attempt(id){
+        var c=CHALLENGES.find(function(x){return x.id===id;}); var inp=$('#ow-in-'+id); var res=$('#ow-res-'+id);
+        var v=inp.value;
+        if(!v.trim()){ res.className='ow-result show err'; res.innerHTML='Enter a payload first.'; return; }
+        if(c.test(v)){
+            res.className='ow-result show ok';
+            res.innerHTML='<div class="ow-ok-h"><i class="fas fa-check-circle"></i> Exploit succeeded</div><p>'+c.success.replace('{V}', esc(v.trim()))+'</p><div class="ow-flag">'+esc(c.flag)+'</div><div class="ow-fix"><strong>How to fix it:</strong> '+esc(c.fix)+'</div>';
+            if(!solved[id]){ solved[id]=true; score+=20; $('#owasp-progress').innerHTML=''; render(); setTimeout(function(){ var b=$('#ow-body-'+id); if(b) b.classList.add('open'); var r=$('#ow-res-'+id); if(r){ r.className='ow-result show ok'; r.innerHTML='<div class="ow-ok-h"><i class="fas fa-check-circle"></i> Solved</div><p>'+c.success.replace('{V}', esc(v.trim()))+'</p><div class="ow-flag">'+esc(c.flag)+'</div><div class="ow-fix"><strong>How to fix it:</strong> '+esc(c.fix)+'</div>'; } }, 30);
+                if(Object.keys(solved).length===CHALLENGES.length) toast('All OWASP challenges solved. Score: '+score);
+                else toast('Solved: '+c.title);
+            }
+        } else {
+            res.className='ow-result show err';
+            res.innerHTML='<i class="fas fa-xmark"></i> That did not trigger the vulnerability. '+hint(c);
         }
-    });
-}
-
-// Initialize section navigation
-function initializeNavigation() {
-    const navButtons = document.querySelectorAll('.nav-button');
-    const sections = document.querySelectorAll('.workshop-section');
-    const sidebarLinks = document.querySelectorAll('.sidebar-menu-item a');
-
-    navButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const nextSection = this.getAttribute('data-next');
-            const prevSection = this.getAttribute('data-prev');
-            const targetSection = nextSection || prevSection;
-
-            if (targetSection) {
-                // Update sections
-                sections.forEach(section => {
-                    section.style.display = 'none';
-                    section.classList.remove('active');
-                });
-
-                const activeSection = document.getElementById(`${targetSection}-section`);
-                if (activeSection) {
-                    activeSection.style.display = 'block';
-                    activeSection.classList.add('active');
-
-                    // Mark as completed if navigating to next
-                    if (nextSection) {
-                        markSectionCompleted(prevSection || '');
-                    }
-
-                    // Update sidebar
-                    sidebarLinks.forEach(l => l.classList.remove('active'));
-                    const sidebarLink = document.querySelector(`[data-section="${targetSection}"]`);
-                    if (sidebarLink) {
-                        sidebarLink.classList.add('active');
-                    }
-
-                    // Scroll to top
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-
-                    // Update progress
-                    updateProgress();
-                }
-            }
-        });
-    });
-}
-
-// Initialize the access control demo
-function initializeAccessDemo() {
-    const accessButton = document.getElementById('access-button');
-    const accessResult = document.getElementById('access-result');
-    const urlChange = document.getElementById('url-change');
-
-    if (accessButton && accessResult && urlChange) {
-        accessButton.addEventListener('click', function() {
-            const selectedUrl = urlChange.value;
-            accessResult.style.display = 'block';
-
-            switch (selectedUrl) {
-                case 'profile':
-                    accessResult.innerHTML = '<strong>Access Granted</strong><br>This is your own profile - you have permission to view it.';
-                    break;
-                case 'other-profile':
-                    accessResult.innerHTML = '<strong>Access Granted</strong><br><span style="color: #dc3545;">VULNERABILITY DETECTED:</span> You can access another user\'s profile. This is a horizontal privilege escalation vulnerability.';
-                    break;
-                case 'admin':
-                    accessResult.innerHTML = '<strong>Access Granted</strong><br><span style="color: #dc3545;">VULNERABILITY DETECTED:</span> You can access the admin dashboard as a regular user. This is a vertical privilege escalation vulnerability.';
-                    break;
-                case 'settings':
-                    accessResult.innerHTML = '<strong>Access Granted</strong><br>These are your own settings - you have permission to view and modify them.';
-                    break;
-                case 'other-settings':
-                    accessResult.innerHTML = '<strong>Access Granted</strong><br><span style="color: #dc3545;">VULNERABILITY DETECTED:</span> You can access another user\'s settings. This is an example of IDOR (Insecure Direct Object Reference).';
-                    break;
-                default:
-                    accessResult.innerHTML = '<strong>Error</strong><br>Invalid URL selected.';
-            }
-
-            // Mark current section as interacted with
-            const currentSection = accessButton.closest('.workshop-section');
-            if (currentSection) {
-                markSectionCompleted(currentSection.id.replace('-section', ''));
-            }
-        });
     }
-}
-
-// Initialize mobile menu
-function initializeMobileMenu() {
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (menuBtn && navLinks) {
-        menuBtn.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-        });
-
-        // Close menu when clicking on a link
-        const links = navLinks.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
+    function hint(c){
+        var h={ sqli:'Think about closing the quote and adding an always-true OR condition.', idor:'Just change the numeric id to another customer\u2019s value.', xss:'You need an HTML tag that executes JavaScript.', cmdi:'Use a shell metacharacter to chain a second command.', auth:'Try the most common default admin password.' };
+        return h[c.id]||'';
     }
-}
-
-// Track completed sections
-function trackCompletedSections() {
-    // Initialize completed sections in localStorage if not present
-    if (!localStorage.getItem('completedSections')) {
-        localStorage.setItem('completedSections', JSON.stringify([]));
-    }
-
-    // Load and display completed badges
-    displayCompletionBadges();
-
-    // Mark sections as completed when scrolled to bottom
-    const sections = document.querySelectorAll('.workshop-section');
-
-    sections.forEach(section => {
-        const sectionContent = section.querySelector('.section-content');
-
-        if (sectionContent) {
-            // Use Intersection Observer to detect when user has viewed the section
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            // If user has scrolled to bottom of section, mark as viewed
-                            const sectionId = section.id.replace('-section', '');
-                            setTimeout(() => {
-                                markSectionCompleted(sectionId);
-                            }, 5000); // Mark as completed after 5 seconds of viewing
-
-                            // Stop observing once marked
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                },
-                {
-                    threshold: 0.8 // 80% of section must be visible
-                }
-            );
-
-            observer.observe(sectionContent);
-        }
-    });
-}
-
-// Mark a section as completed
-function markSectionCompleted(sectionId) {
-    if (!sectionId) return;
-
-    // Get current completed sections
-    let completedSections = JSON.parse(localStorage.getItem('completedSections') || '[]');
-
-    // Add section if not already in list
-    if (!completedSections.includes(sectionId)) {
-        completedSections.push(sectionId);
-        localStorage.setItem('completedSections', JSON.stringify(completedSections));
-
-        // Update UI
-        displayCompletionBadges();
-        updateProgress();
-    }
-}
-
-// Display completion badges for completed sections
-function displayCompletionBadges() {
-    const completedSections = JSON.parse(localStorage.getItem('completedSections') || '[]');
-
-    // Hide all badges first
-    document.querySelectorAll('.completion-badge').forEach(badge => {
-        badge.classList.remove('active');
-    });
-
-    // Show badges for completed sections
-    completedSections.forEach(sectionId => {
-        const section = document.getElementById(`${sectionId}-section`);
-        if (section) {
-            const badge = section.querySelector('.completion-badge');
-            if (badge) {
-                badge.classList.add('active');
-            }
-        }
-    });
-}
-
-// Update progress bar
-function updateProgress() {
-    const progressBar = document.querySelector('.progress');
-    const progressValue = document.querySelector('.progress-value');
-
-    if (progressBar && progressValue) {
-        const totalSections = document.querySelectorAll('.workshop-section').length;
-        const completedSections = JSON.parse(localStorage.getItem('completedSections') || '[]').length;
-
-        // Calculate percentage
-        const percentage = Math.round((completedSections / totalSections) * 100);
-
-        // Update progress bar and text
-        progressBar.style.width = `${percentage}%`;
-        progressValue.textContent = `${percentage}%`;
-    }
-}
-
-// Function to reset all progress (useful for testing)
-function resetProgress() {
-    localStorage.removeItem('completedSections');
-    displayCompletionBadges();
-    updateProgress();
-}
-
-// Add a global reset function for debugging
-window.resetWorkshopProgress = resetProgress;
+    function toast(m){ if(window.SX&&window.SX.toast){window.SX.toast(m,'ok');return;} var d=document.createElement('div'); d.className='ow-toast'; d.textContent=m; document.body.appendChild(d); setTimeout(function(){d.classList.add('show');},10); setTimeout(function(){d.classList.remove('show');setTimeout(function(){d.remove();},300);},2800); }
+})();
