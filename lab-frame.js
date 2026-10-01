@@ -22,18 +22,16 @@
     var ORDER = [
         ['soc-simulation', 'SOC Analyst Simulation'],
         ['edr-lab', 'Endpoint Defense Lab'],
-        ['network-toolkit', 'Network Security Toolkit'],
+        ['network-toolkit', 'Network Security Lab'],
         ['pentest-lab', 'Penetration Testing Lab'],
         ['owasp-workshop', 'OWASP Top 10 Workshop'],
         ['digital-forensics', 'Digital Forensics Challenge'],
-        ['network-playground', 'Network Security Playground'],
         ['encryption-playground', 'Cryptography Lab'],
         ['social-engineering-quiz', 'Social Engineering Quiz'],
         ['ctf-game', 'Capture The Flag'],
         ['cloud-security', 'Cloud Security Sandbox'],
         ['compliance-navigator', 'Compliance Navigator'],
-        ['architecture-designer', 'Secure Architecture Designer'],
-        ['automation-workshop', 'Security Automation Workshop']
+        ['architecture-designer', 'Secure Architecture Designer']
     ];
 
     function slug() {

@@ -1,6 +1,7 @@
   document.addEventListener('DOMContentLoaded', function () {
             // Create visualization container
             const container = document.getElementById('cyber-visualization');
+            if (!container) return; // nothing to draw into on this page
 
             // Set size to full window
             const width = window.innerWidth;

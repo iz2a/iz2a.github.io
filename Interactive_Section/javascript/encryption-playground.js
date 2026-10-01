@@ -363,3 +363,83 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         });
+/* ==========================================================================
+   Password analyzer + generator (absorbed from the Password Security lab).
+   Wires the existing Password tab: live strength scoring, criteria checklist,
+   entropy-based crack-time estimate, actionable feedback, and a generator.
+   ========================================================================== */
+(function () {
+    'use strict';
+    function ready(fn){ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',fn); else fn(); }
+    ready(function(){
+        var input=document.getElementById('password-input'); if(!input) return;
+        var crit={ length:document.getElementById('criteria-length'), uppercase:document.getElementById('criteria-uppercase'), lowercase:document.getElementById('criteria-lowercase'), numbers:document.getElementById('criteria-numbers'), special:document.getElementById('criteria-special') };
+        var fill=document.getElementById('strength-meter-fill'), text=document.getElementById('strength-text'), fb=document.getElementById('feedback-list'), result=document.getElementById('strength-result');
+        var toggle=document.getElementById('toggle-password');
+        var COMMON=['password','123456','qwerty','admin','letmein','welcome','iloveyou','monkey','dragon','abc123','111111','password1','123456789'];
+
+        function setCrit(el,ok){ if(!el)return; el.className='criteria-item '+(ok?'criteria-met':'criteria-unmet'); var i=el.querySelector('i'); if(i) i.className=ok?'fas fa-check-circle':'fas fa-times-circle'; }
+        function charsetSize(p){ var n=0; if(/[a-z]/.test(p))n+=26; if(/[A-Z]/.test(p))n+=26; if(/[0-9]/.test(p))n+=10; if(/[^A-Za-z0-9]/.test(p))n+=33; return n||1; }
+        function crackTime(p){ var bits=p.length*Math.log2(charsetSize(p)); var guesses=Math.pow(2,bits)/2; var perSec=1e10; var secs=guesses/perSec;
+            if(secs<1) return 'instantly'; var u=[['year',31557600],['day',86400],['hour',3600],['minute',60],['second',1]];
+            for(var i=0;i<u.length;i++){ if(secs>=u[i][1]){ var v=secs/u[i][1]; if(v>1e6) return 'centuries'; return Math.round(v).toLocaleString()+' '+u[i][0]+(Math.round(v)!==1?'s':''); } } return 'instantly'; }
+
+        function evaluate(){
+            var p=input.value||''; var c={ length:p.length>=8, uppercase:/[A-Z]/.test(p), lowercase:/[a-z]/.test(p), numbers:/[0-9]/.test(p), special:/[^A-Za-z0-9]/.test(p) };
+            Object.keys(c).forEach(function(k){ setCrit(crit[k], c[k]); });
+            if(result) result.style.display='block';
+            var met=Object.keys(c).filter(function(k){return c[k];}).length;
+            var longBonus = p.length>=12 ? 1 : 0; var extraLong = p.length>=16 ? 1 : 0;
+            var score=met+longBonus+extraLong; // 0..7
+            var isCommon=COMMON.indexOf(p.toLowerCase())!==-1 || COMMON.some(function(w){return p.toLowerCase().indexOf(w)!==-1 && p.length<12;});
+            if(isCommon) score=Math.min(score,1);
+            var pct=Math.min(100, Math.round(score/7*100));
+            var label,color;
+            if(p.length===0){ label='';color='#e3e7ec';pct=0; }
+            else if(score<=2){ label='Weak';color='#d64545'; }
+            else if(score<=3){ label='Fair';color='#e8833a'; }
+            else if(score<=4){ label='Good';color='#e0a94a'; }
+            else if(score<=5){ label='Strong';color='#3d8bbe'; }
+            else { label='Very strong';color='#1f7a4d'; }
+            if(fill){ fill.style.width=pct+'%'; fill.style.background=color; }
+            if(text){ text.textContent=p.length?(label+' \u2014 would take about '+crackTime(p)+' to crack'):''; text.style.color=color; }
+            if(fb){ var tips=[];
+                if(isCommon) tips.push('This is a very common or breached password. Never use it.');
+                if(!c.length) tips.push('Use at least 8 characters; 12 or more is much better.');
+                if(p.length&&p.length<12) tips.push('Longer passwords beat complex short ones. Aim for a 12+ character passphrase.');
+                if(!c.uppercase||!c.lowercase) tips.push('Mix uppercase and lowercase letters.');
+                if(!c.numbers) tips.push('Add numbers.');
+                if(!c.special) tips.push('Add special characters.');
+                if(!tips.length) tips.push('Great password. Store it in a password manager and enable MFA.');
+                fb.innerHTML=tips.map(function(t){return '<li>'+t.replace(/[<>]/g,'')+'</li>';}).join('');
+            }
+        }
+        input.addEventListener('input', evaluate);
+        var testBtn=document.getElementById('test-password'); if(testBtn) testBtn.addEventListener('click', evaluate);
+        if(toggle) toggle.addEventListener('click', function(){ input.type=input.type==='password'?'text':'password'; var i=toggle.querySelector('i'); if(i) i.className=input.type==='password'?'fas fa-eye':'fas fa-eye-slash'; });
+
+        // generator injected into the password panel
+        var host=document.getElementById('password-content');
+        if(host && !document.getElementById('pw-gen')){
+            var g=document.createElement('div'); g.className='card'; g.id='pw-gen'; g.style.marginTop='20px';
+            g.innerHTML='<h2 class="card-title"><i class="fas fa-key"></i> Password generator</h2>'+
+                '<div class="form-group"><label class="form-label">Length: <span id="pw-len-v">16</span></label><input type="range" id="pw-len" min="8" max="40" value="16" style="width:100%;"></div>'+
+                '<div style="display:flex;flex-wrap:wrap;gap:14px;margin:10px 0;">'+
+                '<label><input type="checkbox" id="pw-up" checked> Uppercase</label><label><input type="checkbox" id="pw-lo" checked> Lowercase</label><label><input type="checkbox" id="pw-nu" checked> Numbers</label><label><input type="checkbox" id="pw-sp" checked> Symbols</label></div>'+
+                '<button id="pw-make" class="btn btn-block">Generate</button>'+
+                '<div id="pw-made" style="display:none;margin-top:14px;align-items:center;gap:10px;"><code id="pw-made-v" style="flex:1;background:#0f1720;color:#7cffb2;padding:12px;border-radius:8px;font-family:monospace;word-break:break-all;"></code> <button id="pw-copy" class="btn">Copy</button></div>';
+            host.appendChild(g);
+            var lenEl=document.getElementById('pw-len'), lenV=document.getElementById('pw-len-v');
+            lenEl.addEventListener('input', function(){ lenV.textContent=lenEl.value; });
+            document.getElementById('pw-make').addEventListener('click', function(){
+                var sets=''; if(document.getElementById('pw-up').checked)sets+='ABCDEFGHJKLMNPQRSTUVWXYZ'; if(document.getElementById('pw-lo').checked)sets+='abcdefghijkmnopqrstuvwxyz'; if(document.getElementById('pw-nu').checked)sets+='23456789'; if(document.getElementById('pw-sp').checked)sets+='!@#$%^&*()-_=+[]{}';
+                if(!sets){ sets='abcdefghijkmnopqrstuvwxyz'; }
+                var n=parseInt(lenEl.value,10), out=''; var arr=new Uint32Array(n); (window.crypto||window.msCrypto).getRandomValues(arr);
+                for(var i=0;i<n;i++){ out+=sets[arr[i]%sets.length]; }
+                document.getElementById('pw-made').style.display='flex'; document.getElementById('pw-made-v').textContent=out;
+                input.value=out; input.type='text'; evaluate();
+            });
+            document.getElementById('pw-copy').addEventListener('click', function(){ var v=document.getElementById('pw-made-v').textContent; if(navigator.clipboard) navigator.clipboard.writeText(v); });
+        }
+    });
+})();
