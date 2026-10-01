@@ -1,4 +1,5 @@
-  document.addEventListener('DOMContentLoaded', function () {
+  (function () {
+    function __cyberStart() {
             // Create visualization container
             const container = document.getElementById('cyber-visualization');
             if (!container) return; // nothing to draw into on this page
@@ -370,4 +371,6 @@
 
             // Start animation
             animate();
-        });
+        }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', __cyberStart); else __cyberStart();
+  })();

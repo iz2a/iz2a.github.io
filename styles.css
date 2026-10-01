@@ -2211,8 +2211,8 @@
    crowding. Loaded last so these win over the base rules above.
    ========================================================================== */
 :root {
-    --font-head: Georgia, "Times New Roman", serif;
-    --font-body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arabic, sans-serif;
+    --font-head: "Times New Roman", Times, serif;
+    --font-body: "Times New Roman", Times, serif;
 }
 html[lang="ar"] body,
 html[lang="ar"] .section-title,
@@ -2234,8 +2234,9 @@ p, li, a, span, div, td, th, input, textarea, select, button, label, .subtitle, 
 em, i, .intentional-italic { font-style: italic; } /* still allow deliberate emphasis */
 
 /* calm the decorative layers: the animated full-page canvas and overlays were too loud */
-.cyber-visualization { opacity: 0.06 !important; }
-.binary-bg, .hexagon-bg, .matrix-bg, .cyber-dots { opacity: 0.02 !important; }
+.cyber-visualization { opacity: 0.32 !important; }
+.binary-bg, .matrix-bg { display: none !important; } /* no binary rain; use the node graph */
+.hexagon-bg, .cyber-dots { opacity: 0.03 !important; }
 
 /* nav: give the language toggle room, stop the crowding, allow graceful wrap */
 nav { flex-wrap: wrap; gap: 10px 18px; }

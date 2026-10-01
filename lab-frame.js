@@ -144,8 +144,25 @@
         } catch (e) {}
     }
 
+    function nodeBackground() {
+        // floating node graph behind every lab, matching the home page
+        if (!document.getElementById('cyber-visualization')) {
+            var d = document.createElement('div');
+            d.id = 'cyber-visualization';
+            d.className = 'cyber-visualization';
+            document.body.insertAdjacentElement('afterbegin', d);
+        }
+        if (!document.querySelector('script[data-cybervis]')) {
+            var sc = document.createElement('script');
+            sc.src = ROOT + 'Interactive_Section/javascript/cyber-vis.js';
+            sc.setAttribute('data-cybervis', '1');
+            document.body.appendChild(sc);
+        }
+    }
+
     function build() {
         stripOld();
+        nodeBackground();
         document.body.insertAdjacentHTML('afterbegin', headerHtml());
         document.body.insertAdjacentHTML('beforeend', footerHtml());
         wire();
