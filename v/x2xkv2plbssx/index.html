@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="referrer" content="no-referrer">
+    <meta name="theme-color" content="#0f0c16">
+    <title>Play</title>
+    <link rel="icon" href="data:,">
+    <style>
+        :root {
+            --bg-1: #0f0c16;
+            --bg-2: #1b1326;
+            --glow-a: rgba(173, 120, 220, 0.55);
+            --glow-b: rgba(96, 160, 220, 0.45);
+            --glow-c: rgba(230, 120, 170, 0.35);
+            --frame: #171320;
+            --frame-edge: rgba(255, 255, 255, 0.08);
+            --ink: #ece6f5;
+            --ink-dim: rgba(236, 230, 245, 0.55);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body { height: 100%; }
+
+        body {
+            font-family: "Times New Roman", Times, serif;
+            color: var(--ink);
+            background: radial-gradient(120% 90% at 50% 0%, var(--bg-2) 0%, var(--bg-1) 60%, #090711 100%);
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* soft drifting color washes behind the player */
+        .wash {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .wash span {
+            position: absolute;
+            width: 60vmax;
+            height: 60vmax;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.8;
+            animation: drift 22s ease-in-out infinite alternate;
+        }
+        .wash span:nth-child(1) { background: var(--glow-a); top: -20vmax; left: -15vmax; }
+        .wash span:nth-child(2) { background: var(--glow-b); bottom: -25vmax; right: -15vmax; animation-duration: 28s; animation-delay: -8s; }
+        .wash span:nth-child(3) { background: var(--glow-c); top: 30%; left: 55%; width: 40vmax; height: 40vmax; animation-duration: 18s; animation-delay: -4s; }
+
+        @keyframes drift {
+            from { transform: translate(0, 0) scale(1); }
+            to   { transform: translate(8vmax, -6vmax) scale(1.15); }
+        }
+
+        /* fine grain so the gradients do not band */
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.06;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+        }
+
+        .stage {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+        }
+
+        .frame {
+            position: relative;
+            width: min(100%, calc((100vh - 48px) * 9 / 16), 440px);
+            aspect-ratio: 9 / 16;
+            border-radius: 28px;
+            background: var(--frame);
+            padding: 10px;
+            box-shadow:
+                0 0 0 1px var(--frame-edge),
+                0 30px 80px rgba(0, 0, 0, 0.6),
+                0 0 120px rgba(173, 120, 220, 0.18);
+            animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+        }
+
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(18px) scale(0.98); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        .screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #000;
+        }
+
+        /* big tap-to-play layer, hidden once playing */
+        .cover {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.35));
+            cursor: pointer;
+            border: 0;
+            padding: 0;
+            transition: opacity 0.35s ease;
+        }
+        .cover.is-hidden { opacity: 0; pointer-events: none; }
+
+        .play {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+        .cover:hover .play, .cover:focus-visible .play { transform: scale(1.06); background: rgba(255, 255, 255, 0.22); }
+        .cover:focus-visible { outline: 2px solid rgba(255,255,255,0.6); outline-offset: -6px; }
+        .play svg { width: 34px; height: 34px; margin-left: 5px; fill: #fff; }
+
+        /* small controls row under the screen, inside the frame bezel */
+        .bar {
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 12px;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%);
+            border-radius: 0 0 20px 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .frame.is-playing:hover .bar,
+        .frame.is-playing.show-bar .bar,
+        .frame.is-paused .bar { opacity: 1; }
+
+        .bar button {
+            width: 34px;
+            height: 34px;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.14);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            flex: 0 0 auto;
+        }
+        .bar button:hover { background: rgba(255, 255, 255, 0.26); }
+        .bar button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+        .bar button svg { width: 16px; height: 16px; fill: #fff; }
+
+        .seek {
+            flex: 1;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.25);
+            position: relative;
+            cursor: pointer;
+        }
+        .seek .fill {
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 0%;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #e39bd0, #9ed3f4);
+        }
+
+        .time {
+            font-size: 13px;
+            letter-spacing: 0.02em;
+            color: var(--ink);
+            min-width: 76px;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .wash span, .frame { animation: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wash" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <main class="stage">
+        <div class="frame is-paused" id="frame">
+            <div class="screen">
+                <video id="v" playsinline loop preload="metadata" poster="poster.jpg">
+                    <source src="clip.mp4" type="video/mp4">
+                </video>
+                <button class="cover" id="cover" type="button" aria-label="Play">
+                    <span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+                </button>
+            </div>
+            <div class="bar" id="bar">
+                <button id="toggle" type="button" aria-label="Pause">
+                    <svg id="iconPause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+                    <svg id="iconPlay" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <div class="seek" id="seek" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+                    <div class="fill" id="fill"></div>
+                </div>
+                <span class="time" id="time">0:00 / 0:00</span>
+                <button id="mute" type="button" aria-label="Mute">
+                    <svg id="iconSound" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>
+                    <svg id="iconMuted" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.6 3 2.7-2.7-1.4-1.4-2.7 2.7-2.7-2.7-1.4 1.4 2.7 2.7-2.7 2.7 1.4 1.4 2.7-2.7 2.7 2.7 1.4-1.4-2.7-2.7z"/></svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        (function () {
+            var video = document.getElementById('v');
+            var frame = document.getElementById('frame');
+            var cover = document.getElementById('cover');
+            var toggle = document.getElementById('toggle');
+            var mute = document.getElementById('mute');
+            var seek = document.getElementById('seek');
+            var fill = document.getElementById('fill');
+            var time = document.getElementById('time');
+            var iconPlay = document.getElementById('iconPlay');
+            var iconPause = document.getElementById('iconPause');
+            var iconSound = document.getElementById('iconSound');
+            var iconMuted = document.getElementById('iconMuted');
+            var hideTimer = null;
+
+            function fmt(s) {
+                if (!isFinite(s)) { return '0:00'; }
+                var m = Math.floor(s / 60);
+                var r = Math.floor(s % 60);
+                return m + ':' + (r < 10 ? '0' : '') + r;
+            }
+
+            function setPlaying(on) {
+                frame.classList.toggle('is-playing', on);
+                frame.classList.toggle('is-paused', !on);
+                cover.classList.toggle('is-hidden', on);
+                iconPlay.style.display = on ? 'none' : '';
+                iconPause.style.display = on ? '' : 'none';
+                toggle.setAttribute('aria-label', on ? 'Pause' : 'Play');
+            }
+
+            function showBarBriefly() {
+                frame.classList.add('show-bar');
+                clearTimeout(hideTimer);
+                hideTimer = setTimeout(function () { frame.classList.remove('show-bar'); }, 2200);
+            }
+
+            function play() {
+                var p = video.play();
+                if (p && p.catch) {
+                    p.catch(function () {
+                        // autoplay with sound refused: retry muted so the clip still starts
+                        video.muted = true;
+                        syncMute();
+                        video.play();
+                    });
+                }
+            }
+
+            function syncMute() {
+                iconSound.style.display = video.muted ? 'none' : '';
+                iconMuted.style.display = video.muted ? '' : 'none';
+                mute.setAttribute('aria-label', video.muted ? 'Unmute' : 'Mute');
+            }
+
+            cover.addEventListener('click', play);
+            video.addEventListener('click', function () { video.paused ? play() : video.pause(); });
+            toggle.addEventListener('click', function () { video.paused ? play() : video.pause(); });
+            mute.addEventListener('click', function () { video.muted = !video.muted; syncMute(); });
+
+            video.addEventListener('play', function () { setPlaying(true); showBarBriefly(); });
+            video.addEventListener('pause', function () { setPlaying(false); });
+            video.addEventListener('loadedmetadata', function () { time.textContent = '0:00 / ' + fmt(video.duration); });
+            video.addEventListener('timeupdate', function () {
+                var pct = video.duration ? (video.currentTime / video.duration) * 100 : 0;
+                fill.style.width = pct + '%';
+                seek.setAttribute('aria-valuenow', Math.round(pct));
+                time.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration);
+            });
+
+            function seekTo(clientX) {
+                var r = seek.getBoundingClientRect();
+                var ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+                if (video.duration) { video.currentTime = ratio * video.duration; }
+            }
+            seek.addEventListener('click', function (e) { seekTo(e.clientX); });
+            seek.addEventListener('keydown', function (e) {
+                if (!video.duration) { return; }
+                if (e.key === 'ArrowRight') { video.currentTime = Math.min(video.duration, video.currentTime + 1); e.preventDefault(); }
+                if (e.key === 'ArrowLeft') { video.currentTime = Math.max(0, video.currentTime - 1); e.preventDefault(); }
+            });
+
+            frame.addEventListener('touchstart', showBarBriefly, { passive: true });
+            frame.addEventListener('mousemove', showBarBriefly);
+            document.addEventListener('keydown', function (e) {
+                if (e.code === 'Space' && document.activeElement.tagName !== 'BUTTON') {
+                    e.preventDefault();
+                    video.paused ? play() : video.pause();
+                }
+                if (e.key === 'm' || e.key === 'M') { video.muted = !video.muted; syncMute(); }
+            });
+
+            syncMute();
+            setPlaying(false);
+        })();
+    </script>
+</body>
+</html>
