@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Raqib SIEM — data layer for the SOC Analyst Simulation
+   Raqib SIEM: data layer for the SOC Analyst Simulation
    "Raqib" (رقيب) means "watcher/monitor". This module builds a self-consistent
    set of security events for a single shift at a fictional company, GulfPay,
    plus the offenses (correlated incidents) a SIEM would raise from them.
