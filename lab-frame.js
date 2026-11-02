@@ -125,6 +125,7 @@
                         '<li><a href="' + ROOT + 'index.html#research" data-en="Research" data-ar="الأبحاث">Research</a></li>' +
                         '<li><a href="' + ROOT + 'My_Resume.pdf" data-en="Download CV" data-ar="تحميل السيرة الذاتية">Download CV</a></li>' +
                         '<li><a href="' + ROOT + 'Privacy_Policy.pdf" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</a></li>' +
+                        '<li><a href="' + ROOT + 'tracker-privacy.html" data-en="Analytics Notice" data-ar="إشعار التحليلات">Analytics Notice</a></li>' +
                     '</ul>' +
                 '</div>' +
             '</div>' +

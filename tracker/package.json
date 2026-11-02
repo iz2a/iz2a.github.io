@@ -1,0 +1,15 @@
+{
+  "name": "aziz-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "First-party visitor analytics and alerts for aziz.life (Cloudflare Worker)",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
