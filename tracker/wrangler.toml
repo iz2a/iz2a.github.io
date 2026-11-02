@@ -1,0 +1,31 @@
+name = "aziz-tracker"
+main = "src/index.js"
+compatibility_date = "2026-01-01"
+workers_dev = true
+
+# Database binding. Create it once with:
+#   npx wrangler d1 create aziz-tracker
+# then paste the database_id that command prints below.
+[[d1_databases]]
+binding = "DB"
+database_name = "aziz-tracker"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+[vars]
+# Origins allowed to send beacons. Comma separated, no trailing slashes.
+ALLOWED_ORIGINS = "https://aziz.life,https://www.aziz.life,https://iz2a.github.io,http://localhost:8080,http://127.0.0.1:8080"
+SITE_NAME = "aziz.life"
+# Dashboard login user name. The password is a secret (DASHBOARD_PASSWORD).
+DASHBOARD_USER = "aziz"
+# Set to "true" if you also want alerts for crawlers and bots. They are always stored.
+NOTIFY_BOTS = "false"
+# Public URL of this worker, used for the dashboard links inside alerts.
+# Update after the first deploy prints your workers.dev URL.
+PUBLIC_URL = "https://aziz-tracker.YOUR_SUBDOMAIN.workers.dev"
+
+# Secrets (set with: npx wrangler secret put NAME)
+#   TELEGRAM_BOT_TOKEN   token from @BotFather
+#   TELEGRAM_CHAT_ID     your chat id (from @userinfobot)
+#   NTFY_TOPIC           your private ntfy topic name
+#   NTFY_TOKEN           optional, ntfy access token if the topic is protected
+#   DASHBOARD_PASSWORD   password for /dashboard
